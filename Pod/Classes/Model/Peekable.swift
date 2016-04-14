@@ -29,7 +29,7 @@ extension Peekable {
 extension UIView {
   
   var shouldIgnore: Bool {
-    var isContainer = isMemberOfClass(UIView) && subviews.count > 0
+    let isContainer = isMemberOfClass(UIView) && subviews.count > 0
     if isContainer { return true }
     
     let isInvisible = hidden || alpha == 0 || CGRectEqualToRect(frame, CGRectZero)

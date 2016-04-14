@@ -15,8 +15,6 @@ final class InspectorHeader: UIView {
   init(image: UIImage, showBorder: Bool) {
     let width = min(280, image.size.width) + 20
     let height = min(100, image.size.height) + 20
-    let size = CGSize(width: width, height: height)
-    
     let rect = CGRect(x: 0, y: 0, width: width, height: height)
     
     var headerImage: UIImage?
