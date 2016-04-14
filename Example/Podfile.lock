@@ -1,0 +1,29 @@
+PODS:
+  - InkKit (1.0)
+  - OpenSans (1.0.3)
+  - Peek (2.0):
+    - InkKit
+    - SwiftLayout
+  - pop (1.0.9)
+  - SPXMasking (1.1.0)
+  - SwiftLayout (1.3.1)
+
+DEPENDENCIES:
+  - OpenSans
+  - Peek (from `../`)
+  - pop
+  - SPXMasking (= 1.1.0)
+
+EXTERNAL SOURCES:
+  Peek:
+    :path: ../
+
+SPEC CHECKSUMS:
+  InkKit: 88bd1b5ccb62383174df1564ac44f2c31e2a99c4
+  OpenSans: 33078846463eae780aa5f82986b51cce085f970d
+  Peek: f107338e2ded17a1c40fad983d0f2687b5403324
+  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
+  SPXMasking: 96e53182e204caeeb2ee78a506da5e996a93d4d6
+  SwiftLayout: 6814d5036da5fafe1bfb934107a18a102f8c2381
+
+COCOAPODS: 0.39.0

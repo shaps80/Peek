@@ -1,0 +1,7 @@
+source 'https://github.com/CocoaPods/Specs.git'
+use_frameworks!
+
+pod 'Peek', :path => '../'
+pod 'OpenSans'
+pod 'pop'
+pod 'SPXMasking', '1.1.0'
