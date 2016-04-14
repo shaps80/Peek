@@ -114,7 +114,7 @@ final class MetricLabel: UILabel {
   init() {
     super.init(frame: CGRectZero)
     
-    font = UIFont.systemFontOfSize(10, weight: UIFontWeightMedium)
+    font = UIFont.systemFontOfSize(10)
     backgroundColor = UIColor(white: 0.03, alpha: 0.9)
     textColor = UIColor.whiteColor()
     layer.masksToBounds = true
