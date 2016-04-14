@@ -17,9 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    #if DEBUG
-      window?.peek.enabled = true
-    #endif
+    window?.peek.enabled = true
     return true
   }
   

@@ -1,4 +1,4 @@
-<a href="https://vimeo.com/98871620"><img src="http://shaps.me/assets/img/project/promo@2x.jpg" name="Peek on Vimeo"/></a>
+<a href="https://vimeo.com/162896152"><img src="http://shaps.me/assets/img/project/promo@2x.jpg" name="Peek on Vimeo"/></a>
 
 #Peek
 
@@ -15,6 +15,12 @@ Double-tap anywhere on the screen to bring up the Peek Inspectors. Here peek wil
 You can also tap and hold on any property to copy it to your pasteboard. More features coming soon regarding this -- which will allow you to report issues back to your dev(s).
 
 Peek currently supports a single overlay mode, but more are coming soon -- including an overlay that allows you to see measures *between* components!
+
+# Demo
+
+The quickest way to see how awesome and useful Peek is, is by downloading this repo and running the sample project included. 
+
+Its a small app that perfectly demonstrates the power of Peek!
 
 # How do I get started?
 
