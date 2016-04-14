@@ -647,6 +647,7 @@
 				INFOPLIST_FILE = Peek/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.co.snippex.ios.Peek;
 				PRODUCT_NAME = "Peek-Example";
 				TARGETED_DEVICE_FAMILY = "1,2";

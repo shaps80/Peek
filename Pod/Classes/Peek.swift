@@ -15,7 +15,7 @@ struct PeekAssociationKey {
 public final class Peek: NSObject {
   
   public var enabled: Bool = false {
-    didSet {
+    didSet {      
       if enabled {
         volumeController?.register()
       } else {

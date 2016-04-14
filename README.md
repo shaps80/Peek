@@ -1,39 +1,87 @@
-<a href="https://vimeo.com/98871620"><img src="http://shaps.me/assets/img/peek-vid.jpg" name="Peek on Vimeo"/>
-<br />
-<br />
-
-<img src="http://shaps.me/assets/img/blog/thumbs/peek.png" />
-
-# Planned Updates
-
-* Slack Integration (post issues to a Slack channel)
-* Image crop indicators
-*
+<a href="https://vimeo.com/98871620"><img src="http://shaps.me/assets/img/project/promo@2x.jpg" name="Peek on Vimeo"/></a>
 
 #Peek
 
-Peek is an open source library that lets you easily and efficiently test your application against your user interface's specification guide. <br />
-Peek can be used by designers and testers, allowing developers to spend more time on code and less time testing that fonts, colors and layout are pixel perfect.
+Peek is an open source library that lets you easily check your application against your user interface's specification guide(s). Peek can be used by engineers, designers & testers, allowing developers to spend more time on code and less time checking that fonts, colors and layout are pixel perfect.
 
-# Usage
+# How does it work?
+
+Tap your volume key(s) to activate/deactivate Peek.
+
+Then tap, or drag your finger across the screen to select a component and see its layout information.
+
+Double-tap anywhere on the screen to bring up the Peek Inspectors. Here peek will show you contextual information about the view you're inspecting. For example, a label will show information such as `font` and `textColor`, whereas an image might show information about its `size` or `scaling mode`.
+
+You can also tap and hold on any property to copy it to your pasteboard. More features coming soon regarding this -- which will allow you to report issues back to your dev(s).
+
+Peek currently supports a single overlay mode, but more are coming soon -- including an overlay that allows you to see measures *between* components!
+
+# How do I get started?
 
 Peek was designed to be extremely easy to use. 
 
+If you're a designer, send a link to this page to your dev(s) :)
+
+For developers, simply use CocoaPods (alternativel you can simply drag the files into your project)
+
+```ruby
+pod 'Peek'
+```
+
+Then add a single line to your App Delegate:
+
+```swift
+window?.peek.enabled = true
+```
+
+Optionally, I'd suggest adding the `DEBUG` Swift compiler flag and changing the code to:
+
+```swift
+#if DEBUG
+  window?.peek.enabled = true
+#endif
+```
+
+Now whenever you run your app, you can now activate/deactivate Peek by pressing one of the volume keys on your device ;)
+
+# Safety First
+
+Peek is designed to be as safe as possible. Peek will never retain objects from your application. It will never use a background thread. Peek won't even run unless you explicitly enable it!
+
+Go ahead, take a Peek at your app now :)
+
+# What about using Peek from the simulator?
+
+Since the volume keys are not available on the Simulator, we can use a shake gesture instead. Add the following code to your AppDelegate.swift:
+
+```swift
+#if (arch(i386) || arch(x86_64)) && os(iOS)
+  override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent?) {
+    if motion == .MotionShake {
+      
+      if Peek.isAlreadyPresented {
+        window?.peek.dismiss()
+      } else {
+        window?.peek.present()
+      }
+    }
+  }
+  #endif
+```
+
+Now you can press `CMD+CTRL+Z` (or use the Menu option) to activate/deactivate Peek from your Simulator.
+
+# Supported Platforms and Versions
+
+Peek is tested and supported on iOS 8 and above. Its also iPhone and iPad supported, in all orientations. In fact, Peek will only rotate if your app can ;)
+
 # About Peek
 
-1. Peek doesn't require any code to get started -- While your app is running just press one of the volume keys
-2. Peek is automatically disabled for release builds
-3. No 3rd party code or libraries are used in Peek
-4. Peek never interferes with your apps normal behavior, gestures or layout
+1. Peek only requires a single line of code to get started
+2. Peek is disabled by default, so just make sure to use `#if DEBUG` to prevent it from being included in your release binary
+3. No 3rd party code or libraries are used in Peek -- all code is my own!
+4. Peek never interferes with your apps normal behavior, gestures or layout -- and it NEVER retains an object from your application
 5. Peek supports all orientations and devices.
-
-*Note: Peek will automatically disable itself for builds that do not define DEBUG.*
-
-#Where can I download Peek?
-
-<img src="http://shaps.me/assets/img/blog/peek-inspectors.jpg" />
-
-Peek is not yet available as its currently in development. There is no defined release date however it will be open sourced at some point as a Cocoapod.
 
 # How does Peek work?
 
@@ -47,13 +95,13 @@ Peek presents itself in its own window that sits directly on top of your own app
 
 Peek also allows you to test all supported orientations on both iPhone and iPad.
 
-# How do I see more information from Peek?
+# Roadmap
 
-Double-tap anywhere on the screen to bring up the Peek Inspectors. Here peek will show you contextual information about the view you're inspecting. For example, a label will show information such as `font` and `textColor`, whereas an image might show information about its `size` or `contentMode`.
+There are a lot more features still to come, here's a short preview I think are quite interesting:
 
-For quick access to color hex values, you can also tap-and-hold anywhere on the screen while Peek is active, to bring up the color loupe. Drag your finger over the screen to show HEX color values of anything under the loupe.
-
-Peek also supports multiple overlay modes for providing absolute layout or relative spacing.
+* Slack Integration (post issues to a Slack channel)
+* Image crop indicators
+* Auto Layout overlays
 
 
 # Attribution
@@ -62,6 +110,5 @@ Original concept, code and app design by [@shaps][shaps]<br />
 Icon design by [@h1brd][marco]
 
 [github]: https://github.com/shaps80/Peek
-[docs]: http://no_docs_url_yet
 [shaps]: http://twitter.com/shaps "Shaps on Twitter"
 [marco]: http://twitter.com/h1brd "Marco on Twitter"
