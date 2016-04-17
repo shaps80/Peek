@@ -1,4 +1,4 @@
-<a href="https://vimeo.com/162896152"><img src="http://shaps.me/assets/img/project/promo@2x.jpg" name="Peek on Vimeo"/></a>
+<a href="https://vimeo.com/162896152"><img src="http://shaps.me/assets/img/peek-feature@2x.png" name="Peek on Vimeo"/></a>
 
 #Peek
 
@@ -18,13 +18,13 @@ Peek currently supports a single overlay mode, but more are coming soon -- inclu
 
 # Demo
 
-The quickest way to see how awesome and useful Peek is, is by downloading this repo and running the sample project included. 
+The quickest way to see how awesome and useful Peek is, is by downloading this repo and running the sample project included.
 
 Its a small app that perfectly demonstrates the power of Peek!
 
 # How do I get started?
 
-Peek was designed to be extremely easy to use. 
+Peek was designed to be extremely easy to use.
 
 If you're a designer, send a link to this page to your dev(s) :)
 
@@ -64,7 +64,7 @@ Since the volume keys are not available on the Simulator, we can use a shake ges
 #if (arch(i386) || arch(x86_64)) && os(iOS)
   override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent?) {
     if motion == .MotionShake {
-      
+
       if Peek.isAlreadyPresented {
         window?.peek.dismiss()
       } else {
