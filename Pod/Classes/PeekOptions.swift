@@ -8,6 +8,12 @@
 
 import Foundation
 
+/**
+ Available activation modes
+ 
+ - Auto:  Peek will use a shake gesture when running in the Simulator, and the volume controls on a device
+ - Shake: Peek will use a shake gesture on both the Simulator and a device
+ */
 public enum PeekActivationMode {
   case Auto
   case Shake
