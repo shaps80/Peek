@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     
     window?.peek.enableWithOptions { options in
-      options.activationMode = .Shake
+      options.activationMode = .Auto
       options.shouldIgnoreContainers = false
     }
     
