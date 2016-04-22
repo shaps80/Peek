@@ -17,24 +17,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    window?.peek.enabled = true
+    
+    window?.peek.enableWithOptions { options in
+      options.activationMode = .Shake
+      options.shouldIgnoreContainers = false
+    }
+    
     return true
   }
   
-  
-  // lets ONLY use the shake in the simulator since we don't have access to volume controls
-  #if (arch(i386) || arch(x86_64)) && os(iOS)
   override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent?) {
-    if motion == .MotionShake {
-      
-      if Peek.isAlreadyPresented {
-        window?.peek.dismiss()
-      } else {
-        window?.peek.present()
-      }
-    }
+    window?.peek.handleShake(motion)
   }
-  #endif
   
 }
 

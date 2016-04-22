@@ -53,6 +53,12 @@ Optionally, I'd suggest adding the `DEBUG` Swift compiler flag and changing the 
 #endif
 ```
 
+You can also change how Peek is activated/deactivated. The default is `.Auto` which means the volume controls can be used on a device, but manually present/dismiss on the Simulator.
+
+```swift
+window?.peek.activationMode = .Volume // Peek will not work in the simulator with this mode
+```
+
 Now whenever you run your app, you can now activate/deactivate Peek by pressing one of the volume keys on your device ;)
 
 # Safety First

@@ -67,7 +67,7 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
   }
   
   private func addModelForView(view: UIView) {
-    if !view.shouldIgnore {
+    if !view.shouldIgnore(inPeek: peek) {
       models.append(view)
     }
   }

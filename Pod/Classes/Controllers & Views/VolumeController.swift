@@ -9,7 +9,15 @@
 import Foundation
 import MediaPlayer
 
-final class VolumeController: NSObject {
+protocol PeekActivationController {
+  
+  func register()
+  func unregister()
+  init(peek: Peek)
+  
+}
+
+final class VolumeController: NSObject, PeekActivationController {
   
   unowned var peek: Peek
   private var volumeView: MPVolumeView!
@@ -19,6 +27,7 @@ final class VolumeController: NSObject {
   init(peek: Peek) {
     self.peek = peek
     super.init()
+    
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(VolumeController.register), name: UIApplicationDidBecomeActiveNotification, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(VolumeController.unregister), name: UIApplicationWillResignActiveNotification, object: nil)
   }
@@ -56,10 +65,6 @@ final class VolumeController: NSObject {
   }
   
   func register() {
-    if !peek.enabled || volumeView != nil {
-      return
-    }
-    
     volumeView = MPVolumeView(frame: CGRectMake(-1000, 0, 1, 1))
     peek.peekingWindow.addSubview(volumeView)
     
@@ -77,6 +82,11 @@ final class VolumeController: NSObject {
   }
   
   func unregister() {
+    if volumeView == nil {
+      // already unregistered
+      return
+    }
+    
     session.removeObserver(self, forKeyPath: "outputVolume")
     
     do {

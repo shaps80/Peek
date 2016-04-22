@@ -14,30 +14,31 @@ struct PeekAssociationKey {
 
 public final class Peek: NSObject {
   
+  public static var isAlreadyPresented: Bool = false
+  
   public var enabled: Bool = false {
-    didSet {      
+    didSet {
       if enabled {
-        volumeController?.register()
+        configureWithOptions(options)
       } else {
-        volumeController?.unregister()
+        activationController?.unregister()
       }
     }
   }
   
-  public static var isAlreadyPresented: Bool = false
-  
-  var peekingWindow: UIWindow
   var previousStatusBarStyle = UIStatusBarStyle.Default
   var previousStatusBarHidden = false
   var supportedOrientations = UIInterfaceOrientationMask.All
+  unowned var peekingWindow: UIWindow // since this is the app's window, we don't want to retain it!
   
+  private var activationController: PeekActivationController?
   private var volumeController: VolumeController?
-  private(set) var window: UIWindow?
+  private(set) var options = PeekOptions()
+  private(set) var window: UIWindow? // this is the Peek Overlay window, so we have to retain it!
   
-  public required init(window: UIWindow) {
+  init(window: UIWindow) {
     peekingWindow = window
     super.init()
-    volumeController = VolumeController(peek: self)
   }
   
   public func present() {
@@ -83,6 +84,45 @@ public final class Peek: NSObject {
       self.window = nil
       
       Peek.isAlreadyPresented = false
+    }
+  }
+  
+  public func handleShake(motion: UIEventSubtype) {
+    if motion != .MotionShake || !enabled {
+      return
+    }
+    
+    var isSimulator = false
+    #if (arch(i386) || arch(x86_64))
+      isSimulator = true
+    #endif
+    
+    if (options.activationMode == .Auto && isSimulator) || options.activationMode == .Shake {
+      if Peek.isAlreadyPresented {
+        peekingWindow.peek.dismiss()
+      } else {
+        peekingWindow.peek.present()
+      }
+    }
+  }
+  
+  public func enableWithOptions(options: (options: PeekOptions) -> Void) {
+    let opts = PeekOptions()
+    options(options: opts)
+    self.options = opts
+    enabled = true
+  }
+  
+  private func configureWithOptions(options: PeekOptions) {
+    self.options = options
+    
+    var isSimulator = false
+    #if (arch(i386) || arch(x86_64))
+    isSimulator = true
+    #endif
+
+    if options.activationMode == .Auto && !isSimulator {
+      activationController = VolumeController(peek: self)
     }
   }
   

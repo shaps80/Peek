@@ -9,9 +9,10 @@
 import UIKit
 
 public protocol Peekable: NSObjectProtocol {
-  var shouldIgnore: Bool { get }
   var classForCoder: AnyClass { get }
+  
   func preparePeek(context: Context)
+  func shouldIgnore(inPeek peek: Peek) -> Bool
 }
 
 extension NSObject: Peekable {
@@ -20,7 +21,7 @@ extension NSObject: Peekable {
 
 extension Peekable {
   
-  public var shouldIgnore: Bool {
+  public func shouldIgnore(inPeek peek: Peek) -> Bool {
     return false
   }
   
@@ -28,9 +29,9 @@ extension Peekable {
 
 extension UIView {
   
-  var shouldIgnore: Bool {
+  public func shouldIgnore(inPeek peek: Peek) -> Bool {
     let isContainer = isMemberOfClass(UIView) && subviews.count > 0
-    if isContainer { return true }
+    if isContainer && peek.options.shouldIgnoreContainers { return true }
     
     let isInvisible = hidden || alpha == 0 || CGRectEqualToRect(frame, CGRectZero)
     if isInvisible { return true }
