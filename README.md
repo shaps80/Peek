@@ -66,9 +66,6 @@ window?.peek.enableWithOptions { options in
 }
 ```
 
-```swift
-
-```
 
 Now whenever you run your app, you can now activate/deactivate Peek by pressing one of the volume keys on your device ;)
 
