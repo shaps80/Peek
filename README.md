@@ -77,21 +77,12 @@ Go ahead, take a Peek at your app now :)
 
 # What about using Peek from the simulator?
 
-Since the volume keys are not available on the Simulator, we can use a shake gesture instead. Add the following code to your AppDelegate.swift:
+Since the volume keys are not available on the Simulator, we can use a shake gesture instead. Simply forward the motion events to Peek by adding the following code to your AppDelegate.swift:
 
 ```swift
-#if (arch(i386) || arch(x86_64)) && os(iOS)
-  override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent?) {
-    if motion == .MotionShake {
-
-      if Peek.isAlreadyPresented {
-        window?.peek.dismiss()
-      } else {
-        window?.peek.present()
-      }
-    }
-  }
-  #endif
+override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent?) {
+  window?.peek.handleShake(motion)
+}
 ```
 
 Now you can press `CMD+CTRL+Z` (or use the Menu option) to activate/deactivate Peek from your Simulator.
