@@ -12,25 +12,29 @@ import MessageUI
 final class Slack {
   
   static let shared = Slack()
+  private var session: NSURLSession?
   
   func post(message: String, peek: Peek) {
     let topController = peek.window?.rootViewController?.topViewController()
     
     guard let URL = peek.options.slackWebHookURL,
       channel = peek.options.slackRecipient else {
-        let alert = UIAlertController(title: "Peek", message: "Slack is not configured for this build.", preferredStyle: .Alert)
+        let alert = UIAlertController(title: "Peek Error", message: "Slack is not configured for this build.", preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
         topController?.presentViewController(alert, animated: true, completion: nil)
         
         return
     }
     
-    let session = NSURLSession.sharedSession()
+    let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+    configuration.timeoutIntervalForRequest = 45
+    session = NSURLSession(configuration: configuration)
+    
     let request = NSMutableURLRequest(URL: URL)
+    request.HTTPMethod = "POST"
     
     let data = [
       "channel": channel,
-      "as_user": true,
       "username": peek.options.slackUserName,
       "text": message,
       "icon_url": "http://shaps.me/assets/img/peek.png"
@@ -42,17 +46,21 @@ final class Slack {
       print(error)
     }
     
-    let task = session.dataTaskWithRequest(request) { [unowned peek] (data, response, error) in
+    session?.dataTaskWithRequest(request) { [unowned peek] (data, response, error) in
       dispatch_async(dispatch_get_main_queue(), { 
-        if error != nil {
-          let alert = UIAlertController(title: "Peek: Slack", message: error?.localizedDescription, preferredStyle: .Alert)
+        if error != nil || (response as? NSHTTPURLResponse)?.statusCode > 299 {
+          var description = error?.localizedDescription
+          
+          if let data = data, desc = String(data: data, encoding: NSUTF8StringEncoding) {
+            description = "Failed to send message to\nchannel: \(channel)\n\n\(desc)"
+          }
+          
+          let alert = UIAlertController(title: "Peek Error", message: description, preferredStyle: .Alert)
           alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
           topController?.presentViewController(alert, animated: true, completion: nil)
         }
       })
-    }
-    
-    task.resume()
+    }.resume()
   }
   
 }
@@ -66,7 +74,7 @@ final class Email: NSObject, MFMailComposeViewControllerDelegate {
     let topController = peek.window?.rootViewController?.topViewController()
     
     guard MFMailComposeViewController.canSendMail() else {
-      let alert = UIAlertController(title: "Peek", message: "No email accounts are configured on this device.", preferredStyle: .Alert)
+      let alert = UIAlertController(title: "Peek Error", message: "No email accounts are configured on this device.", preferredStyle: .Alert)
       alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
       topController?.presentViewController(alert, animated: true, completion: nil)
       return

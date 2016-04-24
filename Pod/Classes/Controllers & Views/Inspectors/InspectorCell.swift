@@ -115,10 +115,14 @@ final class InspectorCell: UITableViewCell {
     }
     
     if let value = detailTextLabel?.text {
-      return "\(property.keyPath) = \(value)"
+      return "\(model).\(property.keyPath) = \(value)"
     }
     
-    return "\(property.keyPath) = NIL"
+    if let value = property.value(forModel: model) {
+      return "\(model).\(property.keyPath) = \(value)"
+    }
+
+    return nil
   }
   
 }

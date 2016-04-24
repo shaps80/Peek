@@ -229,17 +229,14 @@ final class InspectorViewController: UITableViewController {
   }
   
   override func tableView(tableView: UITableView, shouldShowMenuForRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    let property = dataSource.propertyForIndexPath(indexPath)
-    
-    if let value = property.value(forModel: model) as? Model where value is PeekSubPropertiesSupporting {
-      return false
-    }
-    
-    return property.value(forModel: model) != nil
+    return true
   }
   
   override func tableView(tableView: UITableView, canPerformAction action: Selector, forRowAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
-    return action == "copy:" || action == "slack:" || action == "email:"
+    let property = dataSource.propertyForIndexPath(indexPath)
+    let value = property.value(forModel: model)
+    
+    return action == "copy:" || ((action == "slack:" || action == "email:") && !(value is PeekSubPropertiesSupporting))
   }
   
   override func tableView(tableView: UITableView, performAction action: Selector, forRowAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
