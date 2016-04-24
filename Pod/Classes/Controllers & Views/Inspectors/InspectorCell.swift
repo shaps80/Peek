@@ -24,6 +24,10 @@ import UIKit
 
 final class InspectorCell: UITableViewCell {
   
+  weak var peek: Peek?
+  weak var property: Property?
+  weak var model: Model?
+  
   override var accessoryView: UIView? {
     didSet {
       setNeedsUpdateConstraints()
@@ -81,6 +85,40 @@ final class InspectorCell: UITableViewCell {
     let color = accessoryView?.backgroundColor
     super.setSelected(selected, animated: animated)
     accessoryView?.backgroundColor = color
+  }
+  
+  override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
+    return action == "copy:" || action == "slack:" || action == "email:"
+  }
+  
+  override func copy(sender: AnyObject?) {
+    if let message = stringValue() {
+      UIPasteboard.generalPasteboard().string = message
+    }
+  }
+  
+  func email(sender: AnyObject?) {
+    if let message = stringValue(), peek = self.peek {
+      Email.shared.post(message, peek: peek)
+    }
+  }
+  
+  func slack(sender: AnyObject?) {
+    if let message = stringValue(), peek = self.peek {
+      Slack.shared.post(message, peek: peek)
+    }
+  }
+  
+  private func stringValue() -> String? {
+    guard let model = self.model, property = self.property else {
+      return nil
+    }
+    
+    if let value = detailTextLabel?.text {
+      return "\(property.keyPath) = \(value)"
+    }
+    
+    return "\(property.keyPath) = NIL"
   }
   
 }

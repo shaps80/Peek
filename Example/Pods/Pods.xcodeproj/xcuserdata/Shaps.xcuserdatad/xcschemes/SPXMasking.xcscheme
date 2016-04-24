@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '71093039F50476743F4C639E'
+               BlueprintIdentifier = '1C9F67F622E18DC0D1EFE351'
                BlueprintName = 'SPXMasking'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'SPXMasking.framework'>

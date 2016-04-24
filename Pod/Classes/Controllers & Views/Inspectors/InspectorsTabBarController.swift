@@ -44,6 +44,7 @@ class InspectorsTabBarController: UITabBarController, UINavigationControllerDele
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    view.tintColor = UIColor.whiteColor()
     
     if let view = model as? UIView {
       view.preparePeek(context)

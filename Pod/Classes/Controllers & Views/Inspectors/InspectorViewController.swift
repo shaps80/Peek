@@ -54,6 +54,9 @@ final class InspectorViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    UIMenuController.sharedMenuController().menuItems = [ UIMenuItem(title: "Slack", action: "slack:"), UIMenuItem(title: "Email", action: "email:") ]
+    UIMenuController.sharedMenuController().update()
+    
     tableView.registerClass(InspectorCell.self, forCellReuseIdentifier: "KeyValueCell")
     tableView.indicatorStyle = .White
     tableView.backgroundColor = UIColor(white: 0.1, alpha: 1)
@@ -107,6 +110,12 @@ final class InspectorViewController: UITableViewController {
   
   private func configureCell(cell: InspectorCell, forIndexPath indexPath: NSIndexPath) {
     let property = dataSource.propertyForIndexPath(indexPath)
+    
+    // FIXME: this is required atm for both copy: and slack:
+    cell.property = property
+    cell.model = model
+    cell.peek = peek
+    
     cell.textLabel?.text = property.displayName
     cell.accessoryView = nil
     cell.accessoryType = .None
@@ -230,22 +239,11 @@ final class InspectorViewController: UITableViewController {
   }
   
   override func tableView(tableView: UITableView, canPerformAction action: Selector, forRowAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
-    return action == #selector(NSObject.copy(_:))
+    return action == "copy:" || action == "slack:" || action == "email:"
   }
   
   override func tableView(tableView: UITableView, performAction action: Selector, forRowAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
-    let property = dataSource.propertyForIndexPath(indexPath)
-    let cell = tableView.cellForRowAtIndexPath(indexPath)
-    
-    if let value = property.value(forModel: model) {
-      var string = "\(property.keyPath) = \(value)"
-      
-      if let text = cell?.detailTextLabel?.text where !text.isEmpty {
-        string += " -- \(text)"
-      }
-      
-      UIPasteboard.generalPasteboard().string = string
-    }
+    // actions are handled in the cell
   }
   
   override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {

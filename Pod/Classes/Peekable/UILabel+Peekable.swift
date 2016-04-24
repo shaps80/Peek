@@ -28,7 +28,7 @@ extension UILabel {
     super.preparePeek(context)
     
     context.configure(.Attributes, "Text") { (config) in
-      config.addProperties([ "text", "font" ])
+      config.addProperties([ "text" ])
       
       config.addProperty("textAlignment", displayName: "Alignment", cellConfiguration: { (cell, object, value) in
         let alignment = NSTextAlignment(rawValue: value as! Int)!
@@ -46,7 +46,11 @@ extension UILabel {
         cell.detailTextLabel?.text = mode.description
       })
       
-      config.addProperties([ "adjustsFontSizeToFitWidth", "numberOfLines", "minimumScaleFactor" ])
+      config.addProperties([ "numberOfLines" ])
+    }
+    
+    context.configure(.Attributes, "Font") { (config) in
+      config.addProperties([ "font", "font.pointSize", "adjustsFontSizeToFitWidth", "minimumScaleFactor" ])
     }
     
     context.configure(.Attributes, "State") { (config) in

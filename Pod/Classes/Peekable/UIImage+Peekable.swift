@@ -27,8 +27,12 @@ extension UIImage {
   public override func preparePeek(context: Context) {
     super.preparePeek(context)
     
+    context.configure(.Attributes, "Layout") { (config) in
+      config.addProperties([ "size", "capInsets", "alignmentRectInsets" ])
+    }
+    
     context.configure(.Attributes, "General") { (config) in
-      config.addProperties([ "size", "scale", "capInsets", "alignmentRectInsets" ])
+      config.addProperties([ "scale" ])
       
       config.addProperty("renderingMode", displayName: nil, cellConfiguration: { (cell, object, value) in
         let mode = UIImageRenderingMode(rawValue: value as! Int)!

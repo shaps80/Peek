@@ -42,4 +42,19 @@ public final class PeekOptions: NSObject {
    /// Defines whether Peek should ignore pure containers (i.e. UIView's (NOT subclassed) where subviews.count > 0)
   public var shouldIgnoreContainers = true
   
+   /// Defines the username to use when sending a Slack message
+  public var slackUserName: String = "Peek"
+  
+  /*
+   Defines the Slack channel/user to post to -- e.g. #channel, @user
+   Note: When sending to a private channel, you must add `slackUserName` to the channel first
+   */
+  public var slackRecipient: String?
+  
+   /// Defines the Slack WebHook URL to use for posting messages, this should be the full url -- e.g. https://hooks.slack.com/services/$TOKEN
+  public var slackWebHookURL: NSURL?
+  
+   /// Defines the email recipients to include by default when sending a report via email
+  public var emailRecipients: [String]?
+  
 }

@@ -26,6 +26,7 @@ struct PeekAssociationKey {
   static var Peek: UInt8 = 1
 }
 
+/// The primary class where Peek can be activated/disabled
 public final class Peek: NSObject {
   
   public static var isAlreadyPresented: Bool = false
@@ -73,7 +74,6 @@ public final class Peek: NSObject {
     peekingWindow.endEditing(true)
     
     window = UIWindow()
-    window?.tintColor = UIColor.whiteColor()
     window?.backgroundColor = UIColor.clearColor()
     window?.windowLevel = UIWindowLevelNormal
     window?.alpha = 0

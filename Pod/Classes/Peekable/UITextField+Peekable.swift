@@ -35,7 +35,7 @@ extension UITextField {
     }
     
     context.configure(.Attributes, "Text") { (config) in
-      config.addProperties([ "text", "textColor", "font" ])
+      config.addProperties([ "text", "textColor" ])
       
       config.addProperty("textAlignment", displayName: "Alignment", cellConfiguration: { (cell, object, value) in
         let alignment = NSTextAlignment(rawValue: value as! Int)!
@@ -67,7 +67,7 @@ extension UITextField {
     }
     
     context.configure(.Attributes, "Font") { (config) in
-      config.addProperties([ "minimumFontSize" ])
+      config.addProperties([ "minimumFontSize", "font", "font.pointSize" ])
     }
   }
   

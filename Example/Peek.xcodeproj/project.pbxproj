@@ -37,6 +37,7 @@
 		23103B4688F8F0760206EC04 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		25235662A734B5CC098E5A5F /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		2EA76B4295D9581E70D15937 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		542625751CCD3D40008AA33C /* Slack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Slack.swift; sourceTree = "<group>"; };
 		542E83461CBA67CB00598A9F /* UISegmentedControl+Peekable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+Peekable.swift"; sourceTree = "<group>"; };
 		542E83481CBA67DE00598A9F /* UIStepper+Peekable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStepper+Peekable.swift"; sourceTree = "<group>"; };
 		542E834A1CBA67EF00598A9F /* UIPageControl+Peekable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIPageControl+Peekable.swift"; sourceTree = "<group>"; };
@@ -196,6 +197,7 @@
 				54534FAE1CB9601E00BA67D3 /* Overlays */,
 				54534FB21CB9601E00BA67D3 /* TransitionAnimators.swift */,
 				54534FB31CB9601E00BA67D3 /* VolumeController.swift */,
+				542625751CCD3D40008AA33C /* Slack.swift */,
 			);
 			path = "Controllers & Views";
 			sourceTree = "<group>";

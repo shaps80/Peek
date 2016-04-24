@@ -27,9 +27,14 @@ extension UIFont {
   public override func preparePeek(context: Context) {
     super.preparePeek(context)
     
-    context.configure(.Attributes, "Font") { (config) in
-      config.addProperties([ "familyName", "fontName", "ascender", "descender", "capHeight", "xHeight", "lineHeight", "leading" ])
+    context.configure(.Attributes, "Basic") { (config) in
+      config.addProperties([ "fontName", "pointSize" ])
     }
+    
+    context.configure(.Attributes, "Extended") { (config) in
+      config.addProperties([ "familyName", "ascender", "descender", "capHeight", "xHeight", "lineHeight", "leading" ])
+    }
+    
   }
   
 }
