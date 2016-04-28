@@ -35,9 +35,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window?.peek.enableWithOptions { options in
       options.activationMode = .Auto
       options.shouldIgnoreContainers = true
-      options.slackRecipient = "#peek" // specify @user_name if you want to post to a specific user
-      options.slackUserName = "Peek"
-      // options.slackWebHookURL = NSURL(string: "https://hooks.slack.com/services/$TOKEN")
     }
     
     return true
