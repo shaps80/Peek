@@ -247,7 +247,8 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
     
     return action == #selector(InspectorCell.copy(_:)) ||
       (action == #selector(InspectorCell.slack(_:)) ||
-      action == #selector(InspectorCell.email(_:))) && !(value is PeekSubPropertiesSupporting)
+      action == #selector(InspectorCell.email(_:))) &&
+      !(value is PeekSubPropertiesSupporting)
   }
   
   func tableView(tableView: UITableView, performAction action: Selector, forRowAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {

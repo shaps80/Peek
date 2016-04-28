@@ -89,9 +89,9 @@ final class InspectorCell: UITableViewCell {
   }
   
   override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
-    return action == #selector(copy(_:)) // ||
-//      action == #selector(slack(_:)) ||
-//      action == #selector(email(_:))
+    return action == #selector(copy(_:)) ||
+      action == #selector(slack(_:)) ||
+      action == #selector(email(_:))
   }
   
   override func copy(sender: AnyObject?) {
@@ -100,13 +100,23 @@ final class InspectorCell: UITableViewCell {
     }
   }
   
+  private func unsupportedFunction() {
+    let controller = UIAlertController(title: "Unsupported Feature", message: "This feature is coming soon.", preferredStyle: .Alert)
+    controller.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+    peek?.window?.rootViewController?.topViewController().presentViewController(controller, animated: true, completion: nil)
+  }
+  
   func email(sender: AnyObject?) {
+    unsupportedFunction()
+    return
     if let message = stringValue(), peek = self.peek {
       Email.shared.post(message, peek: peek)
     }
   }
   
   func slack(sender: AnyObject?) {
+    unsupportedFunction()
+    return
     if let message = stringValue(), peek = self.peek {
       Slack.shared.post(message, peek: peek)
     }

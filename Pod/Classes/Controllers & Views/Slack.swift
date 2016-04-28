@@ -21,7 +21,7 @@ final class Slack {
     guard let URL = peek.options.slackWebHookURL,
       channel = peek.options.slackRecipient else {
         let alert = UIAlertController(title: "Peek Error", message: "Slack is not configured for this build.", preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
         topController?.presentViewController(alert, animated: true, completion: nil)
         
         return
@@ -57,7 +57,7 @@ final class Slack {
           }
           
           let alert = UIAlertController(title: "Peek Error", message: description, preferredStyle: .Alert)
-          alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+          alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
           topController?.presentViewController(alert, animated: true, completion: nil)
         }
       })
@@ -77,7 +77,7 @@ final class Email: NSObject, MFMailComposeViewControllerDelegate {
     
     guard MFMailComposeViewController.canSendMail() else {
       let alert = UIAlertController(title: "Peek Error", message: "No email accounts are configured on this device.", preferredStyle: .Alert)
-      alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+      alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
       topController?.presentViewController(alert, animated: true, completion: nil)
       return
     }
