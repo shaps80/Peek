@@ -24,18 +24,21 @@ import UIKit
 import InkKit
 
 // FIXME: Generally speaking, this controller is too big -- Headers, Cell Configurations, etc.. could definitely be extracted
-final class InspectorViewController: UITableViewController {
+final class InspectorViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
   private unowned let peek: Peek
   private let model: Model
   private let dataSource: ContextDataSource
   private var prototype = InspectorCell()
+  private let tableView: UITableView
   
   init(peek: Peek, model: Model, dataSource: ContextDataSource) {
     self.peek = peek
     self.model = model
     self.dataSource = dataSource
-    super.init(style: .Grouped)
+    self.tableView = UITableView(frame: peek.peekingWindow.bounds, style: .Grouped)
+    
+    super.init(nibName: nil, bundle: nil)
     
     // we do this here to ensure the tabItems are populated immediately
     title = "\(dataSource.inspectorType)"
@@ -53,6 +56,11 @@ final class InspectorViewController: UITableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    tableView.dataSource = self
+    tableView.delegate = self
+    view.addSubview(tableView)
+    tableView.pin(.All, toView: view)
     
     UIMenuController.sharedMenuController().menuItems = [ UIMenuItem(title: "Slack", action: "slack:"), UIMenuItem(title: "Email", action: "email:") ]
     UIMenuController.sharedMenuController().update()
@@ -102,7 +110,7 @@ final class InspectorViewController: UITableViewController {
     }, completion: nil)
   }
 
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("KeyValueCell", forIndexPath: indexPath) as! InspectorCell
     configureCell(cell, forIndexPath: indexPath)
     return cell
@@ -170,19 +178,19 @@ final class InspectorViewController: UITableViewController {
     }
   }
   
-  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     return dataSource.numberOfCategories() ?? 0
   }
   
-  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return dataSource.numberOfProperties(inCategory: section) ?? 0
   }
   
-  override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+  func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     return dataSource.titleForCategory(section)
   }
   
-  override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+  func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
     let cellHeight = dataSource.propertyForIndexPath(indexPath).cellHeight
     
     if cellHeight != 0 {
@@ -192,7 +200,7 @@ final class InspectorViewController: UITableViewController {
     return PeekPropertyDefaultCellHeight
   }
   
-  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     let property = dataSource.propertyForIndexPath(indexPath)
     
     guard let value = property.value(forModel: model) as? PeekSubPropertiesSupporting where value.hasProperties else {
@@ -228,18 +236,18 @@ final class InspectorViewController: UITableViewController {
     navigationController?.pushViewController(controller, animated: true)
   }
   
-  override func tableView(tableView: UITableView, shouldShowMenuForRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+  func tableView(tableView: UITableView, shouldShowMenuForRowAtIndexPath indexPath: NSIndexPath) -> Bool {
     return true
   }
   
-  override func tableView(tableView: UITableView, canPerformAction action: Selector, forRowAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
+  func tableView(tableView: UITableView, canPerformAction action: Selector, forRowAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
     let property = dataSource.propertyForIndexPath(indexPath)
     let value = property.value(forModel: model)
     
     return action == "copy:" || ((action == "slack:" || action == "email:") && !(value is PeekSubPropertiesSupporting))
   }
   
-  override func tableView(tableView: UITableView, performAction action: Selector, forRowAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
+  func tableView(tableView: UITableView, performAction action: Selector, forRowAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
     // actions are handled in the cell
   }
   
