@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       options.shouldIgnoreContainers = true
       options.slackRecipient = "#peek" // specify @user_name if you want to post to a specific user
       options.slackUserName = "Peek"
-      options.slackWebHookURL = NSURL(string: "https://hooks.slack.com/services/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")
+      // options.slackWebHookURL = NSURL(string: "https://hooks.slack.com/services/$TOKEN")
     }
     
     return true
