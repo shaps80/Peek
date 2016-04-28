@@ -62,7 +62,8 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
     view.addSubview(tableView)
     tableView.pin(.All, toView: view)
     
-    UIMenuController.sharedMenuController().menuItems = [ UIMenuItem(title: "Slack", action: "slack:"), UIMenuItem(title: "Email", action: "email:") ]
+    UIMenuController.sharedMenuController().menuItems = [ UIMenuItem(title: "Slack", action: #selector(InspectorCell.slack(_:))),
+                                                          UIMenuItem(title: "Email", action: #selector(InspectorCell.email(_:))) ]
     UIMenuController.sharedMenuController().update()
     
     tableView.registerClass(InspectorCell.self, forCellReuseIdentifier: "KeyValueCell")

@@ -1,6 +1,6 @@
 {
   "name": "Peek",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "summary": "Take a Peek at your application.",
   "homepage": "http://shaps.me/blog/peek-2/",
   "screenshots": "http://shaps.me/assets/img/blog/peek.png",
@@ -10,7 +10,7 @@
   },
   "source": {
     "git": "https://github.com/shaps80/Peek.git",
-    "tag": "2.0.1"
+    "tag": "2.1.0"
   },
   "social_media_url": "https://twitter.com/shaps",
   "platforms": {
