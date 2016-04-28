@@ -1,23 +1,23 @@
 /*
-  Copyright © 23/04/2016 Shaps
-
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files (the "Software"), to deal
-  in the Software without restriction, including without limitation the rights
-  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-  copies of the Software, and to permit persons to whom the Software is
-  furnished to do so, subject to the following conditions:
-
-  The above copyright notice and this permission notice shall be included in
-  all copies or substantial portions of the Software.
-
-  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-  THE SOFTWARE.
+ Copyright © 23/04/2016 Shaps
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ 
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
  */
 
 import Foundation
@@ -29,8 +29,10 @@ struct PeekAssociationKey {
 /// The primary class where Peek can be activated/disabled
 public final class Peek: NSObject {
   
+  /// Returns true if Peek is already being presented -- this is to prevent
   public static var isAlreadyPresented: Bool = false
   
+  /// Enables/disables Peek
   public var enabled: Bool = false {
     didSet {
       if enabled {
@@ -41,7 +43,9 @@ public final class Peek: NSObject {
     }
   }
   
+  /// The status bar style of the underlying app -- used to reset values when Peek is deactivated
   var previousStatusBarStyle = UIStatusBarStyle.Default
+  /// The status bar style of the underlying app -- used to reset values when Peek is deactivated
   var previousStatusBarHidden = false
   var supportedOrientations = UIInterfaceOrientationMask.All
   unowned var peekingWindow: UIWindow // since this is the app's window, we don't want to retain it!
@@ -56,6 +60,9 @@ public final class Peek: NSObject {
     super.init()
   }
   
+  /**
+   Presents Peek
+   */
   public func present() {
     if !enabled {
       print("Peek is disabled!")
@@ -80,7 +87,7 @@ public final class Peek: NSObject {
     
     window?.rootViewController = PeekViewController(peek: self)
     window?.makeKeyAndVisible()
-
+    
     UIView.animateWithDuration(0.25) { () -> Void in
       self.window?.alpha = 1
     }
@@ -88,6 +95,9 @@ public final class Peek: NSObject {
     Peek.isAlreadyPresented = true
   }
   
+  /**
+   Dismisses Peek
+   */
   public func dismiss() {
     UIView.animateWithDuration(0.25, animations: { () -> Void in
       self.window?.alpha = 0
@@ -101,6 +111,11 @@ public final class Peek: NSObject {
     }
   }
   
+  /**
+   Call this method from your AppDelegate to pass motion events to Peek. This will only activate/deactivate Peek when activationMode == .Shake or the app is being run from the Simulator
+   
+   - parameter motion: The motion events to handle
+   */
   public func handleShake(motion: UIEventSubtype) {
     if motion != .MotionShake || !enabled {
       return
@@ -120,6 +135,11 @@ public final class Peek: NSObject {
     }
   }
   
+  /**
+   Enables Peek with the specified options
+   
+   - parameter options: The options to use for configuring Peek
+   */
   public func enableWithOptions(options: (options: PeekOptions) -> Void) {
     let opts = PeekOptions()
     options(options: opts)
@@ -132,9 +152,9 @@ public final class Peek: NSObject {
     
     var isSimulator = false
     #if (arch(i386) || arch(x86_64))
-    isSimulator = true
+      isSimulator = true
     #endif
-
+    
     if options.activationMode == .Auto && !isSimulator {
       activationController = VolumeController(peek: self)
     }

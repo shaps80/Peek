@@ -22,6 +22,7 @@
 
 import UIKit
 
+/// This accessory view is used in Peek to show a 'switch' representing the underlying Bool value
 final class BoolAccessoryView: UIView {
   
   private let size = CGSizeMake(26, 16)

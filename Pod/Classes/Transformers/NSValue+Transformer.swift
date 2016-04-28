@@ -22,6 +22,7 @@
 
 import UIKit
 
+/// Creates string representations of common values, e.g. CGPoint, CGRect, etc...
 final class ValueTransformer: NSValueTransformer {
   
   private static var floatFormatter: NSNumberFormatter {

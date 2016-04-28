@@ -29,7 +29,9 @@ import Foundation
  - Shake: Peek will use a shake gesture on both the Simulator and a device
  */
 public enum PeekActivationMode {
+    /// Peek will use a shake gesture when running in the Simulator, and the volume controls on a device
   case Auto
+    /// Peek will use a shake gesture on both the Simulator and a device
   case Shake
 }
 
@@ -45,10 +47,7 @@ public final class PeekOptions: NSObject {
    /// Defines the username to use when sending a Slack message
   public var slackUserName: String = "Peek"
   
-  /*
-   Defines the Slack channel/user to post to -- e.g. #channel, @user
-   Note: When sending to a private channel, you must add `slackUserName` to the channel first
-   */
+  /// Defines the Slack channel/user to post to -- e.g. #channel, @user  -- Note: When sending to a private channel, you must add `slackUserName` to the channel first
   public var slackRecipient: String?
   
    /// Defines the Slack WebHook URL to use for posting messages, this should be the full url -- e.g. https://hooks.slack.com/services/$TOKEN

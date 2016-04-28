@@ -28,6 +28,7 @@ enum OverlayMode {
   case Multiple
 }
 
+/// An overlay view is used to show layout information in Peek
 class OverlayView: UIView {
   
   private weak var peek: Peek!

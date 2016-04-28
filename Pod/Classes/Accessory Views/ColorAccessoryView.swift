@@ -22,6 +22,7 @@
 
 import UIKit
 
+/// This accessory view is used in Peek to show an icon representing the underlying UIColor value
 final class ColorAccessoryView: UIView {
   
   private let value: UIColor?

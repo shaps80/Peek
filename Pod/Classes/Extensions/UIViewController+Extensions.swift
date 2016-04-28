@@ -24,6 +24,11 @@ import UIKit
 
 extension UIViewController {
   
+  /**
+   Returns the top view controller currently on screen in the application
+   
+   - returns: The top view controller
+   */
   func topViewController() -> UIViewController {
     
     if let controller = self as? UINavigationController {

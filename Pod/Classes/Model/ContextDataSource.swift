@@ -22,6 +22,7 @@
 
 import Foundation
 
+/// Provides a data-source for representing properties in a Context -- used by InspectorViewController 
 final class ContextDataSource {
   
   let inspectorType: Inspector

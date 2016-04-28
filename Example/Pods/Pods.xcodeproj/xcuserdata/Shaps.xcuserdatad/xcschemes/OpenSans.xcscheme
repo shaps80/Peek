@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '8B61FB173814A131C91FA6BE'
+               BlueprintIdentifier = '92F59B15327A2D417195A8CD'
                BlueprintName = 'OpenSans'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'OpenSans.framework'>

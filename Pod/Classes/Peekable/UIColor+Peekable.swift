@@ -40,6 +40,11 @@ extension UIColor {
     return "\(Int(rgbComponents.red * 255)), \(Int(rgbComponents.green * 255)), \(Int(rgbComponents.blue * 255))"
   }
   
+  /**
+   Configures Peek's properties for this object
+   
+   - parameter context: The context to apply these properties to
+   */
   public override func preparePeek(context: Context) {
     super.preparePeek(context)
     

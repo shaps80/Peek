@@ -24,6 +24,11 @@ import UIKit
 
 extension UIView {
   
+  /**
+   Returns the UIViewController that owns this view
+   
+   - returns: The owning view controller
+   */
   func owningViewController() -> UIViewController? {
     var responder: UIResponder? = self
     
@@ -36,10 +41,24 @@ extension UIView {
     return responder as? UIViewController
   }
   
+  /**
+   Returns the CGRect representing this view, within the coordinates of Peek's overlay view
+   
+   - parameter view: The view to translate
+   
+   - returns: A CGRect in the coordinate space of Peek's overlay view
+   */
   func frameInPeek(view: UIView) -> CGRect {
     return convertRect(bounds, toView: view)
   }
   
+  /**
+   Returns the CGRect representing this view, excluding the current CGAffineTransform being applied to it
+   
+   - parameter view: The view to translate
+   
+   - returns: A CGRect in the coordinator space of Peek's overlay view
+   */
   func frameInPeekWithoutTransform(view: UIView) -> CGRect {
     let center = self.center
     let size = self.bounds.size

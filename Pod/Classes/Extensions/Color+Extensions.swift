@@ -24,25 +24,25 @@ import UIKit
 
 extension UIColor {
   
-  public func colorWithDelta(delta: CGFloat = 0.1) -> UIColor {
+  func colorWithDelta(delta: CGFloat = 0.1) -> UIColor {
     let d = max(min(delta, 1), -1)
     let (r, g, b, a) = rgbComponents
     return UIColor(red: r + d, green: g + d, blue: b + d, alpha: a)
   }
   
-  public class func neutralColor() -> UIColor {
+  class func neutralColor() -> UIColor {
     return UIColor(white: 0.6, alpha: 1)
   }
   
-  public class func primaryColor() -> UIColor {
+  class func primaryColor() -> UIColor {
     return UIColor.colorWithRed(red: 135, green: 252, blue: 112, alpha: 1)
   }
   
-  public class func secondaryColor() -> UIColor {
+  class func secondaryColor() -> UIColor {
     return UIColor.colorWithRed(red: 255, green: 41, blue: 105, alpha: 1)
   }
   
-  public func values() -> (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) {
+  func values() -> (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) {
     var r: CGFloat = 0
     var g: CGFloat = 0
     var b: CGFloat = 0
@@ -52,7 +52,7 @@ extension UIColor {
     return (r, g, b, a)
   }
   
-  public func hexValue(includeAlpha alpha: Bool) -> String {
+  func hexValue(includeAlpha alpha: Bool) -> String {
     var r: CGFloat = 0
     var g: CGFloat = 0
     var b: CGFloat = 0

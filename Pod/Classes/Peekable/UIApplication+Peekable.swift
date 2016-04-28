@@ -28,6 +28,11 @@ extension UIApplication {
     return NSBundle.mainBundle()
   }
   
+  /**
+   Configures Peek's properties for this object
+   
+   - parameter context: The context to apply these properties to
+   */
   public override func preparePeek(context: Context) {
     super.preparePeek(context)
     

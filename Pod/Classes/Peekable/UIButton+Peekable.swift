@@ -57,6 +57,11 @@ extension UIButton {
     return titleColorForState(.Disabled)
   }
   
+  /**
+   Configures Peek's properties for this object
+   
+   - parameter context: The context to apply these properties to
+   */
   public override func preparePeek(context: Context) {
     super.preparePeek(context)
     

@@ -22,6 +22,9 @@
 
 import UIKit
 
+/**
+ *  Defines a view or object that Peek can provide inspectors for
+ */
 public protocol Peekable: NSObjectProtocol {
   var classForCoder: AnyClass { get }
   
@@ -30,11 +33,24 @@ public protocol Peekable: NSObjectProtocol {
 }
 
 extension NSObject: Peekable {
+  
+  /**
+   Gives the caller an opportunity to configure Peek's current context
+   
+   - parameter context: The context to configure
+   */
   public func preparePeek(context: Context) { }
 }
 
 extension Peekable {
   
+  /**
+   Determines if Peek should ignore this type when parsing it into a model
+   
+   - parameter peek: The Peek instance
+   
+   - returns: Returns true if Peek should ignore this type, false otherwise
+   */
   public func shouldIgnore(inPeek peek: Peek) -> Bool {
     return false
   }
@@ -43,6 +59,13 @@ extension Peekable {
 
 extension UIView {
   
+  /**
+   Determines if Peek should ignore this view when parsing it into a model
+   
+   - parameter peek: The Peek instance
+   
+   - returns: Returns true if Peek should ignore this view, false otherwise
+   */
   public func shouldIgnore(inPeek peek: Peek) -> Bool {
     let isContainer = isMemberOfClass(UIView) && subviews.count > 0
     if isContainer && peek.options.shouldIgnoreContainers { return true }
@@ -91,18 +114,27 @@ extension UIView {
   
 }
 
+/**
+ *  Defines a Peek type that supports sub-properties -- this allows Peek to determine when nested properties should be used
+ */
 public protocol PeekSubPropertiesSupporting {
   var hasProperties: Bool { get }
 }
 
 extension PeekSubPropertiesSupporting {
+  
+    /// Returns true when this type contains sub-properties
   public var hasProperties: Bool { return true }
+  
 }
 
 extension Array: PeekSubPropertiesSupporting {
+  
+    /// Returns true when this array's count > 0
   public var hasProperties: Bool {
     return count > 0
   }
+  
 }
 
 extension NSArray: PeekSubPropertiesSupporting { }

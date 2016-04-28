@@ -22,6 +22,7 @@
 
 import UIKit
 
+/// Defines an animator that provides a custom fade animation for Peek's navigation controller
 final class TransitionFadeAnimator: NSObject, UIViewControllerAnimatedTransitioning {
   
   private unowned let peek: Peek

@@ -34,6 +34,11 @@ class Segment: NSObject {
   @objc var image: UIImage?
   @objc var contentOffset: CGSize = CGSizeZero
   
+  /**
+   Configures Peek's properties for this object
+   
+   - parameter context: The context to apply these properties to
+   */
   override func preparePeek(context: Context) {
     super.preparePeek(context)
     
@@ -62,6 +67,11 @@ extension UISegmentedControl {
     return segments
   }
   
+  /**
+   Configures Peek's properties for this object
+   
+   - parameter context: The context to apply these properties to
+   */
   public override func preparePeek(context: Context) {
     super.preparePeek(context)
     

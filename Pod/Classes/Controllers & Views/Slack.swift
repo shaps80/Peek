@@ -9,6 +9,7 @@
 import Foundation
 import MessageUI
 
+/// Defines an object that can post messages via Slack
 final class Slack {
   
   static let shared = Slack()
@@ -65,6 +66,7 @@ final class Slack {
   
 }
 
+/// Defines an object that can post messages via Email
 final class Email: NSObject, MFMailComposeViewControllerDelegate {
   
   static let shared = Email()

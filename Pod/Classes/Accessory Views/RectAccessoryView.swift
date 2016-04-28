@@ -22,6 +22,7 @@
 
 import UIKit
 
+/// This accessory view is used in Peek to show a 'rect' representing the underlying CGRect value
 final class RectAccessoryView: UIView {
   
   private let value: CGRect

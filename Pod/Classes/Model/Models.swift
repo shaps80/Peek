@@ -22,8 +22,21 @@
 
 import Foundation
 
+/**
+ *  Defines a model that represents a Peekable type
+ */
 public protocol Model: Peekable {
+  
+  /**
+   Allows Peek to use valueForKeyPath to determine values at runtime
+   
+   - parameter key: The keyPath to use
+   
+   - returns: The underlying runtime value
+   */
   func valueForKeyPath(key: String) -> AnyObject?
+  
 }
 
+// MARK: - Adds Model support to all NSObject types
 extension NSObject: Model { }

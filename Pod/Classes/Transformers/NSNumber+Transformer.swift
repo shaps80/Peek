@@ -22,6 +22,7 @@
 
 import UIKit
 
+/// Returns a string representation of a number -- e.g. floats and doubles: 0.5, 2.58
 final class NumberTransformer: NSValueTransformer {
   
   private static var floatFormatter: NSNumberFormatter {

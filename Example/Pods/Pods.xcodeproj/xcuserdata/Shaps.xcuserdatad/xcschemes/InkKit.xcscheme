@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '44D427423D79DFC5671AA4DF'
+               BlueprintIdentifier = '1BCCA4C42F5B8B8A54B5FFD3'
                BlueprintName = 'InkKit'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'InkKit.framework'>

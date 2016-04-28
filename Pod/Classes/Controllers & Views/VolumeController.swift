@@ -23,6 +23,10 @@
 import Foundation
 import MediaPlayer
 
+
+/**
+ *  Defines a controller that is responsible for presenting Peek
+ */
 protocol PeekActivationController {
   
   func register()
@@ -31,6 +35,7 @@ protocol PeekActivationController {
   
 }
 
+/// Defines an controller that activates Peek via your device Volume controls
 final class VolumeController: NSObject, PeekActivationController {
   
   unowned var peek: Peek

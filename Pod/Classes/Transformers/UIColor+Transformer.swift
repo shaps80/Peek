@@ -22,6 +22,7 @@
 
 import UIKit
 
+/// Creates a HEX string representation of a UIColor
 final class ColorTransformer: NSValueTransformer {
   
   override func transformedValue(value: AnyObject?) -> AnyObject? {

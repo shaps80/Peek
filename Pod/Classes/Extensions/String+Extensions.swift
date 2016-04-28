@@ -24,6 +24,7 @@ import Foundation
 
 extension String {
   
+  // Converts a camel case string to a capitalized one -- e.g. 'firstName' -> 'First Name'
   static func capitalized(camelCase: String) -> String {
     
     let chars = NSCharacterSet.uppercaseLetterCharacterSet()
