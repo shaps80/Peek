@@ -47,7 +47,7 @@ final class Slack {
       print(error)
     }
     
-    session?.dataTaskWithRequest(request) { [unowned peek] (data, response, error) in
+    session?.dataTaskWithRequest(request) { (data, response, error) in
       dispatch_async(dispatch_get_main_queue(), { 
         if error != nil || (response as? NSHTTPURLResponse)?.statusCode > 299 {
           var description = error?.localizedDescription

@@ -89,7 +89,9 @@ final class InspectorCell: UITableViewCell {
   }
   
   override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
-    return action == "copy:" || action == "slack:" || action == "email:"
+    return action == #selector(copy(_:)) // ||
+//      action == #selector(slack(_:)) ||
+//      action == #selector(email(_:))
   }
   
   override func copy(sender: AnyObject?) {
