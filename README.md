@@ -89,7 +89,9 @@ Now you can press `CMD+CTRL+Z` (or use the Menu option) to activate/deactivate P
 
 # Supported Platforms and Versions
 
-Peek is tested and supported on iOS 8 and above. Its also iPhone and iPad supported, in all orientations. In fact, Peek will only rotate if your app can ;)
+Peek is officially supported (and tested) with the following configurations:
+
+- iOS 8.0+ (Swift and Objective-C)
 
 # About Peek
 
