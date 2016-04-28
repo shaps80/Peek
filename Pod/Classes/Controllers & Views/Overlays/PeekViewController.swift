@@ -154,7 +154,7 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     }
   }
   
-  @objc private func handleTap(gesture: UITapGestureRecognizer) {
+  @objc func handleTap(gesture: UITapGestureRecognizer) {
     if gesture.state == .Ended {
       if gesture === doubleTapGesture {
         if let model = overlayView.selectedModels?.last {
@@ -166,7 +166,7 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     }
   }
   
-  @objc private func handlePan(gesture: UIPanGestureRecognizer) {
+  @objc func handlePan(gesture: UIPanGestureRecognizer) {
     switch gesture.state {
     case .Began:
       updateBackgroundColor(alpha: 0.3)

@@ -43,8 +43,8 @@ extension UIApplication {
     
     context.configure(.Application, "Appearance") { (config) in
       config.addProperties([ "bundle.statusBarAppearance"])
+      config.addProperties([ "statusBarFrame" ])
       config.addProperty("applicationIconBadgeNumber", displayName: "Icon Badge Number", cellConfiguration: nil)
-      config.addProperty("applicationSupportsShakeToEdit", displayName: "Shake to Edit", cellConfiguration: nil)
       
       let property = config.addProperty("bundle.supportedOrientations", displayName: nil, cellConfiguration: { (cell, object, value) in
         let mask = UIInterfaceOrientationMask(rawValue: value as! UInt)
@@ -54,6 +54,12 @@ extension UIApplication {
       })
       
       property.cellHeight = 70
+    }
+    
+    context.configure(.Application, "Behaviour") { (config) in
+      config.addProperty("applicationSupportsShakeToEdit", displayName: "Shake to Edit", cellConfiguration: nil)
+      config.addProperty("isIgnoringInteractionEvents", displayName: "Ignoring Interaction Events", cellConfiguration: nil)
+      config.addProperties([ "protectedDataAvailable" ])
     }
     
     context.configure(.Application, "Background Modes") { (config) in
