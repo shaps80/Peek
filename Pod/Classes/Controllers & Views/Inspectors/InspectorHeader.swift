@@ -24,6 +24,7 @@ import UIKit
 import InkKit
 import SwiftLayout
 
+/// Some properties can provide an optional header for better representing an object. E.g. image, color, etc...
 final class InspectorHeader: UIView {
   
   init(image: UIImage, showBorder: Bool) {

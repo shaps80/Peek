@@ -23,6 +23,7 @@
 import UIKit
 import SwiftLayout
 
+/// Defines a controller that represents an Inspector Set
 class InspectorsTabBarController: UITabBarController, UINavigationControllerDelegate, UIGestureRecognizerDelegate {
   
   private let model: Model

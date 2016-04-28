@@ -22,6 +22,9 @@
 
 import UIKit
 
+/**
+ *  Represents 4 metrics, top, left, bottom & right
+ */
 struct Metrics {
   
   var top: CGFloat
@@ -38,6 +41,7 @@ struct Metrics {
   
 }
 
+/// Defines a view that will be used to highlight in the overlay's view
 final class HighlightView: UIView {
   
   required init?(coder aDecoder: NSCoder) {
@@ -111,6 +115,7 @@ final class HighlightView: UIView {
   
 }
 
+/// Defines a label that will be used to represent a metric in the overlay view's
 final class MetricLabel: UILabel {
   
   static let formatter: NSNumberFormatter = {

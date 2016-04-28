@@ -22,6 +22,7 @@
 
 import UIKit
 
+/// Defines an inspector's cell used to represent a Peek property
 final class InspectorCell: UITableViewCell {
   
   weak var peek: Peek?
