@@ -69,6 +69,57 @@ window?.peek.enableWithOptions { options in
 
 Now whenever you run your app, you can now activate/deactivate Peek by pressing one of the volume keys on your device ;)
 
+# Configuring Peek
+
+Peek allows many options to be configured, allowing you more control over how Peek is configured as well as reporting options:
+
+```swift
+window?.peek.enableWithOptions { options in
+  options.activationMode = .Auto
+  options.shouldIgnoreContainers = true
+  
+  /*
+   In order to use Slack, you need to define a username, recipient (either a channel or user, e.g. #peek or @peek)
+   You also need to provide your Slack Incoming WebHook URL
+   
+   https://slack.com/apps/A0F7XDUAZ-incoming-webhooks
+   */
+  options.slackUserName = "Peek"
+  options.slackRecipient = "#peek"
+  // options.slackWebHookURL = NSURL(string: "https://hooks.slack.com/services/$TOKEN")!
+  
+  /*
+   Email support works by default, but you can also configure options like recipient(s) & subject
+   */
+  options.emailRecipients = [ "" ]
+  options.emailSubject = "Peek Issue: "
+  
+  /*
+   Both email and Slack reporting can use an optional metaData dictionary of key/values -- this is useful for providing additional context, like the environment your application is currently pointing to
+   */
+  options.reportMetaData = [ "Environment": "UAT" ]
+  
+  /**
+   Both email and Slack support including screenshots. For email, you don't need to do a thing, it JUST WORKS out of the box.
+   However, Slack doesn't support direct image uploads via WebHooks, so instead you can provide an image upload block that will automatically execute when you try to post to Slack.
+   
+   Note: The upload block is already dispatched to a background queue, so you can run your code synchronously.
+   
+   Just use the provided session and image, upload it to your service and return the resulting URL
+   */
+  options.includeScreenshot = true
+  options.screenshotScale = 1
+  
+  /*
+   This block is required if you want to upload image URLs to Slack.
+   The image is generated automatically and appended to your messages for you.
+  */
+  options.slackImageUploader = { (session, image) in
+    return NSURL(string: "http://shaps.me/assets/img/peek-overlay.png")
+  }
+}
+```
+
 # Safety First
 
 Peek is designed to be as safe as possible. Peek will never retain objects from your application. It will never use a background thread. Peek won't even run unless you explicitly enable it!
