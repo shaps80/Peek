@@ -32,7 +32,7 @@ extension UIViewController {
   func topViewController() -> UIViewController {
     
     if let controller = self as? UINavigationController {
-      return controller.topViewController ?? controller
+      return controller.topViewController?.topViewController() ?? controller
     }
     
     if let controller = self as? UITabBarController {
@@ -40,7 +40,7 @@ extension UIViewController {
     }
     
     if let controller = presentedViewController {
-      return controller.topViewController() ?? self
+      return controller.topViewController() ?? self.topViewController()
     }
     
     return self

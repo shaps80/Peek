@@ -31,6 +31,7 @@ public final class Peek: NSObject {
   
   /// Returns true if Peek is already being presented -- this is to prevent
   public static var isAlreadyPresented: Bool = false
+  var screenshot: UIImage?
   
   /// Enables/disables Peek
   public var enabled: Bool = false {
@@ -103,10 +104,15 @@ public final class Peek: NSObject {
     UIView.animateWithDuration(0.25, animations: { () -> Void in
       self.window?.alpha = 0
     }) { (finished) -> Void in
+      if let controller = self.window?.rootViewController?.presentedViewController {
+        controller.presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
+      }
+
       self.peekingWindow.makeKeyAndVisible()
-      self.window?.rootViewController = nil
       self.window?.rootViewController?.view.removeFromSuperview()
+      self.window?.rootViewController = nil
       self.window = nil
+      self.screenshot = nil
       
       Peek.isAlreadyPresented = false
     }
@@ -159,6 +165,21 @@ public final class Peek: NSObject {
     if options.activationMode == .Auto && !isSimulator {
       activationController = VolumeController(peek: self)
     }
+  }
+  
+  // MARK: Internal alerts for presenting various options
+  
+  func unsupportedFunction() {
+    let controller = UIAlertController(title: "Unsupported Feature", message: "This feature is coming soon.", preferredStyle: .Alert)
+    controller.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+    window?.rootViewController?.topViewController().presentViewController(controller, animated: true, completion: nil)
+  }
+  
+  func unknownKeyValue() {
+    // this should NEVER be called!
+    let controller = UIAlertController(title: "Peek Error", message: "The key or value couldn't be determined.", preferredStyle: .Alert)
+    controller.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+    window?.rootViewController?.topViewController().presentViewController(controller, animated: true, completion: nil)
   }
   
 }

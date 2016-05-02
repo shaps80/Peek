@@ -105,6 +105,14 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
     }
   }
   
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    if let indexPath = tableView.indexPathForSelectedRow {
+      tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+  }
+  
   override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
     coordinator.animateAlongsideTransition({ (context) in
       self.tableView.reloadData()
@@ -129,7 +137,7 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
     cell.accessoryView = nil
     cell.accessoryType = .None
     
-    if let value = property.value(forModel: model) {
+    if let value = property.value(forModel: model) as? NSObjectProtocol {
       var text: String?
       var accessoryView: UIView?
       
@@ -158,7 +166,7 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
         if let value = value as? NSValue {
           text = ValueTransformer().transformedValue(value) as? String
         }
-      case is AnyClass: text = (value as? NSObject)?.ObjClassName()
+      case is AnyClass: text = value.ObjClassName()
       default: text = "\(value)"
       }
       

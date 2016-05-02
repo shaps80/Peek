@@ -21,9 +21,11 @@
  */
 
 import UIKit
+import InkKit
+import MessageUI
 
 /// Defines an inspector's cell used to represent a Peek property
-final class InspectorCell: UITableViewCell {
+final class InspectorCell: UITableViewCell, MFMailComposeViewControllerDelegate {
   
   weak var peek: Peek?
   weak var property: Property?
@@ -100,26 +102,46 @@ final class InspectorCell: UITableViewCell {
     }
   }
   
-  private func unsupportedFunction() {
-    let controller = UIAlertController(title: "Unsupported Feature", message: "This feature is coming soon.", preferredStyle: .Alert)
-    controller.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-    peek?.window?.rootViewController?.topViewController().presentViewController(controller, animated: true, completion: nil)
-  }
-  
   func email(sender: AnyObject?) {
-    unsupportedFunction()
-    return
-    if let message = stringValue(), peek = self.peek {
-      Email.shared.post(message, peek: peek)
+    guard let peek = self.peek else {
+      fatalError("Peek should never be nil!")
     }
+    
+    Email().post(peek.screenshot, metaData: metaData(), peek: peek, delegate: self)
   }
   
-  func slack(sender: AnyObject?) {
-    unsupportedFunction()
-    return
-    if let message = stringValue(), peek = self.peek {
-      Slack.shared.post(message, peek: peek)
+  func slack(sender: AnyObject?) {    
+    guard let peek = self.peek else {
+      fatalError("Peek should never be nil!")
     }
+    
+    let controller = SlackViewController(peek: peek, metaData: metaData())
+    let navController = UINavigationController(rootViewController: controller)
+    peek.window?.rootViewController?.topViewController().presentViewController(navController, animated: true, completion: nil)
+  }
+  
+  private func metaData() -> MetaData {
+    guard let model = model else {
+      fatalError("Model should never be nil!")
+    }
+    
+    var metaData = MetaData()
+    
+    let object = MetaDataItem(key: "Object", value: "\(model.ObjClassName())")
+    let title = MetaDataItem(key: "Display Name", value: property?.displayName)
+    let keyPath = MetaDataItem(key: "Key Path", value: property?.keyPath)
+    let value = MetaDataItem(key: "Value", value: stringValue())
+    
+    metaData.property.items = [ object, title, keyPath, value ]
+    
+    if let meta = peek?.options.reportMetaData {
+      for (key, value) in meta {
+        let item = MetaDataItem(key: key, value: value)
+        metaData.metaData.items.append(item)
+      }
+    }
+    
+    return metaData
   }
   
   private func stringValue() -> String? {
@@ -128,14 +150,20 @@ final class InspectorCell: UITableViewCell {
     }
     
     if let value = detailTextLabel?.text {
-      return "\(model).\(property.keyPath) = \(value)"
+      return "\(value)"
     }
     
     if let value = property.value(forModel: model) {
-      return "\(model).\(property.keyPath) = \(value)"
+      return "\(value)"
     }
 
     return nil
+  }
+  
+  // FIXME: This is obviouslt the wrong place for this
+  
+  func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+    controller.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
   }
   
 }

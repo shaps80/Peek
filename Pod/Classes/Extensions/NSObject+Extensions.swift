@@ -22,14 +22,14 @@
 
 import UIKit
 
-extension NSObject {
+extension NSObjectProtocol {
   
-  class func ObjClassName() -> String {
+  static func ObjClassName() -> String {
     return NSStringFromClass(self).componentsSeparatedByString(".").last!
   }
   
   func ObjClassName() -> String {
-    return self.classForCoder.ObjClassName()
+    return Self.ObjClassName()
   }
   
 }

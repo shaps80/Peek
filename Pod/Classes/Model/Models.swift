@@ -25,7 +25,7 @@ import Foundation
 /**
  *  Defines a model that represents a Peekable type
  */
-public protocol Model: Peekable {
+public protocol Model: NSObjectProtocol {
   
   /**
    Allows Peek to use valueForKeyPath to determine values at runtime

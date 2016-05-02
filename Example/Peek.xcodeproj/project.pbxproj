@@ -37,6 +37,7 @@
 		23103B4688F8F0760206EC04 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		25235662A734B5CC098E5A5F /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		2EA76B4295D9581E70D15937 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		5402AE701CD6D9C500FC79C1 /* NSAttributedString+Peekable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Peekable.swift"; sourceTree = "<group>"; };
 		542625751CCD3D40008AA33C /* Slack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Slack.swift; sourceTree = "<group>"; };
 		542E83461CBA67CB00598A9F /* UISegmentedControl+Peekable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+Peekable.swift"; sourceTree = "<group>"; };
 		542E83481CBA67DE00598A9F /* UIStepper+Peekable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStepper+Peekable.swift"; sourceTree = "<group>"; };
@@ -114,6 +115,9 @@
 		54534FE31CB962BA00BA67D3 /* UIWindow+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extensions.swift"; sourceTree = "<group>"; };
 		54534FE51CB962C400BA67D3 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		54534FE71CB962D500BA67D3 /* PeekTapGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeekTapGestureRecognizer.swift; sourceTree = "<group>"; };
+		547C25521CD67A56004CDF71 /* Email.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Email.swift; sourceTree = "<group>"; };
+		547C25531CD67AB8004CDF71 /* MetaData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetaData.swift; sourceTree = "<group>"; };
+		54BC58231CD4FCF300039874 /* SlackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlackViewController.swift; sourceTree = "<group>"; };
 		54BE46641CBFB54F00D39822 /* UIPicker+Peekable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIPicker+Peekable.swift"; sourceTree = "<group>"; };
 		54BE46651CBFBC0300D39822 /* NSLayoutConstraint+Peekable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+Peekable.swift"; sourceTree = "<group>"; };
 		54D84EE11CB9C27800737C1C /* UIImage+Peekable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Peekable.swift"; sourceTree = "<group>"; };
@@ -193,11 +197,11 @@
 		54534FA91CB9601E00BA67D3 /* Controllers & Views */ = {
 			isa = PBXGroup;
 			children = (
+				547C25511CD679EE004CDF71 /* Reporting */,
 				54534FAA1CB9601E00BA67D3 /* Inspectors */,
 				54534FAE1CB9601E00BA67D3 /* Overlays */,
 				54534FB21CB9601E00BA67D3 /* TransitionAnimators.swift */,
 				54534FB31CB9601E00BA67D3 /* VolumeController.swift */,
-				542625751CCD3D40008AA33C /* Slack.swift */,
 			);
 			path = "Controllers & Views";
 			sourceTree = "<group>";
@@ -299,6 +303,7 @@
 				54534FD91CB9609900BA67D3 /* UIToolbar+Peekable.swift */,
 				54534FD31CB9601E00BA67D3 /* UIView+Peekable.swift */,
 				54534FD41CB9601E00BA67D3 /* UIViewController+Peekable.swift */,
+				5402AE701CD6D9C500FC79C1 /* NSAttributedString+Peekable.swift */,
 			);
 			path = Peekable;
 			sourceTree = "<group>";
@@ -311,6 +316,17 @@
 				54534FD81CB9601E00BA67D3 /* UIColor+Transformer.swift */,
 			);
 			path = Transformers;
+			sourceTree = "<group>";
+		};
+		547C25511CD679EE004CDF71 /* Reporting */ = {
+			isa = PBXGroup;
+			children = (
+				542625751CCD3D40008AA33C /* Slack.swift */,
+				547C25521CD67A56004CDF71 /* Email.swift */,
+				547C25531CD67AB8004CDF71 /* MetaData.swift */,
+				54BC58231CD4FCF300039874 /* SlackViewController.swift */,
+			);
+			path = Reporting;
 			sourceTree = "<group>";
 		};
 		607FACC71AFB9204008FA782 = {
@@ -664,12 +680,14 @@
 			baseConfigurationReference = 23103B4688F8F0760206EC04 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = Peek/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = uk.co.snippex.ios.Peek;
 				PRODUCT_NAME = "Peek-Example";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

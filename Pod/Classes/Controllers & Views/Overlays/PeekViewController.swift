@@ -26,7 +26,7 @@ import UIKit.UIGestureRecognizerSubclass
 final class PeekViewController: UIViewController, UIViewControllerTransitioningDelegate {
   
   unowned var peek: Peek
-  
+
   init(peek: Peek) {
     self.peek = peek
     super.init(nibName: nil, bundle: nil)
@@ -137,6 +137,15 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
   }
   
   private func presentInspectorsForModel(model: Model) {
+    let rect = peek.peekingWindow.bounds
+    
+    if peek.options.includeScreenshot {
+      peek.screenshot = UIImage.draw(width: rect.width, height: rect.height, scale: peek.options.screenshotScale, attributes: nil, drawing: { [unowned self] (context, rect, attributes) in
+        self.peek.peekingWindow.drawViewHierarchyInRect(rect, afterScreenUpdates: false)
+        self.peek.window?.drawViewHierarchyInRect(rect, afterScreenUpdates: false)
+      })
+    }
+    
     if let model = model as? UIView {
       let controller = InspectorsTabBarController(peek: peek, model: model)
       
