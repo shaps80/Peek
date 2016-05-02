@@ -40,7 +40,7 @@ extension UITextField {
     }
     
     context.configure(.Attributes, "Text") { (config) in
-      config.addProperties([ "text", "textColor" ])
+      config.addProperties([ "text", "textColor", "attributedText" ])
       
       config.addProperty("textAlignment", displayName: "Alignment", cellConfiguration: { (cell, object, value) in
         let alignment = NSTextAlignment(rawValue: value as! Int)!

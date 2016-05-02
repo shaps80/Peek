@@ -33,7 +33,7 @@ extension UILabel {
     super.preparePeek(context)
     
     context.configure(.Attributes, "Text") { (config) in
-      config.addProperties([ "text" ])
+      config.addProperties([ "text", "attributedText" ])
       
       config.addProperty("textAlignment", displayName: "Alignment", cellConfiguration: { (cell, object, value) in
         let alignment = NSTextAlignment(rawValue: value as! Int)!

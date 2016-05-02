@@ -29,15 +29,32 @@ extension UIButton {
   }
   
   @objc var selectedTitle: String? {
-    return titleForState(.Normal)
+    return titleForState(.Selected)
   }
   
   @objc var highlightedTitle: String? {
-    return titleForState(.Normal)
+    return titleForState(.Highlighted)
   }
   
   @objc var disabledTitle: String? {
-    return titleForState(.Normal)
+    return titleForState(.Disabled)
+  }
+  
+  
+  @objc var normalAttributedTitle: NSAttributedString? {
+    return attributedTitleForState(.Normal)
+  }
+  
+  @objc var selectedAttributedTitle: NSAttributedString? {
+    return attributedTitleForState(.Selected)
+  }
+  
+  @objc var highlightedAttributedTitle: NSAttributedString? {
+    return attributedTitleForState(.Highlighted)
+  }
+  
+  @objc var disabledAttributedTitle: NSAttributedString? {
+    return attributedTitleForState(.Disabled)
   }
   
   
@@ -93,6 +110,13 @@ extension UIButton {
       config.addProperty("selectedTitle", displayName: "Selected", cellConfiguration: nil)
       config.addProperty("highlightedTitle", displayName: "Highlighted", cellConfiguration: nil)
       config.addProperty("disabledTitle", displayName: "Disabled", cellConfiguration: nil)
+    }
+    
+    context.configure(.Attributes, "Attributed Title") { (config) in
+      config.addProperty("normalAttributedTitle", displayName: "Normal", cellConfiguration: nil)
+      config.addProperty("selectedAttributedTitle", displayName: "Selected", cellConfiguration: nil)
+      config.addProperty("highlightedAttributedTitle", displayName: "Highlighted", cellConfiguration: nil)
+      config.addProperty("disabledAttributedTitle", displayName: "Disabled", cellConfiguration: nil)
     }
     
     context.configure(.Attributes, "Title Colors") { (config) in

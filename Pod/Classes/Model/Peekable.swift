@@ -150,6 +150,7 @@ extension UIBarButtonItem: PeekSubPropertiesSupporting { }
 extension NSLayoutConstraint: PeekSubPropertiesSupporting { }
 extension Segment: PeekSubPropertiesSupporting { }
 extension NSAttributedString: PeekSubPropertiesSupporting { }
+extension NSShadow: PeekSubPropertiesSupporting { }
 
 public protocol PeekContainer { }
 

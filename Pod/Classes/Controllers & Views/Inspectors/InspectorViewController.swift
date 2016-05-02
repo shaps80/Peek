@@ -148,10 +148,14 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
         }
       case is UIFont:
         if let value = value as? UIFont {
-          text = value.fontName
+          text = "\(value.fontName), \(value.pointSize)"
         }
       case is UIImageView, is UILabel, is UIBarButtonItem, is Segment, is UIImage:
         text = nil
+      case is NSAttributedString:
+        if let value = value as? NSAttributedString {
+          text = value.string
+        }
       case is NSNumber:
         if let value = value as? NSNumber {
           text = NumberTransformer().transformedValue(value) as? String
