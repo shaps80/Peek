@@ -117,6 +117,7 @@ final class InspectorCell: UITableViewCell, MFMailComposeViewControllerDelegate 
     
     let controller = SlackViewController(peek: peek, metaData: metaData())
     let navController = UINavigationController(rootViewController: controller)
+    navController.modalPresentationStyle = .FormSheet
     peek.window?.rootViewController?.topViewController().presentViewController(navController, animated: true, completion: nil)
   }
   
