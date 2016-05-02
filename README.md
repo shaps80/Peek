@@ -1,6 +1,6 @@
 <a href="https://vimeo.com/162896152"><img src="http://shaps.me/assets/img/peek-feature@2x.png" name="Peek on Vimeo"/></a>
 
-#Peek
+# Peek
 
 [![Version](https://img.shields.io/cocoapods/v/Peek.svg?style=flat)](http://cocoapods.org/pods/Peek)
 [![License](https://img.shields.io/cocoapods/l/Peek.svg?style=flat)](http://cocoapods.org/pods/Peek)
@@ -8,6 +8,31 @@
 [![Platform](https://img.shields.io/cocoapods/p/Peek.svg?style=flat)](http://cocoapods.org/pods/Peek)
 
 Peek is an open source library that lets you easily check your application against your user interface's specification guide(s). Peek can be used by engineers, designers & testers, allowing developers to spend more time on code and less time checking that fonts, colors and layout are pixel perfect.
+
+# Changelog
+
+2.2.0
+-
+
+* Slack integration
+* Email reports
+* Screenshot upload block (for Slack)
+* NSAttributedString support, including paragraph styles
+
+2.1.0
+-
+
+* Enable with options
+* Force shake gesture on device
+* Allow container selection
+
+2.0
+-
+
+* Absolute layout overlay
+* Multiple inspectors
+* Swift Support
+* iOS 8.3 Support
 
 # How does it work?
 
