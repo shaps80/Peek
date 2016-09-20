@@ -30,6 +30,7 @@
 		54CB1AD51D91E3980059849E /* PhotoEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CB1AD41D91E3980059849E /* PhotoEditingViewController.swift */; };
 		54CB1AD81D91E3980059849E /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54CB1AD61D91E3980059849E /* MainInterface.storyboard */; };
 		54CB1ADC1D91E3980059849E /* PhotoExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 54CB1AD01D91E3980059849E /* PhotoExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		54CB1AE31D91EA950059849E /* PeekLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CB1AE21D91EA950059849E /* PeekLoader.m */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -154,6 +155,8 @@
 		54CB1AD41D91E3980059849E /* PhotoEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditingViewController.swift; sourceTree = "<group>"; };
 		54CB1AD71D91E3980059849E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		54CB1AD91D91E3980059849E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		54CB1AE11D91EA950059849E /* PeekLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeekLoader.h; sourceTree = "<group>"; };
+		54CB1AE21D91EA950059849E /* PeekLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeekLoader.m; sourceTree = "<group>"; };
 		54D84EE11CB9C27800737C1C /* UIImage+Peekable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Peekable.swift"; sourceTree = "<group>"; };
 		54D84EE31CB9C34F00737C1C /* UIFont+Peekable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Peekable.swift"; sourceTree = "<group>"; };
 		54D84EE51CB9CD6E00737C1C /* UIBarButtonItem+Peekable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Peekable.swift"; sourceTree = "<group>"; };
@@ -214,6 +217,8 @@
 			children = (
 				54534FC41CB9601E00BA67D3 /* Peek.swift */,
 				544334C71CCAD4F400878B5B /* PeekOptions.swift */,
+				54CB1AE11D91EA950059849E /* PeekLoader.h */,
+				54CB1AE21D91EA950059849E /* PeekLoader.m */,
 				54534FA41CB9601E00BA67D3 /* Accessory Views */,
 				54534FA91CB9601E00BA67D3 /* Controllers & Views */,
 				54534FB51CB9601E00BA67D3 /* Extensions */,
@@ -648,6 +653,7 @@
 				542E83751CBADCD700598A9F /* Model.swift in Sources */,
 				542E83731CBADCD700598A9F /* ImageCache.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				54CB1AE31D91EA950059849E /* PeekLoader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

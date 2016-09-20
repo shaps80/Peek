@@ -29,7 +29,7 @@ public protocol Peekable: NSObjectProtocol {
   var classForCoder: AnyClass { get }
   
   func preparePeek(context: Context)
-  func shouldIgnore(inPeek peek: Peek) -> Bool
+  func shouldIgnore(options options: PeekOptions) -> Bool
 }
 
 extension NSObject: Peekable {
@@ -51,7 +51,7 @@ extension Peekable {
    
    - returns: Returns true if Peek should ignore this type, false otherwise
    */
-  public func shouldIgnore(inPeek peek: Peek) -> Bool {
+  public func shouldIgnore(options options: PeekOptions) -> Bool {
     return false
   }
   
@@ -66,9 +66,9 @@ extension UIView {
    
    - returns: Returns true if Peek should ignore this view, false otherwise
    */
-  public func shouldIgnore(inPeek peek: Peek) -> Bool {
+  public func shouldIgnore(options options: PeekOptions) -> Bool {
     let isContainer = isMemberOfClass(UIView) && subviews.count > 0
-    if isContainer && peek.options.shouldIgnoreContainers { return true }
+    if isContainer && options.shouldIgnoreContainers { return true }
     
     let isInvisible = hidden || alpha == 0 || CGRectEqualToRect(frame, CGRectZero)
     if isInvisible { return true }
