@@ -21,7 +21,7 @@
  */
 
 import Foundation
-;
+
 /**
  Available activation modes
  
