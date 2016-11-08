@@ -40,9 +40,9 @@ extension Images {
     white.set()
     
     //// landscapeLeft Drawing
-    CGContextSaveGState(context)
-    CGContextTranslateCTM(context, frame.minX + 3, frame.minY + 49)
-    CGContextRotateCTM(context, -90 * CGFloat(M_PI) / 180)
+    CGContextSaveGState(context!)
+    CGContextTranslateCTM(context!, frame.minX + 3, frame.minY + 49)
+    CGContextRotateCTM(context!, -90 * CGFloat(M_PI) / 180)
     
     let landscapeLeftPath = UIBezierPath()
     landscapeLeftPath.moveToPoint(CGPointMake(7.5, 2.5))
@@ -79,7 +79,7 @@ extension Images {
       landscapeLeftPath.stroke()
     }
     
-    CGContextRestoreGState(context)
+    CGContextRestoreGState(context!)
     
     
     //// portrait Drawing

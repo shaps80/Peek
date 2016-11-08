@@ -41,7 +41,7 @@ final class TransitionFadeAnimator: NSObject, UIViewControllerAnimatedTransition
     let toController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
     let fromController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
     
-    transitionContext.containerView()?.addSubview(toController.view)
+    transitionContext.containerView().addSubview(toController.view)
     toController.view.alpha = 0
     toController.navigationController?.setNavigationBarHidden(self.operation == .Pop, animated: true)
     

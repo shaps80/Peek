@@ -108,9 +108,9 @@ extension Images {
     
     if (lanscapeLeftVisible) {
       //// left Drawing
-      CGContextSaveGState(context)
-      CGContextTranslateCTM(context, frame.minX + 25, frame.minY + 5)
-      CGContextRotateCTM(context, 90 * CGFloat(M_PI) / 180)
+      CGContextSaveGState(context!)
+      CGContextTranslateCTM(context!, frame.minX + 25, frame.minY + 5)
+      CGContextRotateCTM(context!, 90 * CGFloat(M_PI) / 180)
       
       let leftPath = UIBezierPath()
       leftPath.moveToPoint(CGPointMake(7.5, 18.5))
@@ -142,15 +142,15 @@ extension Images {
       white.setFill()
       leftPath.fill()
       
-      CGContextRestoreGState(context)
+      CGContextRestoreGState(context!)
     }
     
     
     if (landscapeRightVisible) {
       //// right Drawing
-      CGContextSaveGState(context)
-      CGContextTranslateCTM(context, frame.minX, frame.minY + 20)
-      CGContextRotateCTM(context, -90 * CGFloat(M_PI) / 180)
+      CGContextSaveGState(context!)
+      CGContextTranslateCTM(context!, frame.minX, frame.minY + 20)
+      CGContextRotateCTM(context!, -90 * CGFloat(M_PI) / 180)
       
       let rightPath = UIBezierPath()
       rightPath.moveToPoint(CGPointMake(7.5, 18.5))
@@ -182,7 +182,7 @@ extension Images {
       white.setFill()
       rightPath.fill()
       
-      CGContextRestoreGState(context)
+      CGContextRestoreGState(context!)
     }
   }
   
