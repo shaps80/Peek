@@ -9,6 +9,26 @@
 
 Peek is an open source library that lets you easily check your application against your user interface's specification guide(s). Peek can be used by engineers, designers & testers, allowing developers to spend more time on code and less time checking that fonts, colors and layout are pixel perfect.
 
+# Swift Support
+
+**Swift 3.0**
+
+Swift 3.0 support is coming soon.
+
+**Swift 2.3**
+
+If you need Swift 2.3 support, update your Podfile as such:
+
+`pod 'Peek', '2.3'`
+
+**Swift 2.2**
+
+The current release of Peek is Swift 2.2, however its now recommended that you update your Podfile as such:
+
+`pod 'Peek', '2.0'`
+
+---
+
 # Changelog
 
 2.2.0
