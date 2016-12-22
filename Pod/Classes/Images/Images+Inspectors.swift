@@ -332,9 +332,9 @@ final class Images {
       let context = UIGraphicsGetCurrentContext()
       
       //// Bezier Drawing
-      CGContextSaveGState(context)
-      CGContextTranslateCTM(context, 0, 13.56)
-      CGContextRotateCTM(context, -25 * CGFloat(M_PI) / 180)
+      CGContextSaveGState(context!)
+      CGContextTranslateCTM(context!, 0, 13.56)
+      CGContextRotateCTM(context!, -25 * CGFloat(M_PI) / 180)
       
       let bezierPath = UIBezierPath()
       bezierPath.moveToPoint(CGPointMake(29, 0))
@@ -375,7 +375,7 @@ final class Images {
       UIColor.grayColor().setFill()
       bezierPath.fill()
       
-      CGContextRestoreGState(context)
+      CGContextRestoreGState(context!)
 
     })
   }
