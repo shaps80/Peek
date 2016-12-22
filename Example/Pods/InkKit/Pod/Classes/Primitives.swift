@@ -1,88 +1,42 @@
-//
-//  Primitives.swift
-//  InkKit
-//
-//  Created by Shaps Mohsenin on 06/04/2016.
-//  Copyright © 2016 CocoaPods. All rights reserved.
-//
+/*
+  Copyright © 13/05/2016 Shaps
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  THE SOFTWARE.
+ */
 
 import CoreGraphics
 
 extension Draw {
   
-  /**
-   Strokes a line from startPoint to endPoint with a gradient. Note: The following is valid -- endPoint.x < startPoint.x || endPoint.y < startPoint.y
-   
-   - parameter startPoint:      The startpoint for this line
-   - parameter endPoint:        The endpoint for this line
-   - parameter startColor:      The start color for the gradient
-   - parameter endColor:        The end color for the gradient
-   - parameter angleInDegrees:  The angle (in degrees) of the gradient for this line
-   - parameter attributesBlock: Any additional attributes can be configured using this configuration block
-   */
-  public static func strokeLine(startPoint: CGPoint, endPoint: CGPoint, startColor: Color, endColor: Color, angleInDegrees: CGFloat = 0, attributes attributesBlock: AttributesBlock? = nil) {
-    let path = BezierPath()
-    path.moveToPoint(startPoint)
-    path.addLineToPoint(endPoint)
-    drawGradientPath(path, startColor: startColor, endColor: endColor, angleInDegrees: angleInDegrees, stroke: true, attributes: attributesBlock)
-  }
+  // MARK: Internal functions
   
-  /**
-   Strokes the specified path
-   
-   - parameter path:            The path to stroke
-   - parameter startColor:      The start color for the gradient
-   - parameter endColor:        The end color for the gradient
-   - parameter angleInDegrees:  The angle (in degrees) of the gradient
-   - parameter attributesBlock: Any additional attributes can be configured using this configuration block
-   */
-  public static func strokePath(path: BezierPath, startColor: Color, endColor: Color, angleInDegrees: CGFloat, attributes attributesBlock: AttributesBlock? = nil) {
-    drawGradientPath(path, startColor: startColor, endColor: endColor, angleInDegrees: angleInDegrees, stroke: true, attributes: attributesBlock)
-  }
-  
-  /**
-   Fills the specified path
-   
-   - parameter path:            The path to fill
-   - parameter startColor:      The start color for the gradient
-   - parameter endColor:        The end color for the gradient
-   - parameter angleInDegrees:  The angle (in degrees) of the gradient
-   - parameter attributesBlock: Any additional attributes can be configured using this configuration block
-   */
-  public static func fillPath(path: BezierPath, startColor: Color, endColor: Color, angleInDegrees: CGFloat, attributes attributesBlock: AttributesBlock? = nil) {
-    drawGradientPath(path, startColor: startColor, endColor: endColor, angleInDegrees: angleInDegrees, stroke: false, attributes: attributesBlock)
-  }
-  
-  /**
-   Strokes a line from startPoint to endPoint with a single color (optimized). Note: The following is valid -- endPoint.x < startPoint.x || endPoint.y < startPoint.y
-   
-   - parameter startPoint:      The start point for this line
-   - parameter endPoint:        The end point for this line
-   - parameter color:           The color for this line
-   - parameter attributesBlock: Any additional attributes can be configured using this configuration block
-   */
-  public static func strokeLine(startPoint: CGPoint, endPoint: CGPoint, color: Color = Color.blackColor(), attributes attributesBlock: AttributesBlock? = nil) {
-    let rect = reversibleRect(fromPoint: startPoint, toPoint: endPoint)
-    
-    UIGraphicsGetCurrentContext()?.draw(inRect: rect, attributes: attributesBlock, drawing: { (context, rect, attributes) in
-      color.setStroke()
-      CGContextMoveToPoint(context, startPoint.x + 0.5, startPoint.y + 0.5)
-      CGContextAddLineToPoint(context, endPoint.x + 0.5, endPoint.y + 0.5)
-      CGContextStrokePath(context)
-    })
-  }
-  
-  // MARK: Private functions
-  
-  private static func drawGradientPath(path: BezierPath, startColor: Color, endColor: Color, angleInDegrees: CGFloat, stroke: Bool, attributes attributesBlock: AttributesBlock? = nil) {
-    UIGraphicsGetCurrentContext()?.draw(inRect: path.bounds, attributes: attributesBlock, drawing: { (context, rect, attributes) in
+  static func drawGradientPath(path: BezierPath, startColor: Color, endColor: Color, angleInDegrees: CGFloat, stroke: Bool, attributes attributesBlock: AttributesBlock? = nil) {
+    GraphicsContext()?.draw(inRect: path.bounds, attributes: attributesBlock, drawing: { (context, rect, attributes) in
       CGContextAddPath(context, path.CGPath)
       
       if stroke {
         CGContextReplacePathWithStrokedPath(context)
       }
       
-      CGContextClip(context)
+      if !CGContextIsPathEmpty(context) {
+        CGContextClip(context)
+      }
       
       let rect = CGPathGetBoundingBox(path.CGPath)
       let locations: [CGFloat] = [0, 1]
@@ -101,4 +55,3 @@ extension Draw {
   }
   
 }
-

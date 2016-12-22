@@ -1,10 +1,24 @@
-//
-//  Image+Drawing.swift
-//  InkKit
-//
-//  Created by Shaps Mohsenin on 06/04/2016.
-//  Copyright © 2016 CocoaPods. All rights reserved.
-//
+/*
+  Copyright © 13/05/2016 Shaps
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  THE SOFTWARE.
+ */
 
 import CoreGraphics
 
@@ -36,9 +50,10 @@ extension Image {
    - parameter blendMode:  The blend mode to apply to this drawing
    - parameter alpha:      The alpha to apply to this drawing
    */
-  public func drawAlignedTo(rect: CGRect, horizontal: HorizontalAlignment = .Center, vertical: VerticalAlignment = .Middle, blendMode: CGBlendMode = .Normal, alpha: CGFloat = 1) {
+  public func drawAlignedTo(rect: CGRect, horizontal: HorizontalAlignment = .Center, vertical: VerticalAlignment = .Middle, blendMode: CGBlendMode = .SourceOut, alpha: CGFloat = 1) {
     let alignedRect = CGRectMake(0, 0, size.width, size.height).alignedTo(rect, horizontal: horizontal, vertical: vertical)
-    ink_drawInRect(alignedRect, blendMode: blendMode, alpha: alpha)
+    let fromRect = CGRect(x: 0, y: 0, width: alignedRect.width, height: alignedRect.height)
+    ink_drawInRect(alignedRect, fromRect: fromRect, blendMode: blendMode, alpha: alpha)
   }
   
   /**
@@ -49,18 +64,35 @@ extension Image {
    - parameter blendMode: The blend mode to apply to this drawing
    - parameter alpha:     The alpha to apply to this drawing
    */
-  public func drawScaledTo(rect: CGRect, scaleMode mode: ScaleMode, blendMode: CGBlendMode = .Normal, alpha: CGFloat = 1) {
+  public func drawScaledTo(rect: CGRect, scaleMode mode: ScaleMode, blendMode: CGBlendMode = .SourceOut, alpha: CGFloat = 1) {
     let scaledRect = CGRectMake(0, 0, size.width, size.height).scaledTo(rect, scaleMode: mode)
-    ink_drawInRect(scaledRect, blendMode: blendMode, alpha: alpha)
+    let fromRect = CGRect(x: 0, y: 0, width: scaledRect.width, height: scaledRect.height)
+    ink_drawInRect(scaledRect, fromRect: fromRect, blendMode: blendMode, alpha: alpha)
   }
   
-  private func ink_drawInRect(rect: CGRect, blendMode mode: CGBlendMode, alpha: CGFloat) {
+  private func ink_drawInRect(rect: CGRect, fromRect: CGRect, blendMode mode: CGBlendMode, alpha: CGFloat) {
     #if os(iOS)
       drawInRect(rect, blendMode: mode, alpha: alpha)
     #else
-      drawInRect(rect, fromRect: rect, operation: NSCompositingOperation(rawValue: UInt(mode.rawValue))!, fraction: alpha)
+      drawInRect(rect, fromRect: fromRect, operation: NSCompositingOperation(rawValue: UInt(mode.rawValue))!, fraction: alpha)
     #endif
   }
+  
+  // MARK: OSX Compatibility
+  
+  #if os(OSX)
+  
+  /**
+   Draws the image at the specified point
+   
+   - parameter point: The point to position this image's origin
+   */
+  public func drawAtPoint(point: CGPoint) {
+    let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+    drawAtPoint(point, fromRect: rect, operation: .CompositeSourceOut, fraction: 1.0)
+  }
+  
+  #endif
   
 }
 
@@ -97,12 +129,12 @@ extension Image {
     #if os(OSX)
       let image = Image(size: size)
       image.lockFocus()
-      UIGraphicsGetCurrentContext()?.draw(inRect: rect, attributes: attributesBlock, drawing: drawing)
+      GraphicsContext()?.draw(inRect: rect, attributes: attributesBlock, drawing: drawing)
       image.unlockFocus()
       return image
     #else
       UIGraphicsBeginImageContextWithOptions(CGSizeMake(size.width, size.height), false, scale)
-      UIGraphicsGetCurrentContext()?.draw(inRect: rect, attributes: attributesBlock, drawing: drawing)
+      GraphicsContext()?.draw(inRect: rect, attributes: attributesBlock, drawing: drawing)
       let image = UIGraphicsGetImageFromCurrentImageContext()
       UIGraphicsEndImageContext()
       return image!

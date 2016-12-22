@@ -20,25 +20,32 @@
   THE SOFTWARE.
  */
 
-import CoreGraphics
+#if os(OSX)
+  
+import AppKit
 
-extension CGContext {
+extension NSAffineTransform {
   
   /**
-   Provides a convenience method for drawing into a context
+   Convert a CGAffineTransform to an NSAffineTransform
    
-   - parameter rect:            The rect to draw into
-   - parameter attributesBlock: An optional attributes block for providing additional drawing options
-   - parameter drawingBlock:    The drawing block to perform execute for performing all drawing operations
+   - parameter transform: The CGAffineTransform to convert
+   
+   - returns: An NSAffineTransform
    */
-  public func draw(inRect rect: CGRect, attributes attributesBlock: AttributesBlock?, drawing drawingBlock: DrawingBlock) {
-    let attributes = DrawingAttributes()
-    attributesBlock?(attributes: attributes)
+  public static func fromCGAffineTransform(transform: CGAffineTransform) -> NSAffineTransform {
+    let t = NSAffineTransform()
     
-    CGContextSaveGState(self)
-    attributes.apply(self)
-    drawingBlock(context: self, rect: rect, attributes: attributes)
-    CGContextRestoreGState(self)
+    t.transformStruct.m11 = transform.a
+    t.transformStruct.m12 = transform.b
+    t.transformStruct.m21 = transform.c
+    t.transformStruct.m22 = transform.d
+    t.transformStruct.tX = transform.tx
+    t.transformStruct.tY = transform.ty
+    
+    return t
   }
   
 }
+
+#endif

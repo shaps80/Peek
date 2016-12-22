@@ -1,10 +1,24 @@
-//
-//  Types.swift
-//  InkKit
-//
-//  Created by Shaps Mohsenin on 06/04/2016.
-//  Copyright © 2016 CocoaPods. All rights reserved.
-//
+/*
+  Copyright © 13/05/2016 Shaps
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  THE SOFTWARE.
+ */
 
 import CoreGraphics
 
@@ -19,7 +33,7 @@ import CoreGraphics
   public typealias Screen = NSScreen
   public typealias Font = NSFont
   
-  func UIGraphicsGetCurrentContext() -> CGContext? {
+  func GraphicsContext() -> CGContext? {
     return NSGraphicsContext.currentContext()!.CGContext
   }
   
@@ -32,6 +46,10 @@ import CoreGraphics
   public typealias BezierPath = UIBezierPath
   public typealias Screen = UIScreen
   public typealias Font = UIFont
+  
+  func GraphicsContext() -> CGContext? {
+    return UIGraphicsGetCurrentContext()
+  }
   
 #endif
 
@@ -136,8 +154,8 @@ public final class DrawingAttributes {
   /// The fill color
   public var fillColor: Color?
   
-  /// The line width (defaults to 1/scale)
-  public var lineWidth: CGFloat = 1 / Screen.currentScreen().scale
+  /// The line width -- defaults to 1
+  public var lineWidth: CGFloat = 1
   
   /// The line cap style (defaults to .Round)
   public var lineCap: CGLineCap = .Round
@@ -148,6 +166,11 @@ public final class DrawingAttributes {
   /// The line dash pattern
   public var dashPattern: [CGFloat]? = nil
   
+  /**
+   Applies the attributes to the specified CGContext
+   
+   - parameter context: The context to apply
+   */
   public func apply(context: CGContext) {
     if let pattern = dashPattern {
       CGContextSetLineDash(context, 0, pattern, pattern.count)
@@ -166,6 +189,11 @@ public final class DrawingAttributes {
     CGContextSetLineWidth(context, lineWidth)
   }
   
+  /**
+   Applies the attributes to the specified Bezier Path
+   
+   - parameter path: The path to apply
+   */
   public func apply(path: BezierPath) {
     if let pattern = dashPattern {
       path.setLineDash(pattern, count: pattern.count, phase: 0)
@@ -179,12 +207,24 @@ public final class DrawingAttributes {
       strokeColor.setStroke()
     }
     
-//    path.lineCapStyle = lineCap
-//    path.lineJoinStyle = lineJoin
     path.lineWidth = lineWidth
+    
+    #if os(iOS)
+      path.lineCapStyle = lineCap
+      path.lineJoinStyle = lineJoin
+    #else
+      path.lineCapStyle = NSLineCapStyle(rawValue: UInt(lineCap.rawValue))!
+      path.lineJoinStyle = NSLineJoinStyle(rawValue: UInt(lineJoin.rawValue))!
+    #endif
   }
   
 }
 
 /// Defines a Draw class -- extensions are used to populate this class with static methods -- its provided purely for namespacing
 public class Draw { }
+
+@available(*, unavailable, renamed="Grid")
+public struct Table { }
+
+@available(*, unavailable, renamed="GridComponents")
+public struct TableComponents { }
