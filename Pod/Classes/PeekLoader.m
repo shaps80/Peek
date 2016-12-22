@@ -57,9 +57,9 @@ void _peek_motionBegan_Imp(id self, SEL _cmd, UIEventSubtype type, UIEvent* even
   
   SEL selector = @selector(motionBegan:withEvent:);
   
-  Method m = class_getInstanceMethod([application.delegate class], @selector(motionBegan:withEvent:));
+  Method m = class_getInstanceMethod(delegate.class, selector);
   
-  if ([delegate methodForSelector:selector] != [[delegate superclass] instanceMethodForSelector:selector]) {
+  if ([delegate methodForSelector:selector] != [delegate.superclass instanceMethodForSelector:selector]) {
     __peek_original_Method_Imp = method_setImplementation(m, (IMP)_peek_motionBegan_Imp);
   } else {
     method_setImplementation(m, (IMP)_peek_motionBegan_Imp);

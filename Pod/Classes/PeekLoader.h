@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Peek-Swift.h" 
+#import "Peek-Swift.h"
 
 @interface PeekLoader: NSObject
 @end

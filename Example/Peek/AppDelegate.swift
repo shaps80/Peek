@@ -73,8 +73,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     return true
   }
   
-//  override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent?) {
-//    window?.peek.handleShake(motion)
-//  }
+  override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent?) {
+    window?.peek.handleShake(motion)
+  }
 
 }

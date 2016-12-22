@@ -62,6 +62,8 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
     view.addSubview(tableView)
     tableView.pin(.All, toView: view)
     
+    // TODO: Refactor this to instead prepare a 'Payload', which then presents the navtive activity controller -- allowing even more integrations.
+    //       Fallback could simply be a ZIP file.
     UIMenuController.sharedMenuController().menuItems = [ UIMenuItem(title: "Slack", action: #selector(InspectorCell.slack(_:))),
                                                           UIMenuItem(title: "Email", action: #selector(InspectorCell.email(_:))) ]
     UIMenuController.sharedMenuController().update()
