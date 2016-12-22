@@ -8,100 +8,81 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
 		</dict>
 		<key>OpenSans-OpenSans.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
 		</dict>
 		<key>OpenSans.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
 		</dict>
 		<key>Peek.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Peek.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>4</integer>
-		</dict>
-		<key>Pods.xcscheme</key>
+		<key>Pods-Peek-Example.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>5</integer>
 		</dict>
 		<key>SPXMasking.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>7</integer>
 		</dict>
 		<key>SwiftLayout.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>8</integer>
 		</dict>
 		<key>pop.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>6</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>125161CEB4D6581C2175EF8A4B042414</key>
+		<key>08FC59C2E165E0A5C4CE6BFEEE75896C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7A3B42D83F163679780144BE5B1B4225</key>
+		<key>0A6421BC9CF62F094CF91976A5970801</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9F2E825D6EADC11A25D0DA6BD7A42505</key>
+		<key>1532C45512A543FB447114DC6C269394</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BCD02B9C10A4CA0AE51C074D59876430</key>
+		<key>292FE503E485705D6D9DB573FDD4691C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CE393F10E69E7CC0476092B1E4DFF5E0</key>
+		<key>63428043D88F5A18F60C8A1026676841</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DF796F953078D7455791CA9B6E34C09B</key>
+		<key>C915669033A90BFBE6BD6123A6036854</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E2605BB30CD2A5E20E637C611561642F</key>
+		<key>D94A899C327D2D271B0B67D320EFB3CB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FCDC6E3D4D1804F8FDD3E86DE9F17618</key>
+		<key>F0C7AFA4A402DF3D13031BAF82FC87E6</key>
 		<dict>
 			<key>primary</key>
 			<true/>

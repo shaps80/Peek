@@ -1,7 +1,7 @@
 PODS:
   - InkKit (1.0)
   - OpenSans (1.0.3)
-  - Peek (2.1.0):
+  - Peek (2.2.0):
     - InkKit
     - SwiftLayout
   - pop (1.0.9)
@@ -16,14 +16,16 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   Peek:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
   InkKit: 88bd1b5ccb62383174df1564ac44f2c31e2a99c4
   OpenSans: 33078846463eae780aa5f82986b51cce085f970d
-  Peek: d4cf6da371669faae5097dbc0e9523e03d6c7f31
+  Peek: 3dc2c6ae7ece9035c8f100c895098ed6f1041ef8
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   SPXMasking: 96e53182e204caeeb2ee78a506da5e996a93d4d6
   SwiftLayout: 6814d5036da5fafe1bfb934107a18a102f8c2381
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 530a7202273b796b4c6d192bf01f91524898c59a
+
+COCOAPODS: 1.1.1

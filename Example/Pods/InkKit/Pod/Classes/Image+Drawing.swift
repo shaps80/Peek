@@ -78,7 +78,7 @@ extension Image {
    - returns: A new image
    */
   public static func draw(width width: CGFloat, height: CGFloat, scale: CGFloat = Screen.currentScreen().scale, attributes attributesBlock: AttributesBlock?, drawing: DrawingBlock) -> Image {
-    return draw(size: CGSizeMake(width, height), scale: scale, attributes: attributesBlock, drawing: drawing)
+    return draw(size: CGSizeMake(width, height), attributes: attributesBlock, drawing: drawing)
   }
   
   /**
@@ -105,7 +105,7 @@ extension Image {
       UIGraphicsGetCurrentContext()?.draw(inRect: rect, attributes: attributesBlock, drawing: drawing)
       let image = UIGraphicsGetImageFromCurrentImageContext()
       UIGraphicsEndImageContext()
-      return image
+      return image!
     #endif
   }
   
