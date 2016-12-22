@@ -102,7 +102,8 @@ final class ImageCache {
 extension UIImage {
   
   func decompressedImage(scale scale: CGFloat = 0) -> UIImage? {
-    let imageRef = self.CGImage
+    guard let imageRef = self.CGImage else { return nil }
+    
     let colorSpace = CGColorSpaceCreateDeviceRGB()
     let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.PremultipliedLast.rawValue).rawValue
     let contextHolder = UnsafeMutablePointer<Void>(nil)
@@ -124,7 +125,11 @@ extension UIImage {
     UIGraphicsBeginImageContextWithOptions(size, !hasAlpha, scale)
     drawInRect(CGRect(origin: CGPointZero, size: size))
     
-    let image = UIGraphicsGetImageFromCurrentImageContext()
+    guard let image = UIGraphicsGetImageFromCurrentImageContext() else {
+        print("Returning the original image because the current graphics context was invalid!")
+        return self
+    }
+    
     UIGraphicsEndImageContext()
     
     return image

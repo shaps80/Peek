@@ -171,9 +171,10 @@ class Button: UIControl, UITextFieldDelegate {
   
   override func drawRect(rect: CGRect) {
     super.drawRect(rect)
+    guard let context = UIGraphicsGetCurrentContext() else { return }
     
     tintColor.set()
-    CGContextSetLineWidth(UIGraphicsGetCurrentContext(), borderWidth)
+    CGContextSetLineWidth(context, borderWidth)
     
     var frame = rect.insetBy(dx: 2, dy: 2)
     var path = UIBezierPath(roundedRect: frame, cornerRadius: frame.width / 2)

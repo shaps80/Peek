@@ -108,8 +108,6 @@
 		954CA1D5D96C10252DADA023E1363CBB /* OpenSans-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B406D48FBCEAF584E484FBD091415CC5 /* OpenSans-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		95F5E69DA5A702813D4D869E971A9A22 /* POPCGUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EE590B6C2D49540AACA36D50069CD6F /* POPCGUtils.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		95FAFE4D9A88AE255487F5AE24374150 /* POPAnimationPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 87B672FC8E1685A6E9C675D606F7C99E /* POPAnimationPrivate.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		985B61CD6039FB843D5B5C6022284C96 /* PeekLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0665B0F62174A06D47B5DBE41CF6405E /* PeekLoader.m */; };
-		987A28EC0EFACF34136E4391D642A4D6 /* PeekLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = D133E2F0F70D0C8D6638074B16BD4FF5 /* PeekLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		992A6A775A599B0BA500E7B4ADC8B771 /* Pods-Peek-Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D30BC4DE4FEA8A7F8555C92D91B65E /* Pods-Peek-Example-dummy.m */; };
 		9A4AD3E7568AF2AAA566C92DDE1147F3 /* POPAnimatableProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE88C1EC647ECA5F61A4A278B066AA3 /* POPAnimatableProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9B92A7DD79FC2D45562FA6DAA2FCD08C /* InkKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E0C6C976CD4CFDFAE94A777D9563691 /* InkKit-dummy.m */; };
@@ -1018,7 +1016,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF757C4B20EE6158BCBB438634695724 /* Peek-umbrella.h in Headers */,
-				987A28EC0EFACF34136E4391D642A4D6 /* PeekLoader.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1379,7 +1376,6 @@
 				6E2B192BBD013658F046E9A0DC5299C7 /* Peek-dummy.m in Sources */,
 				74B15B48686C462B76A9CAB020D7FE13 /* Peek.swift in Sources */,
 				FF466CAC94F7E487F9D338DB2C5A7674 /* Peekable.swift in Sources */,
-				985B61CD6039FB843D5B5C6022284C96 /* PeekLoader.m in Sources */,
 				BB353B25A29B4F0997FEEA65515DE27A /* PeekOptions.swift in Sources */,
 				53B2902447A0ADE414B6EB0D44E48EC3 /* PeekTapGestureRecognizer.swift in Sources */,
 				0039BC18414D270E4DC086D9972B8A32 /* PeekViewController.swift in Sources */,

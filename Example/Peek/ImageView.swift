@@ -91,8 +91,8 @@ class ImageView: UIImageView {
     animation.toValue = NSValue(CGPoint: CGPointMake(1, 1))
     pop_addAnimation(animation, forKey: "pop")
   }
-  
-  override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
+
+  override func touchesCancelled(touches: Set<UITouch>, withEvent event: UIEvent?) {
     super.touchesCancelled(touches, withEvent: event)
     
     let animation = POPSpringAnimation(propertyNamed: kPOPViewScaleXY)
