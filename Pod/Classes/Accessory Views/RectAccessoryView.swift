@@ -25,12 +25,12 @@ import UIKit
 /// This accessory view is used in Peek to show a 'rect' representing the underlying CGRect value
 final class RectAccessoryView: UIView {
   
-  private let value: CGRect
+  fileprivate let value: CGRect
   
   init(value: CGRect) {
     self.value = value
-    super.init(frame: CGRectZero)
-    backgroundColor = UIColor.clearColor()
+    super.init(frame: CGRect.zero)
+    backgroundColor = UIColor.clear
     prepare()
   }
   
@@ -38,8 +38,8 @@ final class RectAccessoryView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
   
-  private func prepare() {    
-    let attributes = [ NSFontAttributeName: UIFont(name: "Avenir-Book", size: 16)!, NSForegroundColorAttributeName: UIColor.whiteColor() ]
+  fileprivate func prepare() {    
+    let attributes = [ NSFontAttributeName: UIFont(name: "Avenir-Book", size: 16)!, NSForegroundColorAttributeName: UIColor.white ]
     let originString = "Origin:\t\(value.origin.x), \(value.origin.y)"
     let sizeString = "Size:\t\(value.width), \(value.height)"
     
@@ -52,9 +52,9 @@ final class RectAccessoryView: UIView {
     addSubview(originLabel)
     addSubview(sizeLabel)
     
-    originLabel.pin([ .LeftAndRight, .Top ], toView: self)
-    sizeLabel.pin([ .LeftAndRight, .Bottom ], toView: self)
-    sizeLabel.pin(.Top, toEdge: .Bottom, toView: originLabel, margin: 7)
+    originLabel.pin(edges: [ .leftAndRight, .top ], to: self)
+    sizeLabel.pin(edges: [ .leftAndRight, .bottom ], to: self)
+    sizeLabel.pin(edge: .top, to: .bottom, of: originLabel, margin: 7)
   }
   
 }

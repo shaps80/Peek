@@ -30,16 +30,16 @@ import Foundation
  */
 public enum PeekActivationMode {
     /// Peek will use a shake gesture when running in the Simulator, and the volume controls on a device
-  case Auto
+  case auto
     /// Peek will use a shake gesture on both the Simulator and a device
-  case Shake
+  case shake
 }
 
 /// Defines various options to use when enabling Peek
 public final class PeekOptions: NSObject {
   
    /// Defines how Peek is activated/de-activated
-  public var activationMode = PeekActivationMode.Auto
+  public var activationMode = PeekActivationMode.auto
   
    /// Defines whether Peek should ignore pure containers (i.e. UIView's (NOT subclassed) where subviews.count > 0)
   public var shouldIgnoreContainers = true
@@ -51,7 +51,7 @@ public final class PeekOptions: NSObject {
   public var slackRecipient: String?
   
    /// Defines the Slack WebHook URL to use for posting messages, this should be the full url -- e.g. https://hooks.slack.com/services/$TOKEN -- visit https://slack.com/apps/A0F7XDUAZ-incoming-webhooks to get yours
-  public var slackWebHookURL: NSURL?
+  public var slackWebHookURL: URL?
   
    /// Defines the email recipients to include by default when sending a report via email
   public var emailRecipients: [String]?
@@ -63,12 +63,12 @@ public final class PeekOptions: NSObject {
   public var reportMetaData: [String: String]?
   
    /// When posting issues to slack you can optionally provide an image uploader block. This will execute when an issue is being posted to Slack. You should upload the image to your service, then return the associated image URL -- which will be included in the Slack message automatically. If the image upload failed, return nil
-  public var slackImageUploader: ((NSURLSession, UIImage) -> NSURL?)?
+  public var slackImageUploader: ((URLSession, UIImage) -> URL?)?
   
    /// Defines whether or not a screenshot should be included when posting an issue. Note: if you're using Slack, you'll also need to provide a slackImageUploader block
   public var includeScreenshot = true
   
    /// Defines the render scale to use when generating screenshots
-  public var screenshotScale = UIScreen.mainScreen().scale
+  public var screenshotScale = UIScreen.main.scale
   
 }

@@ -23,15 +23,15 @@
 import UIKit
 
 /// Creates a HEX string representation of a UIColor
-final class ColorTransformer: NSValueTransformer {
+final class ColorTransformer: Foundation.ValueTransformer {
   
-  override func transformedValue(value: AnyObject?) -> AnyObject? {
+  override func transformedValue(_ value: Any?) -> Any? {
     if let value = value as? UIColor {
       return value.values().a == 0 ? "Clear" : value.hexValue(includeAlpha: false)
     }
     
-    if CFGetTypeID(value) == CGColorGetTypeID() {
-      let color = UIColor(CGColor: value as! CGColor)
+    if CFGetTypeID(value as CFTypeRef) == CGColor.typeID {
+      let color = UIColor(cgColor: value as! CGColor)
       return color.values().a == 0 ? "Clear" : color.hexValue(includeAlpha: false)
     }
     

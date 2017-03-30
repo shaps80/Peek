@@ -22,21 +22,45 @@
 
 import UIKit
 import SwiftLayout
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 enum OverlayMode {
-  case Single
-  case Multiple
+  case single
+  case multiple
 }
 
 /// An overlay view is used to show layout information in Peek
 class OverlayView: UIView {
   
-  private weak var peek: Peek!
+  fileprivate weak var peek: Peek!
   var isDragging = false {
     didSet {
-      UIView.animateWithDuration(0.3) {
+      UIView.animate(withDuration: 0.3, animations: {
         self.superviewHighlightView.alpha = self.isDragging ? 0 : 1
-      }
+      }) 
     }
   }
   
@@ -46,21 +70,21 @@ class OverlayView: UIView {
     }
   }
   
-  private lazy var superviewHighlightView: UIView = {
+  fileprivate lazy var superviewHighlightView: UIView = {
     let view = UIView()
     
     view.layer.cornerRadius = 2
-    view.layer.borderColor = UIColor(white: 1, alpha: 0.3).CGColor
+    view.layer.borderColor = UIColor(white: 1, alpha: 0.3).cgColor
     view.layer.borderWidth = 1
     
     return view
   }()
   
-  private(set) lazy var primaryView: HighlightView = {
+  fileprivate(set) lazy var primaryView: HighlightView = {
     HighlightView(color: UIColor.primaryColor())
   }()
   
-  private lazy var secondaryView: HighlightView = {
+  fileprivate lazy var secondaryView: HighlightView = {
     let view = HighlightView(color: UIColor.secondaryColor())
     view.layer.zPosition = -1
     return view
@@ -71,7 +95,7 @@ class OverlayView: UIView {
       updateHighlightView(highlightView: primaryView, withModel: model)
     }
     
-    if let model = selectedModels?.first where selectedModels?.count > 1 {
+    if let model = selectedModels?.first, selectedModels?.count > 1 {
       _ = model.frameInPeek(self)
       updateHighlightView(highlightView: secondaryView, withModel: model)
     } else {
@@ -79,7 +103,7 @@ class OverlayView: UIView {
     }
   }
   
-  private func updateHighlightView(highlightView view: HighlightView, withModel model: UIView) {
+  fileprivate func updateHighlightView(highlightView view: HighlightView, withModel model: UIView) {
     guard let superview = model.superview else {
       return
     }
@@ -93,28 +117,28 @@ class OverlayView: UIView {
       superviewHighlightView.alpha = 0
 
       if view != secondaryView {
-        view.transform = CGAffineTransformMakeScale(1.1, 1.1)
+        view.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
       }
       
       addHighlightView(view)
     }
     
-    UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 1.1, options: .BeginFromCurrentState, animations: { () -> Void in
+    UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 1.1, options: .beginFromCurrentState, animations: { () -> Void in
       self.superviewHighlightView.alpha = self.isDragging ? 0 : 1
-      view.transform = CGAffineTransformIdentity
+      view.transform = CGAffineTransform.identity
       view.frame = viewFrame
       self.superviewHighlightView.frame = superviewFrame
       view.setMetrics(Metrics(top: model.frame.origin.y, left: model.frame.origin.x, bottom: superview.bounds.maxY - model.frame.maxY, right: superview.bounds.maxX - model.frame.maxX))
     }, completion: nil)
   }
   
-  private func addHighlightView(view: HighlightView) {
+  fileprivate func addHighlightView(_ view: HighlightView) {
     addSubview(superviewHighlightView)
     addSubview(view)
   }
   
   init(peek: Peek) {
-    super.init(frame: CGRectZero)
+    super.init(frame: CGRect.zero)
     self.peek = peek
   }
   

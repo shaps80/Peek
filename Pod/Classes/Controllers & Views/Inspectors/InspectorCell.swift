@@ -38,14 +38,14 @@ final class InspectorCell: UITableViewCell, MFMailComposeViewControllerDelegate 
   }
   
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-    super.init(style: .Value1, reuseIdentifier: reuseIdentifier)
+    super.init(style: .value1, reuseIdentifier: reuseIdentifier)
     
     selectedBackgroundView = UIView()
     selectedBackgroundView?.backgroundColor = UIColor(white: 1, alpha: 0.07)
     
     backgroundColor = UIColor(white: 1, alpha: 0.03)
     textLabel?.textColor = UIColor(white: 1, alpha: 0.6)
-    detailTextLabel?.textColor = UIColor.whiteColor()
+    detailTextLabel?.textColor = UIColor.white
     detailTextLabel?.font = UIFont(name: "Avenir-Book", size: 16)
     textLabel?.font = UIFont(name: "Avenir-Book", size: 14)
     
@@ -71,38 +71,38 @@ final class InspectorCell: UITableViewCell, MFMailComposeViewControllerDelegate 
       textLabel?.frame = rect
     }
     
-    if let label = detailTextLabel where accessoryView != nil {
+    if let label = detailTextLabel, accessoryView != nil {
       var rect = label.frame
       rect.origin.x -= 15
       detailTextLabel?.frame = rect
     }
   }
   
-  override func setHighlighted(highlighted: Bool, animated: Bool) {
+  override func setHighlighted(_ highlighted: Bool, animated: Bool) {
     let color = accessoryView?.backgroundColor
     super.setHighlighted(highlighted, animated: animated)
     accessoryView?.backgroundColor = color
   }
   
-  override func setSelected(selected: Bool, animated: Bool) {
+  override func setSelected(_ selected: Bool, animated: Bool) {
     let color = accessoryView?.backgroundColor
     super.setSelected(selected, animated: animated)
     accessoryView?.backgroundColor = color
   }
   
-  override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
+  override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
     return action == #selector(copy(_:)) ||
       action == #selector(slack(_:)) ||
       action == #selector(email(_:))
   }
   
-  override func copy(sender: AnyObject?) {
+  override func copy(_ sender: Any?) {
     if let message = stringValue() {
-      UIPasteboard.generalPasteboard().string = message
+      UIPasteboard.general.string = message
     }
   }
   
-  func email(sender: AnyObject?) {
+  func email(_ sender: AnyObject?) {
     guard let peek = self.peek else {
       fatalError("Peek should never be nil!")
     }
@@ -110,18 +110,18 @@ final class InspectorCell: UITableViewCell, MFMailComposeViewControllerDelegate 
     Email().post(peek.screenshot, metaData: metaData(), peek: peek, delegate: self)
   }
   
-  func slack(sender: AnyObject?) {    
+  func slack(_ sender: AnyObject?) {    
     guard let peek = self.peek else {
       fatalError("Peek should never be nil!")
     }
     
     let controller = SlackViewController(peek: peek, metaData: metaData())
     let navController = UINavigationController(rootViewController: controller)
-    navController.modalPresentationStyle = .FormSheet
-    peek.window?.rootViewController?.topViewController().presentViewController(navController, animated: true, completion: nil)
+    navController.modalPresentationStyle = .formSheet
+    peek.window?.rootViewController?.topViewController().present(navController, animated: true, completion: nil)
   }
   
-  private func metaData() -> MetaData {
+  fileprivate func metaData() -> MetaData {
     guard let model = model else {
       fatalError("Model should never be nil!")
     }
@@ -145,8 +145,8 @@ final class InspectorCell: UITableViewCell, MFMailComposeViewControllerDelegate 
     return metaData
   }
   
-  private func stringValue() -> String? {
-    guard let model = self.model, property = self.property else {
+  fileprivate func stringValue() -> String? {
+    guard let model = self.model, let property = self.property else {
       return nil
     }
     
@@ -163,8 +163,8 @@ final class InspectorCell: UITableViewCell, MFMailComposeViewControllerDelegate 
   
   // FIXME: This is obviouslt the wrong place for this
   
-  func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
-    controller.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+  func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+    controller.presentingViewController?.dismiss(animated: true, completion: nil)
   }
   
 }

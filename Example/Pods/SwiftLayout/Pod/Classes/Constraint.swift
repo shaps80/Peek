@@ -45,7 +45,7 @@ public let LayoutPriorityDefaultLow: LayoutPriority = 250 // This is the priorit
 /**
 *  Defines various constraint traits (bitmask) that define the type of constraints applied to a view.
 */
-public struct ConstraintsTraitMask: OptionSetType {
+public struct ConstraintsTraitMask: OptionSet {
   public let rawValue: Int
   public init(rawValue: Int) { self.rawValue = rawValue }
 
@@ -55,34 +55,34 @@ public struct ConstraintsTraitMask: OptionSetType {
   
   
   /// A top margin constraint is applied
-  public static var TopMargin: ConstraintsTraitMask   { return ConstraintsTraitMask(rawValue: 1 << 0) }
+  public static var topMargin: ConstraintsTraitMask   { return ConstraintsTraitMask(rawValue: 1 << 0) }
   
   /// A left margin constraint is applied
-  public static var LeftMargin: ConstraintsTraitMask  { return ConstraintsTraitMask(rawValue: 1 << 1) }
+  public static var leftMargin: ConstraintsTraitMask  { return ConstraintsTraitMask(rawValue: 1 << 1) }
   
   /// A right margin constraint is applied
-  public static var RightMargin: ConstraintsTraitMask  { return ConstraintsTraitMask(rawValue: 1 << 2) }
+  public static var rightMargin: ConstraintsTraitMask  { return ConstraintsTraitMask(rawValue: 1 << 2) }
   
   /// A bottom margin constraint is applied
-  public static var BottomMargin: ConstraintsTraitMask   { return ConstraintsTraitMask(rawValue: 1 << 3) }
+  public static var bottomMargin: ConstraintsTraitMask   { return ConstraintsTraitMask(rawValue: 1 << 3) }
   
   /// A horitzontal alignment constraint is applied
-  public static var HorizontalAlignment: ConstraintsTraitMask  { return ConstraintsTraitMask(rawValue: 1 << 4) }
+  public static var horizontalAlignment: ConstraintsTraitMask  { return ConstraintsTraitMask(rawValue: 1 << 4) }
   
   /// A vertical aligntment constraint is applied
-  public static var VerticalAlignment: ConstraintsTraitMask  { return ConstraintsTraitMask(rawValue: 1 << 5) }
+  public static var verticalAlignment: ConstraintsTraitMask  { return ConstraintsTraitMask(rawValue: 1 << 5) }
   
   /// A horizontal sizing constraint is applied
-  public static var HorizontalSizing: ConstraintsTraitMask { return ConstraintsTraitMask(rawValue: 1 << 6) }
+  public static var horizontalSizing: ConstraintsTraitMask { return ConstraintsTraitMask(rawValue: 1 << 6) }
   
   /// A vertical sizing constraint is applied
-  public static var VerticalSizing: ConstraintsTraitMask { return ConstraintsTraitMask(rawValue: 1 << 7) }
+  public static var verticalSizing: ConstraintsTraitMask { return ConstraintsTraitMask(rawValue: 1 << 7) }
   
   /// Horizontal margin constraints are applied (Left and Right)
-  public static var HorizontalMargins: ConstraintsTraitMask  { return LeftMargin.union(RightMargin) }
+  public static var horizontalMargins: ConstraintsTraitMask  { return [leftMargin, rightMargin] }
   
   /// Vertical margin constraints are applied (Top and Right)
-  public static var VerticalMargins: ConstraintsTraitMask { return TopMargin.union(BottomMargin) }
+  public static var verticalMargins: ConstraintsTraitMask { return [topMargin, bottomMargin] }
 }
 
 // MARK: - This extends UI/NS View to provide additional constraints support
@@ -107,54 +107,6 @@ extension View {
     }
     
     return constraints
-  }
-  
-  /**
-  Returns all constraints for this view that match the specified traits
-  
-  - parameter trait: The traits to lookup
-  
-  - returns: An array of constraints. If no constraints exist, an empty array is returned. This method never returns nil
-  */
-  public func constraintsForTrait(trait: ConstraintsTraitMask) -> [NSLayoutConstraint] {
-    var constraints = [NSLayoutConstraint]()
-    
-    for constraint in self.constraints {
-      if constraint.trait == trait {
-        constraints.append(constraint)
-      }
-    }
-    
-    if let superviewConstraints = self.superview?.constraints {
-      for constraint in superviewConstraints {
-        if constraint.firstItem as? View != self && constraint.secondItem as? View != self {
-          continue
-        }
-        
-        if trait.contains(constraint.trait) {
-          constraints.append(constraint)
-        }
-      }
-    }
-    
-    return constraints
-  }
-  
-  /**
-  Returns true if at least one constraint with the specified trait exists
-  
-  - parameter trait: The trait to test
-  
-  - returns: True if a constrait exists, false otherwise
-  */
-  public func containsTraits(trait: ConstraintsTraitMask) -> Bool {
-    var traits = ConstraintsTraitMask.None
-    
-    for constraint in constraintsForTrait(trait) {
-      traits.insert(constraint.trait)
-    }
-    
-    return traits.contains(trait)
   }
   
 }
@@ -183,31 +135,33 @@ extension NSLayoutConstraint: ConstraintDefinition { }
 This extension provides a Swift value-type representation of NSLayoutConstraint
 */
 extension ConstraintDefinition {
+  
   public var trait: ConstraintsTraitMask {
-    let left = self.firstAttribute == .Left || self.firstAttribute == .Leading
-    let right = self.firstAttribute == .Right || self.firstAttribute == .Trailing
-    let top = self.firstAttribute == .Top
-    let bottom = self.firstAttribute == .Bottom
+    let left = self.firstAttribute == .left || self.firstAttribute == .leading
+    let right = self.firstAttribute == .right || self.firstAttribute == .trailing
+    let top = self.firstAttribute == .top
+    let bottom = self.firstAttribute == .bottom
     
-    let width = self.firstAttribute == .Width
-    let height = self.firstAttribute == .Height
+    let width = self.firstAttribute == .width
+    let height = self.firstAttribute == .height
     
-    let centerX = self.firstAttribute == .CenterX
-    let centerY = self.firstAttribute == .CenterY
+    let centerX = self.firstAttribute == .centerX
+    let centerY = self.firstAttribute == .centerY
     
-    if width { return .HorizontalSizing }
-    if height { return .VerticalSizing }
+    if width { return .horizontalSizing }
+    if height { return .verticalSizing }
     
-    if centerX { return .HorizontalAlignment }
-    if centerY { return .VerticalAlignment }
+    if centerX { return .horizontalAlignment }
+    if centerY { return .verticalAlignment }
     
-    if left { return .LeftMargin }
-    if right { return .RightMargin }
-    if top { return .TopMargin }
-    if bottom { return .BottomMargin }
+    if left { return .leftMargin }
+    if right { return .rightMargin }
+    if top { return .topMargin }
+    if bottom { return .bottomMargin }
     
     return .None
   }
+  
 }
 
 
@@ -223,22 +177,6 @@ public struct Constraint: ConstraintDefinition {
   public internal(set) var firstAttribute: NSLayoutAttribute
   public internal(set) var secondAttribute: NSLayoutAttribute
   
-  private var _enabled = true
-  public var enabled: Bool {
-    get {
-      return self._enabled
-    }
-    set {
-      self._enabled = enabled
-      
-      if (self.enabled) {
-        NSLayoutConstraint.activateConstraints([self.constraint()])
-      } else {
-        NSLayoutConstraint.deactivateConstraints([self.constraint()])
-      }
-    }
-  }
-  
   public unowned var firstView: View {
     didSet {
       precondition(firstView.superview != nil, "The first view MUST be inserted into a superview before constraints can be applied")
@@ -247,15 +185,15 @@ public struct Constraint: ConstraintDefinition {
   
   public weak var secondView: View?
   
-  private weak var _constraint: NSLayoutConstraint?
+  fileprivate weak var _constraint: NSLayoutConstraint?
   
   public init(view: View) {
     self.firstView = view
-    self.firstAttribute = .NotAnAttribute
-    self.secondAttribute = .NotAnAttribute
+    self.firstAttribute = .notAnAttribute
+    self.secondAttribute = .notAnAttribute
     self.constant = 0
     self.multiplier = 1
-    self.relation = .Equal
+    self.relation = .equal
     self.priority = 250
     
     view.translatesAutoresizingMaskIntoConstraints = false

@@ -20,10 +20,10 @@
   "source_files": "Pod/Classes/**/*",
   "dependencies": {
     "SwiftLayout": [
-
+      "2.0.0"
     ],
     "InkKit": [
-
+      "2.0.0"
     ]
   }
 }

@@ -23,10 +23,10 @@
 import UIKit
 
 /// Creates string representations of common values, e.g. CGPoint, CGRect, etc...
-final class ValueTransformer: NSValueTransformer {
+final class ValueTransformer: Foundation.ValueTransformer {
   
-  private static var floatFormatter: NSNumberFormatter {
-    let formatter = NSNumberFormatter()
+  fileprivate static var floatFormatter: NumberFormatter {
+    let formatter = NumberFormatter()
     formatter.maximumFractionDigits = 1
     formatter.minimumFractionDigits = 0
     formatter.minimumIntegerDigits = 1
@@ -34,41 +34,41 @@ final class ValueTransformer: NSValueTransformer {
     return formatter
   }
   
-  override func transformedValue(value: AnyObject?) -> AnyObject? {
+  override func transformedValue(_ value: Any?) -> Any? {
     if let value = value as? NSValue {
-      let type = String.fromCString(value.objCType)!
+      let type = String(cString: value.objCType)
       
       if type.hasPrefix("{CGRect") {
-        let rect = value.CGRectValue()
+        let rect = value.cgRectValue
         return
-          "(\(ValueTransformer.floatFormatter.stringFromNumber(rect.minX)!), " +
-          "\(ValueTransformer.floatFormatter.stringFromNumber(rect.minY)!)), " +
-          "(\(ValueTransformer.floatFormatter.stringFromNumber(rect.width)!), " +
-          "\(ValueTransformer.floatFormatter.stringFromNumber(rect.height)!))"
+          "(\(ValueTransformer.floatFormatter.string(from: NSNumber(value: Float(rect.minX)))!), " +
+          "\(ValueTransformer.floatFormatter.string(from: NSNumber(value: Float(rect.minY)))!)), " +
+          "(\(ValueTransformer.floatFormatter.string(from: NSNumber(value: Float(rect.width)))!), " +
+          "\(ValueTransformer.floatFormatter.string(from: NSNumber(value: Float(rect.height)))!))"
       }
       
       if type.hasPrefix("{CGPoint") {
-        let point = value.CGPointValue()
-        return "(\(ValueTransformer.floatFormatter.stringFromNumber(point.x)!), \(ValueTransformer.floatFormatter.stringFromNumber(point.y)!))"
+        let point = value.cgPointValue
+        return "(\(ValueTransformer.floatFormatter.string(from: NSNumber(value: Float(point.x)))!), \(ValueTransformer.floatFormatter.string(from: NSNumber(value: Float(point.y)))!))"
       }
       
       if type.hasPrefix("{UIEdgeInset") {
-        let insets = value.UIEdgeInsetsValue()
+        let insets = value.uiEdgeInsetsValue
         return
-          "(\(ValueTransformer.floatFormatter.stringFromNumber(insets.left)!), " +
-          "\(ValueTransformer.floatFormatter.stringFromNumber(insets.top)!), " +
-          "\(ValueTransformer.floatFormatter.stringFromNumber(insets.right)!), " +
-          "\(ValueTransformer.floatFormatter.stringFromNumber(insets.bottom)!))"
+          "(\(ValueTransformer.floatFormatter.string(from: NSNumber(value: Float(insets.left)))!), " +
+          "\(ValueTransformer.floatFormatter.string(from: NSNumber(value: Float(insets.top)))!), " +
+          "\(ValueTransformer.floatFormatter.string(from: NSNumber(value: Float(insets.right)))!), " +
+          "\(ValueTransformer.floatFormatter.string(from: NSNumber(value: Float(insets.bottom)))!))"
       }
       
       if type.hasPrefix("{UIOffset") {
-        let offset = value.UIOffsetValue()
-        return "(\(ValueTransformer.floatFormatter.stringFromNumber(offset.horizontal)!), \(ValueTransformer.floatFormatter.stringFromNumber(offset.vertical)!))"
+        let offset = value.uiOffsetValue
+        return "(\(ValueTransformer.floatFormatter.string(from: NSNumber(value: Float(offset.horizontal)))!), \(ValueTransformer.floatFormatter.string(from: NSNumber(value: Float(offset.vertical)))!))"
       }
       
       if type.hasPrefix("{CGSize") {
-        let size = value.CGSizeValue()
-        return "(\(ValueTransformer.floatFormatter.stringFromNumber(size.width)!), \(ValueTransformer.floatFormatter.stringFromNumber(size.height)!))"
+        let size = value.cgSizeValue
+        return "(\(ValueTransformer.floatFormatter.string(from: NSNumber(value: Float(size.width)))!), \(ValueTransformer.floatFormatter.string(from: NSNumber(value: Float(size.height)))!))"
       }
     }
     

@@ -29,10 +29,10 @@ extension UITextView {
    
    - parameter context: The context to apply these properties to
    */
-  public override func preparePeek(context: Context) {
+  public override func preparePeek(_ context: Context) {
     super.preparePeek(context)
     
-    context.configure(.Attributes, "Text") { (config) in
+    context.configure(.attributes, "Text") { (config) in
       config.addProperties([ "text", "attributedText", "textColor", "font" ])
       
       config.addProperty("textAlignment", displayName: "Alignment", cellConfiguration: { (cell, object, value) in
@@ -41,11 +41,11 @@ extension UITextView {
       })
     }
     
-    context.configure(.Attributes, "State") { (config) in
+    context.configure(.attributes, "State") { (config) in
       config.addProperties([ "enabled", "editing", "selectable" ])
     }
     
-    context.configure(.Attributes, "Behaviour") { (config) in
+    context.configure(.attributes, "Behaviour") { (config) in
       config.addProperties([ "clearsOnInsertion", "allowsEditingTextAttributes" ])
     }
   }

@@ -21,8 +21,9 @@
  */
 
 import CoreGraphics
+import GraphicsRenderer
 
-extension Draw {
+extension RendererDrawable {
   
  /**
    Fills the specified path
@@ -33,7 +34,7 @@ extension Draw {
    - parameter angleInDegrees:  The angle (in degrees) of the gradient
    - parameter attributesBlock: Any additional attributes can be configured using this configuration block
    */
-  public static func fillPath(path: BezierPath, startColor: Color, endColor: Color, angleInDegrees: CGFloat, attributes attributesBlock: AttributesBlock? = nil) {
+  public func fill(path: BezierPath, startColor: Color, endColor: Color, angleInDegrees: CGFloat, attributes attributesBlock: AttributesBlock? = nil) {
     drawGradientPath(path, startColor: startColor, endColor: endColor, angleInDegrees: angleInDegrees, stroke: false, attributes: attributesBlock)
   }
   
@@ -44,11 +45,11 @@ extension Draw {
    - parameter color:           The color for this fill
    - parameter attributesBlock: Any additional attributes can be configured using this configuration block
    */
-  public static func fillPath(path: BezierPath, color: Color, attributes attributesBlock: AttributesBlock? = nil) {
-    GraphicsContext()?.draw(inRect: path.bounds, attributes: attributesBlock) { context, rect, attributes in
-      CGContextSetFillColorWithColor(context, color.CGColor)
-      CGContextAddPath(context, path.CGPath)
-      CGContextFillPath(context)
+  public func fill(path: BezierPath, color: Color, attributes attributesBlock: AttributesBlock? = nil) {
+    cgContext.draw(inRect: path.bounds, attributes: attributesBlock) { context, rect, attributes in
+      context.setFillColor(color.cgColor)
+      context.addPath(path.cgPath)
+      context.fillPath()
     }
   }
   
@@ -59,10 +60,10 @@ extension Draw {
    - parameter color:           The color for this fill
    - parameter attributesBlock: Any additional attributes can be configured using this configuration block
    */
-  public static func fillRect(rect: CGRect, color: Color, attributes attributesBlock: AttributesBlock? = nil) {
-    GraphicsContext()?.draw(inRect: rect, attributes: attributesBlock) { context, rect, attributes in
-      CGContextSetFillColorWithColor(context, color.CGColor)
-      CGContextFillRect(context, rect)
+  public func fill(rect: CGRect, color: Color, attributes attributesBlock: AttributesBlock? = nil) {
+    cgContext.draw(inRect: rect, attributes: attributesBlock) { context, rect, attributes in
+      context.setFillColor(color.cgColor)
+      context.fill(rect)
     }
   }
   

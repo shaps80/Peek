@@ -29,10 +29,10 @@ extension UIPickerView {
    
    - parameter context: The context to apply these properties to
    */
-  public override func preparePeek(context: Context) {
+  public override func preparePeek(_ context: Context) {
     super.preparePeek(context)
     
-    context.configure(.Attributes, "Behaviour") { (config) in
+    context.configure(.attributes, "Behaviour") { (config) in
       config.addProperties([ "showsSelectionIndicator" ])
     }
   }
@@ -46,18 +46,18 @@ extension UIDatePicker {
    
    - parameter context: The context to apply these properties to
    */
-  public override func preparePeek(context: Context) {
+  public override func preparePeek(_ context: Context) {
     super.preparePeek(context)
     
-    context.configure(.Attributes, "Date") { (config) in
+    context.configure(.attributes, "Date") { (config) in
       config.addProperties([ "minimumDate", "maximumDate", "date" ])
     }
     
-    context.configure(.Attributes, "Timer") { (config) in
+    context.configure(.attributes, "Timer") { (config) in
       config.addProperties([ "countDownDuration", "minuteInterval" ])
     }
     
-    context.configure(.Attributes, "Appearance") { (config) in
+    context.configure(.attributes, "Appearance") { (config) in
       config.addProperty("datePickerMode", displayName: "Mode", cellConfiguration: { (cell, view, value) in
         if let mode = UIDatePickerMode(rawValue: value as! Int) {
           cell.detailTextLabel?.text = mode.description

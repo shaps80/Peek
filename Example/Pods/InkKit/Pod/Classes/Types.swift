@@ -22,37 +22,6 @@
 
 import CoreGraphics
 
-#if os(OSX)
-  
-  import AppKit
-  
-  public typealias Color = NSColor
-  public typealias Image = NSImage
-  public typealias EdgeInsets = NSEdgeInsets
-  public typealias BezierPath = NSBezierPath
-  public typealias Screen = NSScreen
-  public typealias Font = NSFont
-  
-  func GraphicsContext() -> CGContext? {
-    return NSGraphicsContext.currentContext()!.CGContext
-  }
-  
-#else
-  
-  import UIKit
-  public typealias Color = UIColor
-  public typealias Image = UIImage
-  public typealias EdgeInsets = UIEdgeInsets
-  public typealias BezierPath = UIBezierPath
-  public typealias Screen = UIScreen
-  public typealias Font = UIFont
-  
-  func GraphicsContext() -> CGContext? {
-    return UIGraphicsGetCurrentContext()
-  }
-  
-#endif
-
 
 /**
  Returns the radian angle value for the specified degrees
@@ -74,7 +43,7 @@ public func radians(fromDegrees degrees: CGFloat) -> CGFloat {
     }
     
     public static func currentScreen() -> Screen {
-      return NSScreen.mainScreen()!
+      return NSScreen.main()!
     }
     
   }
@@ -84,7 +53,7 @@ public func radians(fromDegrees degrees: CGFloat) -> CGFloat {
   extension UIScreen {
    
     public static func currentScreen() -> Screen {
-      return UIScreen.mainScreen()
+      return UIScreen.main
     }
     
   }
@@ -93,10 +62,10 @@ public func radians(fromDegrees degrees: CGFloat) -> CGFloat {
 
 
 /// Defines a drawing block
-public typealias DrawingBlock = (context: CGContext, rect: CGRect, attributes: DrawingAttributes) -> Void
+public typealias DrawingBlock = (_ context: CGContext, _ rect: CGRect, _ attributes: DrawingAttributes) -> Void
 
 /// Defines an attributes configuration block
-public typealias AttributesBlock = (attributes: DrawingAttributes) -> Void
+public typealias AttributesBlock = (_ attributes: DrawingAttributes) -> Void
 
 /**
  Defines content scaling
@@ -108,10 +77,10 @@ public typealias AttributesBlock = (attributes: DrawingAttributes) -> Void
  */
 public enum ScaleMode: Int {
   
-  case ScaleToFill
-  case ScaleAspectFit
-  case ScaleAspectFill
-  case Center
+  case scaleToFill
+  case scaleAspectFit
+  case scaleAspectFill
+  case center
   
 }
 
@@ -124,9 +93,9 @@ public enum ScaleMode: Int {
  */
 public enum VerticalAlignment : Int {
   
-  case Middle
-  case Top
-  case Bottom
+  case middle
+  case top
+  case bottom
   
 }
 
@@ -139,9 +108,9 @@ public enum VerticalAlignment : Int {
  */
 public enum HorizontalAlignment : Int {
   
-  case Center
-  case Left
-  case Right
+  case center
+  case left
+  case right
   
 }
 
@@ -158,10 +127,10 @@ public final class DrawingAttributes {
   public var lineWidth: CGFloat = 1
   
   /// The line cap style (defaults to .Round)
-  public var lineCap: CGLineCap = .Round
+  public var lineCap: CGLineCap = .round
   
   /// The line join style (defaults to .Round)
-  public var lineJoin: CGLineJoin = .Round
+  public var lineJoin: CGLineJoin = .round
   
   /// The line dash pattern
   public var dashPattern: [CGFloat]? = nil
@@ -171,22 +140,22 @@ public final class DrawingAttributes {
    
    - parameter context: The context to apply
    */
-  public func apply(context: CGContext) {
+  public func apply(to context: CGContext) {
     if let pattern = dashPattern {
-      CGContextSetLineDash(context, 0, pattern, pattern.count)
+      context.setLineDash(phase: 0, lengths: pattern)
     }
     
     if let fillColor = fillColor {
-      fillColor.setFill()
+      context.setFillColor(fillColor.cgColor)
     }
     
     if let strokeColor = strokeColor {
-      strokeColor.setStroke()
+      context.setStrokeColor(strokeColor.cgColor)
     }
     
-    CGContextSetLineCap(context, lineCap)
-    CGContextSetLineJoin(context, lineJoin)
-    CGContextSetLineWidth(context, lineWidth)
+    context.setLineCap(lineCap)
+    context.setLineJoin(lineJoin)
+    context.setLineWidth(lineWidth)
   }
   
   /**
@@ -194,19 +163,13 @@ public final class DrawingAttributes {
    
    - parameter path: The path to apply
    */
-  public func apply(path: BezierPath) {
+  public func apply(to path: BezierPath) {
     if let pattern = dashPattern {
       path.setLineDash(pattern, count: pattern.count, phase: 0)
     }
     
-    if let fillColor = fillColor {
-      fillColor.setFill()
-    }
-    
-    if let strokeColor = strokeColor {
-      strokeColor.setStroke()
-    }
-    
+    fillColor?.setFill()
+    strokeColor?.setStroke()
     path.lineWidth = lineWidth
     
     #if os(iOS)
@@ -223,8 +186,3 @@ public final class DrawingAttributes {
 /// Defines a Draw class -- extensions are used to populate this class with static methods -- its provided purely for namespacing
 public class Draw { }
 
-@available(*, unavailable, renamed="Grid")
-public struct Table { }
-
-@available(*, unavailable, renamed="GridComponents")
-public struct TableComponents { }

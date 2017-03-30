@@ -5,19 +5,9 @@
 [![Language](https://img.shields.io/badge/language-swift-ff69b4.svg)](http://cocoadocs.org/docsets/InkKit)
 [![Platform](https://img.shields.io/cocoapods/p/InkKit.svg?style=flat)](http://cocoapods.org/pods/InkKit)
 
-# Swift Support
-
-**Swift 3.0**
-
-InkKit is Swift 3.0 by default, so to use that just include InkKit in your podfile:
-
-pod 'InkKit'
-
-**Swift 2.3**
-
-In order to use InkKit in a Swift 2.3 project, ensure you point to the `swift2.3` branch.
-
-pod 'InkKit', :branch => 'swift2.3'
+#### Note
+> If you require Swift 2.2 still, fix your version of InkKit to:
+`pod 'InkKit', '1.3.1'
 
 ---
 
@@ -64,6 +54,19 @@ backIndicatorImage().drawAtPoint(CGPoint(x: 22, y: 30))
 
 ## Change Log
 
+**v2.0.0**
+
+Note: Since this is a Swift 3 release, I decided to also clean up the API and remove all deprecation warnings. InkKit 2.0 should be considered a new API.
+
+* Swift 3.0 Support
+* Updated API to support Swift 3.0 guidelines
+* Shear Transforms
+* Perspective Transforms
+* Radians from Degrees function (and inverse)
+* Corner Radius with Concave, Convex and Line support
+* New Color value-type
+
+
 **v1.3.1**
 
 * OSX Support
@@ -91,7 +94,7 @@ backIndicatorImage().drawAtPoint(CGPoint(x: 22, y: 30))
 
 ## API
 
-InkKit provides many useful convenience methods for drawing and geometry calculations.
+InkKit provides many useful convenience methods for drawing and geometry calculations. Its also cross platform working across iOS & MacOS
 
 ### Core
 
@@ -104,7 +107,7 @@ func draw(inRect:attributes:drawing:)
 Which would look like this in usage:
 
 ```swift
-GraphicsContext()?.draw(inRect: rect, drawing: { (context, rect, attributes) in
+CGContext.current?.draw(inRect: rect, drawing: { (context, rect, attributes) in
   Color.redColor.setFill()
   UIRectFill(rect)
 })
@@ -120,6 +123,7 @@ func positionForCell(atIndex:) -> (col: Int, row: Int)
 func boundsForCell(atIndex:) -> CGRect
 func boundsForRange(sourceColumn:sourceRow:destinationColumn:destinationRow:) -> CGRect
 func boundsForCell(col:row:) -> CGRect
+func enumerateCells(enumerator:(index:col:row:bounds:) -> Void)
 ```
 
 A `Grid` is a really great way for laying out your drawing without having to think about placement, rect translations, etc...

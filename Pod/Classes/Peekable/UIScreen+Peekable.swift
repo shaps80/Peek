@@ -29,18 +29,18 @@ extension UIScreen {
    
    - parameter context: The context to apply these properties to
    */
-  public override func preparePeek(context: Context) {
+  public override func preparePeek(_ context: Context) {
     super.preparePeek(context)
     
-    context.configure(.Screen, "Brightness") { (config) in
+    context.configure(.screen, "Brightness") { (config) in
       config.addProperties([ "wantsSoftwareDimming", "brightness" ])
     }
     
-    context.configure(.Screen, "Layout") { (config) in
+    context.configure(.screen, "Layout") { (config) in
       config.addProperties([ "applicationFrame", "bounds", "currentMode.size" ])
     }
     
-    context.configure(.Screen, "Scale") { (config) in
+    context.configure(.screen, "Scale") { (config) in
       config.addProperty("scale", displayName: "Device Scale", cellConfiguration: nil)
       config.addProperties([ "nativeScale", "currentMode.pixelAspectRatio" ])
     }

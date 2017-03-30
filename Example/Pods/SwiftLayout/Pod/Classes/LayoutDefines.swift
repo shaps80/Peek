@@ -38,8 +38,8 @@ Defines an axis used for horizontal and vertical based constraints
 - Vertical:   Defines a vertical axis
 */
 public enum Axis {
-  case Horizontal
-  case Vertical
+  case horizontal
+  case vertical
 }
 
 
@@ -52,51 +52,51 @@ Defines an edge used for edge based constraints
 - Right:  Defines a right edge
 */
 public enum Edge {
-  case Top
-  case Left
-  case Bottom
-  case Right
+  case top
+  case left
+  case bottom
+  case right
 }
 
 /**
 *  Defines edge (bitmask) options for use in edge based constraints
 */
-public struct EdgeMask: OptionSetType {
+public struct EdgeMask: OptionSet {
   public let rawValue: Int
   public init(rawValue: Int) { self.rawValue = rawValue }
   
   /// Defines a top edge
-  public static var Top: EdgeMask   { return EdgeMask(rawValue: 1 << 0) }
+  public static var top: EdgeMask   { return EdgeMask(rawValue: 1 << 0) }
   
   /// Defines a left edge
-  public static var Left: EdgeMask  { return EdgeMask(rawValue: 1 << 1) }
+  public static var left: EdgeMask  { return EdgeMask(rawValue: 1 << 1) }
   
   /// Defines a bottom edge
-  public static var Bottom: EdgeMask   { return EdgeMask(rawValue: 1 << 2) }
+  public static var bottom: EdgeMask   { return EdgeMask(rawValue: 1 << 2) }
   
   /// Defines a right edge
-  public static var Right: EdgeMask  { return EdgeMask(rawValue: 1 << 3) }
+  public static var right: EdgeMask  { return EdgeMask(rawValue: 1 << 3) }
   
   /// Defines a top and left edge
-  public static var TopLeft: EdgeMask { return [.Top, .Left] }
+  public static var topLeft: EdgeMask { return [.top, .left] }
   
   /// Defines a top and right edge
-  public static var TopRight: EdgeMask { return [.Top, .Right] }
+  public static var topRight: EdgeMask { return [.top, .right] }
   
   /// Defines a bottom and left edge
-  public static var BottomLeft: EdgeMask { return [.Bottom, .Left] }
+  public static var bottomLeft: EdgeMask { return [.bottom, .left] }
   
   /// Defines a bottom and right edge
-  public static var BottomRight: EdgeMask { return [.Bottom, .Right] }
+  public static var bottomRight: EdgeMask { return [.bottom, .right] }
   
   /// Defines a left and right edge
-  public static var LeftAndRight: EdgeMask  { return [.Left, .Right] }
+  public static var leftAndRight: EdgeMask  { return [.left, .right] }
   
   /// Defines a top and bottom edge
-  public static var TopAndBottom: EdgeMask { return [.Top, .Bottom] }
+  public static var topAndBottom: EdgeMask { return [.top, .bottom] }
   
   /// Defines all edges
-  public static var All: EdgeMask { return [.Left, .Right, .Top, .Bottom] }
+  public static var all: EdgeMask { return [.left, .right, .top, .bottom] }
 }
 
 /**
@@ -157,12 +157,12 @@ Converts an Axis to its associated sizing attribute
 
 - returns: The associated NSLayoutAttribute
 */
-public func sizeAttribute(axis: Axis) -> NSLayoutAttribute {
+public func sizeAttribute(for axis: Axis) -> NSLayoutAttribute {
   switch axis {
-  case .Horizontal:
-    return .Width
-  case .Vertical:
-    return .Height
+  case .horizontal:
+    return .width
+  case .vertical:
+    return .height
   }
 }
 
@@ -173,12 +173,12 @@ Converts an Axis to its associated alignment attribute
 
 - returns: The associated NSLayoutAttribute
 */
-public func centerAttribute(axis: Axis) -> NSLayoutAttribute {
+public func centerAttribute(for axis: Axis) -> NSLayoutAttribute {
   switch axis {
-  case .Horizontal:
-    return .CenterX
-  case .Vertical:
-    return .CenterY
+  case .horizontal:
+    return .centerX
+  case .vertical:
+    return .centerY
   }
 }
 
@@ -189,16 +189,16 @@ Converts an Edge to its associated edge attribute
 
 - returns: The associated NSLayoutAttribute
 */
-public func edgeAttribute(edge: Edge) -> NSLayoutAttribute {
+public func edgeAttribute(for edge: Edge) -> NSLayoutAttribute {
   switch edge {
-  case .Top:
-    return .Top
-  case .Left:
-    return .Left
-  case .Bottom:
-    return .Bottom
-  case .Right:
-    return .Right
+  case .top:
+    return .top
+  case .left:
+    return .left
+  case .bottom:
+    return .bottom
+  case .right:
+    return .right
   }
 }
 

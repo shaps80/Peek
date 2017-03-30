@@ -26,18 +26,21 @@ import Foundation
 /**
  *  Defines the components that make up a grid -- used for constructing a path from a grid
  */
-public struct GridComponents : OptionSetType {
+public struct GridComponents : OptionSet {
   public let rawValue: Int
   public init(rawValue: Int) { self.rawValue = rawValue }
   
   /// Represents the outline of the grid
-  public static var Outline: GridComponents { return GridComponents(rawValue: 1 << 0) }
+  public static var outline: GridComponents { return GridComponents(rawValue: 1 << 0) }
   
   /// Represents the column separators of a grid
-  public static var Columns: GridComponents { return GridComponents(rawValue: 1 << 1) }
+  public static var columns: GridComponents { return GridComponents(rawValue: 1 << 1) }
   
   /// Represents the row separators of a grid
-  public static var Rows:    GridComponents { return GridComponents(rawValue: 1 << 2) }
+  public static var rows:    GridComponents { return GridComponents(rawValue: 1 << 2) }
+  
+  /// Represents all components
+  public static var all:     GridComponents { return [ .outline, .columns, .rows ] }
 }
 
 
@@ -142,11 +145,10 @@ public struct Grid {
    
    - returns: The bounding rectangle
    */
-  public func boundsForRange(sourceColumn sourceColumn: Int, sourceRow: Int, destinationColumn: Int, destinationRow: Int) -> CGRect {
+  public func boundsForRange(sourceColumn: Int, sourceRow: Int, destinationColumn: Int, destinationRow: Int) -> CGRect {
     let rect1 = boundsForCell(col: sourceColumn, row: sourceRow)
     let rect2 = boundsForCell(col: destinationColumn, row: destinationRow)
-    
-    return CGRectUnion(rect1, rect2)
+    return rect1.union(rect2)
   }
   
   /**
@@ -157,16 +159,16 @@ public struct Grid {
    
    - returns: The bounding rectangle
    */
-  public func boundsForCell(col col: Int, row: Int) -> CGRect {
+  public func boundsForCell(col: Int, row: Int) -> CGRect {
     guard col < columns.count else {
-      return CGRectZero
+      return CGRect.zero
     }
     
     let colWidth = bounds.width / CGFloat(columns.count)
     let column = columns[col]
     
     guard row < column.rows.count else {
-      return CGRectZero
+      return CGRect.zero
     }
     
     let row = column.rows[row]
@@ -185,7 +187,7 @@ public struct Grid {
    
    - parameter enumerator: The enumerator to execute for each cell -- returns the index, column, row and bounding rectangle representing this cell
    */
-  public func enumerateCells(enumerator: (index: Int, col: Int, row: Int, bounds: CGRect) -> Void) {
+  public func enumerateCells(_ enumerator: (_ index: Int, _ col: Int, _ row: Int, _ bounds: CGRect) -> Void) {
     guard let column = columns.first else {
       return
     }
@@ -196,7 +198,7 @@ public struct Grid {
     for rowIndex in 0..<rowCount {
       for colIndex in 0..<columns.count {
         let rect = boundsForCell(col: colIndex, row: rowIndex)
-        enumerator(index: index, col: colIndex, row: rowIndex, bounds: rect)
+        enumerator(index, colIndex, rowIndex, rect)
         index += 1
       }
     }
@@ -213,41 +215,42 @@ extension Grid {
    
    - returns: A bezier path representation
    */
-  public func path(includeComponents components: GridComponents) -> BezierPath {
-    let path = CGPathCreateMutable()
+  public func path(include components: GridComponents) -> BezierPath {
+    let path = CGMutablePath()
     
-    if components.contains(.Columns) {
-      for (index, column) in self.columns.enumerate() {
+    if components.contains(.columns) {
+      for (index, column) in self.columns.enumerated() {
         if index == 0 { continue }
         
         var origin = column.bounds.origin
         origin.y = column.bounds.maxY
         
-        CGPathMoveToPoint(path, nil, column.bounds.origin.x, column.bounds.origin.y)
-        CGPathAddLineToPoint(path, nil, origin.x, origin.y)
+        path.move(to: CGPoint(x: column.bounds.origin.x, y: column.bounds.origin.y))
+        path.addLine(to: CGPoint(x: origin.x, y: origin.y))
       }
     }
     
-    if components.contains(.Rows) {
+    if components.contains(.rows) {
       if let column = self.columns.first {
-        for (index, row) in column.rows.enumerate() {
+        for (index, row) in column.rows.enumerated() {
           if index == 0 { continue }
           
           var origin = row.bounds.origin
           origin.x = row.bounds.maxX
           
-          CGPathMoveToPoint(path, nil, column.bounds.origin.x, row.bounds.origin.y)
-          CGPathAddLineToPoint(path, nil, origin.x, origin.y)
+          path.move(to: CGPoint(x: column.bounds.origin.x, y: row.bounds.origin.y))
+          path.addLine(to: CGPoint(x: origin.x, y: origin.y))
         }
       }
     }
     
-    if components.contains(.Outline) {
-      CGPathAddRect(path, nil, bounds)
+    if components.contains(.outline) {
+      path.addRect(bounds)
     }
     
-    return BezierPath(CGPath: path) 
+    return BezierPath(cgPath: path) 
   }
   
 }
+
 

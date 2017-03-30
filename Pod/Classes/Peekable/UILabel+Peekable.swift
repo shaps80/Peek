@@ -29,10 +29,10 @@ extension UILabel {
    
    - parameter context: The context to apply these properties to
    */
-  public override func preparePeek(context: Context) {
+  public override func preparePeek(_ context: Context) {
     super.preparePeek(context)
     
-    context.configure(.Attributes, "Text") { (config) in
+    context.configure(.attributes, "Text") { (config) in
       config.addProperties([ "text", "attributedText" ])
       
       config.addProperty("textAlignment", displayName: "Alignment", cellConfiguration: { (cell, object, value) in
@@ -41,11 +41,11 @@ extension UILabel {
       })
     }
     
-    context.configure(.Attributes, "Color") { (config) in
+    context.configure(.attributes, "Color") { (config) in
       config.addProperties([ "textColor", "highlightedTextColor" ])
     }
     
-    context.configure(.Attributes, "Behaviour") { (config) in
+    context.configure(.attributes, "Behaviour") { (config) in
       config.addProperty("lineBreakMode", displayName: nil, cellConfiguration: { (cell, object, value) in
         let mode = NSLineBreakMode(rawValue: value as! Int)!
         cell.detailTextLabel?.text = mode.description
@@ -54,19 +54,19 @@ extension UILabel {
       config.addProperties([ "numberOfLines" ])
     }
     
-    context.configure(.Attributes, "Font") { (config) in
+    context.configure(.attributes, "Font") { (config) in
       config.addProperties([ "font", "font.pointSize", "adjustsFontSizeToFitWidth", "minimumScaleFactor" ])
     }
     
-    context.configure(.Attributes, "State") { (config) in
+    context.configure(.attributes, "State") { (config) in
       config.addProperties([ "enabled", "highlighted" ])
     }
     
-    context.configure(.Attributes, "Shadow") { (config) in
+    context.configure(.attributes, "Shadow") { (config) in
       config.addProperties([ "shadowColor", "shadowOffset" ])
     }
     
-    context.configure(.Layout, "Label") { (config) in
+    context.configure(.layout, "Label") { (config) in
       config.addProperties([ "preferredMaxLayoutWidth" ])
     }
   }

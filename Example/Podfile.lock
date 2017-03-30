@@ -1,40 +1,35 @@
 PODS:
-  - InkKit (1.3.1)
+  - GraphicsRenderer (1.1.0)
+  - InkKit (2.0.0):
+    - GraphicsRenderer
   - OpenSans (1.0.3)
   - Peek (2.3):
-    - InkKit
-    - SwiftLayout
+    - InkKit (= 2.0.0)
+    - SwiftLayout (= 2.0.0)
   - pop (1.0.9)
   - SPXMasking (1.1.0)
-  - SwiftLayout (1.3.1)
+  - SwiftLayout (2.0.0)
 
 DEPENDENCIES:
-  - InkKit (from `https://github.com/shaps80/InkKit/`, branch `swift2.3`)
+  - InkKit (= 2.0.0)
   - OpenSans
   - Peek (from `../`)
   - pop
   - SPXMasking (= 1.1.0)
 
 EXTERNAL SOURCES:
-  InkKit:
-    :branch: swift2.3
-    :git: https://github.com/shaps80/InkKit/
   Peek:
     :path: "../"
 
-CHECKOUT OPTIONS:
-  InkKit:
-    :commit: a322e25a4277d602451c365ba3ab627c2c86207a
-    :git: https://github.com/shaps80/InkKit/
-
 SPEC CHECKSUMS:
-  InkKit: 0a548f86f1d6773e4660ef1213644323f770ecab
+  GraphicsRenderer: bc867f23d3d8ffe4853e6de6d7bec81386ceb239
+  InkKit: dee5f114e9b568d48733eb142559df01bdd8a225
   OpenSans: 33078846463eae780aa5f82986b51cce085f970d
-  Peek: 1ba11154fdcdb31842aa3abff666902990f48c7c
+  Peek: 2e87d3ccea142e2b4d25b6de307c25d5c287f519
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   SPXMasking: 96e53182e204caeeb2ee78a506da5e996a93d4d6
-  SwiftLayout: 6814d5036da5fafe1bfb934107a18a102f8c2381
+  SwiftLayout: a301f143dfcde344272ffa6ae112b11e8c683ef9
 
-PODFILE CHECKSUM: a97035914011e8c44a73c465d46b88adbc28233b
+PODFILE CHECKSUM: 642562938b73a6db36bff9f9b29ee77e77a6a172
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.0

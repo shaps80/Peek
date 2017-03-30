@@ -24,7 +24,7 @@ import UIKit
 
 final class ImageCache {
   
-  private static var _sharedCache: ImageCache = {
+  fileprivate static var _sharedCache: ImageCache = {
     return ImageCache()
   }()
   
@@ -32,19 +32,19 @@ final class ImageCache {
     return ImageCache._sharedCache
   }
   
-  private func pathForWeek(week: Week) -> String {
-    let docs = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first! as NSString
-    return docs.stringByAppendingPathComponent(week.number.description + ".jpg")
+  fileprivate func pathForWeek(_ week: Week) -> String {
+    let docs = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as NSString
+    return docs.appendingPathComponent(week.number.description + ".jpg")
   }
   
-  private var cache = NSCache()
+  fileprivate var cache = NSCache<NSNumber, UIImage>()
   
-  func removeImage(week: Week) {
-    cache.removeObjectForKey(week.number)
-    try! NSFileManager.defaultManager().removeItemAtPath(pathForWeek(week))
+  func removeImage(_ week: Week) {
+    cache.removeObject(forKey: NSNumber(value: week.number))
+    try! FileManager.default.removeItem(atPath: pathForWeek(week))
   }
   
-  func addImage(image: UIImage, week: Week) {
+  func addImage(_ image: UIImage, week: Week) {
     if imageExists(week) {
       removeImage(week)
     }
@@ -52,31 +52,31 @@ final class ImageCache {
     let width: CGFloat = 375
     let ratio = width / image.size.width
     
-    let scaledImage = image.resizedImage(CGSizeMake(width, ratio * image.size.height))
+    let scaledImage = image.resizedImage(CGSize(width: width, height: ratio * image.size.height))
     let data = UIImageJPEGRepresentation(scaledImage, 1)
     let path = pathForWeek(week)
     
-    data?.writeToFile(path, atomically: true)
-    cache.setObject(scaledImage, forKey: week.number)
+    try? data?.write(to: URL(fileURLWithPath: path), options: [.atomic])
+    cache.setObject(scaledImage, forKey: NSNumber(value: week.number))
   }
   
-  func imageExists(week: Week) -> Bool {
+  func imageExists(_ week: Week) -> Bool {
     let path = pathForWeek(week)
-    return NSFileManager.defaultManager().fileExistsAtPath(path)
+    return FileManager.default.fileExists(atPath: path)
   }
   
-  func image(week: Week, completion: (UIImage?) -> ()) {
+  func image(_ week: Week, completion: @escaping (UIImage?) -> ()) {
     if !imageExists(week) {
       completion(nil)
       return
     }
     
-    if let image = self.cache.objectForKey(week.number) as? UIImage {
+    if let image = self.cache.object(forKey: NSNumber(value: week.number)) as? UIImage {
       completion(image)
       return
     }
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) { () -> Void in
+    DispatchQueue.global(qos: .background).async { () -> Void in
       guard let image = UIImage(contentsOfFile: self.pathForWeek(week)) else {
         print("ImageCache: Image not found for week: \(week)")
         completion(nil)
@@ -86,11 +86,11 @@ final class ImageCache {
       if let decompressedImage = image.decompressedImage() {
         self.addImage(decompressedImage, week: week)
  
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        DispatchQueue.main.async(execute: { () -> Void in
           completion(decompressedImage)
         })
         
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        DispatchQueue.main.async(execute: { () -> Void in
           completion(decompressedImage)
         })
       }
@@ -101,29 +101,29 @@ final class ImageCache {
 
 extension UIImage {
   
-  func decompressedImage(scale scale: CGFloat = 0) -> UIImage? {
-    guard let imageRef = self.CGImage else { return nil }
+  func decompressedImage(scale: CGFloat = 0) -> UIImage? {
+    guard let imageRef = self.cgImage else { return nil }
     
     let colorSpace = CGColorSpaceCreateDeviceRGB()
-    let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.PremultipliedLast.rawValue).rawValue
-    let contextHolder = UnsafeMutablePointer<Void>(nil)
-    let context = CGBitmapContextCreate(contextHolder, CGImageGetWidth(imageRef), CGImageGetHeight(imageRef), 8, 0, colorSpace, bitmapInfo)
+    let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue).rawValue
+    let contextHolder: UnsafeMutableRawPointer? = nil
+    let context = CGContext(data: contextHolder, width: imageRef.width, height: imageRef.height, bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo)
     if let context = context {
-      let rect = CGRect(x: 0, y: 0, width: CGImageGetWidth(imageRef), height: CGImageGetHeight(imageRef))
-      CGContextDrawImage(context, rect, imageRef)
-      let decompressedImageRef = CGBitmapContextCreateImage(context)
-      return UIImage(CGImage: decompressedImageRef!, scale: scale, orientation: self.imageOrientation)
+      let rect = CGRect(x: 0, y: 0, width: imageRef.width, height: imageRef.height)
+      context.draw(imageRef, in: rect)
+      let decompressedImageRef = context.makeImage()
+      return UIImage(cgImage: decompressedImageRef!, scale: scale, orientation: self.imageOrientation)
     } else {
       return nil
     }
   }
   
-  func resizedImage(size: CGSize) -> UIImage {
+  func resizedImage(_ size: CGSize) -> UIImage {
     let hasAlpha = false
     let scale: CGFloat = 0.0 // Automatically use scale factor of main screen
     
     UIGraphicsBeginImageContextWithOptions(size, !hasAlpha, scale)
-    drawInRect(CGRect(origin: CGPointZero, size: size))
+    draw(in: CGRect(origin: CGPoint.zero, size: size))
     
     guard let image = UIGraphicsGetImageFromCurrentImageContext() else {
         print("Returning the original image because the current graphics context was invalid!")

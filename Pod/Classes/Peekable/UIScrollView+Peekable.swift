@@ -29,14 +29,14 @@ extension UIScrollView {
    
    - parameter context: The context to apply these properties to
    */
-  public override func preparePeek(context: Context) {
+  public override func preparePeek(_ context: Context) {
     super.preparePeek(context)
     
-    context.configure(.Layout, "Scroll View") { (config) in
+    context.configure(.layout, "Scroll View") { (config) in
       config.addProperties([ "contentOffset", "contentSize", "contentInset", "scrollIndicatorInsets" ])
     }
     
-    context.configure(.Attributes, "Behaviour") { (config) in
+    context.configure(.attributes, "Behaviour") { (config) in
       config.addProperties([ "directionalLockEnabled", "pagingEnabled", "scrollEnabled", "decelerationRate", "scrollsToTop" ])
       
       config.addProperty("keyboardDismissMode", displayName: nil, cellConfiguration: { (cell, object, value) in
@@ -45,7 +45,7 @@ extension UIScrollView {
       })
     }
     
-    context.configure(.Attributes, "Indicators") { (config) in
+    context.configure(.attributes, "Indicators") { (config) in
       config.addProperties([ "showsHorizontalScrollIndicator", "showsVerticalScrollIndicator" ])
       
       config.addProperty("indicatorStyle", displayName: nil, cellConfiguration: { (cell, object, value) in
@@ -54,11 +54,11 @@ extension UIScrollView {
       })
     }
     
-    context.configure(.Attributes, "Zoom") { (config) in
+    context.configure(.attributes, "Zoom") { (config) in
       config.addProperties([ "minimumZoomScale", "maximumZoomScale", "zoomScale", "bouncesZoom" ])
     }
     
-    context.configure(.Attributes, "Bounce") { (config) in
+    context.configure(.attributes, "Bounce") { (config) in
       config.addProperties([ "bounces", "alwaysBounceVertical", "alwaysBounceHorizontal" ])
     }
   }

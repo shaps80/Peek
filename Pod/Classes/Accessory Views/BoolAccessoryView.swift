@@ -25,21 +25,21 @@ import UIKit
 /// This accessory view is used in Peek to show a 'switch' representing the underlying Bool value
 final class BoolAccessoryView: UIView {
   
-  private let size = CGSizeMake(26, 16)
-  private let value: Bool
+  fileprivate let size = CGSize(width: 26, height: 16)
+  fileprivate let value: Bool
   
   init(value: Bool) {
     self.value = value
-    super.init(frame: CGRectMake(0, 0, size.width, size.height))
-    self.backgroundColor = UIColor.clearColor()
+    super.init(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+    self.backgroundColor = UIColor.clear
   }
   
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
   
-  override func drawRect(rect: CGRect) {
-    super.drawRect(rect)
+  override func draw(_ rect: CGRect) {
+    super.draw(rect)
     
     let rect = rect.insetBy(dx: 1, dy: 1)
     
@@ -52,11 +52,11 @@ final class BoolAccessoryView: UIView {
     if value {
       bgColor = UIColor(white: 1, alpha: 1)
       fgColor = UIColor.secondaryColor()
-      fgPath = UIBezierPath(ovalInRect: CGRectMake(rect.maxX - rect.height, rect.minY, rect.height, rect.height))
+      fgPath = UIBezierPath(ovalIn: CGRect(x: rect.maxX - rect.height, y: rect.minY, width: rect.height, height: rect.height))
     } else {
       bgColor = UIColor(white: 1, alpha: 0.3)
       fgColor = UIColor(white: 1, alpha: 0.5)
-      fgPath = UIBezierPath(ovalInRect: CGRectMake(rect.minX, rect.minY, rect.height, rect.height))
+      fgPath = UIBezierPath(ovalIn: CGRect(x: rect.minX, y: rect.minY, width: rect.height, height: rect.height))
     }
     
     bgColor.setFill()
@@ -66,8 +66,8 @@ final class BoolAccessoryView: UIView {
     fgPath.fill()
   }
   
-  override func intrinsicContentSize() -> CGSize {
-    return CGSizeMake(size.width, size.height)
+  override var intrinsicContentSize : CGSize {
+    return CGSize(width: size.width, height: size.height)
   }
   
 }

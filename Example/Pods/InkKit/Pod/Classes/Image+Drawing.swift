@@ -21,6 +21,7 @@
  */
 
 import CoreGraphics
+import GraphicsRenderer
 
 extension Image {
   
@@ -32,10 +33,10 @@ extension Image {
    
    - returns: An image of a circle
    */
-  public static func circle(radius radius: CGFloat, attributes attributesBlock: AttributesBlock) -> Image {
+  public static func circle(radius: CGFloat, attributes attributesBlock: @escaping AttributesBlock) -> Image {
     return Image.draw(width: radius * 2, height: radius * 2, attributes: attributesBlock, drawing: { (context, rect, attributes) in
-      let path = BezierPath(ovalInRect: rect.insetBy(dx: 1, dy: 1))
-      attributes.apply(path)
+      let path = BezierPath(ovalIn: rect.insetBy(dx: 1, dy: 1))
+      attributes.apply(to: path)
       path.fill()
       path.stroke()
     })
@@ -50,8 +51,8 @@ extension Image {
    - parameter blendMode:  The blend mode to apply to this drawing
    - parameter alpha:      The alpha to apply to this drawing
    */
-  public func drawAlignedTo(rect: CGRect, horizontal: HorizontalAlignment = .Center, vertical: VerticalAlignment = .Middle, blendMode: CGBlendMode = .SourceOut, alpha: CGFloat = 1) {
-    let alignedRect = CGRectMake(0, 0, size.width, size.height).alignedTo(rect, horizontal: horizontal, vertical: vertical)
+  public func drawAligned(to rect: CGRect, horizontal: HorizontalAlignment = .center, vertical: VerticalAlignment = .middle, blendMode: CGBlendMode = .sourceOut, alpha: CGFloat = 1) {
+    let alignedRect = CGRect(x: 0, y: 0, width: size.width, height: size.height).alignedTo(rect: rect, horizontal: horizontal, vertical: vertical)
     let fromRect = CGRect(x: 0, y: 0, width: alignedRect.width, height: alignedRect.height)
     ink_drawInRect(alignedRect, fromRect: fromRect, blendMode: blendMode, alpha: alpha)
   }
@@ -64,17 +65,17 @@ extension Image {
    - parameter blendMode: The blend mode to apply to this drawing
    - parameter alpha:     The alpha to apply to this drawing
    */
-  public func drawScaledTo(rect: CGRect, scaleMode mode: ScaleMode, blendMode: CGBlendMode = .SourceOut, alpha: CGFloat = 1) {
-    let scaledRect = CGRectMake(0, 0, size.width, size.height).scaledTo(rect, scaleMode: mode)
+  public func drawScaled(toRect rect: CGRect, scaleMode mode: ScaleMode, blendMode: CGBlendMode = .sourceOut, alpha: CGFloat = 1) {
+    let scaledRect = CGRect(x: 0, y: 0, width: size.width, height: size.height).scaledTo(rect: rect, scaleMode: mode)
     let fromRect = CGRect(x: 0, y: 0, width: scaledRect.width, height: scaledRect.height)
     ink_drawInRect(scaledRect, fromRect: fromRect, blendMode: blendMode, alpha: alpha)
   }
   
-  private func ink_drawInRect(rect: CGRect, fromRect: CGRect, blendMode mode: CGBlendMode, alpha: CGFloat) {
+  private func ink_drawInRect(_ rect: CGRect, fromRect: CGRect, blendMode mode: CGBlendMode, alpha: CGFloat) {
     #if os(iOS)
-      drawInRect(rect, blendMode: mode, alpha: alpha)
+      draw(in: rect, blendMode: mode, alpha: alpha)
     #else
-      drawInRect(rect, fromRect: fromRect, operation: NSCompositingOperation(rawValue: UInt(mode.rawValue))!, fraction: alpha)
+      draw(in: rect, from: fromRect, operation: NSCompositingOperation(rawValue: UInt(mode.rawValue))!, fraction: alpha)
     #endif
   }
   
@@ -89,7 +90,7 @@ extension Image {
    */
   public func drawAtPoint(point: CGPoint) {
     let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-    drawAtPoint(point, fromRect: rect, operation: .CompositeSourceOut, fraction: 1.0)
+    draw(at: point, from: rect, operation: .sourceOut, fraction: 1)
   }
   
   #endif
@@ -109,8 +110,8 @@ extension Image {
    
    - returns: A new image
    */
-  public static func draw(width width: CGFloat, height: CGFloat, scale: CGFloat = Screen.currentScreen().scale, attributes attributesBlock: AttributesBlock?, drawing: DrawingBlock) -> Image {
-    return draw(size: CGSizeMake(width, height), attributes: attributesBlock, drawing: drawing)
+  public static func draw(width: CGFloat, height: CGFloat, scale: CGFloat = Screen.currentScreen().scale, attributes attributesBlock: AttributesBlock?, drawing: DrawingBlock) -> Image {
+    return draw(size: CGSize(width: width, height: height), attributes: attributesBlock, drawing: drawing)
   }
   
   /**
@@ -123,22 +124,13 @@ extension Image {
    
    - returns: A new image
    */
-  public static func draw(size size: CGSize, scale: CGFloat = Screen.currentScreen().scale, attributes attributesBlock: AttributesBlock?, drawing: DrawingBlock) -> Image {
-    let rect = CGRectMake(0, 0, size.width, size.height)
-    
-    #if os(OSX)
-      let image = Image(size: size)
-      image.lockFocus()
-      GraphicsContext()?.draw(inRect: rect, attributes: attributesBlock, drawing: drawing)
-      image.unlockFocus()
-      return image
-    #else
-      UIGraphicsBeginImageContextWithOptions(CGSizeMake(size.width, size.height), false, scale)
-      GraphicsContext()?.draw(inRect: rect, attributes: attributesBlock, drawing: drawing)
-      let image = UIGraphicsGetImageFromCurrentImageContext()
-      UIGraphicsEndImageContext()
-      return image!
-    #endif
+  public static func draw(size: CGSize, scale: CGFloat = Screen.currentScreen().scale, attributes attributesBlock: AttributesBlock?, drawing: DrawingBlock) -> Image {
+    let format = ImageRendererFormat.default()
+    format.scale = scale
+    return ImageRenderer(size: size, format: format).image { context in
+      context.cgContext.draw(inRect: context.format.bounds, attributes: attributesBlock, drawing: drawing)
+      let rect = context.format.bounds
+    }
   }
   
 }

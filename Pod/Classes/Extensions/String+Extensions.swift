@@ -25,17 +25,17 @@ import Foundation
 extension String {
   
   // Converts a camel case string to a capitalized one -- e.g. 'firstName' -> 'First Name'
-  static func capitalized(camelCase: String) -> String {
+  static func capitalized(_ camelCase: String) -> String {
     
-    let chars = NSCharacterSet.uppercaseLetterCharacterSet()
-    var string = camelCase.componentsSeparatedByString(".").last ?? camelCase
+    let chars = CharacterSet.uppercaseLetters
+    var string = camelCase.components(separatedBy: ".").last ?? camelCase
     
-    while let range = string.rangeOfCharacterFromSet(chars) {
-      let char = string.substringWithRange(range)
-      string.replaceRange(range, with: " " + char.lowercaseString)
+    while let range = string.rangeOfCharacter(from: chars) {
+      let char = string.substring(with: range)
+      string.replaceSubrange(range, with: " " + char.lowercased())
     }
     
-    return string.capitalizedString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+    return string.capitalized.trimmingCharacters(in: CharacterSet.whitespaces)
   }
   
 }

@@ -29,18 +29,18 @@ extension UIPageControl {
    
    - parameter context: The context to apply these properties to
    */
-  public override func preparePeek(context: Context) {
+  public override func preparePeek(_ context: Context) {
     super.preparePeek(context)
     
-    context.configure(.Attributes, "Color") { (config) in
+    context.configure(.attributes, "Color") { (config) in
       config.addProperties([ "pageIndicatorTintColor", "currentPageIndicatorTintColor" ])
     }
     
-    context.configure(.Attributes, "General") { (config) in
+    context.configure(.attributes, "General") { (config) in
       config.addProperties([ "numberOfPages", "currentPage" ])
     }
     
-    context.configure(.Attributes, "Behaviour") { (config) in
+    context.configure(.attributes, "Behaviour") { (config) in
       config.addProperties([ "hidesForSinglePage", "defersCurrentPageDisplay" ])
     }
   }

@@ -33,7 +33,7 @@ extension NSNumber {
   
   func isFloat() -> Bool {
     switch CFNumberGetType(self) {
-    case .CGFloatType, .DoubleType, .Float32Type, .Float64Type, .FloatType:
+    case .cgFloatType, .doubleType, .float32Type, .float64Type, .floatType:
       return true
     default:
       return false

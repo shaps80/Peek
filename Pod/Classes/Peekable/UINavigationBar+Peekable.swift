@@ -29,10 +29,10 @@ extension UINavigationBar {
    
    - parameter context: The context to apply these properties to
    */
-  public override func preparePeek(context: Context) {
+  public override func preparePeek(_ context: Context) {
     super.preparePeek(context)
     
-    context.configure(.Attributes, "Appearance") { (config) in
+    context.configure(.attributes, "Appearance") { (config) in
       config.addProperties([ "translucent", "barTintColor", "shadowImage" ])
       
       config.addProperty("barStyle", displayName: nil, cellConfiguration: { (cell, object, value) in

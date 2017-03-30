@@ -29,23 +29,23 @@ extension UISlider {
    
    - parameter context: The context to apply these properties to
    */
-  public override func preparePeek(context: Context) {
+  public override func preparePeek(_ context: Context) {
     super.preparePeek(context)
     
-    context.configure(.Attributes, "Images") { (config) in
+    context.configure(.attributes, "Images") { (config) in
       config.addProperties([ "currentThumbImage", "minimumValueImage", "maximumValueImage", "currentMinimumTrackImage", "currentMaximumTrackImage" ])
     }
     
-    context.configure(.Attributes, "Value") { (config) in
+    context.configure(.attributes, "Value") { (config) in
       config.addProperties([ "minimumValue", "maximumValue" ])
       config.addProperty("value", displayName: "Current Value", cellConfiguration: nil)
     }
     
-    context.configure(.Attributes, "Color") { (config) in
+    context.configure(.attributes, "Color") { (config) in
       config.addProperties([ "minimumTrackTintColor", "maximumTrackTintColor" ])
     }
     
-    context.configure(.Attributes, "Behaviour") { (config) in
+    context.configure(.attributes, "Behaviour") { (config) in
       config.addProperties([ "continuous" ])
     }
   }

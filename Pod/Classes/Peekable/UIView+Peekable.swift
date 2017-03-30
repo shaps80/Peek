@@ -25,27 +25,27 @@ import UIKit
 extension UIView {
   
   @objc var horizontalConstraints: [NSLayoutConstraint] {
-    return constraintsAffectingLayoutForAxis(.Horizontal)
+    return constraintsAffectingLayout(for: .horizontal)
   }
   
   @objc var verticalConstraints: [NSLayoutConstraint] {
-    return constraintsAffectingLayoutForAxis(.Vertical)
+    return constraintsAffectingLayout(for: .vertical)
   }
   
   @objc var horizontalContentHuggingPriority: UILayoutPriority {
-    return contentHuggingPriorityForAxis(.Horizontal)
+    return contentHuggingPriority(for: .horizontal)
   }
   
   @objc var verticalContentHuggingPriority: UILayoutPriority {
-    return contentHuggingPriorityForAxis(.Vertical)
+    return contentHuggingPriority(for: .vertical)
   }
   
   @objc var horizontalContentCompressionResistance: UILayoutPriority {
-    return contentCompressionResistancePriorityForAxis(.Horizontal)
+    return contentCompressionResistancePriority(for: .horizontal)
   }
   
   @objc var verticalContentCompressionResistance: UILayoutPriority {
-    return contentCompressionResistancePriorityForAxis(.Vertical)
+    return contentCompressionResistancePriority(for: .vertical)
   }
   
   /**
@@ -53,30 +53,30 @@ extension UIView {
    
    - parameter context: The context to apply these properties to
    */
-  public override func preparePeek(context: Context) {
+  public override func preparePeek(_ context: Context) {
     super.preparePeek(context)
     
-    context.configure(.Layout, "General") { config in
+    context.configure(.layout, "General") { config in
       config.addProperties([ "frame", "bounds", "center", "intrinsicContentSize", "alignmentRectInsets" ])
       config.addProperty("translatesAutoresizingMaskIntoConstraints", displayName: "Autoresizing to Constraints", cellConfiguration: nil)
     }
     
-    context.configure(.Layout, "Content Hugging Priority") { (config) in
+    context.configure(.layout, "Content Hugging Priority") { (config) in
       config.addProperty("horizontalContentHuggingPriority", displayName: "Horizontal", cellConfiguration: nil)
       config.addProperty("verticalContentHuggingPriority", displayName: "Vertical", cellConfiguration: nil)
     }
     
-    context.configure(.Layout, "Content Compression Resistance") { (config) in
+    context.configure(.layout, "Content Compression Resistance") { (config) in
       config.addProperty("horizontalContentCompressionResistance", displayName: "Horizontal", cellConfiguration: nil)
       config.addProperty("verticalContentCompressionResistance", displayName: "Vertical", cellConfiguration: nil)
     }
     
-    context.configure(.Layout, "Constraints") { (config) in
+    context.configure(.layout, "Constraints") { (config) in
       config.addProperty("horizontalConstraints", displayName: "Horizontal", cellConfiguration: nil)
       config.addProperty("verticalConstraints", displayName: "Vertical", cellConfiguration: nil)
     }
     
-    context.configure(.View, "Appearance") { (config) in
+    context.configure(.view, "Appearance") { (config) in
       config.addProperty("contentMode", displayName: nil, cellConfiguration: { (cell, view, value) in
         if let mode = UIViewContentMode(rawValue: value as! Int) {
           cell.detailTextLabel?.text = mode.description
@@ -84,11 +84,11 @@ extension UIView {
       })
     }
     
-    context.configure(.View, "Interaction") { config in
+    context.configure(.view, "Interaction") { config in
       config.addProperties([ "userInteractionEnabled", "multipleTouchEnabled", "exclusiveTouch" ])
     }
     
-    context.configure(.View, "Color") { config in
+    context.configure(.view, "Color") { config in
       config.addProperties([ "alpha", "backgroundColor", "tintColor" ])
       
       config.addProperty("tintAdjustmentMode", displayName: nil, cellConfiguration: { (cell, view, value) in
@@ -98,15 +98,15 @@ extension UIView {
       })
     }
     
-    context.configure(.View, "Drawing") { config in
+    context.configure(.view, "Drawing") { config in
       config.addProperties([ "opaque", "hidden", "clipsToBounds" ])
     }
     
-    context.configure(.View, "General") { config in
+    context.configure(.view, "General") { config in
       config.addProperties([ "tag", "class", "superclass" ])
     }
     
-    context.configure(.Layout, "Layer") { (config) in
+    context.configure(.layout, "Layer") { (config) in
       config.addProperties([ "layer.position", "layer.anchorPoint", "layer.zPosition", "layer.geometryFlipped", "layer.anchorPointZ",  ])
     }
   }
