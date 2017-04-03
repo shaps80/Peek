@@ -26,7 +26,7 @@ extension CALayer {
   
   @objc var peek_borderColor: UIColor? {
     if let color = borderColor {
-      return UIColor(CGColor: color)
+      return UIColor(cgColor: color)
     }
     
     return nil
@@ -34,7 +34,7 @@ extension CALayer {
   
   @objc var peek_shadowColor: UIColor? {
     if let color = shadowColor {
-      return UIColor(CGColor: color)
+      return UIColor(cgColor: color)
     }
     
     return nil
@@ -42,7 +42,7 @@ extension CALayer {
   
   @objc var peek_backgroundColor: UIColor? {
     if let color = backgroundColor {
-      return UIColor(CGColor: color)
+      return UIColor(cgColor: color)
     }
     
     return nil
@@ -53,37 +53,37 @@ extension CALayer {
    
    - parameter context: The context to apply these properties to
    */
-  public override func preparePeek(context: Context) {
+  public override func preparePeek(_ context: Context) {
     super.preparePeek(context)
     
-    context.configure(.Layer, "Appearance") { (config) in
+    context.configure(.layer, "Appearance") { (config) in
       config.addProperty("layer.peek_backgroundColor", displayName: "Background Color", cellConfiguration: nil)
       config.addProperties([ "layer.cornerRadius", "layer.masksToBounds", "layer.doubleSided" ])
     }
     
-    context.configure(.Layer, "Visibility") { (config) in
+    context.configure(.layer, "Visibility") { (config) in
       config.addProperties([ "layer.opacity", "layer.allowsGroupOpacity", "layer.hidden" ])
     }
     
-    context.configure(.Layer, "Rasterization") { (config) in
+    context.configure(.layer, "Rasterization") { (config) in
       config.addProperties([ "layer.shouldRasterize", "layer.rasterizationScale", "opaque" ])
     }
     
-    context.configure(.Layer, "Shadow") { (config) in
+    context.configure(.layer, "Shadow") { (config) in
       config.addProperty("layer.peek_shadowColor", displayName: "Shadow Color", cellConfiguration: nil)
       config.addProperties([ "layer.shadowOffset", "layer.shadowOpacity", "layer.shadowRadius" ])
     }
     
-    context.configure(.Layer, "Border") { (config) in
+    context.configure(.layer, "Border") { (config) in
       config.addProperty("layer.peek_borderColor", displayName: "Border Color", cellConfiguration: nil)
       config.addProperties([ "layer.borderWidth" ])
     }
     
-    context.configure(.Layer, "Contents") { (config) in
+    context.configure(.layer, "Contents") { (config) in
       config.addProperties([ "layer.contentsRect", "layer.contentsScale", "layer.contentsCenter" ])
       
       config.addProperty("layer.contentsGravity", displayName: nil, cellConfiguration: { (cell, object, value) in
-        cell.detailTextLabel?.text = (value as? String)?.capitalizedString
+        cell.detailTextLabel?.text = (value as? String)?.capitalized
       })
     }
   }

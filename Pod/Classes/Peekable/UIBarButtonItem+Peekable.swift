@@ -29,10 +29,10 @@ extension UIBarButtonItem {
    
    - parameter context: The context to apply these properties to
    */
-  public override func preparePeek(context: Context) {
+  public override func preparePeek(_ context: Context) {
     super.preparePeek(context)
     
-    context.configure(.Attributes, "General") { (config) in
+    context.configure(.attributes, "General") { (config) in
       config.addProperties([ "title", "enabled", "image", "landscapeImagePhone", "imageInsets", "landscapeImagePhoneInsets", "tag" ])
     }
   }

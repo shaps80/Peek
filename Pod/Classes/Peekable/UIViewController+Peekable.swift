@@ -29,11 +29,11 @@ extension UIViewController {
    
    - parameter context: The context to apply these properties to
    */
-  public override func preparePeek(context: Context) {
+  public override func preparePeek(_ context: Context) {
     super.preparePeek(context)
     
     
-    context.configure(.Controller, "Status Bar") { (config) in
+    context.configure(.controller, "Status Bar") { (config) in
       config.addProperty("preferredStatusBarStyle", displayName: "Preferred Style", cellConfiguration: { (cell, object, value) in
         let style = UIStatusBarStyle(rawValue: value as! Int)!
         cell.detailTextLabel?.text = style.description
@@ -45,7 +45,7 @@ extension UIViewController {
       })
     }
     
-    context.configure(.Controller, "Modal") { (config) in
+    context.configure(.controller, "Modal") { (config) in
       config.addProperty("modalTransitionStyle", displayName: nil, cellConfiguration: { (cell, object, value) in
         let style = UIModalTransitionStyle(rawValue: value as! Int)
         cell.detailTextLabel?.text = style?.description
@@ -57,7 +57,7 @@ extension UIViewController {
       })
     }
     
-    context.configure(.Controller, "Orientation") { (config) in
+    context.configure(.controller, "Orientation") { (config) in
       config.addProperty("interfaceOrientation", displayName: "Current Orientation", cellConfiguration: { (cell, object, value) in
         let orientation = UIInterfaceOrientation(rawValue: value as! Int)!
         let image = Images.orientationImage(orientation)
@@ -76,13 +76,13 @@ extension UIViewController {
     }
     
     if self is UITableViewController {
-      context.configure(.Controller, "Table View", configuration: { (config) in
+      context.configure(.controller, "Table View", configuration: { (config) in
         config.addProperty("clearsSelectionOnViewWillAppear", displayName: "Clears Selection on View", cellConfiguration: nil)
       })
     }
     
     if self is UICollectionViewController {
-      context.configure(.Controller, "Collection View", configuration: { (config) in
+      context.configure(.controller, "Collection View", configuration: { (config) in
         config.addProperty("clearsSelectionOnViewWillAppear", displayName: "Clears Selection on View", cellConfiguration: nil)
         config.addProperty("useLayoutToLayoutNavigationTransitions", displayName: "Layout to Layout Transitions", cellConfiguration: nil)
         config.addProperty("installsStandardGestureForInteractiveMovement", displayName: "Uses Default Reordering Gesture", cellConfiguration: nil)
@@ -90,15 +90,15 @@ extension UIViewController {
     }
     
     if navigationController != nil {
-      context.configure(.Controller, "Navigation") { (config) in
+      context.configure(.controller, "Navigation") { (config) in
         config.addProperties([ "navigationController.navigationBarHidden", "navigationController.toolbarHidden", "navigationController.hidesBarsWhenKeyboardAppears", "navigationController.hidesBarsOnSwipe", "navigationController.hidesBarsWhenVerticallyCompact", "navigationController.hidesBarsOnTap" ])
       }
       
-      context.configure(.Controller, "Navigation Item", configuration: { (config) in
+      context.configure(.controller, "Navigation Item", configuration: { (config) in
         config.addProperties([ "navigationItem.hidesBackButton", "navigationItem.title", "navigationItem.prompt" ])
       })
       
-      context.configure(.Controller, "Navigation Items", configuration: { (config) in
+      context.configure(.controller, "Navigation Items", configuration: { (config) in
         if navigationItem.leftBarButtonItem != nil {
           config.addProperties([ "navigationItem.leftBarButtonItem" ])
         }

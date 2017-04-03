@@ -25,7 +25,7 @@ import UIKit
 extension NSObjectProtocol {
   
   static func ObjClassName() -> String {
-    return NSStringFromClass(self).componentsSeparatedByString(".").last!
+    return NSStringFromClass(self).components(separatedBy: ".").last!
   }
   
   func ObjClassName() -> String {

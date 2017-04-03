@@ -21,28 +21,29 @@
  */
 
 import CoreGraphics
+import GraphicsRenderer
 
-extension Draw {
+extension RendererDrawable {
   
   // MARK: Internal functions
   
-  static func drawGradientPath(path: BezierPath, startColor: Color, endColor: Color, angleInDegrees: CGFloat, stroke: Bool, attributes attributesBlock: AttributesBlock? = nil) {
-    GraphicsContext()?.draw(inRect: path.bounds, attributes: attributesBlock, drawing: { (context, rect, attributes) in
-      CGContextAddPath(context, path.CGPath)
+  internal func drawGradientPath(_ path: BezierPath, startColor: Color, endColor: Color, angleInDegrees: CGFloat, stroke: Bool, attributes attributesBlock: AttributesBlock? = nil) {
+    cgContext.draw(inRect: path.bounds, attributes: attributesBlock, drawing: { (context, rect, attributes) in
+      context.addPath(path.cgPath)
       
       if stroke {
-        CGContextReplacePathWithStrokedPath(context)
+        context.replacePathWithStrokedPath()
       }
       
-      if !CGContextIsPathEmpty(context) {
-        CGContextClip(context)
+      if !context.isPathEmpty {
+        context.clip()
       }
       
-      let rect = CGPathGetBoundingBox(path.CGPath)
+      let rect = path.cgPath.boundingBox
       let locations: [CGFloat] = [0, 1]
       let colorSpace = CGColorSpaceCreateDeviceRGB()
-      let colors = [startColor.CGColor, endColor.CGColor]
-      let gradient = CGGradientCreateWithColors(colorSpace, colors, locations)
+      let colors = [startColor.cgColor, endColor.cgColor] as CFArray
+      let gradient = CGGradient(colorsSpace: colorSpace, colors: colors, locations: locations)
       var (start, end) = rect.size.gradientPoints(forAngleInDegrees: angleInDegrees)
       
       start.x += rect.origin.x
@@ -50,7 +51,7 @@ extension Draw {
       end.x += rect.origin.x
       end.y += rect.origin.y
       
-      CGContextDrawLinearGradient(context, gradient!, start, end, [ .DrawsAfterEndLocation, .DrawsBeforeStartLocation ])
+      context.drawLinearGradient(gradient!, start: start, end: end, options: [ .drawsAfterEndLocation, .drawsBeforeStartLocation ])
     })
   }
   

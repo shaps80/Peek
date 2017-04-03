@@ -29,14 +29,14 @@ extension UIControl {
    
    - parameter context: The context to apply these properties to
    */
-  public override func preparePeek(context: Context) {
+  public override func preparePeek(_ context: Context) {
     super.preparePeek(context)
     
-    context.configure(.View, "State") { (config) in
+    context.configure(.view, "State") { (config) in
       config.addProperties([ "enabled", "selected", "highlighted" ])
     }
     
-    context.configure(.Layout, "Control") { (config) in
+    context.configure(.layout, "Control") { (config) in
       config.addProperty("contentVerticalAlignment", displayName: "Vertical Alignment", cellConfiguration: { (cell, object, value) in
         let alignment = UIControlContentVerticalAlignment(rawValue: value as! Int)!
         cell.detailTextLabel?.text = alignment.description

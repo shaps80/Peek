@@ -25,17 +25,17 @@ import UIKit
 /// This accessory view is used in Peek to show an icon representing the underlying UIColor value
 final class ColorAccessoryView: UIView {
   
-  private let value: UIColor?
-  private let size = CGSizeMake(24, 14)
+  fileprivate let value: UIColor?
+  fileprivate let size = CGSize(width: 24, height: 14)
   
   init(value: UIColor?) {
     self.value = value
-    super.init(frame: CGRectMake(0, 0, size.width, size.height))
-    opaque = true
+    super.init(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+    isOpaque = true
     backgroundColor = value
     
     layer.cornerRadius = size.height / 2
-    layer.borderColor = UIColor(white: 1, alpha: 0.5).CGColor
+    layer.borderColor = UIColor(white: 1, alpha: 0.5).cgColor
     layer.borderWidth = 1
   }
   
@@ -43,8 +43,8 @@ final class ColorAccessoryView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
   
-  override func intrinsicContentSize() -> CGSize {
-    return CGSizeMake(size.width, size.height)
+  override var intrinsicContentSize : CGSize {
+    return CGSize(width: size.width, height: size.height)
   }
   
 }

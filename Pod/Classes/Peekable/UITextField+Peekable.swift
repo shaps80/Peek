@@ -29,17 +29,17 @@ extension UITextField {
    
    - parameter context: The context to apply these properties to
    */
-  public override func preparePeek(context: Context) {
+  public override func preparePeek(_ context: Context) {
     super.preparePeek(context)
     
-    context.configure(.Attributes, "Appearance") { (config) in
+    context.configure(.attributes, "Appearance") { (config) in
       config.addProperty("borderStyle", displayName: nil, cellConfiguration: { (cell, object, value) in
         let style = UITextBorderStyle(rawValue: value as! Int)!
         cell.detailTextLabel?.text = style.description
       })
     }
     
-    context.configure(.Attributes, "Text") { (config) in
+    context.configure(.attributes, "Text") { (config) in
       config.addProperties([ "text", "textColor", "attributedText" ])
       
       config.addProperty("textAlignment", displayName: "Alignment", cellConfiguration: { (cell, object, value) in
@@ -48,7 +48,7 @@ extension UITextField {
       })
     }
     
-    context.configure(.Attributes, "Behaviour") { (config) in
+    context.configure(.attributes, "Behaviour") { (config) in
       config.addProperties([ "adjustsFontSizeToFitWidth", "allowsEditingTextAttributes", "clearsOnBeginEditing", "clearsOnInsertion" ])
       
       config.addProperty("clearButtonMode", displayName: nil, cellConfiguration: { (cell, object, value) in
@@ -67,11 +67,11 @@ extension UITextField {
       })
     }
     
-    context.configure(.Attributes, "State") { (config) in
+    context.configure(.attributes, "State") { (config) in
       config.addProperties([ "enabled", "editing" ])
     }
     
-    context.configure(.Attributes, "Font") { (config) in
+    context.configure(.attributes, "Font") { (config) in
       config.addProperties([ "minimumFontSize", "font", "font.pointSize" ])
     }
   }

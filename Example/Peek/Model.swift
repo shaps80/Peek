@@ -26,22 +26,22 @@ class Model {
   
   static let totalWeeks = 26
   
-  private(set) var weeks: [Week]!
+  fileprivate(set) var weeks: [Week]!
   
-  private var path: String = {
-    let docs = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first! as NSString
-    return docs.stringByAppendingPathComponent("Track.model")
+  fileprivate var path: String = {
+    let docs = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as NSString
+    return docs.appendingPathComponent("Track.model")
   }()
   
   init() {
     prepare()
   }
   
-  private func prepare() {
+  fileprivate func prepare() {
     weeks = [Week]()
     
-    if let data = NSData(contentsOfFile: path),
-      JSON = try! NSJSONSerialization.JSONObjectWithData(data, options: []) as? [[String: AnyObject]] {
+    if let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
+      let JSON = try! JSONSerialization.jsonObject(with: data, options: []) as? [[String: AnyObject]] {
         
         for attributes in JSON {
           weeks.append(Week(fromJSON: attributes))
@@ -59,7 +59,7 @@ class Model {
     
   }
   
-  private func toJSON() -> [[String: AnyObject]] {
+  fileprivate func toJSON() -> [[String: AnyObject]] {
     var JSON = [[String: AnyObject]]()
     
     for week in weeks {
@@ -70,14 +70,14 @@ class Model {
   }
   
   func save() {
-    let data = try! NSJSONSerialization.dataWithJSONObject(toJSON(), options: [])
-    data.writeToFile(path, atomically: true)
+    let data = try! JSONSerialization.data(withJSONObject: toJSON(), options: [])
+    try? data.write(to: URL(fileURLWithPath: path), options: [.atomic])
   }
   
-  func updateWeek(week: Week) {
-    if let index = weeks.indexOf(week) {
-      weeks.removeAtIndex(index)
-      weeks.insert(week, atIndex: index)
+  func updateWeek(_ week: Week) {
+    if let index = weeks.index(of: week) {
+      weeks.remove(at: index)
+      weeks.insert(week, at: index)
       
       save()
     } else {
@@ -85,7 +85,7 @@ class Model {
     }
   }
   
-  func complete(week: Week) -> Bool {
+  func complete(_ week: Week) -> Bool {
     return week.complete() && ImageCache.sharedCache().imageExists(week)
   }
   

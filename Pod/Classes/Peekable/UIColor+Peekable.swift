@@ -45,10 +45,10 @@ extension UIColor {
    
    - parameter context: The context to apply these properties to
    */
-  public override func preparePeek(context: Context) {
+  public override func preparePeek(_ context: Context) {
     super.preparePeek(context)
     
-    context.configure(.Attributes, "Values") { (config) in
+    context.configure(.attributes, "Values") { (config) in
       config.addProperty("peek_alpha", displayName: "Alpha", cellConfiguration: nil)
       config.addProperty("peek_RGB", displayName: "RGB", cellConfiguration: nil)
       config.addProperty("peek_HSL", displayName: "HSL", cellConfiguration: nil)

@@ -29,18 +29,18 @@ extension UIActivityIndicatorView {
    
    - parameter context: The context to apply these properties to
    */
-  public override func preparePeek(context: Context) {
+  public override func preparePeek(_ context: Context) {
     super.preparePeek(context)
     
-    context.configure(.Attributes, "Behaviour") { (config) in
+    context.configure(.attributes, "Behaviour") { (config) in
       config.addProperties([ "hidesWhenStopped" ])
     }
     
-    context.configure(.Attributes, "State") { (config) in
+    context.configure(.attributes, "State") { (config) in
       config.addProperties([ "isAnimating" ])
     }
     
-    context.configure(.Attributes, "Appearance") { (config) in
+    context.configure(.attributes, "Appearance") { (config) in
       config.addProperties([ "color" ])
       
       config.addProperty("activityIndicatorViewStyle", displayName: "Display Style", cellConfiguration: { (cell, view, value) in

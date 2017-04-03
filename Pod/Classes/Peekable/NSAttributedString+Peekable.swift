@@ -45,18 +45,18 @@ final class TextAttributes: NSObject {
   let fontName: String?
   let foregroundColor: UIColor?
   let backgroundColor: UIColor?
-  private(set) var ligature: Int = 1
-  private(set) var kerning: CGFloat = 0
+  fileprivate(set) var ligature: Int = 1
+  fileprivate(set) var kerning: CGFloat = 0
   let strokeColor: UIColor?
-  private(set) var strokeWidth: CGFloat = 0
+  fileprivate(set) var strokeWidth: CGFloat = 0
   let shadow: NSShadow?
   let paragraphStyle: ParagraphStyle?
   
   init(string: NSAttributedString) {
     var attributes = [String: AnyObject]()
     
-    string.enumerateAttributesInRange(NSMakeRange(0, string.length), options: [], usingBlock: { (attr, range, false) in
-      attributes = attr
+    string.enumerateAttributes(in: NSMakeRange(0, string.length), options: [], using: { (attr, range, false) in
+      attributes = attr as [String : AnyObject]
     })
     
     fontName = attributes[NSFontAttributeName] as? String
@@ -89,19 +89,19 @@ extension NSAttributedString {
     return attributes.paragraphStyle
   }
   
-  override public func preparePeek(context: Context) {
+  override public func preparePeek(_ context: Context) {
     super.preparePeek(context)
     
-    context.configure(.Attributes, "General") { (config) in
+    context.configure(.attributes, "General") { (config) in
       config.addProperties([ "attributes.fontName", "attributes.foregroundColor", "attributes.backgroundColor", "attributes.ligature", "attributes.kerning", "attributes.strokeColor", "attributes.strokeWidth" ])
     }
     
-    context.configure(.Attributes, "Shadow") { (config) in
+    context.configure(.attributes, "Shadow") { (config) in
       config.addProperties([ "attributes.shadow.shadowOffset", "attributes.shadow.shadowColor", "attributes.shadow.shadowBlurRadius" ])
     }
     
     if self.paragraph != nil {
-      context.configure(.Attributes, "Paragraph") { (config) in
+      context.configure(.attributes, "Paragraph") { (config) in
         config.addProperties([ "paragraph.lineSpacing", "paragraph.headIndent", "paragraph.tailIndent", "paragraph.minimumLineHeight", "paragraph.maximumLineHeight", "paragraph.lineHeightMultiple", "paragraph.hyphenationFactor", "paragraph.spacingBefore", "paragraph.spacingAfter", "paragraph.firstLineHeadIndent" ])
 
         config.addProperty("paragraph.lineBreakMode", displayName: nil, cellConfiguration: { (cell, object, value) in

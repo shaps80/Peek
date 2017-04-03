@@ -28,12 +28,12 @@ struct MetaData {
     
     for section in sections {
       for item in section.items {
-        if let key = item.key, value = item.value {
+        if let key = item.key, let value = item.value {
           let field: [String: AnyObject] = [
-            "title": key,
-            "value": value,
-            "short": true,
-            "color": SlackPriority.High.rawValue,
+            "title": key as AnyObject,
+            "value": value as AnyObject,
+            "short": true as AnyObject,
+            "color": SlackPriority.High.rawValue as AnyObject,
           ]
           
           JSON.append(field)
@@ -61,13 +61,13 @@ struct MetaData {
     
     for section in sections {
       for item in section.items {
-        if let key = item.key, value = item.value {
+        if let key = item.key, let value = item.value {
           fields += "<tr><td>\(key)</td>\n<td>\(value)</td></tr>"
         }
       }
     }
     
-    return html.stringByReplacingOccurrencesOfString("FIELDS", withString: fields)
+    return html.replacingOccurrences(of: "FIELDS", with: fields)
   }
   
 }

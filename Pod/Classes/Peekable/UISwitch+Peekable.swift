@@ -29,14 +29,14 @@ extension UISwitch {
    
    - parameter context: The context to apply these properties to
    */
-  public override func preparePeek(context: Context) {
+  public override func preparePeek(_ context: Context) {
     super.preparePeek(context)
     
-    context.configure(.Attributes, "Appearance") { (config) in
+    context.configure(.attributes, "Appearance") { (config) in
       config.addProperties([ "onTintColor", "thumbTintColor", "onImage", "offImage" ])
     }
     
-    context.configure(.Attributes, "state") { (config) in
+    context.configure(.attributes, "state") { (config) in
       config.addProperties([ "on" ])
     }
   }

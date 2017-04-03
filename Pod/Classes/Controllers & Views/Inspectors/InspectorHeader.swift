@@ -34,37 +34,37 @@ final class InspectorHeader: UIView {
     
     var headerImage: UIImage?
     
-    if image.renderingMode == .AlwaysTemplate {
-      headerImage = image.imageWithRenderingMode(.AlwaysTemplate)
+    if image.renderingMode == .alwaysTemplate {
+      headerImage = image.withRenderingMode(.alwaysTemplate)
     } else {
       headerImage = image
     }
     
     let imageView = UIImageView(image: headerImage)
-    imageView.backgroundColor = UIColor.clearColor()
+    imageView.backgroundColor = UIColor.clear
     imageView.clipsToBounds = true
     imageView.frame = rect.insetBy(dx: 10, dy: 10)
-    imageView.contentMode = imageView.bounds.width > 280 || imageView.bounds.width > height ? .ScaleAspectFit : .Center
+    imageView.contentMode = imageView.bounds.width > 280 || imageView.bounds.width > height ? .scaleAspectFit : .center
     
     var frame = rect
     frame.size.height -= 20
     super.init(frame: frame)
     
-    backgroundColor = UIColor.clearColor()
+    backgroundColor = UIColor.clear
     clipsToBounds = true
     
     addSubview(imageView)
     imageView.size(width: imageView.bounds.width, height: imageView.bounds.height)
-    imageView.alignVertically(self)
-    imageView.alignHorizontally(self)
+    imageView.align(axis: .vertical, to: self)
+    imageView.align(axis: .horizontal, to: self)
 
     if showBorder {
       let borderView = DashedBorderView(frame: rect)
       borderView.clipsToBounds = true
-      borderView.backgroundColor = UIColor.clearColor()
+      borderView.backgroundColor = UIColor.clear
       addSubview(borderView)
       
-      borderView.pin(.All, toView: self)
+      borderView.pin(edges: .all, to: self)
     }
     
     self.size(width: rect.width, height: rect.height)
@@ -78,13 +78,13 @@ final class InspectorHeader: UIView {
 
 private class DashedBorderView: UIView {
   
-  private override func layoutSubviews() {
+  fileprivate override func layoutSubviews() {
     super.layoutSubviews()
     setNeedsDisplay()
   }
   
-  private override func drawRect(rect: CGRect) {
-    super.drawRect(rect)
+  fileprivate override func draw(_ rect: CGRect) {
+    super.draw(rect)
     
     let color = UIColor(white: 1, alpha: 0.3)
     let path = UIBezierPath(roundedRect: rect.insetBy(dx: 1, dy: 1), cornerRadius: 2)

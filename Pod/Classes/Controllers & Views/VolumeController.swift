@@ -39,43 +39,43 @@ protocol PeekActivationController {
 final class VolumeController: NSObject, PeekActivationController {
   
   unowned var peek: Peek
-  private var volumeView: MPVolumeView!
-  private var session: AVAudioSession!
-  private var previousVolume: Float = 0
+  fileprivate var volumeView: MPVolumeView!
+  fileprivate var session: AVAudioSession!
+  fileprivate var previousVolume: Float = 0
   
   init(peek: Peek) {
     self.peek = peek
     super.init()
     
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(VolumeController.register), name: UIApplicationDidBecomeActiveNotification, object: nil)
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(VolumeController.unregister), name: UIApplicationWillResignActiveNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(VolumeController.register), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(VolumeController.unregister), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
   }
   
   deinit {
-    NSNotificationCenter.defaultCenter().removeObserver(self)
+    NotificationCenter.default.removeObserver(self)
     unregister()
   }
-  
-  override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-    if let keyPath = keyPath where keyPath == "outputVolume",
-      let volume = change?["new"] as? NSNumber where volume != previousVolume {
+
+  override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    if let keyPath = keyPath, keyPath == "outputVolume",
+      let volume = change?[.newKey] as? NSNumber, volume.floatValue != previousVolume {
         if Peek.isAlreadyPresented {
           peek.dismiss()
         } else {
           peek.present()
         }
-        
         resetVolume()
     }
+
   }
   
   func resetVolume() {
     for view in volumeView.subviews {
-      if view.respondsToSelector(#selector(UISlider.setValue(_:animated:))) {
-        view.performSelector(#selector(UISlider.setValue(_:animated:)), withObject: previousVolume, withObject: false)
+      if view.responds(to: #selector(UISlider.setValue(_:animated:))) {
+        view.perform(#selector(UISlider.setValue(_:animated:)), with: previousVolume, with: false)
         
-        if view.respondsToSelector("_commitVolumeChange") {
-          view.performSelector("_commitVolumeChange")
+        if view.responds(to: "_commitVolumeChange") {
+          view.perform("_commitVolumeChange")
         }
 
         return
@@ -84,20 +84,20 @@ final class VolumeController: NSObject, PeekActivationController {
   }
   
   func register() {
-    volumeView = MPVolumeView(frame: CGRectMake(-1000, 0, 1, 1))
+    volumeView = MPVolumeView(frame: CGRect(x: -1000, y: 0, width: 1, height: 1))
     peek.peekingWindow.addSubview(volumeView)
     
     session = AVAudioSession.sharedInstance()
     previousVolume = session.outputVolume
     
     do {
-      try session.setCategory(AVAudioSessionCategoryAmbient, withOptions: .MixWithOthers)
+      try session.setCategory(AVAudioSessionCategoryAmbient, with: .mixWithOthers)
       try session.setActive(true)
     } catch {
       print(error)
     }
     
-    session.addObserver(self, forKeyPath: "outputVolume", options: .New, context: nil)
+    session.addObserver(self, forKeyPath: "outputVolume", options: .new, context: nil)
   }
   
   func unregister() {

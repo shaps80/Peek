@@ -33,7 +33,7 @@ extension UIView {
     var responder: UIResponder? = self
     
     while !(responder is UIViewController) {
-      if let next = responder?.nextResponder() {
+      if let next = responder?.next {
         responder = next
       }
     }
@@ -48,8 +48,8 @@ extension UIView {
    
    - returns: A CGRect in the coordinate space of Peek's overlay view
    */
-  func frameInPeek(view: UIView) -> CGRect {
-    return convertRect(bounds, toView: view)
+  func frameInPeek(_ view: UIView) -> CGRect {
+    return convert(bounds, to: view)
   }
   
   /**
@@ -59,16 +59,16 @@ extension UIView {
    
    - returns: A CGRect in the coordinator space of Peek's overlay view
    */
-  func frameInPeekWithoutTransform(view: UIView) -> CGRect {
+  func frameInPeekWithoutTransform(_ view: UIView) -> CGRect {
     let center = self.center
     let size = self.bounds.size
-    let rect = CGRectMake(center.x - size.width / 2, center.y - size.height / 2, size.width, size.height)
+    let rect = CGRect(x: center.x - size.width / 2, y: center.y - size.height / 2, width: size.width, height: size.height)
     
     if let superview = self.superview {
-      return superview.convertRect(rect, toView: view)
+      return superview.convert(rect, to: view)
     }
     
-    return CGRectZero
+    return CGRect.zero
   }
   
 }

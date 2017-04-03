@@ -24,7 +24,7 @@ import UIKit
 
 extension UIColor {
   
-  func colorWithDelta(delta: CGFloat = 0.1) -> UIColor {
+  func colorWithDelta(_ delta: CGFloat = 0.1) -> UIColor {
     let d = max(min(delta, 1), -1)
     let (r, g, b, a) = rgbComponents
     return UIColor(red: r + d, green: g + d, blue: b + d, alpha: a)
@@ -66,7 +66,7 @@ extension UIColor {
     }
   }
   
-  private class func colorWithRed(red red: UInt, green: UInt, blue: UInt, alpha: CGFloat) -> UIColor {
+  fileprivate class func colorWithRed(red: UInt, green: UInt, blue: UInt, alpha: CGFloat) -> UIColor {
     return UIColor(red: CGFloat(red) / 255, green: CGFloat(green) / 255, blue: CGFloat(blue) / 255, alpha: alpha)
   }
   

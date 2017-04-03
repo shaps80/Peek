@@ -25,53 +25,53 @@ import UIKit
 extension UIButton {
   
   @objc var normalTitle: String? {
-    return titleForState(.Normal)
+    return title(for: UIControlState())
   }
   
   @objc var selectedTitle: String? {
-    return titleForState(.Selected)
+    return title(for: .selected)
   }
   
   @objc var highlightedTitle: String? {
-    return titleForState(.Highlighted)
+    return title(for: .highlighted)
   }
   
   @objc var disabledTitle: String? {
-    return titleForState(.Disabled)
+    return title(for: .disabled)
   }
   
   
   @objc var normalAttributedTitle: NSAttributedString? {
-    return attributedTitleForState(.Normal)
+    return attributedTitle(for: UIControlState())
   }
   
   @objc var selectedAttributedTitle: NSAttributedString? {
-    return attributedTitleForState(.Selected)
+    return attributedTitle(for: .selected)
   }
   
   @objc var highlightedAttributedTitle: NSAttributedString? {
-    return attributedTitleForState(.Highlighted)
+    return attributedTitle(for: .highlighted)
   }
   
   @objc var disabledAttributedTitle: NSAttributedString? {
-    return attributedTitleForState(.Disabled)
+    return attributedTitle(for: .disabled)
   }
   
   
   @objc var normalTitleColor: UIColor? {
-    return titleColorForState(.Normal)
+    return titleColor(for: UIControlState())
   }
   
   @objc var selectedTitleColor: UIColor? {
-    return titleColorForState(.Selected)
+    return titleColor(for: .selected)
   }
   
   @objc var highlightedTitleColor: UIColor? {
-    return titleColorForState(.Highlighted)
+    return titleColor(for: .highlighted)
   }
   
   @objc var disabledTitleColor: UIColor? {
-    return titleColorForState(.Disabled)
+    return titleColor(for: .disabled)
   }
   
   /**
@@ -79,47 +79,47 @@ extension UIButton {
    
    - parameter context: The context to apply these properties to
    */
-  public override func preparePeek(context: Context) {
+  public override func preparePeek(_ context: Context) {
     super.preparePeek(context)
     
-    context.configure(.Attributes, "Components") { (config) in
+    context.configure(.attributes, "Components") { (config) in
       config.addProperties([ "imageView", "titleLabel" ])
     }
     
-    context.configure(.Attributes, "General") { (config) in
+    context.configure(.attributes, "General") { (config) in
       config.addProperty("buttonType", displayName: nil, cellConfiguration: { (cell, object, value) in
         let type = UIButtonType(rawValue: value as! Int)!
         cell.detailTextLabel?.text = type.description
       })
     }
     
-    context.configure(.Layout, "Button") { (config) in
+    context.configure(.layout, "Button") { (config) in
       config.addProperties([ "contentEdgeInsets", "titleEdgeInsets", "imageEdgeInsets" ])
     }
     
-    context.configure(.Attributes, "State") { (config) in
+    context.configure(.attributes, "State") { (config) in
       config.addProperties([ "selected", "highlighted" ])
     }
     
-    context.configure(.Attributes, "Behaviour") { (config) in
+    context.configure(.attributes, "Behaviour") { (config) in
       config.addProperties([ "showsTouchWhenHighlighted", "adjustsImageWhenDisabled", "adjustsImageWhenHighlighted" ])
     }
     
-    context.configure(.Attributes, "Title") { (config) in
+    context.configure(.attributes, "Title") { (config) in
       config.addProperty("normalTitle", displayName: "Normal", cellConfiguration: nil)
       config.addProperty("selectedTitle", displayName: "Selected", cellConfiguration: nil)
       config.addProperty("highlightedTitle", displayName: "Highlighted", cellConfiguration: nil)
       config.addProperty("disabledTitle", displayName: "Disabled", cellConfiguration: nil)
     }
     
-    context.configure(.Attributes, "Attributed Title") { (config) in
+    context.configure(.attributes, "Attributed Title") { (config) in
       config.addProperty("normalAttributedTitle", displayName: "Normal", cellConfiguration: nil)
       config.addProperty("selectedAttributedTitle", displayName: "Selected", cellConfiguration: nil)
       config.addProperty("highlightedAttributedTitle", displayName: "Highlighted", cellConfiguration: nil)
       config.addProperty("disabledAttributedTitle", displayName: "Disabled", cellConfiguration: nil)
     }
     
-    context.configure(.Attributes, "Title Colors") { (config) in
+    context.configure(.attributes, "Title Colors") { (config) in
       config.addProperty("normalTitleColor", displayName: "Normal", cellConfiguration: nil)
       config.addProperty("selectedTitleColor", displayName: "Selected", cellConfiguration: nil)
       config.addProperty("highlightedTitleColor", displayName: "Highlighted", cellConfiguration: nil)

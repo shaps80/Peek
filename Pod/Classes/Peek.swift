@@ -45,16 +45,16 @@ public final class Peek: NSObject {
   }
   
   /// The status bar style of the underlying app -- used to reset values when Peek is deactivated
-  var previousStatusBarStyle = UIStatusBarStyle.Default
+  var previousStatusBarStyle = UIStatusBarStyle.default
   /// The status bar style of the underlying app -- used to reset values when Peek is deactivated
   var previousStatusBarHidden = false
-  var supportedOrientations = UIInterfaceOrientationMask.All
+  var supportedOrientations = UIInterfaceOrientationMask.all
   unowned var peekingWindow: UIWindow // since this is the app's window, we don't want to retain it!
   
-  private var activationController: PeekActivationController?
-  private var volumeController: VolumeController?
-  private(set) var options = PeekOptions()
-  private(set) var window: UIWindow? // this is the Peek Overlay window, so we have to retain it!
+  fileprivate var activationController: PeekActivationController?
+  fileprivate var volumeController: VolumeController?
+  fileprivate(set) var options = PeekOptions()
+  fileprivate(set) var window: UIWindow? // this is the Peek Overlay window, so we have to retain it!
   
   init(window: UIWindow) {
     peekingWindow = window
@@ -75,14 +75,14 @@ public final class Peek: NSObject {
       return
     }
     
-    supportedOrientations = peekingWindow.rootViewController?.topViewController().supportedInterfaceOrientations() ?? .All
-    previousStatusBarStyle = UIApplication.sharedApplication().statusBarStyle
-    previousStatusBarHidden = UIApplication.sharedApplication().statusBarHidden
+    supportedOrientations = peekingWindow.rootViewController?.topViewController().supportedInterfaceOrientations ?? .all
+    previousStatusBarStyle = UIApplication.shared.statusBarStyle
+    previousStatusBarHidden = UIApplication.shared.isStatusBarHidden
     
     peekingWindow.endEditing(true)
     
     window = UIWindow()
-    window?.backgroundColor = UIColor.clearColor()
+    window?.backgroundColor = UIColor.clear
     window?.frame = peekingWindow.bounds
     window?.windowLevel = UIWindowLevelNormal
     window?.alpha = 0
@@ -90,9 +90,9 @@ public final class Peek: NSObject {
     window?.rootViewController = PeekViewController(peek: self)
     window?.makeKeyAndVisible()
     
-    UIView.animateWithDuration(0.25) { () -> Void in
+    UIView.animate(withDuration: 0.25, animations: { () -> Void in
       self.window?.alpha = 1
-    }
+    }) 
     
     Peek.isAlreadyPresented = true
   }
@@ -101,11 +101,11 @@ public final class Peek: NSObject {
    Dismisses Peek
    */
   public func dismiss() {
-    UIView.animateWithDuration(0.25, animations: { () -> Void in
+    UIView.animate(withDuration: 0.25, animations: { () -> Void in
       self.window?.alpha = 0
-    }) { (finished) -> Void in
+    }, completion: { (finished) -> Void in
       if let controller = self.window?.rootViewController?.presentedViewController {
-        controller.presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
+        controller.presentingViewController?.dismiss(animated: false, completion: nil)
       }
 
       self.peekingWindow.makeKeyAndVisible()
@@ -115,7 +115,7 @@ public final class Peek: NSObject {
       self.screenshot = nil
       
       Peek.isAlreadyPresented = false
-    }
+    }) 
   }
   
   /**
@@ -123,8 +123,8 @@ public final class Peek: NSObject {
    
    - parameter motion: The motion events to handle
    */
-  public func handleShake(motion: UIEventSubtype) {
-    if motion != .MotionShake || !enabled {
+  public func handleShake(_ motion: UIEventSubtype) {
+    if motion != .motionShake || !enabled {
       return
     }
     
@@ -133,7 +133,7 @@ public final class Peek: NSObject {
       isSimulator = true
     #endif
     
-    if (options.activationMode == .Auto && isSimulator) || options.activationMode == .Shake {
+    if (options.activationMode == .auto && isSimulator) || options.activationMode == .shake {
       if Peek.isAlreadyPresented {
         peekingWindow.peek.dismiss()
       } else {
@@ -147,14 +147,14 @@ public final class Peek: NSObject {
    
    - parameter options: The options to use for configuring Peek
    */
-  public func enableWithOptions(options: (options: PeekOptions) -> Void) {
+  public func enableWithOptions(_ options: (_ options: PeekOptions) -> Void) {
     let opts = PeekOptions()
-    options(options: opts)
+    options(opts)
     self.options = opts
     enabled = true
   }
   
-  private func configureWithOptions(options: PeekOptions) {
+  fileprivate func configureWithOptions(_ options: PeekOptions) {
     self.options = options
     
     var isSimulator = false
@@ -162,7 +162,7 @@ public final class Peek: NSObject {
       isSimulator = true
     #endif
     
-    if options.activationMode == .Auto && !isSimulator {
+    if options.activationMode == .auto && !isSimulator {
       activationController = VolumeController(peek: self)
     }
   }
@@ -170,16 +170,16 @@ public final class Peek: NSObject {
   // MARK: Internal alerts for presenting various options
   
   func unsupportedFunction() {
-    let controller = UIAlertController(title: "Unsupported Feature", message: "This feature is coming soon.", preferredStyle: .Alert)
-    controller.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-    window?.rootViewController?.topViewController().presentViewController(controller, animated: true, completion: nil)
+    let controller = UIAlertController(title: "Unsupported Feature", message: "This feature is coming soon.", preferredStyle: .alert)
+    controller.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+    window?.rootViewController?.topViewController().present(controller, animated: true, completion: nil)
   }
   
   func unknownKeyValue() {
     // this should NEVER be called!
-    let controller = UIAlertController(title: "Peek Error", message: "The key or value couldn't be determined.", preferredStyle: .Alert)
-    controller.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-    window?.rootViewController?.topViewController().presentViewController(controller, animated: true, completion: nil)
+    let controller = UIAlertController(title: "Peek Error", message: "The key or value couldn't be determined.", preferredStyle: .alert)
+    controller.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+    window?.rootViewController?.topViewController().present(controller, animated: true, completion: nil)
   }
   
 }

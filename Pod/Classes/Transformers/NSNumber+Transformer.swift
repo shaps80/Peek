@@ -23,23 +23,23 @@
 import UIKit
 
 /// Returns a string representation of a number -- e.g. floats and doubles: 0.5, 2.58
-final class NumberTransformer: NSValueTransformer {
+final class NumberTransformer: Foundation.ValueTransformer {
   
-  private static var floatFormatter: NSNumberFormatter {
-    let formatter = NSNumberFormatter()
+  fileprivate static var floatFormatter: NumberFormatter {
+    let formatter = NumberFormatter()
     formatter.maximumFractionDigits = 2
     formatter.minimumFractionDigits = 1
     formatter.minimumIntegerDigits = 1
     return formatter
   }
   
-  override func transformedValue(value: AnyObject?) -> AnyObject? {
-    if let value = value as? NSNumber where value.isBool() {
+  override func transformedValue(_ value: Any?) -> Any? {
+    if let value = value as? NSNumber, value.isBool() {
       return nil
     }
     
-    if let value = value as? NSNumber where value.isFloat() {
-      return NumberTransformer.floatFormatter.stringFromNumber(value)!
+    if let value = value as? NSNumber, value.isFloat() {
+      return NumberTransformer.floatFormatter.string(from: value)!
     }
     
     if let value = value as? NSNumber {

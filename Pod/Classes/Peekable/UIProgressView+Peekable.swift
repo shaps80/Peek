@@ -29,10 +29,10 @@ extension UIProgressView {
    
    - parameter context: The context to apply these properties to
    */
-  public override func preparePeek(context: Context) {
+  public override func preparePeek(_ context: Context) {
     super.preparePeek(context)
     
-    context.configure(.Attributes, "Appearance") { (config) in
+    context.configure(.attributes, "Appearance") { (config) in
       config.addProperty("progressViewStyle", displayName: "View Style", cellConfiguration: { (cell, view, value) in
         if let mode = UIProgressViewStyle(rawValue: value as! Int) {
           cell.detailTextLabel?.text = mode.description
@@ -40,15 +40,15 @@ extension UIProgressView {
       })
     }
     
-    context.configure(.Attributes, "Colors") { (config) in
+    context.configure(.attributes, "Colors") { (config) in
       config.addProperties([ "progressTintColor", "trackTintColor" ])
     }
     
-    context.configure(.Attributes, "Images") { (config) in
+    context.configure(.attributes, "Images") { (config) in
       config.addProperties([ "trackImage", "progressImage" ])
     }
     
-    context.configure(.Attributes, "Value") { (config) in
+    context.configure(.attributes, "Value") { (config) in
       config.addProperties([ "progress" ])
     }
   }

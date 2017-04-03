@@ -26,40 +26,40 @@ let PeekPropertyDefaultCellHeight: CGFloat = 36
 
 final class PeekContext: Context {
   
-  @objc private(set) var properties = [Property]()
+  @objc fileprivate(set) var properties = [Property]()
   
-  @objc func configure(inspector: Inspector, _ category: String, @noescape configuration: (config: Configuration) -> Void) {
+  @objc func configure(_ inspector: Inspector, _ category: String, configuration: (_ config: Configuration) -> Void) {
     let config = PeekConfiguration(category: category, inspector: inspector)
-    configuration(config: config)
-    properties.appendContentsOf(config.properties)
+    configuration(config)
+    properties.append(contentsOf: config.properties)
   }
   
 }
 
 final class PeekConfiguration: Configuration {
   
-  private var category: String
-  private var inspector: Inspector
-  private(set) var properties = [Property]()
+  fileprivate var category: String
+  fileprivate var inspector: Inspector
+  fileprivate(set) var properties = [Property]()
   
   init(category: String, inspector: Inspector) {
     self.category = category
     self.inspector = inspector
   }
   
-  @objc func addProperty(keyPath: String, displayName: String? = nil, cellConfiguration: PropertyCellConfiguration = nil) -> Property {
+  @objc func addProperty(_ keyPath: String, displayName: String? = nil, cellConfiguration: PropertyCellConfiguration = nil) -> Property {
     let property = PeekProperty(keyPath: keyPath, displayName: displayName, category: category, inspector: inspector, configuration: cellConfiguration)
     properties.append(property)
     return property
   }
   
-  @objc func addProperty(value value: AnyObject?, displayName: String?, cellConfiguration: PropertyCellConfiguration) -> Property {
+  @objc func addProperty(value: AnyObject?, displayName: String?, cellConfiguration: PropertyCellConfiguration) -> Property {
     let property = PeekProperty(keyPath: "", displayName: displayName, value: value, category: category, inspector: inspector, configuration: cellConfiguration)
     properties.append(property)
     return property
   }
   
-  @objc func addProperties(keyPaths: [String]) -> [Property] {
+  @objc func addProperties(_ keyPaths: [String]) -> [Property] {
     var properties = [Property]()
     keyPaths.forEach { properties.append(addProperty($0)) }
     return properties
@@ -94,7 +94,7 @@ final class PeekProperty: Property, CustomStringConvertible, Equatable {
     if let value = self.value {
       return value
     } else {
-      return model.valueForKeyPath(keyPath)
+      return model.value(forKeyPath: keyPath) as AnyObject?
     }
   }
   

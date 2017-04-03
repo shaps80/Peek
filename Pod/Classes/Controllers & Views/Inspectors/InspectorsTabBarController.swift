@@ -26,10 +26,10 @@ import SwiftLayout
 /// Defines a controller that represents an Inspector Set
 class InspectorsTabBarController: UITabBarController, UINavigationControllerDelegate, UIGestureRecognizerDelegate {
   
-  private let model: Model
+  fileprivate let model: Model
   unowned var peek: Peek
-  private let context: Context
-  private var currentInspectorSet = InspectorSet.Secondary
+  fileprivate let context: Context
+  fileprivate var currentInspectorSet = InspectorSet.secondary
   
   init(peek: Peek, model: Model) {
     self.model = model
@@ -45,7 +45,7 @@ class InspectorsTabBarController: UITabBarController, UINavigationControllerDele
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    view.tintColor = UIColor.whiteColor()
+    view.tintColor = UIColor.white
     
     if let view = model as? UIView {
       view.preparePeek(context)
@@ -53,24 +53,24 @@ class InspectorsTabBarController: UITabBarController, UINavigationControllerDele
       view.owningViewController()?.preparePeek(context)
     }
     
-    UIDevice.currentDevice().preparePeek(context)
-    UIScreen.mainScreen().preparePeek(context)
-    UIApplication.sharedApplication().preparePeek(context)
+    UIDevice.current.preparePeek(context)
+    UIScreen.main.preparePeek(context)
+    UIApplication.shared.preparePeek(context)
     
-    tabBar.barStyle = .Black
+    tabBar.barStyle = .black
     tabBar.selectionIndicatorImage = Images.tabItemIndicatorImage()
     
-    prepareInspectors(.Primary)
+    prepareInspectors(.primary)
     
-    modalPresentationStyle = .Popover
-    preferredContentSize = CGSizeMake(375, CGFloat.max)
+    modalPresentationStyle = .popover
+    preferredContentSize = CGSize(width: 375, height: CGFloat.greatestFiniteMagnitude)
   }
   
-  @objc private func toggleInspectors() {
-    prepareInspectors(currentInspectorSet == .Primary ? .Secondary : .Primary)
+  @objc fileprivate func toggleInspectors() {
+    prepareInspectors(currentInspectorSet == .primary ? .secondary : .primary)
   }
   
-  func prepareInspectors(inspectorSet: InspectorSet) {
+  func prepareInspectors(_ inspectorSet: InspectorSet) {
     currentInspectorSet = inspectorSet
     
     let inspectors = inspectorSet.inspectors()
@@ -80,17 +80,17 @@ class InspectorsTabBarController: UITabBarController, UINavigationControllerDele
       let dataSource = ContextDataSource(context: context, inspector: inspector)
       let controller = InspectorViewController(peek: peek, model: modelForInspector(inspector), dataSource: dataSource)
       
-      if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
-        controller.navigationItem.leftBarButtonItem = UIBarButtonItem(image: Images.backIndicatorImage(), style: .Plain, target: self, action: #selector(self.back(_:)))
+      if UIDevice.current.userInterfaceIdiom == .phone {
+        controller.navigationItem.leftBarButtonItem = UIBarButtonItem(image: Images.backIndicatorImage(), style: .plain, target: self, action: #selector(self.back(_:)))
         controller.navigationItem.leftBarButtonItem?.imageInsets = UIEdgeInsets(top: 0, left: -8, bottom: 0, right: 0)
       }
       
-      controller.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.inspectorsToggleImage(inspectorSet), style: .Plain, target: self, action: #selector(self.toggleInspectors))
+      controller.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.inspectorsToggleImage(inspectorSet), style: .plain, target: self, action: #selector(self.toggleInspectors))
       controller.navigationItem.rightBarButtonItem?.imageInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 10)
       
       let navController = UINavigationController(rootViewController: controller)
 
-      navController.navigationBar.barStyle = .Black
+      navController.navigationBar.barStyle = .black
       navController.navigationBar.backIndicatorImage = Images.backIndicatorImage()
       navController.navigationBar.backIndicatorTransitionMaskImage = Images.backIndicatorImage()
       navController.navigationBar.titleTextAttributes = [ NSForegroundColorAttributeName: UIColor(white: 1, alpha: 0.5), NSFontAttributeName: UIFont(name: "Avenir-Book", size: 16)! ]
@@ -99,34 +99,34 @@ class InspectorsTabBarController: UITabBarController, UINavigationControllerDele
     }
     
     viewControllers = controllers
-    selectedIndex = NSUserDefaults.standardUserDefaults().integerForKey("lastSelectedTab.\(inspectorSet.rawValue)")
+    selectedIndex = UserDefaults.standard.integer(forKey: "lastSelectedTab.\(inspectorSet.rawValue)")
     
     title = tabBar.selectedItem?.title
   }
   
-  override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
-    if let index = tabBar.items?.indexOf(item) {
-      NSUserDefaults.standardUserDefaults().setInteger(index, forKey: "lastSelectedTab.\(currentInspectorSet.rawValue)")
+  override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+    if let index = tabBar.items?.index(of: item) {
+      UserDefaults.standard.set(index, forKey: "lastSelectedTab.\(currentInspectorSet.rawValue)")
     }
     
     title = item.title
   }
   
-  private func modelForInspector(inspector: Inspector) -> Model {
+  fileprivate func modelForInspector(_ inspector: Inspector) -> Model {
     switch inspector {
-    case .Device: return UIDevice.currentDevice()
-    case .Application: return UIApplication.sharedApplication()
-    case .Controller: return (model as! UIView).owningViewController()!
-    case .Screen: return UIScreen.mainScreen()
+    case .device: return UIDevice.current
+    case .application: return UIApplication.shared
+    case .controller: return (model as! UIView).owningViewController()!
+    case .screen: return UIScreen.main
     default: return model
     }
   }
   
-  @objc private func back(sender: AnyObject?) {
-    presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+  @objc fileprivate func back(_ sender: AnyObject?) {
+    presentingViewController?.dismiss(animated: true, completion: nil)
   }
   
-  override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+  override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
     return peek.supportedOrientations
   }
 

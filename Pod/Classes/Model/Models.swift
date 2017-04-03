@@ -34,8 +34,8 @@ public protocol Model: NSObjectProtocol {
    
    - returns: The underlying runtime value
    */
-  func valueForKeyPath(key: String) -> AnyObject?
-  
+//  func valueForKeyPath(_ key: String) -> AnyObject?
+  func value(forKeyPath: String) -> Any?
 }
 
 // MARK: - Adds Model support to all NSObject types

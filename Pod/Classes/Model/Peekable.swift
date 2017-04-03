@@ -28,8 +28,8 @@ import UIKit
 public protocol Peekable: NSObjectProtocol {
   var classForCoder: AnyClass { get }
   
-  func preparePeek(context: Context)
-  func shouldIgnore(options options: PeekOptions) -> Bool
+  func preparePeek(_ context: Context)
+  func shouldIgnore(options: PeekOptions) -> Bool
 }
 
 extension NSObject: Peekable {
@@ -39,7 +39,7 @@ extension NSObject: Peekable {
    
    - parameter context: The context to configure
    */
-  public func preparePeek(context: Context) { }
+  public func preparePeek(_ context: Context) { }
 }
 
 extension Peekable {
@@ -51,7 +51,7 @@ extension Peekable {
    
    - returns: Returns true if Peek should ignore this type, false otherwise
    */
-  public func shouldIgnore(options options: PeekOptions) -> Bool {
+  public func shouldIgnore(options: PeekOptions) -> Bool {
     return false
   }
   
@@ -66,20 +66,20 @@ extension UIView {
    
    - returns: Returns true if Peek should ignore this view, false otherwise
    */
-  public func shouldIgnore(options options: PeekOptions) -> Bool {
-    let isContainer = isMemberOfClass(UIView) && subviews.count > 0
+  public func shouldIgnore(options: PeekOptions) -> Bool {
+    let isContainer = isMember(of: UIView.self) && subviews.count > 0
     if isContainer && options.shouldIgnoreContainers { return true }
     
-    let isInvisible = hidden || alpha == 0 || CGRectEqualToRect(frame, CGRectZero)
+    let isInvisible = isHidden || alpha == 0 || frame.equalTo(CGRect.zero)
     if isInvisible { return true }
     
-    let isTableViewOrCell = isMemberOfClass(UITableViewCell) || isMemberOfClass(UITableView)
+    let isTableViewOrCell = isMember(of: UITableViewCell.self) || isMember(of: UITableView.self)
     if isTableViewOrCell { return true }
     
-    let isCollectionView = isMemberOfClass(UICollectionView)
+    let isCollectionView = isMember(of: UICollectionView.self)
     if isCollectionView { return true }
     
-    let isFullScreen = CGRectEqualToRect(frame, window?.bounds ?? UIScreen.mainScreen().bounds)
+    let isFullScreen = frame.equalTo(window?.bounds ?? UIScreen.main.bounds)
     if isFullScreen { return true }
     
     let isInternalSuperviewClass = self.superview?.ObjClassName().hasPrefix("_") ?? false
@@ -100,7 +100,7 @@ extension UIView {
       // also need to check private internal classes
       for className in invalidContainerClassNames {
         if let klass = NSClassFromString(className) {
-          if superview?.isMemberOfClass(klass) ?? false {
+          if superview?.isMember(of: klass) ?? false {
             return true
           }
         }

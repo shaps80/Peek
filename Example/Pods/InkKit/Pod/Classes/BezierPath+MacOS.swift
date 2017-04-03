@@ -29,35 +29,40 @@ import CoreGraphics
   extension NSBezierPath {
     
     /// Returns a CGPath representation of the bezier path
-    public var CGPath: CGPathRef {
+    public var cgPath: CGPath {
       if self.elementCount == 0 {
-        return CGPathCreateMutable()
+        return CGMutablePath()
       }
       
-      let path = CGPathCreateMutable()
+      let path = CGMutablePath()
       var didClosePath = false
       
       for i in 0...self.elementCount-1 {
-        var points = [NSPoint](count: 3, repeatedValue: NSZeroPoint)
+        var points = [NSPoint](repeating: NSZeroPoint, count: 3)
         
-        switch self.elementAtIndex(i, associatedPoints: &points) {
-        case .MoveToBezierPathElement:
-          CGPathMoveToPoint(path, nil, points[0].x, points[0].y)
-        case .LineToBezierPathElement:
-          CGPathAddLineToPoint(path, nil, points[0].x, points[0].y)
-        case .CurveToBezierPathElement:
-          CGPathAddCurveToPoint(path, nil, points[0].x, points[0].y, points[1].x, points[1].y, points[2].x, points[2].y)
-        case .ClosePathBezierPathElement:
-          CGPathCloseSubpath(path)
+        switch self.element(at: i, associatedPoints: &points) {
+        case .moveToBezierPathElement:
+          let point = CGPoint(x: points[0].x, y: points[0].y)
+          path.move(to: point)
+        case .lineToBezierPathElement:
+          let point = CGPoint(x: points[0].x, y: points[0].y)
+          path.addLine(to: point)
+        case .curveToBezierPathElement:
+          let point = CGPoint(x: points[0].x, y: points[0].y)
+          let control1 = CGPoint(x: points[1].x, y: points[1].y)
+          let control2 = CGPoint(x: points[2].x, y: points[2].y)
+          path.addCurve(to: point, control1: control1, control2: control2)
+        case .closePathBezierPathElement:
+          path.closeSubpath()
           didClosePath = true;
         }
       }
       
       if !didClosePath {
-        CGPathCloseSubpath(path)
+        path.closeSubpath()
       }
       
-      return CGPathCreateCopy(path)!
+      return path.copy()!
     }
     
     /**
@@ -67,21 +72,21 @@ import CoreGraphics
      
      - returns: A new path
      */
-    public convenience init(CGPath: CGPathRef) {
-      self.init(rect: CGRectZero)
+    public convenience init(cgPath: CGPath) {
+      self.init(rect: .zero)
       
-      CGPath.forEach {
+      cgPath.forEach {
         switch $0.type {
-        case .AddCurveToPoint:
-          curveToPoint($0.points[0], controlPoint1: $0.points[1], controlPoint2: $0.points[2])
-        case .AddLineToPoint:
-          lineToPoint($0.points[0])
-        case .AddQuadCurveToPoint:
-          curveToPoint($0.points[0], controlPoint1: $0.points[1], controlPoint2: $0.points[1])
-        case .CloseSubpath:
-          closePath()
-        case .MoveToPoint:
-          moveToPoint($0.points[0])
+        case .addCurveToPoint:
+          curve(to: $0.points[0], controlPoint1: $0.points[1], controlPoint2: $0.points[2])
+        case .addLineToPoint:
+          line(to: $0.points[0])
+        case .addQuadCurveToPoint:
+          curve(to: $0.points[0], controlPoint1: $0.points[1], controlPoint2: $0.points[1])
+        case .closeSubpath:
+          close()
+        case .moveToPoint:
+          move(to: $0.points[0])
         }
       }
     }
@@ -94,7 +99,7 @@ import CoreGraphics
      - parameter point: The point to add a line to
      */
     public func addLineToPoint(point: CGPoint) {
-      lineToPoint(point)
+      line(to: point)
     }
     
     /**
@@ -120,16 +125,16 @@ extension CGPath {
    
    - parameter enumerator: The enumeration handler
    */
-  public func forEach(@noescape enumerator: @convention(block) (CGPathElement) -> Void) {
+  public func forEach(_ enumerator: @convention(block) (CGPathElement) -> Void) {
     typealias ElementEnumeration = @convention(block) (CGPathElement) -> Void
     
-    func callback(info: UnsafeMutablePointer<Void>, element: UnsafePointer<CGPathElement>) {
-      let enumerator = unsafeBitCast(info, ElementEnumeration.self)
-      enumerator(element.memory)
+    func callback(_ info: UnsafeMutableRawPointer?, element: UnsafePointer<CGPathElement>) {
+      let enumerator = unsafeBitCast(info, to: ElementEnumeration.self)
+      enumerator(element.pointee)
     }
     
-    let unsafeBody = unsafeBitCast(enumerator, UnsafeMutablePointer<Void>.self)
-    CGPathApply(self, unsafeBody, callback)
+    let unsafeBody = unsafeBitCast(enumerator, to: UnsafeMutableRawPointer.self)
+    self.apply(info: unsafeBody, function: callback)
   }
   
 }

@@ -25,32 +25,32 @@ import UIKit
 /// Defines an animator that provides a custom fade animation for Peek's navigation controller
 final class TransitionFadeAnimator: NSObject, UIViewControllerAnimatedTransitioning {
   
-  private unowned let peek: Peek
-  private let operation: UINavigationControllerOperation
+  fileprivate unowned let peek: Peek
+  fileprivate let operation: UINavigationControllerOperation
   
   init(peek: Peek, operation: UINavigationControllerOperation) {
     self.peek = peek
     self.operation = operation
   }
   
-  func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+  func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
     return 0.25
   }
   
-  func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-    let toController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
-    let fromController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
+  func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+    let toController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
+    let fromController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
     
-    transitionContext.containerView().addSubview(toController.view)
+    transitionContext.containerView.addSubview(toController.view)
     toController.view.alpha = 0
-    toController.navigationController?.setNavigationBarHidden(self.operation == .Pop, animated: true)
+    toController.navigationController?.setNavigationBarHidden(self.operation == .pop, animated: true)
     
-    UIView.animateWithDuration(transitionDuration(transitionContext), animations: {
+    UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: {
       fromController.view.alpha = 0
       toController.view.alpha = 1
-    }) { (finished) in
+    }, completion: { (finished) in
       transitionContext.completeTransition(finished)
-    }
+    }) 
   }
   
 }

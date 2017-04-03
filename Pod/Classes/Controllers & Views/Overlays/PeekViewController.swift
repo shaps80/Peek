@@ -36,8 +36,8 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     fatalError("init(coder:) has not been implemented")
   }
   
-  private var models = [UIView]()
-  private var isDragging: Bool = false {
+  fileprivate var models = [UIView]()
+  fileprivate var isDragging: Bool = false {
     didSet {
       self.overlayView.isDragging = isDragging
     }
@@ -45,7 +45,7 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
   
   lazy var overlayView: OverlayView = {
     let view = OverlayView(peek: self.peek)
-    view.backgroundColor = UIColor.clearColor()
+    view.backgroundColor = UIColor.clear
     return view
   }()
   
@@ -68,7 +68,7 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     
     title = "" // this is to remove the back button title
     view.addSubview(overlayView)
-    overlayView.pin(.All, toView: view)
+    overlayView.pin(edges: .all, to: view)
     
     parseView(peek.peekingWindow)
     updateBackgroundColor(alpha: 0.5)
@@ -76,17 +76,17 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     overlayView.addGestureRecognizer(panGesture)
     overlayView.addGestureRecognizer(tapGesture)
     overlayView.addGestureRecognizer(doubleTapGesture)
-    tapGesture.requireGestureRecognizerToFail(doubleTapGesture)
+    tapGesture.require(toFail: doubleTapGesture)
   }
   
-  private func addModelForView(view: UIView) {
+  fileprivate func addModelForView(_ view: UIView) {
     if !view.shouldIgnore(options: peek.options) {
       models.append(view)
     }
   }
   
-  func updateSelectedModels(gesture: UIGestureRecognizer) {
-    let location = gesture.locationInView(gesture.view)
+  func updateSelectedModels(_ gesture: UIGestureRecognizer) {
+    let location = gesture.location(in: gesture.view)
     
     for model in models {
       let rect = model.frameInPeek(view)
@@ -111,13 +111,13 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     }
   }
   
-  override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-    coordinator.animateAlongsideTransitionInView(view, animation: { (context) -> Void in
+  override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    coordinator.animateAlongsideTransition(in: view, animation: { (context) -> Void in
       self.overlayView.reload()
     }, completion: nil)
   }
   
-  private func parseView(view: UIView) {
+  fileprivate func parseView(_ view: UIView) {
     for view in view.subviews {
       addModelForView(view)
       
@@ -127,22 +127,22 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     }
   }
   
-  private func updateBackgroundColor(alpha alpha: CGFloat) {
-    view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(alpha)
+  fileprivate func updateBackgroundColor(alpha: CGFloat) {
+    view.backgroundColor = UIColor.black.withAlphaComponent(alpha)
     
     let animation = CATransition()
     animation.type = kCATransitionFade
     animation.duration = 0.1
-    view.layer.addAnimation(animation, forKey: "fade")
+    view.layer.add(animation, forKey: "fade")
   }
   
-  private func presentInspectorsForModel(model: Model) {
+  fileprivate func presentInspectorsForModel(_ model: Model) {
     let rect = peek.peekingWindow.bounds
     
     if peek.options.includeScreenshot {
       peek.screenshot = UIImage.draw(width: rect.width, height: rect.height, scale: peek.options.screenshotScale, attributes: nil, drawing: { [unowned self] (context, rect, attributes) in
-        self.peek.peekingWindow.drawViewHierarchyInRect(rect, afterScreenUpdates: false)
-        self.peek.window?.drawViewHierarchyInRect(rect, afterScreenUpdates: false)
+        self.peek.peekingWindow.drawHierarchy(in: rect, afterScreenUpdates: false)
+        self.peek.window?.drawHierarchy(in: rect, afterScreenUpdates: false)
       })
     }
     
@@ -159,12 +159,12 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
       
       controller.popoverPresentationController?.sourceRect = rect
       
-      presentViewController(controller, animated: true, completion: nil)
+      present(controller, animated: true, completion: nil)
     }
   }
   
-  @objc func handleTap(gesture: UITapGestureRecognizer) {
-    if gesture.state == .Ended {
+  @objc func handleTap(_ gesture: UITapGestureRecognizer) {
+    if gesture.state == .ended {
       if gesture === doubleTapGesture {
         if let model = overlayView.selectedModels?.last {
           presentInspectorsForModel(model)
@@ -175,13 +175,13 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     }
   }
   
-  @objc func handlePan(gesture: UIPanGestureRecognizer) {
+  @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
     switch gesture.state {
-    case .Began:
+    case .began:
       updateBackgroundColor(alpha: 0.3)
       isDragging = true
       break
-    case .Changed:
+    case .changed:
       updateSelectedModels(gesture)
       break
     default:
@@ -190,26 +190,26 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     }
   }
   
-  override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+  override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
     return peek.supportedOrientations
   }
   
-  override func prefersStatusBarHidden() -> Bool {
+  override var prefersStatusBarHidden : Bool {
     return peek.previousStatusBarHidden
   }
   
-  override func preferredStatusBarStyle() -> UIStatusBarStyle {
+  override var preferredStatusBarStyle : UIStatusBarStyle {
     return peek.previousStatusBarStyle
   }
   
   // MARK: Transitions
   
-  func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    return TransitionFadeAnimator(peek: peek, operation: .Push)
+  func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    return TransitionFadeAnimator(peek: peek, operation: .push)
   }
   
-  func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    return TransitionFadeAnimator(peek: peek, operation: .Pop)
+  func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    return TransitionFadeAnimator(peek: peek, operation: .pop)
   }
   
 }

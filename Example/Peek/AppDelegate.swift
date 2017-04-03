@@ -28,9 +28,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   var window: UIWindow?
 
-  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     window?.peek.enableWithOptions { options in
-      options.activationMode = .Auto
+      options.activationMode = .auto
       options.shouldIgnoreContainers = true
       
       /*
@@ -72,7 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     return true
   }
   
-  override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent?) {
+  override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
     window?.peek.handleShake(motion)
   }
 

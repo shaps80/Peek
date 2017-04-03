@@ -29,14 +29,14 @@ extension UIImage {
    
    - parameter context: The context to apply these properties to
    */
-  public override func preparePeek(context: Context) {
+  public override func preparePeek(_ context: Context) {
     super.preparePeek(context)
     
-    context.configure(.Attributes, "Layout") { (config) in
+    context.configure(.attributes, "Layout") { (config) in
       config.addProperties([ "size", "capInsets", "alignmentRectInsets" ])
     }
     
-    context.configure(.Attributes, "General") { (config) in
+    context.configure(.attributes, "General") { (config) in
       config.addProperties([ "scale" ])
       
       config.addProperty("renderingMode", displayName: nil, cellConfiguration: { (cell, object, value) in

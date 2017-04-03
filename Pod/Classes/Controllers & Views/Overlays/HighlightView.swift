@@ -49,67 +49,67 @@ final class HighlightView: UIView {
   }
   
   init(color: UIColor) {
-    super.init(frame: CGRectZero)
+    super.init(frame: CGRect.zero)
     
-    backgroundColor = UIColor.clearColor()
-    layer.borderColor = color.CGColor
+    backgroundColor = UIColor.clear
+    layer.borderColor = color.cgColor
     layer.cornerRadius = 2
     layer.borderWidth = 1
   }
   
-  private(set) lazy var leftMetricLabel: MetricLabel = {
+  fileprivate(set) lazy var leftMetricLabel: MetricLabel = {
     let label = MetricLabel()
     self.addSubview(label)
     
-    label.alignVertically(self)
-    label.pin(.Right, toEdge: .Left, toView: self, margin: 2)
+    label.align(axis: .vertical, to: self)
+    label.pin(edge: .right, to: .left, of: self, margin: 2)
 
     return label
   }()
   
-  private(set) lazy var topMetricLabel: MetricLabel = {
+  fileprivate(set) lazy var topMetricLabel: MetricLabel = {
     let label = MetricLabel()
     self.addSubview(label)
     
-    label.alignHorizontally(self)
-    label.pin(.Bottom, toEdge: .Top, toView: self, margin: 2)
+    label.align(axis: .horizontal, to: self)
+    label.pin(edge: .bottom, to: .top, of: self, margin: 2)
     
     return label
   }()
   
-  private(set) lazy var rightMetricLabel: MetricLabel = {
+  fileprivate(set) lazy var rightMetricLabel: MetricLabel = {
     let label = MetricLabel()
     self.addSubview(label)
     
-    label.alignVertically(self)
-    label.pin(.Left, toEdge: .Right, toView: self, margin: 2)
+    label.align(axis: .vertical, to: self)
+    label.pin(edge: .left, to: .right, of: self, margin: 2)
     
     return label
   }()
   
-  private(set) lazy var bottomMetricLabel: MetricLabel = {
+  fileprivate(set) lazy var bottomMetricLabel: MetricLabel = {
     let label = MetricLabel()
     self.addSubview(label)
     
-    label.alignHorizontally(self)
-    label.pin(.Top, toEdge: .Bottom, toView: self, margin: 2)
+    label.align(axis: .horizontal, to: self)
+    label.pin(edge: .top, to: .bottom, of: self, margin: 2)
     
     return label
   }()
   
-  func setMetrics(metrics: Metrics) {
+  func setMetrics(_ metrics: Metrics) {
     setValue(metrics.left, forMetricsLabel: leftMetricLabel)
     setValue(metrics.right, forMetricsLabel: rightMetricLabel)
     setValue(metrics.top, forMetricsLabel: topMetricLabel)
     setValue(metrics.bottom, forMetricsLabel: bottomMetricLabel)
   }
   
-  func setValue(value: CGFloat, forMetricsLabel label: MetricLabel) {
+  func setValue(_ value: CGFloat, forMetricsLabel label: MetricLabel) {
     if value != 0 {
-      label.text = MetricLabel.formatter.stringFromNumber(value)
-      label.hidden = false
+      label.text = MetricLabel.formatter.string(from: NSNumber(value: Float(value)))
+      label.isHidden = false
     } else {
-      label.hidden = true
+      label.isHidden = true
     }
   }
   
@@ -118,8 +118,8 @@ final class HighlightView: UIView {
 /// Defines a label that will be used to represent a metric in the overlay view's
 final class MetricLabel: UILabel {
   
-  static let formatter: NSNumberFormatter = {
-    let formatter = NSNumberFormatter()
+  static let formatter: NumberFormatter = {
+    let formatter = NumberFormatter()
     formatter.maximumFractionDigits = 1
     formatter.minimumFractionDigits = 0
     formatter.roundingIncrement = 0.5
@@ -131,25 +131,25 @@ final class MetricLabel: UILabel {
   }
   
   init() {
-    super.init(frame: CGRectZero)
+    super.init(frame: CGRect.zero)
     
     font = UIFont(name: "Avenir-Medium", size: 10.5)
     backgroundColor = UIColor(white: 0.03, alpha: 0.9)
-    textColor = UIColor.whiteColor()
+    textColor = UIColor.white
     layer.masksToBounds = true
     layer.cornerRadius = 3
-    textAlignment = .Center
+    textAlignment = .center
     
-    setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
-    setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
+    setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .horizontal)
+    setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
     
-    setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
-    setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Vertical)
+    setContentHuggingPriority(UILayoutPriorityRequired, for: .horizontal)
+    setContentHuggingPriority(UILayoutPriorityRequired, for: .vertical)
   }
   
-  override func intrinsicContentSize() -> CGSize {
-    let size = super.intrinsicContentSize()
-    return CGSizeMake(size.width + 4, size.height + 2)
+  override var intrinsicContentSize : CGSize {
+    let size = super.intrinsicContentSize
+    return CGSize(width: size.width + 4, height: size.height + 2)
   }
   
 }

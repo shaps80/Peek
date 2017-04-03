@@ -52,11 +52,11 @@ struct Week: Equatable, Comparable {
   func toJSON() -> [String: AnyObject] {
     var JSON = [String: AnyObject]()
     
-    JSON[Week.NumberKey] = number
-    JSON[Week.WeightKey] = weight
-    JSON[Week.WaistKey] = waist
-    JSON[Week.HipsKey] = hips
-    JSON[Week.ChestKey] = chest
+    JSON[Week.NumberKey] = number as AnyObject
+    JSON[Week.WeightKey] = weight as AnyObject
+    JSON[Week.WaistKey] = waist as AnyObject
+    JSON[Week.HipsKey] = hips as AnyObject
+    JSON[Week.ChestKey] = chest as AnyObject
     
     return JSON
   }

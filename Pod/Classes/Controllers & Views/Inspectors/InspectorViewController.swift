@@ -26,17 +26,17 @@ import InkKit
 // FIXME: Generally speaking, this controller is too big -- Headers, Cell Configurations, etc.. could definitely be extracted
 final class InspectorViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-  private unowned let peek: Peek
-  private let model: Model
-  private let dataSource: ContextDataSource
-  private var prototype = InspectorCell()
-  private let tableView: UITableView
+  fileprivate unowned let peek: Peek
+  fileprivate let model: Model
+  fileprivate let dataSource: ContextDataSource
+  fileprivate var prototype = InspectorCell()
+  fileprivate let tableView: UITableView
   
   init(peek: Peek, model: Model, dataSource: ContextDataSource) {
     self.peek = peek
     self.model = model
     self.dataSource = dataSource
-    self.tableView = UITableView(frame: peek.peekingWindow.bounds, style: .Grouped)
+    self.tableView = UITableView(frame: peek.peekingWindow.bounds, style: .grouped)
     
     super.init(nibName: nil, bundle: nil)
     
@@ -45,8 +45,8 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
     
     tabBarItem.image = dataSource.inspectorType.image
     tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -2)
-    tabBarItem.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Avenir-Medium", size: 12)! ], forState: .Normal)
-    navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+    tabBarItem.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Avenir-Medium", size: 12)! ], for: UIControlState())
+    navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     navigationItem.backBarButtonItem?.title = ""
   }
   
@@ -60,17 +60,17 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
     tableView.dataSource = self
     tableView.delegate = self
     view.addSubview(tableView)
-    tableView.pin(.All, toView: view)
+    tableView.pin(edges: .all, to: view)
     
-    UIMenuController.sharedMenuController().menuItems = [ UIMenuItem(title: "Slack", action: #selector(InspectorCell.slack(_:))),
+    UIMenuController.shared.menuItems = [ UIMenuItem(title: "Slack", action: #selector(InspectorCell.slack(_:))),
                                                           UIMenuItem(title: "Email", action: #selector(InspectorCell.email(_:))) ]
-    UIMenuController.sharedMenuController().update()
+    UIMenuController.shared.update()
     
-    tableView.registerClass(InspectorCell.self, forCellReuseIdentifier: "KeyValueCell")
-    tableView.indicatorStyle = .White
+    tableView.register(InspectorCell.self, forCellReuseIdentifier: "KeyValueCell")
+    tableView.indicatorStyle = .white
     tableView.backgroundColor = UIColor(white: 0.1, alpha: 1)
     tableView.separatorColor = UIColor(white: 1, alpha: 0.15)
-    tableView.keyboardDismissMode = .Interactive
+    tableView.keyboardDismissMode = .interactive
     
     if dataSource.numberOfCategories() == 0 {
       let label = UILabel()
@@ -79,53 +79,53 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
       label.text = "No Attributes"
       
       view.addSubview(label)
-      label.align(.Vertical, toView: view, offset: -64)
-      label.alignHorizontally(view)
+      label.align(axis: .vertical, to: view, offset: -64)
+      label.align(axis: .horizontal, to: view)
     }
     
     if let image = model as? UIImage {
       let header = InspectorHeader(image: image, showBorder: true)
       tableView.contentInset.top = 10
       tableView.tableHeaderView = header
-      header.alignHorizontally(tableView)
+      header.align(axis: .horizontal, to: tableView)
     }
     
     if let value = model as? UIColor {
       let image = Image.circle(radius: 20, attributes: { (attributes) in
-        attributes.fillColor = value
-        attributes.strokeColor = UIColor(white: 1, alpha: 0.15)
+        attributes.fillColor = Color(color: value)
+        attributes.strokeColor = Color(white: 1, alpha: 0.15)
         attributes.lineWidth = 1
-      }).imageWithRenderingMode(.AlwaysOriginal)
+      }).withRenderingMode(.alwaysOriginal)
       
       let imageView = InspectorHeader(image: image, showBorder: false)
       tableView.tableHeaderView = imageView
       
-      imageView.pin(.Top, toEdge: .Top, toView: tableView, margin: 20)
-      imageView.alignHorizontally(tableView)
+      imageView.pin(edge: .top, to: .top, of: tableView, margin: 20)
+      imageView.align(axis: .horizontal, to: tableView)
     }
   }
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
     if let indexPath = tableView.indexPathForSelectedRow {
-      tableView.deselectRowAtIndexPath(indexPath, animated: true)
+      tableView.deselectRow(at: indexPath, animated: true)
     }
   }
   
-  override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-    coordinator.animateAlongsideTransition({ (context) in
+  override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    coordinator.animate(alongsideTransition: { (context) in
       self.tableView.reloadData()
     }, completion: nil)
   }
 
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("KeyValueCell", forIndexPath: indexPath) as! InspectorCell
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "KeyValueCell", for: indexPath) as! InspectorCell
     configureCell(cell, forIndexPath: indexPath)
     return cell
   }
   
-  private func configureCell(cell: InspectorCell, forIndexPath indexPath: NSIndexPath) {
+  fileprivate func configureCell(_ cell: InspectorCell, forIndexPath indexPath: IndexPath) {
     let property = dataSource.propertyForIndexPath(indexPath)
     
     // FIXME: this is required atm for both copy: and slack:
@@ -135,7 +135,7 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
     
     cell.textLabel?.text = property.displayName
     cell.accessoryView = nil
-    cell.accessoryType = .None
+    cell.accessoryType = .none
     
     if let value = property.value(forModel: model) as? NSObjectProtocol {
       var text: String?
@@ -174,36 +174,36 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
       default: text = "\(value)"
       }
       
-      if CFGetTypeID(value) == CGColorGetTypeID() {
+      if CFGetTypeID(value) == CGColor.typeID {
         text = ColorTransformer().transformedValue(value) as? String
-        accessoryView = ColorAccessoryView(value: UIColor(CGColor: value as! CGColor))
+        accessoryView = ColorAccessoryView(value: UIColor(cgColor: value as! CGColor))
       }
       
-      if let value = property.value(forModel: model) as? PeekSubPropertiesSupporting where value.hasProperties {
-        cell.accessoryType = .DisclosureIndicator
+      if let value = property.value(forModel: model) as? PeekSubPropertiesSupporting, value.hasProperties {
+        cell.accessoryType = .disclosureIndicator
       }
       
       cell.accessoryView = accessoryView
       cell.detailTextLabel?.text = text
-      property.configurationBlock?(cell: cell, object: model, value: value)
+      property.configurationBlock?(cell, model, value)
     } else {
       cell.detailTextLabel?.text = "NIL"
     }
   }
   
-  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-    return dataSource.numberOfCategories() ?? 0
+  func numberOfSections(in tableView: UITableView) -> Int {
+    return dataSource.numberOfCategories() 
   }
   
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return dataSource.numberOfProperties(inCategory: section) ?? 0
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return dataSource.numberOfProperties(inCategory: section) 
   }
   
-  func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+  func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     return dataSource.titleForCategory(section)
   }
   
-  func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     let cellHeight = dataSource.propertyForIndexPath(indexPath).cellHeight
     
     if cellHeight != 0 {
@@ -213,11 +213,11 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
     return PeekPropertyDefaultCellHeight
   }
   
-  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let property = dataSource.propertyForIndexPath(indexPath)
     
-    guard let value = property.value(forModel: model) as? PeekSubPropertiesSupporting where value.hasProperties else {
-      tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    guard let value = property.value(forModel: model) as? PeekSubPropertiesSupporting, value.hasProperties else {
+      tableView.deselectRow(at: indexPath, animated: true)
       return
     }
     
@@ -225,11 +225,11 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
     
     // FIXME: handling an array of elements isn't the best code, needs refactoring -- but currently an array of items is different to a single model
     if let array = value as? [AnyObject] {
-      context.configure(.Attributes, "", configuration: { (config) in
+      context.configure(.attributes, "", configuration: { (config) in
         for item in array {
           config.addProperty(value: item, displayName: "\(item)", cellConfiguration: { (cell, object, value) in
             cell.detailTextLabel?.text = nil
-            cell.textLabel?.textColor = UIColor.whiteColor()
+            cell.textLabel?.textColor = UIColor.white
             
             if value is NSLayoutConstraint {
               cell.textLabel?.font = UIFont(name: "Menlo", size: cell.textLabel?.font.pointSize ?? 15)
@@ -244,16 +244,16 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     guard let model = value as? Model else { return } // FIXME: This could be handled better -- perhaps better structure in terms of protocol conformance
-    let controller = InspectorViewController(peek: peek, model	: model, dataSource: ContextDataSource(context: context, inspector: .Attributes))
+    let controller = InspectorViewController(peek: peek, model	: model, dataSource: ContextDataSource(context: context, inspector: .attributes))
     controller.title = property.displayName
     navigationController?.pushViewController(controller, animated: true)
   }
   
-  func tableView(tableView: UITableView, shouldShowMenuForRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+  func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
     return true
   }
   
-  func tableView(tableView: UITableView, canPerformAction action: Selector, forRowAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
+  func tableView(_ tableView: UITableView, canPerformAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
     let property = dataSource.propertyForIndexPath(indexPath)
     let value = property.value(forModel: model)
     
@@ -263,19 +263,19 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
       !(value is PeekSubPropertiesSupporting)
   }
   
-  func tableView(tableView: UITableView, performAction action: Selector, forRowAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
+  func tableView(_ tableView: UITableView, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
     // actions are handled in the cell
   }
   
-  override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+  override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
     return peek.supportedOrientations
   }
   
-  override func prefersStatusBarHidden() -> Bool {
+  override var prefersStatusBarHidden : Bool {
     return peek.previousStatusBarHidden
   }
   
-  override func preferredStatusBarStyle() -> UIStatusBarStyle {
+  override var preferredStatusBarStyle : UIStatusBarStyle {
     return peek.previousStatusBarStyle
   }
   

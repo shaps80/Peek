@@ -30,8 +30,8 @@ import CoreGraphics
  
  - returns: The resulting rect
  */
-public func reversibleRect(fromPoint fromPoint: CGPoint, toPoint: CGPoint) -> CGRect {
-  var rect = CGRectZero
+public func reversibleRect(fromPoint: CGPoint, toPoint: CGPoint) -> CGRect {
+  var rect = CGRect.zero
   
   if fromPoint.x < toPoint.x {
     rect.origin.x = fromPoint.x
@@ -63,11 +63,23 @@ extension CGRect {
    
    - returns: The resulting rects
    */
-  public func divide(atDelta delta: CGFloat, fromEdge edge: CGRectEdge, margin: CGFloat = 0) -> (slice: CGRect, remainder: CGRect) {
-    var (rect1, rect2) = divide(width * delta, fromEdge: edge)
-    rect1.size.width -= margin / 2
-    rect2.size.width -= margin / 2
-    rect2.origin.x += margin / 2
+  public func divided(atDelta delta: CGFloat, from edge: CGRectEdge, margin: CGFloat = 0) -> (slice: CGRect, remainder: CGRect) {
+    let edges: [CGRectEdge] = [.minXEdge, .maxXEdge]
+    let isHorizontal = edges.contains(edge)
+    var (rect1, rect2): (CGRect, CGRect)
+    
+    if isHorizontal {
+      (rect1, rect2) = divided(atDistance: width * delta, from: edge)
+      rect1.size.width -= margin / 2
+      rect2.size.width -= margin / 2
+      rect2.origin.x += margin / 2
+    } else {
+      (rect1, rect2) = divided(atDistance: height * delta, from: edge)
+      rect1.size.height -= margin / 2
+      rect2.size.height -= margin / 2
+      rect2.origin.y += margin / 2
+    }
+    
     return (rect1, rect2)
   }
   
@@ -78,9 +90,9 @@ extension CGRect {
    
    - returns: The resulting rect
    */
-  public func insetBy(edgeInsets: EdgeInsets) -> CGRect {
+  public func insetBy(insets: EdgeInsets) -> CGRect {
     var rect = self
-    rect.insetInPlace(edgeInsets)
+    rect.insetInPlace(insets: insets)
     return rect
   }
   
@@ -89,11 +101,11 @@ extension CGRect {
    
    - parameter edgeInsets: The edge insets to use for determing each edge's inset
    */
-  public mutating func insetInPlace(edgeInsets: EdgeInsets) {
-    size.width -= (edgeInsets.right + edgeInsets.left)
-    size.height -= (edgeInsets.bottom + edgeInsets.top)
-    origin.x += edgeInsets.left
-    origin.y += edgeInsets.top
+  public mutating func insetInPlace(insets: EdgeInsets) {
+    size.width -= (insets.right + insets.left)
+    size.height -= (insets.bottom + insets.top)
+    origin.x += insets.left
+    origin.y += insets.top
   }
   
   /**
@@ -109,24 +121,24 @@ extension CGRect {
     var x: CGFloat, y: CGFloat
     
     switch horizontal {
-    case .Center:
+    case .center:
       x = rect.minX - (self.width - rect.width) / 2
-    case .Left:
+    case .left:
       x = rect.minX
-    case .Right:
+    case .right:
       x = rect.maxX - self.width
     }
     
     switch vertical {
-    case .Middle:
+    case .middle:
       y = rect.minY - (self.height - rect.height) / 2
-    case .Top:
+    case .top:
       y = rect.minY
-    case .Bottom:
+    case .bottom:
       y = rect.maxY - self.height
     }
     
-    return CGRectMake(x, y, self.width, self.height)
+    return CGRect(x: x, y: y, width: self.width, height: self.height)
   }
   
   /**
@@ -141,18 +153,18 @@ extension CGRect {
     var x: CGFloat, y: CGFloat, w: CGFloat, h: CGFloat
     
     switch mode {
-    case .ScaleToFill:
+    case .scaleToFill:
       w = rect.width
       h = rect.height
-    case .ScaleAspectFit:
-      let scaledSize = self.size.scaledTo(rect.size, scaleMode: mode)
+    case .scaleAspectFit:
+      let scaledSize = self.size.scaledTo(size: rect.size, scaleMode: mode)
       w = scaledSize.width
       h = scaledSize.height
-    case .ScaleAspectFill:
-      let newSize = self.size.scaledTo(rect.size, scaleMode: mode)
+    case .scaleAspectFill:
+      let newSize = self.size.scaledTo(size: rect.size, scaleMode: mode)
       w = newSize.width
       h = newSize.height
-    case .Center:
+    case .center:
       w = size.width
       h = size.height
       break
@@ -161,7 +173,7 @@ extension CGRect {
     x = rect.minX - (w - rect.width) / 2
     y = rect.minY - (h - rect.width) / 2
     
-    return CGRectMake(x, y, w, h)
+    return CGRect(x: x, y: y, width: w, height: h)
   }
   
 }
@@ -178,9 +190,9 @@ extension CGSize {
   public func gradientPoints(forAngleInDegrees angle: CGFloat) -> (start: CGPoint, end: CGPoint) {
     let degree = radians(fromDegrees: angle)
     
-    let center = CGPointMake(width / 2, height / 2)
-    let start = CGPointMake(center.x - cos(degree) * width / 2, center.y - sin(degree) * height / 2)
-    let end = CGPointMake(center.x + cos(degree) * width / 2, center.y + sin(degree) * height / 2)
+    let center = CGPoint(x: width / 2, y: height / 2)
+    let start = CGPoint(x: center.x - cos(degree) * width / 2, y: center.y - sin(degree) * height / 2)
+    let end = CGPoint(x: center.x + cos(degree) * width / 2, y: center.y + sin(degree) * height / 2)
     
     return (start, end)
   }
@@ -197,10 +209,10 @@ extension CGSize {
     var w: CGFloat, h: CGFloat
     
     switch mode {
-    case .ScaleToFill:
+    case .scaleToFill:
       w = size.width
       h = size.height
-    case .ScaleAspectFit:
+    case .scaleAspectFit:
       let mW = size.width / self.width
       let mH = size.height / self.height
       
@@ -211,7 +223,7 @@ extension CGSize {
         h = mW * self.height
         w = size.width
       }
-    case .ScaleAspectFill:
+    case .scaleAspectFill:
       let mW = size.width / self.width
       let mH = size.height / self.height
       
@@ -222,12 +234,12 @@ extension CGSize {
         h = mW * self.height
         w = size.width
       }
-    case .Center:
+    case .center:
       w = self.height
       h = self.width
     }
     
-    return CGSizeMake(w, h)
+    return CGSize(width: w, height: h)
   }
   
 }

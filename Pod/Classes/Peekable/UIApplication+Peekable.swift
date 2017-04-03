@@ -24,8 +24,8 @@ import UIKit
 
 extension UIApplication {
   
-  @objc private var bundle: NSBundle {
-    return NSBundle.mainBundle()
+  @objc fileprivate var bundle: Bundle {
+    return Bundle.main
   }
   
   /**
@@ -33,15 +33,15 @@ extension UIApplication {
    
    - parameter context: The context to apply these properties to
    */
-  public override func preparePeek(context: Context) {
+  public override func preparePeek(_ context: Context) {
     super.preparePeek(context)
     
-    context.configure(.Application, "App") { (config) in
+    context.configure(.application, "App") { (config) in
       config.addProperties([ "bundle.version", "bundle.build", "bundle.appName" ])
       config.addProperty("bundle.bundleIdentifier", displayName: "Identifier", cellConfiguration: nil)
     }
     
-    context.configure(.Application, "Appearance") { (config) in
+    context.configure(.application, "Appearance") { (config) in
       config.addProperties([ "bundle.statusBarAppearance"])
       config.addProperties([ "statusBarFrame" ])
       config.addProperty("applicationIconBadgeNumber", displayName: "Icon Badge Number", cellConfiguration: nil)
@@ -56,13 +56,13 @@ extension UIApplication {
       property.cellHeight = 70
     }
     
-    context.configure(.Application, "Behaviour") { (config) in
+    context.configure(.application, "Behaviour") { (config) in
       config.addProperty("applicationSupportsShakeToEdit", displayName: "Shake to Edit", cellConfiguration: nil)
       config.addProperty("isIgnoringInteractionEvents", displayName: "Ignoring Interaction Events", cellConfiguration: nil)
       config.addProperties([ "protectedDataAvailable" ])
     }
     
-    context.configure(.Application, "Background Modes") { (config) in
+    context.configure(.application, "Background Modes") { (config) in
       config.addProperty("bundle.supportsBackgroundAudio", displayName: "Background Audio", cellConfiguration: nil)
       config.addProperty("bundle.supportsExternalAccessory", displayName: "External Accessory", cellConfiguration: nil)
       config.addProperty("bundle.supportsBackgroundFetch", displayName: "Background Fetch", cellConfiguration: nil)
@@ -74,7 +74,7 @@ extension UIApplication {
       config.addProperty("bundle.sharesDataViaBluetooth", displayName: "Bluetooth Data Sharing", cellConfiguration: nil)
     }
     
-    context.configure(.Application, "Capabilities") { (config) in
+    context.configure(.application, "Capabilities") { (config) in
       config.addProperty("bundle.supportsHealthKit", displayName: "Health Kit", cellConfiguration: nil)
       config.addProperty("bundle.supportsGameKit", displayName: "Game Kit", cellConfiguration: nil)
     }
@@ -82,7 +82,7 @@ extension UIApplication {
   
 }
 
-extension NSBundle {
+extension Bundle {
   
   @objc var backgroundModes: [String]? {
     return infoDictionary?["UIBackgroundModes"] as? [String]
@@ -171,9 +171,9 @@ extension NSBundle {
   }
   
   var supportedOrientations: UIInterfaceOrientationMask {
-    let application = UIApplication.sharedApplication()
+    let application = UIApplication.shared
     let window = application.keyWindow
-    return application.supportedInterfaceOrientationsForWindow(window)
+    return application.supportedInterfaceOrientations(for: window)
   }
   
 }

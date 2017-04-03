@@ -34,18 +34,18 @@ struct ContextAssociationKey {
  */
 @objc public enum InspectorSet: Int {
   // MARK: - The primary inspectors include: Attributes, View, Layer, Layout & Controller
-  case Primary = 1
+  case primary = 1
   // MARK: - The secondary inspectors include: Application, Device & Screen
-  case Secondary = 2
+  case secondary = 2
 }
 
 extension InspectorSet {
   
   func inspectors() -> [Inspector] {
-    if self == .Primary {
-      return [ .Attributes, .View, .Layer, .Layout, .Controller ]
+    if self == .primary {
+      return [ .attributes, .view, .layer, .layout, .controller ]
     } else {
-      return [ .Application, .Device, .Screen ]
+      return [ .application, .device, .screen ]
     }
   }
   
@@ -65,21 +65,21 @@ extension InspectorSet {
  */
 @objc public enum Inspector: Int {
   // MARK: - The Attributes inspector is used to present contextual properties
-  case Attributes
+  case attributes
   // MARK: - The View inspector is used to present UIView properties
-  case View
+  case view
   // MARK: - The Layer inspector is used to present CALayer properties
-  case Layer
+  case layer
   // MARK: - The Layout inspector is used to present view layout properties
-  case Layout
+  case layout
   // MARK: - The Controller inspector is used to present UIViewController properties
-  case Controller
+  case controller
   // MARK: - The Application inspector is used to present UIApplication properties
-  case Application
+  case application
   // MARK: - The Device inspector is used to present UIDevice properties
-  case Device
+  case device
   // MARK: - The Screen inspector is used to present UIScreen properties
-  case Screen
+  case screen
 }
 
 extension Inspector: CustomStringConvertible {
@@ -87,14 +87,14 @@ extension Inspector: CustomStringConvertible {
     /// Returns the TabBar title for an inspector
   public var description: String {
     switch self {
-    case .Attributes: return "Attributes"
-    case .View: return "View"
-    case .Layer: return "Layer"
-    case .Layout: return "Layout"
-    case .Controller: return "Controller"
-    case .Application: return "Application"
-    case .Device: return "Device"
-    case .Screen: return "Screen"
+    case .attributes: return "Attributes"
+    case .view: return "View"
+    case .layer: return "Layer"
+    case .layout: return "Layout"
+    case .controller: return "Controller"
+    case .application: return "Application"
+    case .device: return "Device"
+    case .screen: return "Screen"
     }
   }
   
@@ -119,7 +119,8 @@ extension Inspector {
    
    - returns: An array of Properties
    */
-  func addProperties(keyPaths: [String]) -> [Property]
+  @discardableResult
+  func addProperties(_ keyPaths: [String]) -> [Property]
   
   /**
    Adds the specified keyPath as a Peek Property
@@ -130,7 +131,8 @@ extension Inspector {
    
    - returns: A new Property
    */
-  func addProperty(keyPath: String, displayName: String?, cellConfiguration: PropertyCellConfiguration) -> Property
+  @discardableResult
+  func addProperty(_ keyPath: String, displayName: String?, cellConfiguration: PropertyCellConfiguration) -> Property
   
   /**
    Adds the specified value as a Peek Property
@@ -141,7 +143,8 @@ extension Inspector {
    
    - returns: A new Property
    */
-  func addProperty(value value: AnyObject?, displayName: String?, cellConfiguration: PropertyCellConfiguration) -> Property
+  @discardableResult
+  func addProperty(value: AnyObject?, displayName: String?, cellConfiguration: PropertyCellConfiguration) -> Property
 }
 
 /// A context represents the current Peek context when its activated. You can use this context to add properties and categories to your inspectors
@@ -157,11 +160,11 @@ extension Inspector {
    - parameter category:      The category to add/configure
    - parameter configuration: The configuration to apply to this context
    */
-  func configure(inspector: Inspector, _ category: String, @noescape configuration: (config: Configuration) -> Void)
+  func configure(_ inspector: Inspector, _ category: String, configuration: (_ config: Configuration) -> Void)
 }
 
 /// Defines a property cell configuration block
-public typealias PropertyCellConfiguration = ((cell: UITableViewCell, object: AnyObject, value: AnyObject) -> Void)?
+public typealias PropertyCellConfiguration = ((_ cell: UITableViewCell, _ object: AnyObject, _ value: AnyObject) -> Void)?
 
 /// A property defines a property that can be presented in Peek to represent a value for a given model
 @objc public protocol Property: class {

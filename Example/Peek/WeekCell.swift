@@ -33,20 +33,20 @@ class WeekCell: UICollectionViewCell {
   var lightColor = UIColor(red: 0.961, green: 0.961, blue: 0.961, alpha: 1.00)
   var darkColor = UIColor(red: 0.118, green: 0.122, blue: 0.129, alpha: 1.00)
   
-  override var selected: Bool {
+  override var isSelected: Bool {
     didSet {
       update()
     }
   }
   
-  override var highlighted: Bool {
+  override var isHighlighted: Bool {
     didSet {
       update()      
     }
   }
   
-  private func update() {
-    if self.selected || self.highlighted {
+  fileprivate func update() {
+    if self.isSelected || self.isHighlighted {
       self.titleLabel.textColor = self.darkColor
       self.imageView.tintColor = self.darkColor
     } else {

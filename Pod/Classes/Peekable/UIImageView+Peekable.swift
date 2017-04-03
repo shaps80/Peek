@@ -29,18 +29,18 @@ extension UIImageView {
    
    - parameter context: The context to apply these properties to
    */
-  public override func preparePeek(context: Context) {
+  public override func preparePeek(_ context: Context) {
     super.preparePeek(context)
     
-    context.configure(.Attributes, "Images") { (config) in
+    context.configure(.attributes, "Images") { (config) in
       config.addProperties([ "highlightedImage", "image" ])
     }
     
-    context.configure(.Attributes, "State") { (config) in
+    context.configure(.attributes, "State") { (config) in
       config.addProperties([ "highlighted", "isAnimating" ])
     }
     
-    context.configure(.Attributes, "Animation") { (config) in
+    context.configure(.attributes, "Animation") { (config) in
       config.addProperties([ "animationDuration", "animationRepeatCount" ])
     }
   }

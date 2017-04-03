@@ -32,17 +32,17 @@ class Segment: NSObject {
   @objc var title: String?
   @objc var width: CGFloat = 0
   @objc var image: UIImage?
-  @objc var contentOffset: CGSize = CGSizeZero
+  @objc var contentOffset: CGSize = CGSize.zero
   
   /**
    Configures Peek's properties for this object
    
    - parameter context: The context to apply these properties to
    */
-  override func preparePeek(context: Context) {
+  override func preparePeek(_ context: Context) {
     super.preparePeek(context)
     
-    context.configure(.Attributes, "General") { (config) in
+    context.configure(.attributes, "General") { (config) in
       config.addProperties([ "enabled", "title", "width", "image", "contentOffset" ])
     }
   }
@@ -56,11 +56,11 @@ extension UISegmentedControl {
     
     for index in 0..<numberOfSegments {
       let segment = Segment()
-      segment.enabled = isEnabledForSegmentAtIndex(index)
-      segment.title = titleForSegmentAtIndex(index)
-      segment.width = widthForSegmentAtIndex(index)
-      segment.contentOffset = contentOffsetForSegmentAtIndex(index)
-      segment.image = imageForSegmentAtIndex(index)
+      segment.enabled = isEnabledForSegment(at: index)
+      segment.title = titleForSegment(at: index)
+      segment.width = widthForSegment(at: index)
+      segment.contentOffset = contentOffsetForSegment(at: index)
+      segment.image = imageForSegment(at: index)
       segments.append(segment)
     }
     
@@ -72,15 +72,15 @@ extension UISegmentedControl {
    
    - parameter context: The context to apply these properties to
    */
-  public override func preparePeek(context: Context) {
+  public override func preparePeek(_ context: Context) {
     super.preparePeek(context)
     
-    context.configure(.Attributes, "Behaviour") { (config) in
+    context.configure(.attributes, "Behaviour") { (config) in
       config.addProperties([ "momentary" ])
       config.addProperty("apportionsSegmentWidthsByContent", displayName: "Auto Size Width", cellConfiguration: nil)
     }
     
-    context.configure(.Attributes, "General") { (config) in
+    context.configure(.attributes, "General") { (config) in
       config.addProperties([ "selectedSegmentIndex", "segments" ])
     }
     

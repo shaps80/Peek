@@ -17,65 +17,65 @@ enum SlackPriority: String {
 /// Defines an object that can post messages via Slack
 final class Slack {
   
-  private var session: NSURLSession!
+  fileprivate var session: URLSession!
   
-  func post(metaData: MetaData, peek: Peek, controller: SlackViewController, completion: (Bool) -> Void) {
+  func post(_ metaData: MetaData, peek: Peek, controller: SlackViewController, completion: @escaping (Bool) -> Void) {
     let topController = controller
     
     guard let URL = peek.options.slackWebHookURL,
-      channel = peek.options.slackRecipient else {
-        dispatch_async(dispatch_get_main_queue(), { 
+      let channel = peek.options.slackRecipient else {
+        DispatchQueue.main.async(execute: { 
           let webhooksHelpURL = "https://slack.com/apps/A0F7XDUAZ-incoming-webhooks"
-          let alert = UIAlertController(title: "Peek Error", message: "Slack is not configured for this build.\n\nVisit Slack to get started, then configure Peek with your WebHook URL in Xcode.\n\n\(webhooksHelpURL)", preferredStyle: .Alert)
+          let alert = UIAlertController(title: "Peek Error", message: "Slack is not configured for this build.\n\nVisit Slack to get started, then configure Peek with your WebHook URL in Xcode.\n\n\(webhooksHelpURL)", preferredStyle: .alert)
           
-          alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
-          alert.addAction(UIAlertAction(title: "Visit", style: .Default, handler: { (action) in
-            UIApplication.sharedApplication().openURL(NSURL(string: webhooksHelpURL)!)
+          alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+          alert.addAction(UIAlertAction(title: "Visit", style: .default, handler: { (action) in
+            UIApplication.shared.openURL(NSURL(string: webhooksHelpURL)! as URL)
           }))
           
-          topController.presentViewController(alert, animated: true, completion: nil)
+          topController.present(alert, animated: true, completion: nil)
         })
         
         completion(false)
         return
     }
     
-    let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+    let configuration = URLSessionConfiguration.default
     configuration.timeoutIntervalForRequest = 45
-    session = NSURLSession(configuration: configuration)
+    session = URLSession(configuration: configuration)
     
-    let request = NSMutableURLRequest(URL: URL)
-    request.HTTPMethod = "POST"
+    let request = NSMutableURLRequest(url: URL as URL)
+    request.httpMethod = "POST"
     
     var attachments: [String: AnyObject] = [
-      "fields": metaData.JSONRepresentation(),
-      "color": SlackPriority.High.rawValue,
-      "title": "Issue",
+      "fields": metaData.JSONRepresentation() as AnyObject,
+      "color": SlackPriority.High.rawValue as AnyObject,
+      "title": "Issue" as AnyObject,
     ]
     
-    if let image = peek.screenshot where peek.options.includeScreenshot {
+    if let image = peek.screenshot, peek.options.includeScreenshot {
       let url = peek.options.slackImageUploader?(session, image)
-      attachments["image_url"] = url?.absoluteString
+      attachments["image_url"] = url?.absoluteString as AnyObject
     }
     
     let data: [String: AnyObject] = [
-      "channel": channel,
-      "username": peek.options.slackUserName,
-      "text": metaData.message,
-      "icon_url": "http://shaps.me/assets/img/peek-square.png",
-      "attachments": [ attachments ],
+      "channel": channel as AnyObject,
+      "username": peek.options.slackUserName as AnyObject,
+      "text": metaData.message as AnyObject,
+      "icon_url": "http://shaps.me/assets/img/peek-square.png" as AnyObject,
+      "attachments": [ attachments ] as AnyObject,
     ]
     
     do {
-      request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(data, options: [])
+      request.httpBody = try JSONSerialization.data(withJSONObject: data, options: [])
     } catch {
       print(error)
     }
     
-    session?.dataTaskWithRequest(request) { (data, response, error) in
-      dispatch_async(dispatch_get_main_queue(), {
-        guard error != nil || (response as? NSHTTPURLResponse)?.statusCode > 299 else {
-          dispatch_async(dispatch_get_main_queue(), {
+    session?.dataTask(with: request as URLRequest) { (data, response, error) in
+      DispatchQueue.main.async(execute: {
+        guard error != nil || ((response as? HTTPURLResponse)?.statusCode)! > 299 else {
+          DispatchQueue.main.async(execute: {
             completion(true)
           })
             
@@ -84,14 +84,14 @@ final class Slack {
         
         var description = error?.localizedDescription
         
-        if let data = data, desc = String(data: data, encoding: NSUTF8StringEncoding) {
+        if let data = data, let desc = String(data: data, encoding: String.Encoding.utf8) {
           description = "Failed to send message to\nchannel: \(channel)\n\n\(desc)"
         }
         
-        dispatch_async(dispatch_get_main_queue(), {
-          let alert = UIAlertController(title: "Peek Error", message: description, preferredStyle: .Alert)
-          alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-          topController.presentViewController(alert, animated: true, completion: nil)
+        DispatchQueue.main.async(execute: {
+          let alert = UIAlertController(title: "Peek Error", message: description, preferredStyle: .alert)
+          alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+          topController.present(alert, animated: true, completion: nil)
           
           completion(false)
         })

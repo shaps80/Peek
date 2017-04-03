@@ -24,8 +24,8 @@ import UIKit
 
 extension UIDevice {
   
-  @objc private var processInfo: NSProcessInfo {
-    return NSProcessInfo.processInfo()
+  @objc fileprivate var processInfo: ProcessInfo {
+    return ProcessInfo.processInfo
   }
   
   /**
@@ -33,13 +33,13 @@ extension UIDevice {
    
    - parameter context: The context to apply these properties to
    */
-  public override func preparePeek(context: Context) {
+  public override func preparePeek(_ context: Context) {
     super.preparePeek(context)
     
-    context.configure(.Device, "Battery") { (config) in
+    context.configure(.device, "Battery") { (config) in
       config.addProperties([ "batteryMonitoringEnabled" ])
       
-      if batteryMonitoringEnabled {
+      if isBatteryMonitoringEnabled {
         config.addProperties([ "batteryLevel" ])
         
         config.addProperty("batteryState", displayName: nil, cellConfiguration: { (cell, view, value) in
@@ -50,26 +50,26 @@ extension UIDevice {
       }
     }
     
-    context.configure(.Device, "Hardware") { (config) in
+    context.configure(.device, "Hardware") { (config) in
       config.addProperties([ "processInfo.processorCount",  ])
       
       config.addProperty("processInfo.physicalMemory", displayName: nil, cellConfiguration: { (cell, object, value) in
-        let formatter = NSByteCountFormatter()
-        let memory = NSProcessInfo.processInfo().physicalMemory
-        formatter.countStyle = .Memory
-        cell.detailTextLabel?.text = formatter.stringFromByteCount(Int64(memory))
+        let formatter = ByteCountFormatter()
+        let memory = ProcessInfo.processInfo.physicalMemory
+        formatter.countStyle = .memory
+        cell.detailTextLabel?.text = formatter.string(fromByteCount: Int64(memory))
       })
     }
     
-    context.configure(.Device, "System") { (config) in
+    context.configure(.device, "System") { (config) in
       config.addProperties([ "name", "model" ])
       config.addProperty("systemVersion", displayName: "iOS Version", cellConfiguration: nil)
     }
     
-    context.configure(.Device, "Proximity") { (config) in
+    context.configure(.device, "Proximity") { (config) in
       config.addProperties([ "proximityMonitoringEnabled" ])
       
-      if proximityMonitoringEnabled {
+      if isProximityMonitoringEnabled {
         config.addProperty("proximityState", displayName: "Proximity Detected", cellConfiguration: nil)
       }
     }

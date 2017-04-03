@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Peek"
-  s.version          = "2.3"
+  s.version          = "3.1"
   s.summary          = "Take a Peek at your application. App inspection at runtime."
   s.homepage         = "http://shaps.me/"
   s.screenshots      = "http://shaps.me/assets/img/blog/peek.png"
@@ -11,6 +11,6 @@ Pod::Spec.new do |s|
   s.platform         = :ios, '8.0'
   s.requires_arc     = true
   s.source_files     = 'Pod/Classes/**/*'
-  s.dependency         'SwiftLayout'
-  s.dependency         'InkKit', '1.4.0'
+  s.dependency         'SwiftLayout', '2.0.0'
+  s.dependency         'InkKit', '2.0.0'
 end

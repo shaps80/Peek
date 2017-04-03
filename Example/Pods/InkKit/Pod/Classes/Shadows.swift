@@ -21,13 +21,14 @@
  */
 
 import CoreGraphics
+import GraphicsRenderer
 
 public enum ShadowType {
-  case Inner
-  case Outer
+  case inner
+  case outer
 }
 
-extension Draw {
+extension RendererDrawable {
   
   /**
    Draws a shadow from the specified paths edge
@@ -38,7 +39,7 @@ extension Draw {
    - parameter radius: The blur radius of this shadow
    - parameter offset: The offest of this shadow
    */
-  public static func addShadow(type: ShadowType, path: BezierPath, color: Color, radius: CGFloat, offset shadowOffset: CGSize) {
+  public func draw(shadow type: ShadowType, path: BezierPath, color: Color, radius: CGFloat, offset shadowOffset: CGSize) {
     var offset: CGSize
     
     #if os(OSX)
@@ -48,41 +49,41 @@ extension Draw {
     #endif
     
     switch type {
-    case .Inner:
+    case .inner:
       addInnerShadow(path, color: color, radius: radius, offset: offset)
-    case .Outer:
+    case .outer:
       addOuterShadow(path, color: color, radius: radius, offset: offset)
     }
   }
   
-  private static func addInnerShadow(path: BezierPath, color: Color, radius: CGFloat, offset: CGSize) {
-    GraphicsContext()?.draw(inRect: path.bounds, attributes: nil) { (context, rect, attributes) in
-      CGContextAddPath(context, path.CGPath)
+  private func addInnerShadow(_ path: BezierPath, color: Color, radius: CGFloat, offset: CGSize) {
+    cgContext.draw(inRect: path.bounds, attributes: nil) { (context, rect, attributes) in
+      context.addPath(path.cgPath)
       
-      if !CGContextIsPathEmpty(context) {
-        CGContextClip(context)
+      if !context.isPathEmpty {
+        context.clip()
       }
       
-      let opaqueShadowColor = CGColorCreateCopyWithAlpha(color.CGColor, 1.0)
+      let opaqueShadowColor = color.cgColor.copy(alpha: 1)
       
-      CGContextSetAlpha(context, CGColorGetAlpha(color.CGColor))
-      CGContextBeginTransparencyLayer(context, nil)
-      CGContextSetShadowWithColor(context, offset, radius, opaqueShadowColor)
-      CGContextSetBlendMode(context, .SourceOut)
-      CGContextSetFillColorWithColor(context, opaqueShadowColor!)
-      CGContextAddPath(context, path.CGPath)
-      CGContextFillPath(context)
-      CGContextEndTransparencyLayer(context)
+      context.setAlpha(color.cgColor.alpha)
+      context.beginTransparencyLayer(auxiliaryInfo: nil)
+      context.setShadow(offset: offset, blur: radius, color: opaqueShadowColor)
+      context.setBlendMode(.sourceOut)
+      context.setFillColor(opaqueShadowColor!)
+      context.addPath(path.cgPath)
+      context.fillPath()
+      context.endTransparencyLayer()
     }
   }
   
-  private static func addOuterShadow(path: BezierPath, color: Color, radius: CGFloat, offset: CGSize) {
-    GraphicsContext()?.draw(inRect: path.bounds, attributes: nil) { (context, rect, attributes) in
-      CGContextBeginTransparencyLayer(context, nil)
-      CGContextSetShadowWithColor(context, offset, radius, color.CGColor)
-      CGContextAddPath(context, path.CGPath)
-      CGContextFillPath(context)
-      CGContextEndTransparencyLayer(context)
+  private func addOuterShadow(_ path: BezierPath, color: Color, radius: CGFloat, offset: CGSize) {
+    cgContext.draw(inRect: path.bounds, attributes: nil) { (context, rect, attributes) in
+      context.beginTransparencyLayer(auxiliaryInfo: nil)
+      context.setShadow(offset: offset, blur: radius, color: color.cgColor)
+      context.addPath(path.cgPath)
+      context.fillPath()
+      context.endTransparencyLayer()
     }
   }
 
