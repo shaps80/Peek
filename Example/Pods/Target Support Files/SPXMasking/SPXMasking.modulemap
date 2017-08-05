@@ -1,0 +1,6 @@
+framework module SPXMasking {
+  umbrella header "SPXMasking-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,6 @@
+framework module GraphicsRenderer {
+  umbrella header "GraphicsRenderer-umbrella.h"
+
+  export *
+  module * { export * }
+}

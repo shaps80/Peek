@@ -1,0 +1,6 @@
+framework module Pods_Peek_Example {
+  umbrella header "Pods-Peek-Example-umbrella.h"
+
+  export *
+  module * { export * }
+}
