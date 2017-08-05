@@ -1,6 +1,0 @@
-framework module OpenSans {
-  umbrella header "OpenSans-umbrella.h"
-
-  export *
-  module * { export * }
-}

@@ -3,7 +3,7 @@ PODS:
   - InkKit (2.0.0):
     - GraphicsRenderer
   - OpenSans (1.0.3)
-  - Peek (2.3):
+  - Peek (3.0):
     - InkKit (= 2.0.0)
     - SwiftLayout (= 2.0.0)
   - pop (1.0.9)
@@ -25,11 +25,11 @@ SPEC CHECKSUMS:
   GraphicsRenderer: bc867f23d3d8ffe4853e6de6d7bec81386ceb239
   InkKit: dee5f114e9b568d48733eb142559df01bdd8a225
   OpenSans: 33078846463eae780aa5f82986b51cce085f970d
-  Peek: 2e87d3ccea142e2b4d25b6de307c25d5c287f519
+  Peek: e20c694d6c748cdff41f7cc205c602016dedca27
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   SPXMasking: 96e53182e204caeeb2ee78a506da5e996a93d4d6
   SwiftLayout: a301f143dfcde344272ffa6ae112b11e8c683ef9
 
 PODFILE CHECKSUM: 642562938b73a6db36bff9f9b29ee77e77a6a172
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.2.1

@@ -13,7 +13,7 @@ Peek is an open source library that lets you easily check your application again
 
 **Swift 3.0**
 
-Swift 3.0 support is coming soon.
+Peek is Swift 3.0+ by default.
 
 **Swift 2.3**
 
@@ -23,13 +23,20 @@ If you need Swift 2.3 support, update your Podfile as such:
 
 **Swift 2.2**
 
-The current release of Peek is Swift 2.2, however its now recommended that you update your Podfile as such:
+If you need Swift 2.2 support, update your Podfile as such:
 
 `pod 'Peek', '2.0'`
 
 ---
 
 # Changelog
+
+3.0
+-
+
+* Swift 3.0+ Support
+
+> Although no breaking API changes have been introduced, Peek now targets Swift 3.0+ so if your project is running an older verson of the language, you'll need to use an older version of Peek. However all versions are currently have feature parity. 
 
 2.2.0
 -
@@ -84,7 +91,8 @@ For developers, simply use CocoaPods (alternativel you can simply drag the files
 pod 'Peek'
 ```
 
-Then add a single line to your App Delegate:
+Then add a single line to your app. For iOS 8/9 you can add this to your AppDelegate.swift file.
+If you're using iOS 10.0+ you will need to add this to your window's rootViewController.
 
 ```swift
 window?.peek.enabled = true
@@ -225,4 +233,3 @@ Icon design by [@h1brd][marco]
 
 [github]: https://github.com/shaps80/Peek
 [shaps]: http://twitter.com/shaps "Shaps on Twitter"
-[marco]: http://twitter.com/h1brd "Marco on Twitter"

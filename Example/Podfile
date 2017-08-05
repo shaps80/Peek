@@ -2,7 +2,9 @@ source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
 target 'Peek-Example' do
-    pod 'InkKit', '2.0.0'
+    platform :ios, '8.0'
+    
+    pod 'InkKit', '4.0.0'
     pod 'Peek', :path => '../'
     pod 'OpenSans'
     pod 'pop'

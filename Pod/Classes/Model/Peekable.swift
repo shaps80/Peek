@@ -83,11 +83,15 @@ extension UIView {
     if isFullScreen { return true }
     
     let isInternalSuperviewClass = self.superview?.ObjClassName().hasPrefix("_") ?? false
-    if isInternalSuperviewClass { return true }
+    if isInternalSuperviewClass {
+        return true	
+    }
     
     let blacklist = [ "UINavigationItemView", "UIPickerTableView", "UIPickerColumnView" ]
     let isInternalClass = ObjClassName().hasPrefix("_") || blacklist.contains(ObjClassName())
-    if isInternalClass { return true }
+    if isInternalClass {
+        return true
+    }
     
     let invalidContainerClassNames = [ "UINavigationButton" ]
     var superview = self.superview
@@ -152,6 +156,9 @@ extension Segment: PeekSubPropertiesSupporting { }
 extension NSAttributedString: PeekSubPropertiesSupporting { }
 extension NSShadow: PeekSubPropertiesSupporting { }
 
+
+
+// This is a BAD name. What we really want to articulate here is that the scanner should stop at these views and not recurse deeper. Effectively treating these views as a leaf
 public protocol PeekContainer { }
 
 extension UISwitch: PeekContainer { }

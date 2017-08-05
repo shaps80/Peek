@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>GraphicsRenderer.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>InkKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -47,22 +52,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>08FC59C2E165E0A5C4CE6BFEEE75896C</key>
+		<key>1D827D0D160F24238B5FD3F7B96FECB8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>11FAA3644BCA1BAFB05C9F3CCBC9536E</key>
+		<key>4B8AE9B2A073A6BECD7470E739157A8F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>292FE503E485705D6D9DB573FDD4691C</key>
+		<key>5B1600B097A3168C227C5626A8D0146C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6C01C431743168DA338B5D0DC28FDB46</key>
+		<key>61B41C74BCFED0AF546F12096C08ACE1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B59E4A21A98745A0D7E3D00DDE1F8F82</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C317A03F543F236325E90D3B019A8FBF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -72,12 +87,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D94A899C327D2D271B0B67D320EFB3CB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>DE3878E1D5CD98B4A7B83B4102BDA1F0</key>
+		<key>CF27D527C852B4609FAB8DB3AE720B11</key>
 		<dict>
 			<key>primary</key>
 			<true/>

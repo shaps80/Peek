@@ -25,7 +25,7 @@ import UIKit
 extension NSLayoutConstraint {
   
   open override var description: String {
-    var name = "\(perform("asciiArtDescription"))".components(separatedBy: ": ").last
+    var name = "\(perform(Selector(("asciiArtDescription"))))".components(separatedBy: ": ").last
     
     if name == "nil" {
       name = super.description

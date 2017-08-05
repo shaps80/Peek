@@ -26,6 +26,7 @@ import InkKit
 final class Images {
   
   static func tabItemIndicatorImage() -> UIImage {
+
     return Image.draw(width: 1, height: 49, attributes: nil, drawing: { (context, rect, attributes) in
       let height: CGFloat = 3
       let rect = CGRect(x: 0, y: rect.maxY - height, width: 1, height: height)

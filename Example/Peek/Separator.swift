@@ -49,12 +49,8 @@ class Separator: UIView {
     
     let path = UIBezierPath(rect: rect)
     
-    // FIXME: - don't understand how to fix it
-//    if reverse {
-//      Draw.fillPath(path, startColor: startColor, endColor: endColor, angleInDegrees: -90)
-//    } else {
-//      Draw.fillPath(path, startColor: startColor, endColor: endColor, angleInDegrees: 90)
-//    }
+    let angle: CGFloat = reverse ? -90 : 90
+    CGContext.current?.fill(path: path, startColor: Color(color: startColor)!, endColor: Color(color: endColor)!, angleInDegrees: angle)
   }
   
 }

@@ -40,7 +40,7 @@ extension UIViewController {
     }
     
     if let controller = presentedViewController {
-      return controller.topViewController() ?? self.topViewController()
+      return controller.topViewController()
     }
     
     return self
