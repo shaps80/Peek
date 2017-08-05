@@ -9,18 +9,18 @@
 import Foundation
 
 @available(*, unavailable, renamed: "sizeAttribute(for:)")
-public func sizeAttribute(_ axis: Axis) -> NSLayoutAttribute {
-  return sizeAttribute(for: axis)
+public func sizeAttribute(_ axis: Axis) -> LayoutAttribute {
+    return sizeAttribute(for: axis)
 }
 
 @available(*, unavailable, renamed: "sizeAttribute(for:)")
-public func centerAttribute(_ axis: Axis) -> NSLayoutAttribute {
-  return centerAttribute(for: axis)
+public func centerAttribute(_ axis: Axis) -> LayoutAttribute {
+    return sizeAttribute(for: axis)
 }
 
 @available(*, unavailable, renamed: "edgeAttribute(for:)")
-public func edgeAttribute(_ edge: Edge) -> NSLayoutAttribute {
-  return edgeAttribute(for: edge)
+public func edgeAttribute(_ edge: Edge) -> LayoutAttribute {
+    return edgeAttribute(for: edge)
 }
 
 @available(*, unavailable, deprecated: 2.0.0)
@@ -37,12 +37,12 @@ extension View {
   // Multiple View
   
   @available(*, unavailable, message: "This method has been moved to Array<View>")
-  public static func pin(_ edges: EdgeMask, ofViews views: [View], toView view: View, relation: NSLayoutRelation = .equal, margins: EdgeMargins = EdgeMargins(), priority: LayoutPriority = LayoutPriorityDefaultHigh) -> [NSLayoutConstraint] {
+  public static func pin(_ edges: EdgeMask, ofViews views: [View], toView view: View, relation: LayoutRelation = .equal, margins: EdgeMargins = EdgeMargins(), priority: LayoutPriority = LayoutPriorityDefaultHigh) -> [NSLayoutConstraint] {
     return views.pin(edges: edges, to: view, relation: relation, margins: margins, priority: priority)
   }
   
   @available(*, unavailable, message: "This method has been moved to Array<View>")
-  public static func pin(_ edge: Edge, ofViews views: [View], toEdge: Edge, ofView view: View, relation: NSLayoutRelation = .equal, margin: CGFloat = 0, priority: LayoutPriority = LayoutPriorityDefaultHigh) -> [NSLayoutConstraint] {
+  public static func pin(_ edge: Edge, ofViews views: [View], toEdge: Edge, ofView view: View, relation: LayoutRelation = .equal, margin: CGFloat = 0, priority: LayoutPriority = LayoutPriorityDefaultHigh) -> [NSLayoutConstraint] {
     return views.pin(edge: edge, to: toEdge, of: view, relation: relation, margin: margin, priority: priority)
   }
   
@@ -52,7 +52,7 @@ extension View {
   }
   
   @available(*, unavailable, message: "This method has been moved to Array<View>")
-  public static func size(_ axis: Axis, ofViews views: [View], relatedBy relation: NSLayoutRelation, size: CGFloat, priority: LayoutPriority = LayoutPriorityDefaultHigh) -> [NSLayoutConstraint] {
+  public static func size(_ axis: Axis, ofViews views: [View], relatedBy relation: LayoutRelation, size: CGFloat, priority: LayoutPriority = LayoutPriorityDefaultHigh) -> [NSLayoutConstraint] {
     return views.size(axis: axis, relation: relation, size: size, priority: priority)
   }
   
@@ -76,7 +76,7 @@ extension View {
    
    - returns: The applied constraints
    */
-  public static func size(width: CGFloat, height: CGFloat, ofViews views: [View], relation: NSLayoutRelation = .equal, priority: LayoutPriority = LayoutPriorityDefaultHigh) -> [NSLayoutConstraint] {
+  public static func size(width: CGFloat, height: CGFloat, ofViews views: [View], relation: LayoutRelation = .equal, priority: LayoutPriority = LayoutPriorityDefaultHigh) -> [NSLayoutConstraint] {
     var constraints = [NSLayoutConstraint]()
     views.forEach { constraints.append(contentsOf: $0.size(width: width, height: height, relation: relation, priority: priority)) }
     return constraints

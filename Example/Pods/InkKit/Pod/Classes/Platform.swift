@@ -10,16 +10,17 @@
     import AppKit
     public typealias Image = NSImage
     public typealias BezierPath = NSBezierPath
+    public typealias EdgeInsets = NSEdgeInsets
     public typealias Screen = NSScreen
     public typealias Font = NSFont
     
     extension NSImage {
         public func pngRepresentation() -> Data? {
-            return NSBitmapImageRep(data: tiffRepresentation!)?.representation(using: .PNG, properties: [:])
+            return NSBitmapImageRep(data: tiffRepresentation!)?.representation(using: .png, properties: [:])
         }
         
         public func jpgRepresentation(quality: CGFloat) -> Data? {
-            return NSBitmapImageRep(data: tiffRepresentation!)?.representation(using: .JPEG, properties: [NSImageCompressionFactor: quality])
+            return NSBitmapImageRep(data: tiffRepresentation!)?.representation(using: .jpeg, properties: [NSBitmapImageRep.PropertyKey.compressionFactor: quality])
         }
     }
 #else
@@ -45,7 +46,7 @@ extension CGContext {
     
     public static var current: CGContext? {
         #if os(OSX)
-            return NSGraphicsContext.current()!.cgContext
+            return NSGraphicsContext.current!.cgContext
         #else
             return UIGraphicsGetCurrentContext()
         #endif

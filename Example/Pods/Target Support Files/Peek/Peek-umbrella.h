@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "NSObject+Peekable.h"
 
 FOUNDATION_EXPORT double PeekVersionNumber;
 FOUNDATION_EXPORT const unsigned char PeekVersionString[];

@@ -23,17 +23,21 @@
   ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if os(OSX)
-  import AppKit
-  public typealias LayoutPriority = NSLayoutPriority
-#else
+#if os(iOS)
   import UIKit
   public typealias LayoutPriority = UILayoutPriority
+  public typealias LayoutAttribute = NSLayoutAttribute
+  public typealias LayoutRelation = NSLayoutRelation
+#else
+  import AppKit
+  public typealias LayoutPriority = NSLayoutConstraint.Priority
+  public typealias LayoutAttribute = NSLayoutConstraint.Attribute
+  public typealias LayoutRelation = NSLayoutConstraint.Relation
 #endif
 
-public let LayoutPriorityRequired: LayoutPriority = 1000 // A required constraint.  Do not exceed this.
-public let LayoutPriorityDefaultHigh: LayoutPriority = 750 // This is the priority level with which a button resists compressing its content.
-public let LayoutPriorityDefaultLow: LayoutPriority = 250 // This is the priority level at which a button hugs its contents horizontally.
+public let LayoutPriorityRequired: LayoutPriority = LayoutPriority(rawValue: 1000) // A required constraint.  Do not exceed this.
+public let LayoutPriorityDefaultHigh: LayoutPriority = LayoutPriority(rawValue: 750) // This is the priority level with which a button resists compressing its content.
+public let LayoutPriorityDefaultLow: LayoutPriority = LayoutPriority(rawValue: 250) // This is the priority level at which a button hugs its contents horizontally.
 
 
 
@@ -119,9 +123,9 @@ public protocol ConstraintDefinition {
   var priority: LayoutPriority { get }
   var constant: CGFloat { get set }
   var multiplier: CGFloat { get }
-  var relation: NSLayoutRelation { get }
-  var firstAttribute: NSLayoutAttribute { get }
-  var secondAttribute: NSLayoutAttribute { get }
+  var relation: LayoutRelation { get }
+  var firstAttribute: LayoutAttribute { get }
+  var secondAttribute: LayoutAttribute { get }
   var trait: ConstraintsTraitMask { get }
 }
 
@@ -173,9 +177,9 @@ public struct Constraint: ConstraintDefinition {
   public internal(set) var priority: LayoutPriority
   public var constant: CGFloat
   public internal(set) var multiplier: CGFloat
-  public internal(set) var relation: NSLayoutRelation
-  public internal(set) var firstAttribute: NSLayoutAttribute
-  public internal(set) var secondAttribute: NSLayoutAttribute
+  public internal(set) var relation: LayoutRelation
+  public internal(set) var firstAttribute: LayoutAttribute
+  public internal(set) var secondAttribute: LayoutAttribute
   
   public unowned var firstView: View {
     didSet {
@@ -194,7 +198,7 @@ public struct Constraint: ConstraintDefinition {
     self.constant = 0
     self.multiplier = 1
     self.relation = .equal
-    self.priority = 250
+    self.priority = LayoutPriority(rawValue: 250)
     
     view.translatesAutoresizingMaskIntoConstraints = false
   }

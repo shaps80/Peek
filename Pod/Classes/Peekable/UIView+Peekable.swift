@@ -53,6 +53,8 @@ extension UIView {
    
    - parameter context: The context to apply these properties to
    */
+    
+    /*
   public override func preparePeek(_ context: Context) {
     super.preparePeek(context)
     
@@ -110,5 +112,6 @@ extension UIView {
       config.addProperties([ "layer.position", "layer.anchorPoint", "layer.zPosition", "layer.geometryFlipped", "layer.anchorPointZ",  ])
     }
   }
+ */
   
 }

@@ -50,7 +50,7 @@ class Button: UIControl, UITextFieldDelegate {
     tintColor = UIColor.clear
   }
 
-  func handleTap(_ gesture: UITapGestureRecognizer) {
+  @objc func handleTap(_ gesture: UITapGestureRecognizer) {
     switch gesture.state {
     case .ended:
       textField.isEnabled = true

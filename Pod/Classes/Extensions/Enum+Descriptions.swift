@@ -272,6 +272,7 @@ extension UIModalPresentationStyle: CustomStringConvertible {
     case .overFullScreen: return "Over Full Screen"
     case .pageSheet: return "Page Sheet"
     case .popover: return "Popover"
+    case .blurOverFullScreen: return "Blur Over Full Screen"
     }
   }
   
@@ -298,6 +299,8 @@ extension UIControlContentHorizontalAlignment: CustomStringConvertible {
     case .center: return "Center"
     case .fill: return "Fill"
     case .right: return "Right"
+    case .leading: return "Leading"
+    case .trailing: return "trailing"
     }
   }
   
@@ -313,6 +316,7 @@ extension UIButtonType: CustomStringConvertible {
     case .infoDark: return "Info Dark"
     case .infoLight: return "Info Light"
     case .system: return "System"
+    case .plain: return "Plain"
     }
   }
   

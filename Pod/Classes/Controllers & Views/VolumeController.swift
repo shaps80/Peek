@@ -83,7 +83,7 @@ final class VolumeController: NSObject, PeekActivationController {
     }
   }
   
-  func register() {
+  @objc func register() {
     volumeView = MPVolumeView(frame: CGRect(x: -1000, y: 0, width: 1, height: 1))
     peek.peekingWindow.addSubview(volumeView)
     
@@ -100,7 +100,7 @@ final class VolumeController: NSObject, PeekActivationController {
     session.addObserver(self, forKeyPath: "outputVolume", options: .new, context: nil)
   }
   
-  func unregister() {
+  @objc func unregister() {
     if volumeView == nil {
       // already unregistered
       return

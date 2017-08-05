@@ -114,7 +114,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         dismiss(animated: true, completion: nil)
     }
     
-    func handleTap(_ gesture: UITapGestureRecognizer) {
+    @objc func handleTap(_ gesture: UITapGestureRecognizer) {
         if hipsButton.textField.isFirstResponder || waistButton.textField.isFirstResponder || chestButton.textField.isFirstResponder {
             endEditing()
             return

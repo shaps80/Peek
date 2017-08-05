@@ -16,7 +16,7 @@ import CoreGraphics
  - returns: The angle in radians
  */
 public func radians(from degrees: Double) -> CGFloat {
-  return CGFloat(degrees * M_PI / 180)
+  return CGFloat(degrees * Double.pi / 180)
 }
 
 /**
@@ -27,6 +27,6 @@ public func radians(from degrees: Double) -> CGFloat {
  - returns: The angle in degrees
  */
 public func degrees(from radians: Double) -> CGFloat {
-  return CGFloat(radians * 180 / M_PI)
+  return CGFloat(radians * 180 / Double.pi)
 }
 

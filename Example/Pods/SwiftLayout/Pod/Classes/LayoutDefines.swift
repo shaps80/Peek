@@ -157,7 +157,7 @@ Converts an Axis to its associated sizing attribute
 
 - returns: The associated NSLayoutAttribute
 */
-public func sizeAttribute(for axis: Axis) -> NSLayoutAttribute {
+public func sizeAttribute(for axis: Axis) -> LayoutAttribute {
   switch axis {
   case .horizontal:
     return .width
@@ -173,7 +173,7 @@ Converts an Axis to its associated alignment attribute
 
 - returns: The associated NSLayoutAttribute
 */
-public func centerAttribute(for axis: Axis) -> NSLayoutAttribute {
+public func centerAttribute(for axis: Axis) -> LayoutAttribute {
   switch axis {
   case .horizontal:
     return .centerX
@@ -189,7 +189,7 @@ Converts an Edge to its associated edge attribute
 
 - returns: The associated NSLayoutAttribute
 */
-public func edgeAttribute(for edge: Edge) -> NSLayoutAttribute {
+public func edgeAttribute(for edge: Edge) -> LayoutAttribute {
   switch edge {
   case .top:
     return .top

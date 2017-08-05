@@ -40,8 +40,6 @@ class Segment: NSObject {
    - parameter context: The context to apply these properties to
    */
   override func preparePeek(_ context: Context) {
-    super.preparePeek(context)
-    
     context.configure(.attributes, "General") { (config) in
       config.addProperties([ "enabled", "title", "width", "image", "contentOffset" ])
     }

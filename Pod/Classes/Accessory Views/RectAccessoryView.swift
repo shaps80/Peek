@@ -38,16 +38,21 @@ final class RectAccessoryView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
   
-  fileprivate func prepare() {    
-    let attributes = [ NSFontAttributeName: UIFont(name: "Avenir-Book", size: 16)!, NSForegroundColorAttributeName: UIColor.white ]
+  fileprivate func prepare() {
     let originString = "Origin:\t\(value.origin.x), \(value.origin.y)"
     let sizeString = "Size:\t\(value.width), \(value.height)"
     
     let originLabel = UILabel()
-    originLabel.attributedText = NSAttributedString(string: originString, attributes: attributes)
+    originLabel.attributedText = NSAttributedString(string: originString, attributes: [
+        .font: UIFont(name: "Avenir-Book", size: 16)!,
+        .foregroundColor: UIColor.white
+    ])
     
     let sizeLabel = UILabel()
-    sizeLabel.attributedText = NSAttributedString(string: sizeString, attributes: attributes)
+    sizeLabel.attributedText = NSAttributedString(string: sizeString, attributes: [
+        .font: UIFont(name: "Avenir-Book", size: 16)!,
+        .foregroundColor: UIColor.white
+    ])
     
     addSubview(originLabel)
     addSubview(sizeLabel)

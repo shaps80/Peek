@@ -50,12 +50,12 @@ class InspectorsTabBarController: UITabBarController, UINavigationControllerDele
     if let view = model as? UIView {
       view.preparePeek(context)
       view.layer.preparePeek(context)
-      view.owningViewController()?.preparePeek(context)
+//      view.owningViewController()?.preparePeek(context)
     }
     
-    UIDevice.current.preparePeek(context)
-    UIScreen.main.preparePeek(context)
-    UIApplication.shared.preparePeek(context)
+//    UIDevice.current.preparePeek(context)
+//    UIScreen.main.preparePeek(context)
+//    UIApplication.shared.preparePeek(context)
     
     tabBar.barStyle = .black
     tabBar.selectionIndicatorImage = Images.tabItemIndicatorImage()
@@ -93,7 +93,10 @@ class InspectorsTabBarController: UITabBarController, UINavigationControllerDele
       navController.navigationBar.barStyle = .black
       navController.navigationBar.backIndicatorImage = Images.backIndicatorImage()
       navController.navigationBar.backIndicatorTransitionMaskImage = Images.backIndicatorImage()
-      navController.navigationBar.titleTextAttributes = [ NSForegroundColorAttributeName: UIColor(white: 1, alpha: 0.5), NSFontAttributeName: UIFont(name: "Avenir-Book", size: 16)! ]
+      navController.navigationBar.titleTextAttributes = [
+        .foregroundColor: UIColor(white: 1, alpha: 0.5),
+        .font: UIFont(name: "Avenir-Book", size: 16)!
+        ]
       
       controllers.append(navController)
     }

@@ -4,8 +4,7 @@ use_frameworks!
 target 'Peek-Example' do
     platform :ios, '8.0'
     
-    pod 'InkKit'
-    pod 'Peek', :path => '../'
+    pod 'Peek', :path => '../', :configurations => ['Debug']
     pod 'OpenSans'
     pod 'pop'
     pod 'SPXMasking', '1.1.0'

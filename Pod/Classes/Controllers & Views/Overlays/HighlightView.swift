@@ -140,11 +140,11 @@ final class MetricLabel: UILabel {
     layer.cornerRadius = 3
     textAlignment = .center
     
-    setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .horizontal)
-    setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
+    setContentCompressionResistancePriority(.required, for: .horizontal)
+    setContentCompressionResistancePriority(.required, for: .vertical)
     
-    setContentHuggingPriority(UILayoutPriorityRequired, for: .horizontal)
-    setContentHuggingPriority(UILayoutPriorityRequired, for: .vertical)
+    setContentHuggingPriority(.required, for: .horizontal)
+    setContentHuggingPriority(.required, for: .vertical)
   }
   
   override var intrinsicContentSize : CGSize {

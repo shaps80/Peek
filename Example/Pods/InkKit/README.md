@@ -5,11 +5,32 @@
 [![Language](https://img.shields.io/badge/language-swift-ff69b4.svg)](http://cocoadocs.org/docsets/InkKit)
 [![Platform](https://img.shields.io/cocoapods/p/InkKit.svg?style=flat)](http://cocoapods.org/pods/InkKit)
 
-#### Note
-> If you require Swift 2.2 still, fix your version of InkKit to:
-`pod 'InkKit', '1.3.1'
+## Swift Support
 
----
+**Swift 4.0**
+
+InkKit is Swift 4.0 by default, so to use that just include InkKit in your podfile:
+
+pod 'InkKit'
+
+**Swift 3.2**
+
+In order to use InkKit in a Swift 3.2/3.0 project, ensure you point to the `2.1.0` tag.
+
+`pod 'InkKit', '2.1.0'`
+
+**Swift 2.3**
+
+In order to use InkKit in a Swift 2.3 project, ensure you point to the `swift2.3` branch.
+
+`pod 'InkKit', :git => 'https://github.com/shaps80/InkKit/', :branch => 'swift2.3'`
+
+**Swift 2.2**
+
+If you still require Swift 2.2, point your version as such:
+`pod 'InkKit', '1.3.1'`
+
+## Example Code
 
 Everything you see here, was code-drawn with InkKit! In fact, other than some `CGRect` instances, this is ALL the code required to draw the image you see on the right ;)
 
@@ -20,7 +41,7 @@ Everything you see here, was code-drawn with InkKit! In fact, other than some `C
   </tr>
   <tr>
     <td>Lets draw the screen on the right.</td>
-    <th rowspan="9"><img src="http://shaps.me/assets/img/blog/InkKit.gif"></th>
+    <th rowspan="9"><img src="https://camo.githubusercontent.com/3b91556602d4501e9916903939f35d1ea85697a7/687474703a2f2f73686170732e6d652f6173736574732f696d672f626c6f672f496e6b4b69742e676966"></th>
   </tr>
   <tr><td><div class="highlight highlight-source-swift"><pre>
 Draw.fillRect(bgFrame, color: UIColor(hex: "1c3d64"))

@@ -21,7 +21,7 @@ extension Array where Element: View {
    
    - returns: The applied constraints
    */
-  @discardableResult public func pin(edges: EdgeMask, to view: View, relation: NSLayoutRelation = .equal, margins: EdgeMargins = EdgeMargins(), priority: LayoutPriority = LayoutPriorityDefaultHigh) -> [NSLayoutConstraint] {
+  @discardableResult public func pin(edges: EdgeMask, to view: View, relation: LayoutRelation = .equal, margins: EdgeMargins = EdgeMargins(), priority: LayoutPriority = LayoutPriorityDefaultHigh) -> [NSLayoutConstraint] {
     var constraints = [NSLayoutConstraint]()
     forEach { constraints.append(contentsOf: $0.pin(edges: edges, of: view, relation: relation, margins: margins, priority: priority)) }
     return constraints
@@ -39,7 +39,7 @@ extension Array where Element: View {
    
    - returns: The applied constraints
    */
-  @discardableResult public func pin(edge: Edge, to otherEdge: Edge, of view: View, relation: NSLayoutRelation = .equal, margin: CGFloat = 0, priority: LayoutPriority = LayoutPriorityDefaultHigh) -> [NSLayoutConstraint] {
+  @discardableResult public func pin(edge: Edge, to otherEdge: Edge, of view: View, relation: LayoutRelation = .equal, margin: CGFloat = 0, priority: LayoutPriority = LayoutPriorityDefaultHigh) -> [NSLayoutConstraint] {
     var constraints = [NSLayoutConstraint]()
     forEach { constraints.append($0.pin(edge: edge, to: otherEdge, of: view, relation: relation, margin: margin, priority: priority)) }
     return constraints

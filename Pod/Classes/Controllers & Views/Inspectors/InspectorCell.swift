@@ -102,7 +102,7 @@ final class InspectorCell: UITableViewCell, MFMailComposeViewControllerDelegate 
     }
   }
   
-  func email(_ sender: AnyObject?) {
+  @objc func email(_ sender: AnyObject?) {
     guard let peek = self.peek else {
       fatalError("Peek should never be nil!")
     }
@@ -110,7 +110,7 @@ final class InspectorCell: UITableViewCell, MFMailComposeViewControllerDelegate 
     Email().post(peek.screenshot, metaData: metaData(), peek: peek, delegate: self)
   }
   
-  func slack(_ sender: AnyObject?) {    
+  @objc func slack(_ sender: AnyObject?) {
     guard let peek = self.peek else {
       fatalError("Peek should never be nil!")
     }

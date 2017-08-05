@@ -150,9 +150,9 @@ extension BezierPath {
     
     switch style {
     case .convex(let radius):
-      addArc(withCenter: CGPoint(x: rect.minX + radius, y: rect.minY + radius), radius: radius, startAngle: CGFloat(M_PI), endAngle: -CGFloat(M_PI_2), clockwise: true)
+      addArc(withCenter: CGPoint(x: rect.minX + radius, y: rect.minY + radius), radius: radius, startAngle: CGFloat(Double.pi), endAngle: -CGFloat(Double.pi / 2), clockwise: true)
     case .concave(let radius):
-      addArc(withCenter: CGPoint(x: rect.minX, y: rect.minY), radius: radius, startAngle: CGFloat(M_PI_2), endAngle: 0, clockwise: false)
+      addArc(withCenter: CGPoint(x: rect.minX, y: rect.minY), radius: radius, startAngle: CGFloat(Double.pi / 2), endAngle: 0, clockwise: false)
     case .line(let radius):
       addLine(to: CGPoint(x: rect.minX + radius, y: rect.minY))
     case .none:
@@ -167,9 +167,9 @@ extension BezierPath {
     
     switch style {
     case .convex(let radius):
-      addArc(withCenter: CGPoint(x: rect.maxX - radius, y: rect.minY + radius), radius: radius, startAngle: -CGFloat(M_PI_2), endAngle: 0, clockwise: true)
+      addArc(withCenter: CGPoint(x: rect.maxX - radius, y: rect.minY + radius), radius: radius, startAngle: -CGFloat(Double.pi / 2), endAngle: 0, clockwise: true)
     case .concave(let radius):
-      addArc(withCenter: CGPoint(x: rect.maxX, y: rect.minY), radius: radius, startAngle: CGFloat(M_PI), endAngle: CGFloat(M_PI_2), clockwise: false)
+      addArc(withCenter: CGPoint(x: rect.maxX, y: rect.minY), radius: radius, startAngle: CGFloat(Double.pi), endAngle: CGFloat(Double.pi / 2), clockwise: false)
     case .line(let radius):
       addLine(to: CGPoint(x: rect.maxX, y: rect.minY + radius))
     case .none:
@@ -184,9 +184,9 @@ extension BezierPath {
     
     switch style {
     case .convex(let radius):
-      addArc(withCenter: CGPoint(x: rect.maxX - radius, y: rect.maxY - radius), radius: radius, startAngle: 0, endAngle: CGFloat(M_PI_2), clockwise: true)
+      addArc(withCenter: CGPoint(x: rect.maxX - radius, y: rect.maxY - radius), radius: radius, startAngle: 0, endAngle: CGFloat(Double.pi / 2), clockwise: true)
     case .concave(let radius):
-      addArc(withCenter: CGPoint(x: rect.maxX, y: rect.maxY), radius: radius, startAngle: CGFloat(M_PI_2) * 3, endAngle: CGFloat(M_PI), clockwise: false)
+      addArc(withCenter: CGPoint(x: rect.maxX, y: rect.maxY), radius: radius, startAngle: CGFloat(Double.pi / 2) * 3, endAngle: CGFloat(Double.pi), clockwise: false)
     case .line(let radius):
       addLine(to: CGPoint(x: rect.maxX - radius, y: rect.maxY))
     case .none:
@@ -201,9 +201,9 @@ extension BezierPath {
     
     switch style {
     case .convex(let radius):
-      addArc(withCenter: CGPoint(x: rect.minX + radius, y: rect.maxY - radius), radius: radius, startAngle: CGFloat(M_PI_2), endAngle: CGFloat(M_PI), clockwise: true)
+      addArc(withCenter: CGPoint(x: rect.minX + radius, y: rect.maxY - radius), radius: radius, startAngle: CGFloat(Double.pi / 2), endAngle: CGFloat(Double.pi), clockwise: true)
     case .concave(let radius):
-      addArc(withCenter: CGPoint(x: rect.minX, y: rect.maxY), radius: radius, startAngle: 0, endAngle: -CGFloat(M_PI_2), clockwise: false)
+      addArc(withCenter: CGPoint(x: rect.minX, y: rect.maxY), radius: radius, startAngle: 0, endAngle: -CGFloat(Double.pi / 2), clockwise: false)
     case .line(let radius):
       addLine(to: CGPoint(x: rect.minX, y: rect.maxY - radius))
     case .none:

@@ -1,24 +1,26 @@
-//
-//  Color.swift
-//  InkKit
-//
-//  Created by Shaps Benkau on 30/09/2016.
-//  Copyright © 2016 CocoaPods. All rights reserved.
-//
-
-/**
- *  Represents an RGBA color
+/*
+ Copyright © 01/10/2016 Shaps
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ 
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
  */
-public struct RGBA {
-    /// The red component
-    public var red: Float
-    /// The green component
-    public var green: Float
-    /// The blue component
-    public var blue: Float
-    /// The alpha component
-    public var alpha: Float
-}
+
+import CoreGraphics
 
 /**
  *  Represents a color value type
@@ -27,6 +29,8 @@ public struct Color: CustomStringConvertible {
     
     /// Represents the underlying RGBA values
     public var rgba: RGBA
+    
+    public typealias RGBA = (red: Float, green: Float, blue: Float, alpha: Float)
     
     /**
      Initializes this color value with relative component values. e.g. (0.5, 0.2, 0.1, 1.0)
@@ -60,7 +64,7 @@ public struct Color: CustomStringConvertible {
     /// Returns a debug friendly description of this color. The string contains both a relative and literal representation as well as the associated hexValue
     public var description: String {
         let color = literalRGBA()
-        return "(\(color.red), \(color.green), \(color.blue), \(rgba.alpha)) \(hex(withPrefix: true))"
+        return "(\(color.red), \(color.green), \(color.blue), \(rgba.alpha)) \(toHex(withAlpha: true))"
     }
 }
 
@@ -76,8 +80,8 @@ extension Color {
      
      - returns: A new color value
      */
-    public init(literalRed red: Float, green: Float, blue: Float, alpha: Float = 1) {
-        self.init(red: red/255, green: green/255, blue: blue/255, alpha: alpha)
+    public init(literalRed red: Int, green: Int, blue: Int, alpha: Float = 1) {
+        self.init(red: Float(red)/255, green: Float(green)/255, blue: Float(blue)/255, alpha: alpha)
     }
     
     /**
@@ -94,30 +98,47 @@ extension Color {
 extension Color {
     
     /**
-     Initializes this color value with the associated hex string.
+     Initializes this color value for the associated hex code (e.g. 0xfff, 0xfff0, 0xfff000, 0xfff000ff)
      
-     - parameter hex: A valid hex string, optionally including the '#' prefix. Both 3 and 6 character formats are supported
-     
-     - returns: A new color value if the hex string is valid, nil otherwise
+     - parameter hex:   The hex value representing this color
+     - parameter alpha: An optional alpha value. Defaults to 1.0
      */
-    public init?(hex: String) {
+    public init?(hex: Int, alpha: Float? = nil) {
+        self.init(hex: String(format:"%2X", hex), alpha: alpha)
+    }
+    
+    /**
+     Initializes this color value for the associated hex code (e.g. 'fff', 'fff0', 'fff00', 'fff000ff'). A '#' prefix is also supported
+     
+     - parameter hex:   The hex value representing this color
+     - parameter alpha: An optional alpha value. Defaults to 1.0
+     */
+    public init?(hex: String, alpha: Float? = nil) {
         var hexValue = hex.hasPrefix("#") ? String(hex.characters.dropFirst()) : hex
-        guard hexValue.characters.count == 3 || hexValue.characters.count == 6 else { return nil }
+        guard [3, 4, 6, 8].contains(hexValue.characters.count) else { return nil }
         
         if hexValue.characters.count == 3 {
+            hexValue.append("F")
+        }
+        
+        if hexValue.characters.count == 6 {
+            hexValue.append("FF")
+        }
+        
+        if [3, 4].contains(hexValue.characters.count) {
             for (index, char) in hexValue.characters.enumerated() {
                 let index = hexValue.index(hexValue.startIndex, offsetBy: index * 2)
                 hexValue.insert(char, at: index)
             }
         }
         
-        guard let parsedInt = Int(hexValue, radix: 16) else { return nil }
+        guard let normalizedHex = Int(hexValue, radix: 16) else { return nil }
         
         self.init(
-            red:   Float((parsedInt >> 16) & 0xFF) / 255.0,
-            green: Float((parsedInt >> 8) & 0xFF) / 255.0,
-            blue:  Float((parsedInt & 0xFF)) / 255.0,
-            alpha: 1.0)
+            red:   Float((normalizedHex >> 24) & 0xFF) / 255,
+            green: Float((normalizedHex >> 16) & 0xFF) / 255,
+            blue:  Float((normalizedHex >> 8)  & 0xFF) / 255,
+            alpha: alpha ?? Float((normalizedHex)  & 0xFF) / 255)
     }
     
     /**
@@ -127,9 +148,9 @@ extension Color {
      
      - returns: A hex string representation
      */
-    public func hex(withPrefix: Bool = true) -> String {
-        let prefix = withPrefix ? "#" : ""
-        return String(format: "\(prefix)%02X%02X%02X", Int(rgba.red * 255), Int(rgba.green * 255), Int(rgba.blue * 255))
+    public func toHex(withAlpha: Bool = true) -> String {
+        let alpha = withAlpha ? String(format: "%02X", Int(rgba.alpha * 255)) : ""
+        return String(format: "%02X%02X%02X\(alpha)", Int(rgba.red * 255), Int(rgba.green * 255), Int(rgba.blue * 255))
     }
     
 }
@@ -194,7 +215,7 @@ extension Color {
      
      - returns: A color that is the inverse of this color. e.g. white -> black
      */
-    public func inversed() -> Color {
+    public func inverted() -> Color {
         return Color(red: 1 - rgba.red, green: 1 - rgba.green, blue: 1 - rgba.blue, alpha: rgba.alpha)
     }
     
@@ -220,8 +241,22 @@ extension Color {
     
 }
 
+extension Color: ExpressibleByStringLiteral {
+    public init(extendedGraphemeClusterLiteral value: String) {
+        self.init(hex: value)!
+    }
+    
+    public init(unicodeScalarLiteral value: String) {
+        self.init(hex: value)!
+    }
+    
+    public init(stringLiteral value: String) {
+        self.init(hex: value)!
+    }
+}
+
 extension Color {
-  
+    
     public func set() {
         setFill()
         setStroke()
@@ -234,9 +269,8 @@ extension Color {
     public func setStroke() {
         CGContext.current?.setStrokeColor(cgColor)
     }
-  
+    
 }
-
 
 #if os(iOS)
     import UIKit

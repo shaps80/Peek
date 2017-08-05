@@ -25,22 +25,21 @@ import UIKit
 /**
  *  Defines a view or object that Peek can provide inspectors for
  */
-public protocol Peekable: NSObjectProtocol {
+@objc public protocol Peekable: class {
   var classForCoder: AnyClass { get }
-  
   func preparePeek(_ context: Context)
   func shouldIgnore(options: PeekOptions) -> Bool
 }
 
-extension NSObject: Peekable {
-  
-  /**
-   Gives the caller an opportunity to configure Peek's current context
-   
-   - parameter context: The context to configure
-   */
-  public func preparePeek(_ context: Context) { }
-}
+//extension NSObject: Peekable {
+//  
+//  /**
+//   Gives the caller an opportunity to configure Peek's current context
+//   
+//   - parameter context: The context to configure
+//   */
+//  public func preparePeek(_ context: Context) { }
+//}
 
 extension Peekable {
   
@@ -152,7 +151,7 @@ extension UISegmentedControl: PeekSubPropertiesSupporting { }
 extension UILabel: PeekSubPropertiesSupporting { }
 extension UIBarButtonItem: PeekSubPropertiesSupporting { }
 extension NSLayoutConstraint: PeekSubPropertiesSupporting { }
-extension Segment: PeekSubPropertiesSupporting { }
+//extension Segment: PeekSubPropertiesSupporting { }
 extension NSAttributedString: PeekSubPropertiesSupporting { }
 extension NSShadow: PeekSubPropertiesSupporting { }
 

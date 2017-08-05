@@ -52,7 +52,8 @@ extension Image {
    - parameter alpha:      The alpha to apply to this drawing
    */
   public func drawAligned(to rect: CGRect, horizontal: HorizontalAlignment = .center, vertical: VerticalAlignment = .middle, blendMode: CGBlendMode = .sourceOut, alpha: CGFloat = 1) {
-    let alignedRect = CGRect(x: 0, y: 0, width: size.width, height: size.height).alignedTo(rect: rect, horizontal: horizontal, vertical: vertical)
+    let alignedRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        .aligned(horizontally: horizontal, vertically: vertical, to: rect)
     let fromRect = CGRect(x: 0, y: 0, width: alignedRect.width, height: alignedRect.height)
     ink_drawInRect(alignedRect, fromRect: fromRect, blendMode: blendMode, alpha: alpha)
   }
@@ -129,7 +130,6 @@ extension Image {
     format.scale = scale
     return ImageRenderer(size: size, format: format).image { context in
       context.cgContext.draw(inRect: context.format.bounds, attributes: attributesBlock, drawing: drawing)
-      let rect = context.format.bounds
     }
   }
   

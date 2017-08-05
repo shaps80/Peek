@@ -43,24 +43,22 @@ final class SlackViewController: UITableViewController {
     tableView.keyboardDismissMode = .interactive
     view.tintColor = UIColor.white
     
-    let navTitleAttributes = [ NSForegroundColorAttributeName: UIColor(white: 1, alpha: 0.5),
-                               NSFontAttributeName: UIFont(name: "Avenir-Book", size: 16)! ]
-    
     navigationController?.navigationBar.barStyle = .black
-    navigationController?.navigationBar.titleTextAttributes = navTitleAttributes
     navigationController?.navigationBar.tintColor = UIColor.white
+    navigationController?.navigationBar.titleTextAttributes = [
+        .foregroundColor: UIColor(white: 1, alpha: 0.5),
+        .font: UIFont(name: "Avenir-Book", size: 16)!
+    ]
     
     configureBarButtonItems()
   }
   
   fileprivate func configureBarButtonItems() {
-    let itemAttributes = [ NSFontAttributeName: UIFont(name: "Avenir-Medium", size: 16)! ]
-    
     let leftItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
-    leftItem.setTitleTextAttributes(itemAttributes, for: .normal)
+    leftItem.setTitleTextAttributes([ .font: UIFont(name: "Avenir-Medium", size: 16)! ], for: .normal)
     
     let rightItem = UIBarButtonItem(title: "Send", style: .plain, target: self, action: #selector(post))
-    rightItem.setTitleTextAttributes(itemAttributes, for: .normal)
+    rightItem.setTitleTextAttributes([ .font: UIFont(name: "Avenir-Medium", size: 16)! ], for: .normal)
     
     navigationItem.leftBarButtonItem = leftItem
     navigationItem.rightBarButtonItem = rightItem

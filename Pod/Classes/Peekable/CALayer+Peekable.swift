@@ -48,44 +48,4 @@ extension CALayer {
     return nil
   }
   
-  /**
-   Configures Peek's properties for this object
-   
-   - parameter context: The context to apply these properties to
-   */
-  public override func preparePeek(_ context: Context) {
-    super.preparePeek(context)
-    
-    context.configure(.layer, "Appearance") { (config) in
-      config.addProperty("layer.peek_backgroundColor", displayName: "Background Color", cellConfiguration: nil)
-      config.addProperties([ "layer.cornerRadius", "layer.masksToBounds", "layer.doubleSided" ])
-    }
-    
-    context.configure(.layer, "Visibility") { (config) in
-      config.addProperties([ "layer.opacity", "layer.allowsGroupOpacity", "layer.hidden" ])
-    }
-    
-    context.configure(.layer, "Rasterization") { (config) in
-      config.addProperties([ "layer.shouldRasterize", "layer.rasterizationScale", "opaque" ])
-    }
-    
-    context.configure(.layer, "Shadow") { (config) in
-      config.addProperty("layer.peek_shadowColor", displayName: "Shadow Color", cellConfiguration: nil)
-      config.addProperties([ "layer.shadowOffset", "layer.shadowOpacity", "layer.shadowRadius" ])
-    }
-    
-    context.configure(.layer, "Border") { (config) in
-      config.addProperty("layer.peek_borderColor", displayName: "Border Color", cellConfiguration: nil)
-      config.addProperties([ "layer.borderWidth" ])
-    }
-    
-    context.configure(.layer, "Contents") { (config) in
-      config.addProperties([ "layer.contentsRect", "layer.contentsScale", "layer.contentsCenter" ])
-      
-      config.addProperty("layer.contentsGravity", displayName: nil, cellConfiguration: { (cell, object, value) in
-        cell.detailTextLabel?.text = (value as? String)?.capitalized
-      })
-    }
-  }
-  
 }

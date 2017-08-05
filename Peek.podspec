@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.social_media_url = 'https://twitter.com/shaps'
   s.platform         = :ios, '8.0'
   s.requires_arc     = true
-  s.source_files     = 'Pod/Classes/**/*'
-  s.dependency         'SwiftLayout', '2.0.0'
-  s.dependency         'InkKit', '2.0.0'
+  s.source_files     = 'Pod/Classes/**/*.{swift,h,m}'
+  s.dependency         'SwiftLayout', '4.0.0'
+  s.dependency         'InkKit', '4.0.0'
 end

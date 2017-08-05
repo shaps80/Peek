@@ -53,22 +53,22 @@ final class TextAttributes: NSObject {
   let paragraphStyle: ParagraphStyle?
   
   init(string: NSAttributedString) {
-    var attributes = [String: AnyObject]()
+    var attributes = [NSAttributedStringKey: Any]()
     
     string.enumerateAttributes(in: NSMakeRange(0, string.length), options: [], using: { (attr, range, false) in
-      attributes = attr as [String : AnyObject]
+      attributes = attr
     })
     
-    fontName = attributes[NSFontAttributeName] as? String
-    foregroundColor = attributes[NSForegroundColorAttributeName] as? UIColor
-    backgroundColor = attributes[NSBackgroundColorAttributeName] as? UIColor
-    ligature = attributes[NSLigatureAttributeName] as? Int ?? 1
-    kerning = attributes[NSKernAttributeName] as? CGFloat ?? 0
-    strokeColor = attributes[NSStrokeColorAttributeName] as? UIColor
-    strokeWidth = attributes[NSStrokeWidthAttributeName] as? CGFloat ?? 0
-    shadow = attributes[NSShadowAttributeName] as? NSShadow
+    fontName = attributes[.font] as? String
+    foregroundColor = attributes[.foregroundColor] as? UIColor
+    backgroundColor = attributes[.backgroundColor] as? UIColor
+    ligature = attributes[.ligature] as? Int ?? 1
+    kerning = attributes[.kern] as? CGFloat ?? 0
+    strokeColor = attributes[.strokeColor] as? UIColor
+    strokeWidth = attributes[.strokeWidth] as? CGFloat ?? 0
+    shadow = attributes[.shadow] as? NSShadow
     
-    if let style = attributes[NSParagraphStyleAttributeName] as? NSParagraphStyle {
+    if let style = attributes[.paragraphStyle] as? NSParagraphStyle {
       paragraphStyle = ParagraphStyle(paragraphStyle: style)
     } else {
       paragraphStyle = nil

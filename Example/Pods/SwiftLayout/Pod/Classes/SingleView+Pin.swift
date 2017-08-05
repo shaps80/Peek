@@ -36,7 +36,7 @@ extension View {
   
   - returns: The constaints that were added to this view
   */
-  @discardableResult public func pin(edges: EdgeMask, of view: View, relation: NSLayoutRelation = .equal, margins: EdgeMargins = EdgeMargins(), priority: LayoutPriority = LayoutPriorityDefaultHigh) -> [NSLayoutConstraint] {
+  @discardableResult public func pin(edges: EdgeMask, of view: View, relation: LayoutRelation = .equal, margins: EdgeMargins = EdgeMargins(), priority: LayoutPriority = LayoutPriorityDefaultHigh) -> [NSLayoutConstraint] {
     var constraints = [NSLayoutConstraint]()
     
     if edges.contains(.top) {
@@ -69,7 +69,7 @@ constraints.append(pin(edge: .left, to: .left, of: view, relation: relation, mar
   
   - returns: The constraint that was added
   */
-  @discardableResult public func pin(edge: Edge, to otherEdge: Edge, of view: View, relation: NSLayoutRelation = .equal, margin: CGFloat = 0, priority: LayoutPriority = LayoutPriorityDefaultHigh) -> NSLayoutConstraint {
+  @discardableResult public func pin(edge: Edge, to otherEdge: Edge, of view: View, relation: LayoutRelation = .equal, margin: CGFloat = 0, priority: LayoutPriority = LayoutPriorityDefaultHigh) -> NSLayoutConstraint {
     var constraint = Constraint(view: self)
     
     constraint.secondView = view

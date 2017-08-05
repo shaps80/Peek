@@ -71,7 +71,7 @@ final class ImageCache {
       return
     }
     
-    if let image = self.cache.object(forKey: NSNumber(value: week.number)) as? UIImage {
+    if let image = self.cache.object(forKey: NSNumber(value: week.number)) {
       completion(image)
       return
     }

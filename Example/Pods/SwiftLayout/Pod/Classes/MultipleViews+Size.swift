@@ -20,7 +20,7 @@ extension Array where Element: View {
    
    - returns: The applied constraints
    */
-  @discardableResult public func size(axis: Axis, relation: NSLayoutRelation = .equal, size: CGFloat, priority: LayoutPriority = LayoutPriorityDefaultHigh) -> [NSLayoutConstraint] {
+  @discardableResult public func size(axis: Axis, relation: LayoutRelation = .equal, size: CGFloat, priority: LayoutPriority = LayoutPriorityDefaultHigh) -> [NSLayoutConstraint] {
     var constraints = [NSLayoutConstraint]()
     forEach { constraints.append($0.size(axis: axis, relation: relation, size: size, priority: priority)) }
     
@@ -54,7 +54,7 @@ extension Array where Element: View {
    
    - returns: The applied constraints
    */
-  @discardableResult public func size(width: CGFloat, height: CGFloat, relation: NSLayoutRelation = .equal, priority: LayoutPriority = LayoutPriorityDefaultHigh) -> [NSLayoutConstraint] {
+  @discardableResult public func size(width: CGFloat, height: CGFloat, relation: LayoutRelation = .equal, priority: LayoutPriority = LayoutPriorityDefaultHigh) -> [NSLayoutConstraint] {
     var constraints = [NSLayoutConstraint]()
     forEach { constraints.append(contentsOf: $0.size(width: width, height: height, relation: relation, priority: priority)) }
     return constraints
@@ -70,7 +70,7 @@ extension Array where Element: View {
    
    - returns: The applied constraints
    */
-  @discardableResult public func align(axis: Axis, to view: View, relation: NSLayoutRelation, priority: LayoutPriority = LayoutPriorityDefaultHigh) -> [NSLayoutConstraint] {
+  @discardableResult public func align(axis: Axis, to view: View, relation: LayoutRelation, priority: LayoutPriority = LayoutPriorityDefaultHigh) -> [NSLayoutConstraint] {
     var constraints = [NSLayoutConstraint]()
     forEach { constraints.append($0.align(axis: axis, to: view)) }
     return constraints
