@@ -23,27 +23,31 @@
 #if os(OSX)
     import AppKit
     public typealias Image = NSImage
+    public typealias Screen = NSScreen
 
-    internal func screenScale() -> CGFloat {
-        return NSScreen.main()!.backingScaleFactor
+    extension NSScreen {
+        public static var main: NSScreen {
+            return self.main
+        }
+
+        public var scale: CGFloat {
+            return backingScaleFactor
+        }
     }
     
     extension NSImage {
         internal func pngRepresentation() -> Data? {
-            return NSBitmapImageRep(data: tiffRepresentation!)?.representation(using: .PNG, properties: [:])
+            return NSBitmapImageRep(data: tiffRepresentation!)?.representation(using: .png, properties: [:])
         }
         
         internal func jpgRepresentation(quality: CGFloat) -> Data? {
-            return NSBitmapImageRep(data: tiffRepresentation!)?.representation(using: .JPEG, properties: [NSImageCompressionFactor: quality])
+            return NSBitmapImageRep(data: tiffRepresentation!)?.representation(using: .jpeg, properties: [.compressionFactor: quality])
         }
     }
 #else
     import UIKit
     public typealias Image = UIImage
-    
-    internal func screenScale() -> CGFloat {
-        return UIScreen.main.scale
-    }
+    public typealias Screen = UIScreen
     
     extension UIImage {
         internal func pngRepresentation() -> Data? {
@@ -60,7 +64,7 @@ extension CGContext {
     
     internal static var current: CGContext? {
         #if os(OSX)
-            return NSGraphicsContext.current()!.cgContext
+            return NSGraphicsContext.current?.cgContext
         #else
             return UIGraphicsGetCurrentContext()
         #endif

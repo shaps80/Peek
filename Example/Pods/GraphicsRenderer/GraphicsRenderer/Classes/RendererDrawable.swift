@@ -20,6 +20,8 @@
   THE SOFTWARE.
  */
 
+import Foundation
+
 extension RendererDrawable {
     
     /// Fills the specified rect

@@ -20,6 +20,8 @@
   THE SOFTWARE.
  */
 
+import Foundation
+
 /**
  Represents a Renderer error
  

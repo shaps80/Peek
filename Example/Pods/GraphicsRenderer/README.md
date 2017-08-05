@@ -5,6 +5,23 @@
 [![Language](https://img.shields.io/badge/language-swift_3.0-ff69b4.svg)](http://cocoadocs.org/docsets/GraphicsRenderer)
 [![Platform](https://img.shields.io/cocoapods/p/GraphicsRenderer.svg?style=flat)](http://cocoapods.org/pods/GraphicsRenderer)
 
+## Installation
+
+Swift 4
+```ruby
+pod "GraphicsRenderer", "1.2.0"
+```
+
+Swift 3
+```ruby
+pod "GraphicsRenderer", "1.1.0"
+```
+
+Swift 2.3
+```ruby
+pod "GraphicsRenderer", "1.0.0"
+```
+
 ## Introduction
 
 <img src="sample.png" />
@@ -104,15 +121,6 @@ The library has the following requirements:
 * Swift 3.0
 * iOS 8.0+
 * OSX 10.10+
-
-## Installation
-
-GraphicsRenderer is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-```ruby
-pod "GraphicsRenderer"
-```
 
 ## Author
 

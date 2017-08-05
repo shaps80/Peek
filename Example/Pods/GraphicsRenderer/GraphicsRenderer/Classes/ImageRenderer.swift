@@ -20,6 +20,8 @@
   THE SOFTWARE.
  */
 
+import Foundation
+
 /**
  *  Represents an image renderer format
  */
@@ -59,14 +61,14 @@ public final class ImageRendererFormat: RendererFormat {
      
      - returns: A new format
      */
-    internal init(bounds: CGRect, opaque: Bool = false, scale: CGFloat = screenScale(), flipped: Bool) {
+    internal init(bounds: CGRect, opaque: Bool = false, scale: CGFloat = Screen.main.scale, flipped: Bool) {
         self.bounds = bounds
         self.opaque = opaque
         self.scale = scale
         self.isFlipped = flipped
     }
     
-    public init(opaque: Bool = false, scale: CGFloat = screenScale(), flipped: Bool) {
+    public init(opaque: Bool = false, scale: CGFloat = Screen.main.scale, flipped: Bool) {
         self.bounds = .zero
         self.scale = scale
         self.isFlipped = flipped
@@ -143,7 +145,7 @@ public final class ImageRenderer: Renderer {
         
         let bounds = CGRect(origin: .zero, size: size)
         let opaque = format?.opaque ?? false
-        let scale = format?.scale ?? screenScale()
+        let scale = format?.scale ?? Screen.main.scale
         
         self.format = ImageRendererFormat(bounds: bounds, opaque: opaque, scale: scale, flipped: format?.isFlipped ?? false)
     }
