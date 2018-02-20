@@ -224,7 +224,7 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
     
     // FIXME: handling an array of elements isn't the best code, needs refactoring -- but currently an array of items is different to a single model
     if let array = value as? [AnyObject] {
-        context.configure(inspector: .attributes, category: "", configuration: { (config) in
+        context.configure(.attributes, "") { (config) in
         for item in array {
           config.addProperty(value: item, displayName: "\(item)", cellConfiguration: { (cell, object, value) in
             cell.detailTextLabel?.text = nil
@@ -235,7 +235,7 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
             }
           })
         }
-      })
+      }
     } else {
       if let value = value as? Peekable {
         value.preparePeek(context)

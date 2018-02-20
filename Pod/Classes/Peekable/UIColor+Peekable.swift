@@ -24,19 +24,19 @@ import UIKit
 
 extension UIColor {
   
-  var peek_alpha: CGFloat {
+  @objc var peek_alpha: CGFloat {
     return rgbComponents.alpha
   }
   
-  var peek_HEX: String {
+  @objc var peek_HEX: String {
     return hexValue(includeAlpha: false)
   }
   
-  var peek_HSL: String {
+  @objc var peek_HSL: String {
     return "\(Int(hslComponents.hue * 360)), \(Int(hslComponents.saturation * 100)), \(Int(hslComponents.brightness * 100))"
   }
   
-  var peek_RGB: String {
+  @objc var peek_RGB: String {
     return "\(Int(rgbComponents.red * 255)), \(Int(rgbComponents.green * 255)), \(Int(rgbComponents.blue * 255))"
   }
   

@@ -25,35 +25,31 @@ import UIKit
 /**
  *  Defines a view or object that Peek can provide inspectors for
  */
-@objc public protocol Peekable: class {
+@objc public protocol Peekable: NSObjectProtocol {
   var classForCoder: AnyClass { get }
   func preparePeek(_ context: Context)
   func shouldIgnore(options: PeekOptions) -> Bool
 }
 
-//extension NSObject: Peekable {
-//  
-//  /**
-//   Gives the caller an opportunity to configure Peek's current context
-//   
-//   - parameter context: The context to configure
-//   */
-//  public func preparePeek(_ context: Context) { }
-//}
-
-extension Peekable {
+extension NSObject: Peekable {
   
   /**
-   Determines if Peek should ignore this type when parsing it into a model
+   Gives the caller an opportunity to configure Peek's current context
    
-   - parameter peek: The Peek instance
-   
-   - returns: Returns true if Peek should ignore this type, false otherwise
+   - parameter context: The context to configure
    */
-  public func shouldIgnore(options: PeekOptions) -> Bool {
-    return false
-  }
-  
+  @objc public func preparePeek(_ context: Context) { }
+    
+    /**
+     Determines if Peek should ignore this type when parsing it into a model
+     
+     - parameter peek: The Peek instance
+     
+     - returns: Returns true if Peek should ignore this type, false otherwise
+     */
+    public func shouldIgnore(options: PeekOptions) -> Bool {
+        return false
+    }
 }
 
 extension UIView {
@@ -65,7 +61,7 @@ extension UIView {
    
    - returns: Returns true if Peek should ignore this view, false otherwise
    */
-  public func shouldIgnore(options: PeekOptions) -> Bool {
+  public override func shouldIgnore(options: PeekOptions) -> Bool {
     let isContainer = isMember(of: UIView.self) && subviews.count > 0
     if isContainer && options.shouldIgnoreContainers { return true }
     

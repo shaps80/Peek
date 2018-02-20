@@ -170,7 +170,7 @@ extension Bundle {
     }
   }
   
-  var supportedOrientations: UIInterfaceOrientationMask {
+  @objc var supportedOrientations: UIInterfaceOrientationMask {
     let application = UIApplication.shared
     let window = application.keyWindow
     return application.supportedInterfaceOrientations(for: window)

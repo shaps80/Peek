@@ -28,7 +28,7 @@ internal final class PeekContext: Context {
   
   @objc fileprivate(set) var properties = [Property]()
   
-  @objc func configure(inspector: Inspector, category: String, configuration: (_ config: Configuration) -> Void) {
+  @objc func configure(_ inspector: Inspector, _ category: String, configuration: (_ config: Configuration) -> Void) {
     let config = PeekConfiguration(category: category, inspector: inspector)
     configuration(config)
     properties.append(contentsOf: config.properties)

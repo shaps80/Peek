@@ -160,7 +160,7 @@ extension Inspector {
    - parameter category:      The category to add/configure
    - parameter configuration: The configuration to apply to this context
    */
-  func configure(inspector: Inspector, category: String, configuration: (_ config: Configuration) -> Void)
+  func configure(_ inspector: Inspector, _ category: String, configuration: (_ config: Configuration) -> Void)
 }
 
 /// Defines a property cell configuration block

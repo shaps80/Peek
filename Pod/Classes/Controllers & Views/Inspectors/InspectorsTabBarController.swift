@@ -50,12 +50,12 @@ class InspectorsTabBarController: UITabBarController, UINavigationControllerDele
     if let view = model as? UIView {
       view.preparePeek(context)
       view.layer.preparePeek(context)
-//      view.owningViewController()?.preparePeek(context)
+      view.owningViewController()?.preparePeek(context)
     }
     
-//    UIDevice.current.preparePeek(context)
-//    UIScreen.main.preparePeek(context)
-//    UIApplication.shared.preparePeek(context)
+    UIDevice.current.preparePeek(context)
+    UIScreen.main.preparePeek(context)
+    UIApplication.shared.preparePeek(context)
     
     tabBar.barStyle = .black
     tabBar.selectionIndicatorImage = Images.tabItemIndicatorImage()

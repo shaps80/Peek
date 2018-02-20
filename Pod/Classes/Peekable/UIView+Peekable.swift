@@ -53,11 +53,9 @@ extension UIView {
    
    - parameter context: The context to apply these properties to
    */
-    
-    /*
   public override func preparePeek(_ context: Context) {
     super.preparePeek(context)
-    
+
     context.configure(.layout, "General") { config in
       config.addProperties([ "frame", "bounds", "center", "intrinsicContentSize", "alignmentRectInsets" ])
       config.addProperty("translatesAutoresizingMaskIntoConstraints", displayName: "Autoresizing to Constraints", cellConfiguration: nil)
@@ -112,6 +110,5 @@ extension UIView {
       config.addProperties([ "layer.position", "layer.anchorPoint", "layer.zPosition", "layer.geometryFlipped", "layer.anchorPointZ",  ])
     }
   }
- */
   
 }

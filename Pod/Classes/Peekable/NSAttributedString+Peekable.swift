@@ -10,18 +10,18 @@ import UIKit
 
 final class ParagraphStyle: NSObject {
   
-  let lineSpacing: CGFloat
-  let spacingBefore: CGFloat
-  let spacingAfter: CGFloat
-  let alignment: NSTextAlignment
-  let headIndent: CGFloat
-  let tailIndent: CGFloat
-  let firstLineHeadIndent: CGFloat
-  let minimumLineHeight: CGFloat
-  let maximumLineHeight: CGFloat
-  let lineBreakMode: NSLineBreakMode
-  let lineHeightMultiple: CGFloat
-  let hyphenationFactor: Float
+  @objc let lineSpacing: CGFloat
+  @objc let spacingBefore: CGFloat
+  @objc let spacingAfter: CGFloat
+  @objc let alignment: NSTextAlignment
+  @objc let headIndent: CGFloat
+  @objc let tailIndent: CGFloat
+  @objc let firstLineHeadIndent: CGFloat
+  @objc let minimumLineHeight: CGFloat
+  @objc let maximumLineHeight: CGFloat
+  @objc let lineBreakMode: NSLineBreakMode
+  @objc let lineHeightMultiple: CGFloat
+  @objc let hyphenationFactor: Float
   
   init(paragraphStyle: NSParagraphStyle) {
     self.lineSpacing = paragraphStyle.lineSpacing
@@ -42,15 +42,15 @@ final class ParagraphStyle: NSObject {
 
 final class TextAttributes: NSObject {
   
-  let fontName: String?
-  let foregroundColor: UIColor?
-  let backgroundColor: UIColor?
-  fileprivate(set) var ligature: Int = 1
-  fileprivate(set) var kerning: CGFloat = 0
-  let strokeColor: UIColor?
-  fileprivate(set) var strokeWidth: CGFloat = 0
-  let shadow: NSShadow?
-  let paragraphStyle: ParagraphStyle?
+  @objc let fontName: String?
+  @objc let foregroundColor: UIColor?
+  @objc let backgroundColor: UIColor?
+  @objc fileprivate(set) var ligature: Int = 1
+  @objc fileprivate(set) var kerning: CGFloat = 0
+  @objc let strokeColor: UIColor?
+  @objc fileprivate(set) var strokeWidth: CGFloat = 0
+  @objc let shadow: NSShadow?
+  @objc let paragraphStyle: ParagraphStyle?
   
   init(string: NSAttributedString) {
     var attributes = [NSAttributedStringKey: Any]()
@@ -81,11 +81,11 @@ final class TextAttributes: NSObject {
 
 extension NSAttributedString {
   
-  var attributes: TextAttributes {
+  @objc var attributes: TextAttributes {
     return TextAttributes(string: self)
   }
   
-  var paragraph: ParagraphStyle? {
+  @objc var paragraph: ParagraphStyle? {
     return attributes.paragraphStyle
   }
   

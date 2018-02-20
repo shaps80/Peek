@@ -114,19 +114,19 @@ extension Color {
      - parameter alpha: An optional alpha value. Defaults to 1.0
      */
     public init?(hex: String, alpha: Float? = nil) {
-        var hexValue = hex.hasPrefix("#") ? String(hex.characters.dropFirst()) : hex
-        guard [3, 4, 6, 8].contains(hexValue.characters.count) else { return nil }
+        var hexValue = hex.hasPrefix("#") ? String(hex.dropFirst()) : hex
+        guard [3, 4, 6, 8].contains(hexValue.count) else { return nil }
         
-        if hexValue.characters.count == 3 {
+        if hexValue.count == 3 {
             hexValue.append("F")
         }
         
-        if hexValue.characters.count == 6 {
+        if hexValue.count == 6 {
             hexValue.append("FF")
         }
         
-        if [3, 4].contains(hexValue.characters.count) {
-            for (index, char) in hexValue.characters.enumerated() {
+        if [3, 4].contains(hexValue.count) {
+            for (index, char) in hexValue.enumerated() {
                 let index = hexValue.index(hexValue.startIndex, offsetBy: index * 2)
                 hexValue.insert(char, at: index)
             }

@@ -31,7 +31,7 @@ extension String {
     var string = camelCase.components(separatedBy: ".").last ?? camelCase
     
     while let range = string.rangeOfCharacter(from: chars) {
-      let char = string.substring(with: range)
+      let char = string[range]
       string.replaceSubrange(range, with: " " + char.lowercased())
     }
     
