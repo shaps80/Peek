@@ -1,4 +1,4 @@
-<a href="https://vimeo.com/162896152"><img src="http://shaps.me/assets/img/peek-feature@2x.png" name="Peek on Vimeo"/></a>
+<a href="https://vimeo.com/162896152"><img src="shot.jpg" name="Peek on Vimeo"/></a>
 
 # Peek
 
@@ -11,9 +11,14 @@ Peek is an open source library that lets you easily check your application again
 
 # Swift Support
 
-**Swift 3.0**
+**Swift 4.0**
 
-Peek is Swift 3.0+ by default.
+This is the current release.
+
+**Swift 3.x**
+
+Swift 3.x unfortunately broke some of the compatilibity issues I required to work with the runtime.
+Please use the Swift 4 version instead.
 
 **Swift 2.3**
 
@@ -31,12 +36,17 @@ If you need Swift 2.2 support, update your Podfile as such:
 
 # Changelog
 
+4.0
+-
+
+Just a Swift compatibility update.
+Minor changes as per Swift APIs but no functional changes to Peek.
+
 3.0
 -
 
-* Swift 3.0+ Support
-
-> Although no breaking API changes have been introduced, Peek now targets Swift 3.0+ so if your project is running an older verson of the language, you'll need to use an older version of Peek. However all versions are currently have feature parity. 
+Swift 3.x unfortunately broke some of the compatilibity issues I required to work with the runtime.
+Please use the Swift 4 version instead.
 
 2.2.0
 -
@@ -217,19 +227,10 @@ Peek presents itself in its own window that sits directly on top of your own app
 
 Peek also allows you to test all supported orientations on both iPhone and iPad.
 
-# Roadmap
-
-There are a lot more features still to come, here's a short preview I think are quite interesting:
-
-* Slack Integration (post issues to a Slack channel)
-* Image crop indicators
-* Auto Layout overlays
-
 
 # Attribution
 
 Original concept, code and app design by [@shaps][shaps]<br />
-Icon design by [@h1brd][marco]
 
 [github]: https://github.com/shaps80/Peek
 [shaps]: http://twitter.com/shaps "Shaps on Twitter"
