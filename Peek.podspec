@@ -2,8 +2,8 @@ Pod::Spec.new do |s|
   s.name             = "Peek"
   s.version          = "4.0.0"
   s.summary          = "Take a Peek at your application. App inspection at runtime."
-  s.homepage         = "http://shaps.me/"
-  s.screenshots      = "http://shaps.me/assets/img/blog/peek.png"
+  s.homepage         = "https://152percent.com/blog/2016/4/14/introducing-peek-20"
+  s.screenshots      = "https://github.com/shaps80/Peek/raw/swift4/shot.jpg"
   s.license          = 'MIT'
   s.author           = { "Shaps Mohsenin" => "shapsuk@me.com" }
   s.source           = { :git => "https://github.com/shaps80/Peek.git", :tag => s.version.to_s }
