@@ -211,5 +211,10 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
   func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     return TransitionFadeAnimator(peek: peek, operation: .pop)
   }
+    
+    override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
+        // iOS 10 now requires device motion handlers to be on a UIViewController
+        peek.handleShake(motion)
+    }
   
 }
