@@ -71,16 +71,19 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
         tableView.backgroundColor = UIColor(white: 0.1, alpha: 1)
         tableView.separatorColor = UIColor(white: 1, alpha: 0.15)
         tableView.keyboardDismissMode = .interactive
+        tableView.rowHeight = UITableViewAutomaticDimension
         
         if dataSource.numberOfCategories() == 0 {
             let label = UILabel()
-            label.font = UIFont(name: "Avenir-Book", size: 16)
+            label.font = UIFont.preferredFont(forTextStyle: .body)
+            label.numberOfLines = 0
             label.textColor = UIColor(white: 1, alpha: 0.5)
             label.text = "No Attributes"
             
             view.addSubview(label)
             label.align(axis: .vertical, to: view, offset: -64)
             label.align(axis: .horizontal, to: view)
+            label.pin(edges: .leftAndRight, of: view, margins: .init(all: 16), priority: .required)
         }
         
         if let image = model as? UIImage {
@@ -209,7 +212,7 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
             return cellHeight
         }
         
-        return PeekPropertyDefaultCellHeight
+        return UITableViewAutomaticDimension
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -231,7 +234,7 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
                         cell.textLabel?.textColor = UIColor.white
                         
                         if value is NSLayoutConstraint {
-                            cell.textLabel?.font = UIFont(name: "Menlo", size: cell.textLabel?.font.pointSize ?? 15)
+                            cell.textLabel?.font = UIFont.monospacedDigitSystemFont(ofSize: 15, weight: .regular)
                         }
                     })
                 }

@@ -46,8 +46,10 @@ final class InspectorCell: UITableViewCell, MFMailComposeViewControllerDelegate 
         backgroundColor = UIColor(white: 1, alpha: 0.03)
         textLabel?.textColor = UIColor(white: 1, alpha: 0.6)
         detailTextLabel?.textColor = UIColor.white
-        detailTextLabel?.font = UIFont(name: "Avenir-Book", size: 16)
-        textLabel?.font = UIFont(name: "Avenir-Book", size: 14)
+        textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+        detailTextLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+        textLabel?.numberOfLines = 0
+        detailTextLabel?.numberOfLines = 0
         
         textLabel?.minimumScaleFactor = 0.8
         textLabel?.adjustsFontSizeToFitWidth = true
@@ -55,27 +57,6 @@ final class InspectorCell: UITableViewCell, MFMailComposeViewControllerDelegate 
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        if var rect = textLabel?.frame {
-            rect.origin.y = 9
-            textLabel?.frame = rect
-        }
-        
-        if let label = textLabel {
-            var rect = label.frame
-            rect.origin.y = 9
-            textLabel?.frame = rect
-        }
-        
-        if let label = detailTextLabel, accessoryView != nil {
-            var rect = label.frame
-            rect.origin.x -= 15
-            detailTextLabel?.frame = rect
-        }
     }
     
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {

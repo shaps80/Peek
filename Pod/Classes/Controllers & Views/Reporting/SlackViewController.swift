@@ -38,6 +38,7 @@ final class SlackViewController: UITableViewController {
         
         title = "Slack Report"
         
+        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.backgroundColor = UIColor(white: 0.1, alpha: 1)
         tableView.separatorColor = UIColor(white: 1, alpha: 0.15)
         tableView.keyboardDismissMode = .interactive
@@ -145,8 +146,8 @@ final class SlackViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
-        case 0: return PeekPropertyDefaultCellHeight
-        case 1: return metaData.metaData.items.count > 0 ? PeekPropertyDefaultCellHeight : 150
+        case 0: return UITableViewAutomaticDimension
+        case 1: return metaData.metaData.items.count > 0 ? UITableViewAutomaticDimension : 150
         default: return 150
         }
     }
@@ -175,7 +176,7 @@ final class EditableTextViewCell: UITableViewCell {
         contentView.addSubview(textView)
         
         textView.textColor = UIColor.white
-        textView.font = UIFont(name: "Avenir-Book", size: 15)
+        textView.font = UIFont.preferredFont(forTextStyle: .body)
         textView.backgroundColor = UIColor.clear
         textView.keyboardAppearance = .dark
         

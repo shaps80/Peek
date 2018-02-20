@@ -22,8 +22,6 @@
 
 import UIKit
 
-let PeekPropertyDefaultCellHeight: CGFloat = 36
-
 internal final class PeekContext: Context {
     
     @objc fileprivate(set) var properties = [Property]()

@@ -115,15 +115,7 @@ extension Color {
      */
     public init?(hex: String, alpha: Float? = nil) {
         var hexValue = hex.hasPrefix("#") ? String(hex.dropFirst()) : hex
-        guard [3, 4, 6, 8].contains(hexValue.count) else { return nil }
-        
-        if hexValue.count == 3 {
-            hexValue.append("F")
-        }
-        
-        if hexValue.count == 6 {
-            hexValue.append("FF")
-        }
+        guard [3, 4, 6].contains(hexValue.count) else { return nil }
         
         if [3, 4].contains(hexValue.count) {
             for (index, char) in hexValue.enumerated() {
@@ -135,10 +127,10 @@ extension Color {
         guard let normalizedHex = Int(hexValue, radix: 16) else { return nil }
         
         self.init(
-            red:   Float((normalizedHex >> 24) & 0xFF) / 255,
-            green: Float((normalizedHex >> 16) & 0xFF) / 255,
-            blue:  Float((normalizedHex >> 8)  & 0xFF) / 255,
-            alpha: alpha ?? Float((normalizedHex)  & 0xFF) / 255)
+            red:   Float((normalizedHex >> 16) & 0xFF) / 255,
+            green: Float((normalizedHex >> 8) & 0xFF) / 255,
+            blue:  Float((normalizedHex)  & 0xFF) / 255,
+            alpha: 1.0)
     }
     
     /**

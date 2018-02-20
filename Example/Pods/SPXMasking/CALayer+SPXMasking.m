@@ -73,7 +73,7 @@ bool SPXCornerRadiiEquals(SPXCornerRadii radii1, SPXCornerRadii radii2)
 
 - (void)updateMaskPathWithRadii:(SPXCornerRadii)radii
 {
-  CGFloat bottomLeft = fabs(radii.bottomLeft), topLeft = fabs(radii.topLeft), topRight = fabs(radii.topRight), bottomRight = fabs(radii.bottomRight);
+  CGFloat bottomLeft = fabsf(radii.bottomLeft), topLeft = fabsf(radii.topLeft), topRight = fabsf(radii.topRight), bottomRight = fabsf(radii.bottomRight);
   UIBezierPath *path = [UIBezierPath bezierPath];
   CGRect rect = self.bounds;
   

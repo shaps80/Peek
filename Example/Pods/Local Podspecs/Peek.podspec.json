@@ -1,20 +1,20 @@
 {
   "name": "Peek",
-  "version": "3.0",
+  "version": "4.0.0",
   "summary": "Take a Peek at your application. App inspection at runtime.",
-  "homepage": "http://shaps.me/",
-  "screenshots": "http://shaps.me/assets/img/blog/peek.png",
+  "homepage": "https://152percent.com/blog/2016/4/14/introducing-peek-20",
+  "screenshots": "https://github.com/shaps80/Peek/raw/swift4/shot.jpg",
   "license": "MIT",
   "authors": {
     "Shaps Mohsenin": "shapsuk@me.com"
   },
   "source": {
     "git": "https://github.com/shaps80/Peek.git",
-    "tag": "3.0"
+    "tag": "4.0.0"
   },
   "social_media_url": "https://twitter.com/shaps",
   "platforms": {
-    "ios": "8.0"
+    "ios": "9.0"
   },
   "requires_arc": true,
   "source_files": "Pod/Classes/**/*.{swift,h,m}",
@@ -23,7 +23,7 @@
       "4.0.0"
     ],
     "InkKit": [
-      "4.0.0"
+      "4.0.1"
     ]
   }
 }
