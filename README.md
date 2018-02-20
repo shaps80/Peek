@@ -193,6 +193,8 @@ Go ahead, take a Peek at your app now :)
 
 Since the volume keys are not available on the Simulator, we can use a shake gesture instead. Simply forward the motion events to Peek by adding the following code to your AppDelegate.swift:
 
+> Note: When targetting iOS 10+ you need to implement this in your rootViewController. For all other versions this needs to go in your AppDelegate.
+
 ```swift
 override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent?) {
   window?.peek.handleShake(motion)
