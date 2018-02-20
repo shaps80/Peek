@@ -12,5 +12,5 @@ Pod::Spec.new do |s|
   s.requires_arc     = true
   s.source_files     = 'Pod/Classes/**/*.{swift,h,m}'
   s.dependency         'SwiftLayout', '4.0.0'
-  s.dependency         'InkKit', '4.0.0'
+  s.dependency         'InkKit', '4.0.1'
 end
