@@ -27,24 +27,30 @@ final class ColorAccessoryView: UIView {
     
     fileprivate let value: UIColor?
     fileprivate let size = CGSize(width: 24, height: 14)
+    private let margin: CGFloat = 8
     
     init(value: UIColor?) {
         self.value = value
-        super.init(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-        isOpaque = true
-        backgroundColor = value
+        super.init(frame: CGRect(x: 0, y: 0, width: size.width + margin, height: size.height))
         
-        layer.cornerRadius = size.height / 2
-        layer.borderColor = UIColor(white: 1, alpha: 0.5).cgColor
-        layer.borderWidth = 1
+        backgroundColor = .clear
+        
+        let view = UIView(frame: CGRect(x: margin, y: 0, width: size.width, height: size.height))
+        view.backgroundColor = value
+        view.isOpaque = true
+        
+        view.layer.cornerRadius = size.height / 2
+        view.layer.borderColor = UIColor(white: 1, alpha: 0.5).cgColor
+        view.layer.borderWidth = 1
+        addSubview(view)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override var intrinsicContentSize : CGSize {
-        return CGSize(width: size.width, height: size.height)
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: size.width + margin, height: size.height)
     }
     
 }

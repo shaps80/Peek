@@ -71,7 +71,11 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
         tableView.backgroundColor = UIColor(white: 0.1, alpha: 1)
         tableView.separatorColor = UIColor(white: 1, alpha: 0.15)
         tableView.keyboardDismissMode = .interactive
+        
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.sectionHeaderHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 44
+        tableView.estimatedSectionHeaderHeight = 44
         
         if dataSource.numberOfCategories() == 0 {
             let label = UILabel()
@@ -83,7 +87,6 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
             view.addSubview(label)
             label.align(axis: .vertical, to: view, offset: -64)
             label.align(axis: .horizontal, to: view)
-            label.pin(edges: .leftAndRight, of: view, margins: .init(all: 16), priority: .required)
         }
         
         if let image = model as? UIImage {
@@ -125,6 +128,7 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "KeyValueCell", for: indexPath) as! InspectorCell
         configureCell(cell, forIndexPath: indexPath)
+        cell.contentView.layoutIfNeeded()
         return cell
     }
     
@@ -207,14 +211,14 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let cellHeight = dataSource.propertyForIndexPath(indexPath).cellHeight
-        
+
         if cellHeight != 0 {
             return cellHeight
         }
-        
+
         return UITableViewAutomaticDimension
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let property = dataSource.propertyForIndexPath(indexPath)
         
@@ -234,7 +238,7 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
                         cell.textLabel?.textColor = UIColor.white
                         
                         if value is NSLayoutConstraint {
-                            cell.textLabel?.font = UIFont.monospacedDigitSystemFont(ofSize: 15, weight: .regular)
+                            cell.textLabel?.font = UIFont(name: "Menlo", size: cell.textLabel?.font.pointSize ?? 15)
                         }
                     })
                 }

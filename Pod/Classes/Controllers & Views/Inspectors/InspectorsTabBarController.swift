@@ -58,7 +58,7 @@ class InspectorsTabBarController: UITabBarController, UINavigationControllerDele
         UIApplication.shared.preparePeek(context)
         
         tabBar.barStyle = .black
-        tabBar.selectionIndicatorImage = Images.tabItemIndicatorImage()
+        tabBar.tintColor = .secondaryColor()
         
         prepareInspectors(.primary)
         

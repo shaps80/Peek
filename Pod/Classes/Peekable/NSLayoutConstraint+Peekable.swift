@@ -34,6 +34,16 @@ extension NSLayoutConstraint {
         return name ?? super.description
     }
     
+    @objc var peek_firstItem: String {
+        guard let item = firstItem else { return "nil" }
+        return "\(item.classForCoder!)"
+    }
+    
+    @objc var peek_secondItem: String {
+        guard let item = secondItem else { return "nil" }
+        return "\(item.classForCoder!)"
+    }
+    
     /**
      Configures Peek's properties for this object
      
@@ -46,18 +56,16 @@ extension NSLayoutConstraint {
             config.addProperties([ "active", "shouldBeArchived" ])
         }
         
-        context.configure(.attributes, "Items") { (config) in
-            config.addProperties([ "firstItem", "secondItem" ])
-        }
-        
-        context.configure(.attributes, "Attributes") { (config) in
-            config.addProperty("firstAttribute", displayName: "First", cellConfiguration: { (cell, object, value) in
+        context.configure(.attributes, "Item") { config in
+            config.addProperty("peek_firstItem", displayName: "First Item", cellConfiguration: nil)
+            config.addProperty("firstAttribute", displayName: "First Attribute", cellConfiguration: { (cell, object, value) in
                 if let mode = NSLayoutAttribute(rawValue: value as! Int) {
                     cell.detailTextLabel?.text = mode.description
                 }
             })
             
-            config.addProperty("secondAttribute", displayName: "Second", cellConfiguration: { (cell, object, value) in
+            config.addProperty("peek_secondItem", displayName: "Second Item", cellConfiguration: nil)
+            config.addProperty("secondAttribute", displayName: "Second Attribute", cellConfiguration: { (cell, object, value) in
                 if let mode = NSLayoutAttribute(rawValue: value as! Int) {
                     cell.detailTextLabel?.text = mode.description
                 }

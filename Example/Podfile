@@ -1,5 +1,6 @@
 source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
+inhibit_all_warnings!
 
 target 'Peek-Example' do
     platform :ios, '9.0'

@@ -25,17 +25,6 @@ import InkKit
 
 final class Images {
     
-    static func tabItemIndicatorImage() -> UIImage {
-        
-        return Image.draw(width: 1, height: 49, attributes: nil, drawing: { (context, rect, attributes) in
-            let height: CGFloat = 3
-            let rect = CGRect(x: 0, y: rect.maxY - height, width: 1, height: height)
-            
-            UIColor.secondaryColor().setFill()
-            UIRectFill(rect)
-        }).resizableImage(withCapInsets: UIEdgeInsets.zero, resizingMode: .stretch)
-    }
-    
     static func backIndicatorImage() -> UIImage {
         return Image.draw(width: 12, height: 22, attributes: nil, drawing: { (context, rect, attributes) in
             let frame = rect.insetBy(dx: 1, dy: 1)

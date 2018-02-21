@@ -58,7 +58,7 @@ extension UIView {
         
         context.configure(.layout, "General") { config in
             config.addProperties([ "frame", "bounds", "center", "intrinsicContentSize", "alignmentRectInsets" ])
-            config.addProperty("translatesAutoresizingMaskIntoConstraints", displayName: "Autoresizing to Constraints", cellConfiguration: nil)
+            config.addProperty("translatesAutoresizingMaskIntoConstraints", displayName: "Translates Resize Masks", cellConfiguration: nil)
         }
         
         context.configure(.layout, "Content Hugging Priority") { (config) in
@@ -74,6 +74,7 @@ extension UIView {
         context.configure(.layout, "Constraints") { (config) in
             config.addProperty("horizontalConstraints", displayName: "Horizontal", cellConfiguration: nil)
             config.addProperty("verticalConstraints", displayName: "Vertical", cellConfiguration: nil)
+            config.addProperties(["hasAmbiguousLayout"])
         }
         
         context.configure(.view, "Appearance") { (config) in

@@ -62,7 +62,7 @@ extension UIViewController {
                 let orientation = UIInterfaceOrientation(rawValue: value as! Int)!
                 let image = Images.orientationImage(orientation)
                 cell.accessoryView = UIImageView(image: image)
-                cell.detailTextLabel?.text = orientation.description
+                cell.detailTextLabel?.text = "\(orientation.description)  "
             })
             
             let property = config.addProperty("supportedInterfaceOrientations", displayName: "Supported Orientations", cellConfiguration: { (cell, object, value) in

@@ -50,9 +50,6 @@ final class InspectorCell: UITableViewCell, MFMailComposeViewControllerDelegate 
         detailTextLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         textLabel?.numberOfLines = 0
         detailTextLabel?.numberOfLines = 0
-        
-        textLabel?.minimumScaleFactor = 0.8
-        textLabel?.adjustsFontSizeToFitWidth = true
     }
     
     required init?(coder aDecoder: NSCoder) {
