@@ -24,21 +24,19 @@ import UIKit
 import InkKit
 
 // FIXME: Generally speaking, this controller is too big -- Headers, Cell Configurations, etc.. could definitely be extracted
-final class InspectorViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+final class OldInspectorViewController: UITableViewController {
     
     fileprivate unowned let peek: Peek
     fileprivate let model: Model
     fileprivate let dataSource: ContextDataSource
     fileprivate var prototype = InspectorCell()
-    fileprivate let tableView: UITableView
     
     init(peek: Peek, model: Model, dataSource: ContextDataSource) {
         self.peek = peek
         self.model = model
         self.dataSource = dataSource
-        self.tableView = UITableView(frame: peek.peekingWindow.bounds, style: .grouped)
         
-        super.init(nibName: nil, bundle: nil)
+        super.init(style: .grouped)
         
         // we do this here to ensure the tabItems are populated immediately
         title = "\(dataSource.inspectorType)"
@@ -56,11 +54,6 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tableView.dataSource = self
-        tableView.delegate = self
-        view.addSubview(tableView)
-        tableView.pin(edges: .all, to: view)
         
         tableView.register(InspectorCell.self, forCellReuseIdentifier: "KeyValueCell")
         tableView.indicatorStyle = .white
@@ -107,22 +100,14 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        if let indexPath = tableView.indexPathForSelectedRow {
-            tableView.deselectRow(at: indexPath, animated: true)
-        }
-    }
-    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         coordinator.animate(alongsideTransition: { (_) in
             self.tableView.reloadData()
         }, completion: nil)
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "KeyValueCell", for: indexPath) as! InspectorCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "KeyValueCell", for: indexPath) as? InspectorCell else { fatalError() }
         configureCell(cell, forIndexPath: indexPath)
         cell.contentView.layoutIfNeeded()
         return cell
@@ -178,6 +163,7 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
             
             if CFGetTypeID(value) == CGColor.typeID {
                 text = ColorTransformer().transformedValue(value) as? String
+                //swiftlint:disable force_cast
                 accessoryView = ColorAccessoryView(value: UIColor(cgColor: value as! CGColor))
             }
             
@@ -193,19 +179,19 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
         }
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return dataSource.numberOfCategories() 
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.numberOfProperties(inCategory: section) 
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return dataSource.titleForCategory(section)
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let cellHeight = dataSource.propertyForIndexPath(indexPath).cellHeight
 
         if cellHeight != 0 {
@@ -215,7 +201,7 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
         return UITableViewAutomaticDimension
     }
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let property = dataSource.propertyForIndexPath(indexPath)
         
         guard let value = property.value(forModel: model) as? PeekSubPropertiesSupporting, value.hasProperties else {
@@ -246,24 +232,14 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
         }
         
         guard let model = value as? Model else { return } // FIXME: This could be handled better -- perhaps better structure in terms of protocol conformance
-        let controller = InspectorViewController(peek: peek, model	: model, dataSource: ContextDataSource(context: context, inspector: .attributes))
+        let controller = OldInspectorViewController(peek: peek, model	: model, dataSource: ContextDataSource(context: context, inspector: .attributes))
         controller.title = property.displayName
+        controller.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(controller, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
         return true
-    }
-    
-    func tableView(_ tableView: UITableView, canPerformAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        let property = dataSource.propertyForIndexPath(indexPath)
-        let value = property.value(forModel: model)
-        
-        return action == #selector(InspectorCell.copy(_:)) && !(value is PeekSubPropertiesSupporting)
-    }
-    
-    func tableView(_ tableView: UITableView, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
-        // actions are handled in the cell
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {

@@ -67,16 +67,6 @@ final class InspectorCell: UITableViewCell {
         accessoryView?.backgroundColor = color
     }
     
-    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        return action == #selector(copy(_:))
-    }
-    
-    override func copy(_ sender: Any?) {
-        if let message = stringValue() {
-            UIPasteboard.general.string = message
-        }
-    }
-    
     fileprivate func metaData() -> MetaData {
         guard let model = model else {
             fatalError("Model should never be nil!")

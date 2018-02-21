@@ -27,11 +27,9 @@ import MediaPlayer
  *  Defines a controller that is responsible for presenting Peek
  */
 protocol PeekActivationController {
-    
     func register()
     func unregister()
-    init(peek: Peek)
-    
+    init(peek: Peek, handleActivation: @escaping () -> Void)
 }
 
 /// Defines an controller that activates Peek via your device Volume controls
@@ -42,8 +40,12 @@ final class VolumeController: NSObject, PeekActivationController {
     fileprivate var session: AVAudioSession!
     fileprivate var previousVolume: Float = 0
     
-    init(peek: Peek) {
+    private var handleActivation: () -> Void
+    
+    init(peek: Peek, handleActivation: @escaping () -> Void) {
         self.peek = peek
+        self.handleActivation = handleActivation
+        
         super.init()
         
         NotificationCenter.default.addObserver(self, selector: #selector(VolumeController.register), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
@@ -59,11 +61,7 @@ final class VolumeController: NSObject, PeekActivationController {
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if let keyPath = keyPath, keyPath == "outputVolume",
             let volume = change?[.newKey] as? NSNumber, volume.floatValue != previousVolume {
-            if Peek.isAlreadyPresented {
-                peek.dismiss()
-            } else {
-                peek.present()
-            }
+            handleActivation()
             resetVolume()
         }
         

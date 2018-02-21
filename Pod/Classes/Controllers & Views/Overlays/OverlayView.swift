@@ -76,6 +76,7 @@ class OverlayView: UIView {
         view.layer.cornerRadius = 2
         view.layer.borderColor = UIColor(white: 1, alpha: 0.3).cgColor
         view.layer.borderWidth = 1
+        view.layer.zPosition = -100
         
         return view
     }()

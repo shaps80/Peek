@@ -56,6 +56,17 @@ extension UIView {
     public override func preparePeek(_ context: Context) {
         super.preparePeek(context)
         
+        context.configure(.view, "Accessibility") { config in
+            config.addProperties([
+                "accessibilityIdentifier",
+                "accessibilityHint",
+                "accessibilityPath",
+                "accessibilityFrame",
+                "accessibilityLabel",
+                "accessibilityValue"
+            ])
+        }
+        
         context.configure(.layout, "General") { config in
             config.addProperties([ "frame", "bounds", "center", "intrinsicContentSize", "alignmentRectInsets" ])
             config.addProperty("translatesAutoresizingMaskIntoConstraints", displayName: "Translates Resize Masks", cellConfiguration: nil)

@@ -119,8 +119,7 @@ public final class Peek: NSObject {
     }
     
     /**
-     Call this method from your AppDelegate to pass motion events to Peek. This will only activate/deactivate Peek when activationMode == .Shake or the app is being run from the Simulator
-     
+     On iOS 10+ call this from your rootViewController. Otherwise use your AppDelegate. This will only activate/deactivate Peek when activationMode == .Shake or the app is being run from the Simulator. On iOS 10+ this will also dismiss the Inspectors view when visible.
      - parameter motion: The motion events to handle
      */
     public func handleShake(_ motion: UIEventSubtype) {
@@ -134,11 +133,20 @@ public final class Peek: NSObject {
         #endif
         
         if (options.activationMode == .auto && isSimulator) || options.activationMode == .shake {
-            if Peek.isAlreadyPresented {
-                peekingWindow.peek.dismiss()
-            } else {
-                peekingWindow.peek.present()
-            }
+            handleActivation()
+        }
+    }
+    
+    private func handleActivation() {
+        if window?.rootViewController?.presentedViewController != nil {
+            window?.rootViewController?.presentedViewController?.dismiss(animated: true, completion: nil)
+            return
+        }
+        
+        if Peek.isAlreadyPresented {
+            peekingWindow.peek.dismiss()
+        } else {
+            peekingWindow.peek.present()
         }
     }
     
@@ -163,7 +171,7 @@ public final class Peek: NSObject {
         #endif
         
         if options.activationMode == .auto && !isSimulator {
-            activationController = VolumeController(peek: self)
+            activationController = VolumeController(peek: self, handleActivation: handleActivation)
         }
     }
     

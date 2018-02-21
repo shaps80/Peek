@@ -21,6 +21,7 @@
  */
 
 import UIKit
+import InkKit
 
 extension UIColor {
     
@@ -35,7 +36,16 @@ extension UIColor {
     }
     
     class func primaryColor() -> UIColor {
-        return UIColor.colorWithRed(red: 135, green: 252, blue: 112, alpha: 1)
+        return Color(hex: "2be13c")!.uiColor
+//        return UIColor.colorWithRed(red: 135, green: 252, blue: 112, alpha: 1)
+    }
+    
+    class func overlayColor() -> UIColor {
+        return UIColor.black
+    }
+    
+    internal static var inspectorBackground: UIColor {
+        return Color(hex: "111111")!.uiColor
     }
     
     class func secondaryColor() -> UIColor {

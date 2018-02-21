@@ -22,6 +22,7 @@
 
 import UIKit
 import UIKit.UIGestureRecognizerSubclass
+import InkKit
 
 final class PeekViewController: UIViewController, UIViewControllerTransitioningDelegate {
     
@@ -128,7 +129,7 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     }
     
     fileprivate func updateBackgroundColor(alpha: CGFloat) {
-        view.backgroundColor = UIColor.black.withAlphaComponent(alpha)
+        view.backgroundColor = UIColor.overlayColor().withAlphaComponent(alpha)
         
         let animation = CATransition()
         animation.type = kCATransitionFade
@@ -147,19 +148,12 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
         }
         
         if let model = model as? UIView {
-            let controller = InspectorsTabBarController(peek: peek, model: model)
+            let controller = InspectorsTabController(peek: peek, model: model)
             
-            controller.view.frame = view.bounds // this is to ensure status bar changes are supported
-            controller.popoverPresentationController?.sourceView = overlayView.primaryView
-            controller.popoverPresentationController?.backgroundColor = UIColor(white: 0, alpha: 0.5)
-            controller.transitioningDelegate = self
+            definesPresentationContext = true
+            controller.view.frame = view.bounds
             
-            let bounds = overlayView.primaryView.bounds
-            let rect = CGRect(x: bounds.midX - 1, y: bounds.midY - 1, width: 2, height: 2)
-            
-            controller.popoverPresentationController?.sourceRect = rect
-            
-            present(controller, animated: true, completion: nil)
+            presentModal(controller, from: overlayView.primaryView, animated: true, completion: nil)
         }
     }
     
@@ -200,16 +194,6 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return peek.previousStatusBarStyle
-    }
-    
-    // MARK: Transitions
-    
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return TransitionFadeAnimator(peek: peek, operation: .push)
-    }
-    
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return TransitionFadeAnimator(peek: peek, operation: .pop)
     }
     
     override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {

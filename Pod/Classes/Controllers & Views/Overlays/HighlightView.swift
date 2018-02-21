@@ -133,9 +133,9 @@ final class MetricLabel: UILabel {
     init() {
         super.init(frame: CGRect.zero)
         
-        font = UIFont(name: "Avenir-Medium", size: 10.5)
-        backgroundColor = UIColor(white: 0.03, alpha: 0.9)
-        textColor = UIColor.white
+        font = UIFont.systemFont(ofSize: 10, weight: .semibold)
+        backgroundColor = UIColor.primaryColor()
+        textColor = UIColor.black
         layer.masksToBounds = true
         layer.cornerRadius = 3
         textAlignment = .center

@@ -78,7 +78,7 @@ class InspectorsTabBarController: UITabBarController, UINavigationControllerDele
         
         for inspector in inspectors {
             let dataSource = ContextDataSource(context: context, inspector: inspector)
-            let controller = InspectorViewController(peek: peek, model: modelForInspector(inspector), dataSource: dataSource)
+            let controller = OldInspectorViewController(peek: peek, model: modelForInspector(inspector), dataSource: dataSource)
             
             if UIDevice.current.userInterfaceIdiom == .phone {
                 controller.navigationItem.leftBarButtonItem = UIBarButtonItem(image: Images.backIndicatorImage(), style: .plain, target: self, action: #selector(self.back(_:)))

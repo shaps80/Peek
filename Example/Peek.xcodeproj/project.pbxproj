@@ -33,7 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2294D63777F3A53CCD6C4977 /* Peek.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Peek.podspec; path = ../Peek.podspec; sourceTree = "<group>"; };
+		2294D63777F3A53CCD6C4977 /* Peek.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Peek.podspec; path = ../Peek.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		25235662A734B5CC098E5A5F /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		32232655F65620A924B51CD3 /* Pods_Peek_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Peek_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		542E83561CBADC9100598A9F /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Bold.ttf"; path = "Fonts/OpenSans-Bold.ttf"; sourceTree = "<group>"; };
@@ -510,7 +510,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = uk.co.snippex.ios.Peek;
+				PRODUCT_BUNDLE_IDENTIFIER = com.152percent.Peek;
 				PRODUCT_NAME = "Peek-Example";
 				SWIFT_OBJC_BRIDGING_HEADER = "Peek/Peek-Example-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -532,7 +532,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = uk.co.snippex.ios.Peek;
+				PRODUCT_BUNDLE_IDENTIFIER = com.152percent.Peek;
 				PRODUCT_NAME = "Peek-Example";
 				SWIFT_OBJC_BRIDGING_HEADER = "Peek/Peek-Example-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
