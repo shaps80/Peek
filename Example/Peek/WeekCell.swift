@@ -34,15 +34,11 @@ class WeekCell: UICollectionViewCell {
     var darkColor = UIColor(red: 0.118, green: 0.122, blue: 0.129, alpha: 1.00)
     
     override var isSelected: Bool {
-        didSet {
-            update()
-        }
+        didSet { update() }
     }
     
     override var isHighlighted: Bool {
-        didSet {
-            update()      
-        }
+        didSet { update() }
     }
     
     fileprivate func update() {

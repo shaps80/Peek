@@ -61,22 +61,6 @@ extension UIView {
             config.addProperty("translatesAutoresizingMaskIntoConstraints", displayName: "Translates Resize Masks", cellConfiguration: nil)
         }
         
-        context.configure(.layout, "Content Hugging Priority") { (config) in
-            config.addProperty("horizontalContentHuggingPriority", displayName: "Horizontal", cellConfiguration: nil)
-            config.addProperty("verticalContentHuggingPriority", displayName: "Vertical", cellConfiguration: nil)
-        }
-        
-        context.configure(.layout, "Content Compression Resistance") { (config) in
-            config.addProperty("horizontalContentCompressionResistance", displayName: "Horizontal", cellConfiguration: nil)
-            config.addProperty("verticalContentCompressionResistance", displayName: "Vertical", cellConfiguration: nil)
-        }
-        
-        context.configure(.layout, "Constraints") { (config) in
-            config.addProperty("horizontalConstraints", displayName: "Horizontal", cellConfiguration: nil)
-            config.addProperty("verticalConstraints", displayName: "Vertical", cellConfiguration: nil)
-            config.addProperties(["hasAmbiguousLayout"])
-        }
-        
         context.configure(.view, "Appearance") { (config) in
             config.addProperty("contentMode", displayName: nil, cellConfiguration: { (cell, view, value) in
                 if let mode = UIViewContentMode(rawValue: value as! Int) {
@@ -109,6 +93,24 @@ extension UIView {
         
         context.configure(.layout, "Layer") { (config) in
             config.addProperties([ "layer.position", "layer.anchorPoint", "layer.zPosition", "layer.geometryFlipped", "layer.anchorPointZ",  ])
+        }
+        
+        guard !translatesAutoresizingMaskIntoConstraints else { return }
+        
+        context.configure(.layout, "Content Hugging Priority") { (config) in
+            config.addProperty("horizontalContentHuggingPriority", displayName: "Horizontal", cellConfiguration: nil)
+            config.addProperty("verticalContentHuggingPriority", displayName: "Vertical", cellConfiguration: nil)
+        }
+        
+        context.configure(.layout, "Content Compression Resistance") { (config) in
+            config.addProperty("horizontalContentCompressionResistance", displayName: "Horizontal", cellConfiguration: nil)
+            config.addProperty("verticalContentCompressionResistance", displayName: "Vertical", cellConfiguration: nil)
+        }
+        
+        context.configure(.layout, "Constraints") { (config) in
+            config.addProperty("horizontalConstraints", displayName: "Horizontal", cellConfiguration: nil)
+            config.addProperty("verticalConstraints", displayName: "Vertical", cellConfiguration: nil)
+            config.addProperties(["hasAmbiguousLayout"])
         }
     }
     

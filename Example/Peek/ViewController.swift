@@ -81,13 +81,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         stackContainerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ViewController.handleTap(_:))))
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ViewController.handleTap(_:))))
         
-        collectionViewTopConstraint.constant = -collectionView.bounds.height
+        collectionViewTopConstraint.constant = 0
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(0.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) { () -> Void in
             self.previousWeekNumber = -1
             
             let animation = POPSpringAnimation(propertyNamed: kPOPLayoutConstraintConstant)
-            animation?.toValue = 0
+            animation?.toValue = -100
             animation?.springBounciness = 10
             animation?.springSpeed = 20
             
