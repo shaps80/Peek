@@ -32,8 +32,10 @@ struct MetaData {
                     let field: [String: AnyObject] = [
                         "title": key as AnyObject,
                         "value": value as AnyObject,
+                        "notes": "" as AnyObject,
                         "short": true as AnyObject,
-                        "color": SlackPriority.High.rawValue as AnyObject,
+                        // TODO: Would be great to include a field for priority?
+//                        "color": SlackPriority.High.rawValue as AnyObject,
                         ]
                     
                     JSON.append(field)

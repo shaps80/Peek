@@ -38,7 +38,6 @@
 		268330794E7F0E95EF61592F2C7B7396 /* TransitionAnimators.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF39BF016B727BDBF1D0E0D42A1A8F8 /* TransitionAnimators.swift */; };
 		280B640B3604FB46A4AD9186DCFEF223 /* UIControl+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65A29939CE82FE79E840CD5CDED3379 /* UIControl+Peekable.swift */; };
 		28B362A5DC7BE5C944F71BFAD71A1738 /* POPSpringSolver.h in Headers */ = {isa = PBXBuildFile; fileRef = EC60AED49A5800626C95A1C6B0990B53 /* POPSpringSolver.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		28BEC1031FFD231F9F9368751D97F299 /* SlackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA47A3E69B09D3C605CF6199FACF4C3 /* SlackViewController.swift */; };
 		29BF3EC13AF3844E7FF9151D40422F34 /* UIFont+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7B1DBE6FB937B1625CB12ABEA9301D /* UIFont+Peekable.swift */; };
 		2CFD422CE0E241C360D287011313C7C0 /* Fills.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9E7D497C1148134FFE7471818B3758 /* Fills.swift */; };
 		2D430266D2F14A48AE9D2216EE6B5F6F /* Enum+Descriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B87DF8A379329AC9F02A627775573FB /* Enum+Descriptions.swift */; };
@@ -69,7 +68,6 @@
 		4F7E683DF6FA988FAD6B9B70DF27F323 /* InkKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5659B6014BDF109FFF7623B36FED8CCE /* InkKit.framework */; };
 		4F8DF57FAD94BFEE907B1BFEC5B5F091 /* POPBasicAnimation.mm in Sources */ = {isa = PBXBuildFile; fileRef = C90FF3391D29594BECEE0E9EC985CC7E /* POPBasicAnimation.mm */; };
 		5078BD673FF7BBAB5BC646BFB61AE1EE /* POPBasicAnimationInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 526A863DC439DEE8F79A8303CA22E32C /* POPBasicAnimationInternal.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		508B1C3E974BAE952F65486137E1FF66 /* Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87E73840616915FF1D706918CAF4C92 /* Email.swift */; };
 		50AA834198F19F770DCB41B57BB33BFA /* Images+Inspectors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38D2F1D1573F3FD9D63F0F44B400551 /* Images+Inspectors.swift */; };
 		5107605CDFD272AD6B0AE29EB0EC361C /* POPAnimationEvent.mm in Sources */ = {isa = PBXBuildFile; fileRef = D812AFF8FBB14694B806EE132DE9B8DA /* POPAnimationEvent.mm */; };
 		519EDCB799E9BD1BC20FB3853BE55076 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D25B9D52D99689A2593E3A574CBF9C5B /* Foundation.framework */; };
@@ -177,7 +175,6 @@
 		D934AA8BC5286A2C308CFE8BC7FE79DC /* GraphicsRenderer-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B213FB7E569A7962BC0DF929873F08 /* GraphicsRenderer-dummy.m */; };
 		D9C70617E28606150BB151AD0992684B /* pop-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DCB0466AC2A58FE1C3CB15853FB6B2 /* pop-dummy.m */; };
 		D9EFC9B1055767A5EB3EA266741AA776 /* MultipleViews+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD337582740908B4CA98C8EFC5872FE2 /* MultipleViews+Size.swift */; };
-		DBA4729E9CC3BD9E615AE5D3E4FAA9A6 /* Slack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CAFD6E4B579D6961AC262EE52851F7 /* Slack.swift */; };
 		DBAC802654C5DCDFFC1490EF7EB3BFD7 /* POPBasicAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 8856C748694C035C412ECA9C7F98A4E2 /* POPBasicAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DDA500DFF91676CC733B9C12BD69759A /* POPMath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5B78382396BAE57B1AFCC90295223896 /* POPMath.mm */; };
 		DE0DC3DA6925E316AE25C99A2F97AC0D /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E87CC2F878ADB7DF8E0DE022B39EBDF /* String+Extensions.swift */; };
@@ -404,7 +401,6 @@
 		790AC2F50C1D02CD97ED7BFFA56ED3A8 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "OpenSans-LightItalic.ttf"; path = "Fonts/OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
 		79AC6F9C55B007D54F3445BFD0F3ACE1 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7B0E8EB0850F568B896EEB4BC8D9A967 /* SwiftLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7DA47A3E69B09D3C605CF6199FACF4C3 /* SlackViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SlackViewController.swift; sourceTree = "<group>"; };
 		7F4849AF42B99C0FB7E3B0D856087CDB /* POP.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POP.h; path = pop/POP.h; sourceTree = "<group>"; };
 		800D5D05E1800898C68B3DB0E5DEB552 /* ColorAccessoryView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ColorAccessoryView.swift; sourceTree = "<group>"; };
 		802D72E3ECA5CA4742A0EDC759636356 /* LayoutDefines.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutDefines.swift; path = Pod/Classes/LayoutDefines.swift; sourceTree = "<group>"; };
@@ -497,7 +493,6 @@
 		D25B9D52D99689A2593E3A574CBF9C5B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		D4432803876EB95313CA0BF5BEA60A30 /* SPXMasking-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SPXMasking-umbrella.h"; sourceTree = "<group>"; };
 		D457D33B208783877E28ADF36E3DE220 /* Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Peekable.swift; sourceTree = "<group>"; };
-		D4CAFD6E4B579D6961AC262EE52851F7 /* Slack.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Slack.swift; sourceTree = "<group>"; };
 		D51C02C6962F13636742E994364B99F4 /* InkKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "InkKit-prefix.pch"; sourceTree = "<group>"; };
 		D812AFF8FBB14694B806EE132DE9B8DA /* POPAnimationEvent.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPAnimationEvent.mm; path = pop/POPAnimationEvent.mm; sourceTree = "<group>"; };
 		D8DCB0466AC2A58FE1C3CB15853FB6B2 /* pop-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "pop-dummy.m"; sourceTree = "<group>"; };
@@ -526,7 +521,6 @@
 		F672DE5F55DDA8BA26FA8899CABE1225 /* UIButton+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIButton+Peekable.swift"; sourceTree = "<group>"; };
 		F6F95EAF1CE59821CE9704375B7EB051 /* PeekOptions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PeekOptions.swift; path = Pod/Classes/PeekOptions.swift; sourceTree = "<group>"; };
 		F7E44B5ACE9CB5DDA1301E17E24F8DEB /* POPVector.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPVector.mm; path = pop/POPVector.mm; sourceTree = "<group>"; };
-		F87E73840616915FF1D706918CAF4C92 /* Email.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Email.swift; sourceTree = "<group>"; };
 		F9DF86F998D388E338807D270E5F5EC1 /* InspectorCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = InspectorCell.swift; sourceTree = "<group>"; };
 		FA7E12480ABDE899A2D7D48E04A7DF90 /* POPAnimationEventInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPAnimationEventInternal.h; path = pop/POPAnimationEventInternal.h; sourceTree = "<group>"; };
 		FC0FA3A7A108C073F254B293D3C430B5 /* Transform+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Transform+Extensions.swift"; path = "Pod/Classes/Transform+Extensions.swift"; sourceTree = "<group>"; };
@@ -813,10 +807,7 @@
 		521EACA48051AF18814C358CD6975C1B /* Reporting */ = {
 			isa = PBXGroup;
 			children = (
-				F87E73840616915FF1D706918CAF4C92 /* Email.swift */,
 				5F7713BD3EDEFFAB51A3F2FC1497DD8B /* MetaData.swift */,
-				D4CAFD6E4B579D6961AC262EE52851F7 /* Slack.swift */,
-				7DA47A3E69B09D3C605CF6199FACF4C3 /* SlackViewController.swift */,
 			);
 			path = Reporting;
 			sourceTree = "<group>";
@@ -1542,7 +1533,6 @@
 				AE574AD0A204B8594B1284D6744F1090 /* Color+Extensions.swift in Sources */,
 				CBCAAC8F75CC31C95580A260F3B57736 /* ColorAccessoryView.swift in Sources */,
 				FBAC59BC584887D3B2C8692BCCA668AE /* ContextDataSource.swift in Sources */,
-				508B1C3E974BAE952F65486137E1FF66 /* Email.swift in Sources */,
 				2D430266D2F14A48AE9D2216EE6B5F6F /* Enum+Descriptions.swift in Sources */,
 				6324517D32B846FC2FECBAEA7FB934E2 /* HighlightView.swift in Sources */,
 				50AA834198F19F770DCB41B57BB33BFA /* Images+Inspectors.swift in Sources */,
@@ -1569,8 +1559,6 @@
 				AD8CD4F4A9E709E6F96DF1CD7B73C2CC /* PeekOptions.swift in Sources */,
 				2DCEB190EDE80FB205662D47F0CA4B07 /* PeekTapGestureRecognizer.swift in Sources */,
 				085DFBC024048946C919EC59A01BC8C2 /* PeekViewController.swift in Sources */,
-				DBA4729E9CC3BD9E615AE5D3E4FAA9A6 /* Slack.swift in Sources */,
-				28BEC1031FFD231F9F9368751D97F299 /* SlackViewController.swift in Sources */,
 				DE0DC3DA6925E316AE25C99A2F97AC0D /* String+Extensions.swift in Sources */,
 				268330794E7F0E95EF61592F2C7B7396 /* TransitionAnimators.swift in Sources */,
 				6A6AE48C5BF9643BF36453C79565D650 /* UIActivityIndicatorView+Peekable.swift in Sources */,

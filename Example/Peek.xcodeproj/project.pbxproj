@@ -189,11 +189,13 @@
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "Peek-Example" */;
 			buildPhases = (
 				A2E7D4C574D7296B44291E3F /* [CP] Check Pods Manifest.lock */,
+				5467FD88203D98940017ADF9 /* Swift Lint */,
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
 				99B3EE99300777C5E9049E45 /* [CP] Embed Pods Frameworks */,
 				66638CA98B00FB5B974BC064 /* [CP] Copy Pods Resources */,
+				5467FD89203D989E0017ADF9 /* TODOs & FIXMEs */,
 			);
 			buildRules = (
 			);
@@ -263,6 +265,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		5467FD88203D98940017ADF9 /* Swift Lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Swift Lint";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+		5467FD89203D989E0017ADF9 /* TODOs & FIXMEs */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "TODOs & FIXMEs";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "TAGS=\"TODO:|FIXME:|FEATURE:\"\nfind \"../${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"\n";
+		};
 		66638CA98B00FB5B974BC064 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -480,7 +510,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = uk.co.snippex.ios.Peek.sky;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.co.snippex.ios.Peek;
 				PRODUCT_NAME = "Peek-Example";
 				SWIFT_OBJC_BRIDGING_HEADER = "Peek/Peek-Example-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -502,7 +532,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = uk.co.snippex.ios.Peek.sky;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.co.snippex.ios.Peek;
 				PRODUCT_NAME = "Peek-Example";
 				SWIFT_OBJC_BRIDGING_HEADER = "Peek/Peek-Example-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

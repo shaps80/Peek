@@ -22,10 +22,9 @@
 
 import UIKit
 import InkKit
-import MessageUI
 
 /// Defines an inspector's cell used to represent a Peek property
-final class InspectorCell: UITableViewCell, MFMailComposeViewControllerDelegate {
+final class InspectorCell: UITableViewCell {
     
     weak var peek: Peek?
     weak var property: Property?
@@ -69,34 +68,13 @@ final class InspectorCell: UITableViewCell, MFMailComposeViewControllerDelegate 
     }
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        return action == #selector(copy(_:)) ||
-            action == #selector(slack(_:)) ||
-            action == #selector(email(_:))
+        return action == #selector(copy(_:))
     }
     
     override func copy(_ sender: Any?) {
         if let message = stringValue() {
             UIPasteboard.general.string = message
         }
-    }
-    
-    @objc func email(_ sender: AnyObject?) {
-        guard let peek = self.peek else {
-            fatalError("Peek should never be nil!")
-        }
-        
-        Email().post(peek.screenshot, metaData: metaData(), peek: peek, delegate: self)
-    }
-    
-    @objc func slack(_ sender: AnyObject?) {
-        guard let peek = self.peek else {
-            fatalError("Peek should never be nil!")
-        }
-        
-        let controller = SlackViewController(peek: peek, metaData: metaData())
-        let navController = UINavigationController(rootViewController: controller)
-        navController.modalPresentationStyle = .formSheet
-        peek.window?.rootViewController?.topViewController().present(navController, animated: true, completion: nil)
     }
     
     fileprivate func metaData() -> MetaData {
@@ -113,7 +91,7 @@ final class InspectorCell: UITableViewCell, MFMailComposeViewControllerDelegate 
         
         metaData.property.items = [ object, title, keyPath, value ]
         
-        if let meta = peek?.options.reportMetaData {
+        if let meta = peek?.options.metaData {
             for (key, value) in meta {
                 let item = MetaDataItem(key: key, value: value)
                 metaData.metaData.items.append(item)
@@ -137,12 +115,6 @@ final class InspectorCell: UITableViewCell, MFMailComposeViewControllerDelegate 
         }
         
         return nil
-    }
-    
-    // FIXME: This is obviouslt the wrong place for this
-    
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        controller.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
 }

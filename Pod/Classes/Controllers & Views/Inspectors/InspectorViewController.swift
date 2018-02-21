@@ -62,10 +62,6 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
         view.addSubview(tableView)
         tableView.pin(edges: .all, to: view)
         
-        UIMenuController.shared.menuItems = [ UIMenuItem(title: "Slack", action: #selector(InspectorCell.slack(_:))),
-                                              UIMenuItem(title: "Email", action: #selector(InspectorCell.email(_:))) ]
-        UIMenuController.shared.update()
-        
         tableView.register(InspectorCell.self, forCellReuseIdentifier: "KeyValueCell")
         tableView.indicatorStyle = .white
         tableView.backgroundColor = UIColor(white: 0.1, alpha: 1)
@@ -263,10 +259,7 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
         let property = dataSource.propertyForIndexPath(indexPath)
         let value = property.value(forModel: model)
         
-        return action == #selector(InspectorCell.copy(_:)) ||
-            (action == #selector(InspectorCell.slack(_:)) ||
-                action == #selector(InspectorCell.email(_:))) &&
-            !(value is PeekSubPropertiesSupporting)
+        return action == #selector(InspectorCell.copy(_:)) && !(value is PeekSubPropertiesSupporting)
     }
     
     func tableView(_ tableView: UITableView, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {

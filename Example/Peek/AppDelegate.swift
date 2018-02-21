@@ -34,39 +34,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             options.shouldIgnoreContainers = true
             
             /*
-             In order to use Slack, you need to define a username, recipient (either a channel or user, e.g. #peek or @peek)
-             You also need to provide your Slack Incoming WebHook URL
-             
-             https://slack.com/apps/A0F7XDUAZ-incoming-webhooks
+             Configure the metadata asscociated with this app.
              */
-            //        options.slackUserName = "Peek"
-            //        options.slackRecipient = "#peek"
-            //        options.slackWebHookURL = NSURL(string: "https://hooks.slack.com/services/$TOKEN")!
-            
-            /*
-             Email support works by default, but you can also configure options like recipient(s) & subject
-             */
-            options.emailRecipients = [ "" ]
-            options.emailSubject = "Peek Issue: "
-            
-            /*
-             Both email and Slack reporting can use an optional metaData dictionary of key/values -- this is useful for providing additional context, like the environment your application is currently pointing to
-             */
-            options.reportMetaData = [ "Environment": "UAT" ]
+            options.metaData = [ "Environment": "UAT" ]
             
             /**
-             Both email and Slack support including screenshots. For email, you don't need to do a thing, it JUST WORKS out of the box.
-             However, Slack doesn't support direct image uploads via WebHooks, so instead you can provide an image upload block that will automatically execute when you try to post to Slack.
-             
-             Note: The upload block is already dispatched to a background queue, so you can run your code synchronously.
-             
-             Just use the provided session and image, upload it to your service and return the resulting URL
+             When sending reports, some services support an image attachment.
              */
-            //      options.includeScreenshot = true
-            //      options.screenshotScale = 1
-            //      options.slackImageUploader = { (session, image) in
-            //        return NSURL(string: "http://shaps.me/assets/img/peek-overlay.png")
-            //      }
+            options.includeScreenshot = true
+            options.screenshotScale = 1
         }
         
         return true

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Peek"
-  s.version          = "4.0.0"
+  s.version          = "4.0.1"
   s.summary          = "Take a Peek at your application. App inspection at runtime."
   s.homepage         = "https://152percent.com/blog/2016/4/14/introducing-peek-20"
   s.screenshots      = "https://github.com/shaps80/Peek/raw/swift4/shot.jpg"
