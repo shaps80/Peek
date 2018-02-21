@@ -1,0 +1,36 @@
+excluded:
+- Pods
+
+included:
+- ../Pod
+
+disabled_rules:
+  - class_delegate_protocol
+  - redundant_string_enum_value
+  - type_name
+  - redundant_optional_initialization
+  - operator_whitespace
+  - trailing_whitespace
+  - line_length
+  - todo
+  - nesting
+  - cyclomatic_complexity
+  - function_body_length
+  - identifier_name
+  - trailing_comma
+
+file_length:
+    warning: 500
+    error: 700
+
+large_tuple:
+    warning: 10
+
+force_cast:
+    warning
+
+force_try:
+    warning
+
+function_parameter_count:
+    warning: 6
