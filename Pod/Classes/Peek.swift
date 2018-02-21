@@ -103,7 +103,7 @@ public final class Peek: NSObject {
     public func dismiss() {
         UIView.animate(withDuration: 0.25, animations: { () -> Void in
             self.window?.alpha = 0
-        }, completion: { (finished) -> Void in
+        }, completion: { (_) -> Void in
             if let controller = self.window?.rootViewController?.presentedViewController {
                 controller.presentingViewController?.dismiss(animated: false, completion: nil)
             }

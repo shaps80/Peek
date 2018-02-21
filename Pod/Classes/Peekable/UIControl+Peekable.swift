@@ -37,12 +37,12 @@ extension UIControl {
         }
         
         context.configure(.layout, "Control") { (config) in
-            config.addProperty("contentVerticalAlignment", displayName: "Vertical Alignment", cellConfiguration: { (cell, object, value) in
+            config.addProperty("contentVerticalAlignment", displayName: "Vertical Alignment", cellConfiguration: { (cell, _, value) in
                 let alignment = UIControlContentVerticalAlignment(rawValue: value as! Int)!
                 cell.detailTextLabel?.text = alignment.description
             })
             
-            config.addProperty("contentHorizontalAlignment", displayName: "Horizontal Alignment", cellConfiguration: { (cell, object, value) in
+            config.addProperty("contentHorizontalAlignment", displayName: "Horizontal Alignment", cellConfiguration: { (cell, _, value) in
                 let alignment = UIControlContentHorizontalAlignment(rawValue: value as! Int)!
                 cell.detailTextLabel?.text = alignment.description
             })

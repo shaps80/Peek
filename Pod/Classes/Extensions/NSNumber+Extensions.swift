@@ -24,8 +24,7 @@ import Foundation
 
 extension NSNumber {
     
-    func isBool() -> Bool
-    {
+    func isBool() -> Bool {
         let boolID = CFBooleanGetTypeID()
         let numID = CFGetTypeID(self)
         return numID == boolID

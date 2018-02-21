@@ -58,7 +58,7 @@ extension UIDatePicker {
         }
         
         context.configure(.attributes, "Appearance") { (config) in
-            config.addProperty("datePickerMode", displayName: "Mode", cellConfiguration: { (cell, view, value) in
+            config.addProperty("datePickerMode", displayName: "Mode", cellConfiguration: { (cell, _, value) in
                 if let mode = UIDatePickerMode(rawValue: value as! Int) {
                     cell.detailTextLabel?.text = mode.description
                 }

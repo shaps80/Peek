@@ -35,7 +35,7 @@ extension UIToolbar {
         context.configure(.attributes, "Appearance") { (config) in
             config.addProperties([ "translucent", "barTintColor" ])
             
-            config.addProperty("barStyle", displayName: nil, cellConfiguration: { (cell, object, value) in
+            config.addProperty("barStyle", displayName: nil, cellConfiguration: { (cell, _, value) in
                 let style = UIBarStyle(rawValue: value as! Int)!
                 cell.detailTextLabel?.text = style.description
             })

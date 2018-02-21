@@ -39,17 +39,17 @@ extension UIImage {
         context.configure(.attributes, "General") { (config) in
             config.addProperties([ "scale" ])
             
-            config.addProperty("renderingMode", displayName: nil, cellConfiguration: { (cell, object, value) in
+            config.addProperty("renderingMode", displayName: nil, cellConfiguration: { (cell, _, value) in
                 let mode = UIImageRenderingMode(rawValue: value as! Int)!
                 cell.detailTextLabel?.text = mode.description
             })
             
-            config.addProperty("resizingMode", displayName: nil, cellConfiguration: { (cell, object, value) in
+            config.addProperty("resizingMode", displayName: nil, cellConfiguration: { (cell, _, value) in
                 let mode = UIImageResizingMode(rawValue: value as! Int)!
                 cell.detailTextLabel?.text = mode.description
             })
             
-            config.addProperty("imageOrientation", displayName: "Orientation", cellConfiguration: { (cell, object, value) in
+            config.addProperty("imageOrientation", displayName: "Orientation", cellConfiguration: { (cell, _, value) in
                 let orientation = UIImageOrientation(rawValue: value as! Int)!
                 cell.detailTextLabel?.text = orientation.description
             })

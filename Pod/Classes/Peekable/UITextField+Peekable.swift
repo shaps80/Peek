@@ -33,7 +33,7 @@ extension UITextField {
         super.preparePeek(context)
         
         context.configure(.attributes, "Appearance") { (config) in
-            config.addProperty("borderStyle", displayName: nil, cellConfiguration: { (cell, object, value) in
+            config.addProperty("borderStyle", displayName: nil, cellConfiguration: { (cell, _, value) in
                 let style = UITextBorderStyle(rawValue: value as! Int)!
                 cell.detailTextLabel?.text = style.description
             })
@@ -42,7 +42,7 @@ extension UITextField {
         context.configure(.attributes, "Text") { (config) in
             config.addProperties([ "text", "textColor", "attributedText" ])
             
-            config.addProperty("textAlignment", displayName: "Alignment", cellConfiguration: { (cell, object, value) in
+            config.addProperty("textAlignment", displayName: "Alignment", cellConfiguration: { (cell, _, value) in
                 let alignment = NSTextAlignment(rawValue: value as! Int)!
                 cell.detailTextLabel?.text = alignment.description
             })
@@ -51,17 +51,17 @@ extension UITextField {
         context.configure(.attributes, "Behaviour") { (config) in
             config.addProperties([ "adjustsFontSizeToFitWidth", "allowsEditingTextAttributes", "clearsOnBeginEditing", "clearsOnInsertion" ])
             
-            config.addProperty("clearButtonMode", displayName: nil, cellConfiguration: { (cell, object, value) in
+            config.addProperty("clearButtonMode", displayName: nil, cellConfiguration: { (cell, _, value) in
                 let mode = UITextFieldViewMode(rawValue: value as! Int)!
                 cell.detailTextLabel?.text = mode.description
             })
             
-            config.addProperty("leftViewMode", displayName: nil, cellConfiguration: { (cell, object, value) in
+            config.addProperty("leftViewMode", displayName: nil, cellConfiguration: { (cell, _, value) in
                 let mode = UITextFieldViewMode(rawValue: value as! Int)!
                 cell.detailTextLabel?.text = mode.description
             })
             
-            config.addProperty("rightViewMode", displayName: nil, cellConfiguration: { (cell, object, value) in
+            config.addProperty("rightViewMode", displayName: nil, cellConfiguration: { (cell, _, value) in
                 let mode = UITextFieldViewMode(rawValue: value as! Int)!
                 cell.detailTextLabel?.text = mode.description
             })

@@ -26,7 +26,7 @@ import InkKit
 extension Images {
     
     static func orientationImage(_ orientation: UIInterfaceOrientation) -> UIImage {
-        return Image.draw(width: 25, height: 25, attributes: nil, drawing: { (context, rect, attributes) in
+        return Image.draw(width: 25, height: 25, attributes: nil, drawing: { (_, rect, _) in
             drawOrientation(frame: rect, portraitVisible: orientation == .portrait, portraitUpsideDownVisible: orientation == .portraitUpsideDown, lanscapeLeftVisible: orientation == .landscapeLeft, landscapeRightVisible: orientation == .landscapeRight)
         })
     }
@@ -38,7 +38,7 @@ extension Images {
         //// Color Declarations
         let white = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
         
-        if (portraitVisible) {
+        if portraitVisible {
             //// portrait Drawing
             let portraitPath = UIBezierPath()
             portraitPath.move(to: CGPoint(x: frame.minX + 12.5, y: frame.minY + 18.5))
@@ -71,8 +71,7 @@ extension Images {
             portraitPath.fill()
         }
         
-        
-        if (portraitUpsideDownVisible) {
+        if portraitUpsideDownVisible {
             //// upsideDown Drawing
             let upsideDownPath = UIBezierPath()
             upsideDownPath.move(to: CGPoint(x: frame.minX + 12.5, y: frame.minY + 6.5))
@@ -105,8 +104,7 @@ extension Images {
             upsideDownPath.fill()
         }
         
-        
-        if (lanscapeLeftVisible) {
+        if lanscapeLeftVisible {
             //// left Drawing
             context!.saveGState()
             context!.translateBy(x: frame.minX + 25, y: frame.minY + 5)
@@ -145,8 +143,7 @@ extension Images {
             context!.restoreGState()
         }
         
-        
-        if (landscapeRightVisible) {
+        if landscapeRightVisible {
             //// right Drawing
             context!.saveGState()
             context!.translateBy(x: frame.minX, y: frame.minY + 20)

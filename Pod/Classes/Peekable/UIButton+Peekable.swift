@@ -40,7 +40,6 @@ extension UIButton {
         return title(for: .disabled)
     }
     
-    
     @objc var normalAttributedTitle: NSAttributedString? {
         return attributedTitle(for: UIControlState())
     }
@@ -56,7 +55,6 @@ extension UIButton {
     @objc var disabledAttributedTitle: NSAttributedString? {
         return attributedTitle(for: .disabled)
     }
-    
     
     @objc var normalTitleColor: UIColor? {
         return titleColor(for: UIControlState())
@@ -87,7 +85,7 @@ extension UIButton {
         }
         
         context.configure(.attributes, "General") { (config) in
-            config.addProperty("buttonType", displayName: nil, cellConfiguration: { (cell, object, value) in
+            config.addProperty("buttonType", displayName: nil, cellConfiguration: { (cell, _, value) in
                 let type = UIButtonType(rawValue: value as! Int)!
                 cell.detailTextLabel?.text = type.description
             })

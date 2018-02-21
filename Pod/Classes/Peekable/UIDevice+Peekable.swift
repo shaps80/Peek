@@ -42,7 +42,7 @@ extension UIDevice {
             if isBatteryMonitoringEnabled {
                 config.addProperties([ "batteryLevel" ])
                 
-                config.addProperty("batteryState", displayName: nil, cellConfiguration: { (cell, view, value) in
+                config.addProperty("batteryState", displayName: nil, cellConfiguration: { (cell, _, value) in
                     if let state = UIDeviceBatteryState(rawValue: value as! Int) {
                         cell.detailTextLabel?.text = state.description
                     }
@@ -51,9 +51,9 @@ extension UIDevice {
         }
         
         context.configure(.device, "Hardware") { (config) in
-            config.addProperties([ "processInfo.processorCount",  ])
+            config.addProperties([ "processInfo.processorCount", ])
             
-            config.addProperty("processInfo.physicalMemory", displayName: nil, cellConfiguration: { (cell, object, value) in
+            config.addProperty("processInfo.physicalMemory", displayName: nil, cellConfiguration: { (cell, _, _) in
                 let formatter = ByteCountFormatter()
                 let memory = ProcessInfo.processInfo.physicalMemory
                 formatter.countStyle = .memory

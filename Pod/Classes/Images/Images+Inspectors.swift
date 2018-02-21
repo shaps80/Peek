@@ -23,10 +23,11 @@
 import UIKit
 import InkKit
 
+//swiftlint:disable type_body_length
 final class Images {
     
     static func backIndicatorImage() -> UIImage {
-        return Image.draw(width: 12, height: 22, attributes: nil, drawing: { (context, rect, attributes) in
+        return Image.draw(width: 12, height: 22, attributes: nil, drawing: { (_, rect, _) in
             let frame = rect.insetBy(dx: 1, dy: 1)
             let color = UIColor.white
             
@@ -44,25 +45,22 @@ final class Images {
     }
     
     static func viewImage() -> UIImage {
-        return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (context, rect, attributes) in
+        return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (_, rect, _) in
             
             //// Rectangle Drawing
             let rectanglePath = UIBezierPath(rect: CGRect(x: 2, y: 0, width: 12, height: 9))
             UIColor.gray.setFill()
             rectanglePath.fill()
             
-            
             //// Rectangle 2 Drawing
             let rectangle2Path = UIBezierPath(rect: CGRect(x: 16, y: 0, width: 12, height: 9))
             UIColor.gray.setFill()
             rectangle2Path.fill()
             
-            
             //// Rectangle 3 Drawing
             let rectangle3Path = UIBezierPath(rect: CGRect(x: 2, y: 11, width: 12, height: 9))
             UIColor.gray.setFill()
             rectangle3Path.fill()
-            
             
             //// Rectangle 4 Drawing
             let rectangle4Path = UIBezierPath(rect: CGRect(x: 16, y: 11, width: 12, height: 9))
@@ -86,7 +84,7 @@ final class Images {
     }
     
     static func inspectorsToggleImage(_ inspectorSet: InspectorSet) -> UIImage {
-        return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (context, rect, attributes) in
+        return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (_, _, _) in
             //// Color Declarations
             let white = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
             let gray = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 0.500)
@@ -96,7 +94,6 @@ final class Images {
             white.setStroke()
             rectanglePath.lineWidth = 1
             rectanglePath.stroke()
-            
             
             //// tab1 Drawing
             let tab1Path = UIBezierPath()
@@ -115,7 +112,6 @@ final class Images {
             }
             
             tab1Path.fill()
-            
             
             //// tab2 Drawing
             let tab2Path = UIBezierPath()
@@ -138,7 +134,7 @@ final class Images {
     }
     
     fileprivate static func applicationImage() -> UIImage {
-        return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (context, rect, attributes) in
+        return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (_, _, _) in
             //// Color Declarations
             let color = UIColor(red: 1.000, green: 0.973, blue: 0.973, alpha: 1.000)
             let color2 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
@@ -149,7 +145,6 @@ final class Images {
             rectanglePath.lineWidth = 1
             rectanglePath.stroke()
             
-            
             //// Bezier Drawing
             let bezierPath = UIBezierPath()
             bezierPath.move(to: CGPoint(x: 7, y: 5.5))
@@ -157,7 +152,6 @@ final class Images {
             color2.setStroke()
             bezierPath.lineWidth = 1
             bezierPath.stroke()
-            
             
             //// Bezier 2 Drawing
             let bezier2Path = UIBezierPath()
@@ -167,7 +161,6 @@ final class Images {
             bezier2Path.lineWidth = 1
             bezier2Path.stroke()
             
-            
             //// Bezier 3 Drawing
             let bezier3Path = UIBezierPath()
             bezier3Path.move(to: CGPoint(x: 7, y: 11.5))
@@ -175,7 +168,6 @@ final class Images {
             color2.setStroke()
             bezier3Path.lineWidth = 1
             bezier3Path.stroke()
-            
             
             //// Bezier 4 Drawing
             let bezier4Path = UIBezierPath()
@@ -219,14 +211,13 @@ final class Images {
     }
     
     fileprivate static func screenImage() -> UIImage {
-        return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (context, rect, attributes) in
+        return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (_, _, _) in
             
             //// Rectangle Drawing
             let rectanglePath = UIBezierPath(roundedRect: CGRect(x: 4.5, y: 1, width: 22, height: 16.5), cornerRadius: 2)
             UIColor.white.setStroke()
             rectanglePath.lineWidth = 1
             rectanglePath.stroke()
-            
             
             //// Rectangle 2 Drawing
             let rectangle2Path = UIBezierPath(roundedRect: CGRect(x: 9.5, y: 19.5, width: 11.5, height: 1), cornerRadius: 0.5)
@@ -237,7 +228,7 @@ final class Images {
     }
     
     fileprivate static func deviceImage() -> UIImage {
-        return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (context, rect, attributes) in
+        return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (_, _, _) in
             //// Color Declarations
             let color5 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
             
@@ -246,7 +237,6 @@ final class Images {
             UIColor.white.setStroke()
             rectanglePath.lineWidth = 1
             rectanglePath.stroke()
-            
             
             //// Bezier Drawing
             let bezierPath = UIBezierPath()
@@ -269,7 +259,7 @@ final class Images {
     }
     
     fileprivate static func controllerImage() -> UIImage {
-        return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (context, rect, attributes) in
+        return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (_, _, _) in
             //// Color Declarations
             let color = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
             let color2 = UIColor(red: 0.647, green: 0.647, blue: 0.647, alpha: 0.300)
@@ -285,7 +275,7 @@ final class Images {
     }
     
     fileprivate static func layerImage() -> UIImage {
-        return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (context, rect, attributes) in
+        return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (_, _, _) in
             
             //// Bezier 4 Drawing
             let bezier4Path = UIBezierPath()
@@ -317,7 +307,7 @@ final class Images {
     }
     
     fileprivate static func layoutImage() -> UIImage {
-        return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (context, rect, attributes) in
+        return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (context, _, _) in
             //// General Declarations
             let context = UIGraphicsGetCurrentContext()
             
@@ -371,7 +361,7 @@ final class Images {
     }
     
     fileprivate static func attributesImage() -> UIImage {
-        return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (context, rect, attributes) in
+        return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (_, _, _) in
             //// Color Declarations
             let color2 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
             
@@ -402,7 +392,6 @@ final class Images {
             bezier4Path.close()
             color2.setFill()
             bezier4Path.fill()
-            
             
             //// Bezier Drawing
             let bezierPath = UIBezierPath()
@@ -437,7 +426,6 @@ final class Images {
             color2.setFill()
             bezierPath.fill()
             
-            
             //// Bezier 2 Drawing
             let bezier2Path = UIBezierPath()
             bezier2Path.move(to: CGPoint(x: 25.5, y: 5.71))
@@ -470,18 +458,15 @@ final class Images {
             color2.setFill()
             bezier2Path.fill()
             
-            
             //// Oval Drawing
             let ovalPath = UIBezierPath(ovalIn: CGRect(x: 5, y: 4.5, width: 3, height: 3))
             color2.setFill()
             ovalPath.fill()
             
-            
             //// Oval 2 Drawing
             let oval2Path = UIBezierPath(ovalIn: CGRect(x: 14, y: 11.5, width: 3, height: 3))
             color2.setFill()
             oval2Path.fill()
-            
             
             //// Oval 3 Drawing
             let oval3Path = UIBezierPath(ovalIn: CGRect(x: 23, y: 6.5, width: 3, height: 3))

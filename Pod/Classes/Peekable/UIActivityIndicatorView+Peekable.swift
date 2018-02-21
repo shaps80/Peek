@@ -43,7 +43,7 @@ extension UIActivityIndicatorView {
         context.configure(.attributes, "Appearance") { (config) in
             config.addProperties([ "color" ])
             
-            config.addProperty("activityIndicatorViewStyle", displayName: "Display Style", cellConfiguration: { (cell, view, value) in
+            config.addProperty("activityIndicatorViewStyle", displayName: "Display Style", cellConfiguration: { (cell, _, value) in
                 if let mode = UIActivityIndicatorViewStyle(rawValue: value as! Int) {
                     cell.detailTextLabel?.text = mode.description
                 }

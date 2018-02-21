@@ -55,9 +55,9 @@ final class TextAttributes: NSObject {
     init(string: NSAttributedString) {
         var attributes = [NSAttributedStringKey: Any]()
         
-        string.enumerateAttributes(in: NSMakeRange(0, string.length), options: [], using: { (attr, range, false) in
+        string.enumerateAttributes(in: NSRange.init(location: 0, length: string.length), options: []) { attr, _, _ in
             attributes = attr
-        })
+        }
         
         fontName = attributes[.font] as? String
         foregroundColor = attributes[.foregroundColor] as? UIColor
@@ -104,7 +104,7 @@ extension NSAttributedString {
             context.configure(.attributes, "Paragraph") { (config) in
                 config.addProperties([ "paragraph.lineSpacing", "paragraph.headIndent", "paragraph.tailIndent", "paragraph.minimumLineHeight", "paragraph.maximumLineHeight", "paragraph.lineHeightMultiple", "paragraph.hyphenationFactor", "paragraph.spacingBefore", "paragraph.spacingAfter", "paragraph.firstLineHeadIndent" ])
                 
-                config.addProperty("paragraph.lineBreakMode", displayName: nil, cellConfiguration: { (cell, object, value) in
+                config.addProperty("paragraph.lineBreakMode", displayName: nil, cellConfiguration: { (cell, _, value) in
                     cell.detailTextLabel?.text = NSLineBreakMode(rawValue: value as! Int)?.description
                 })
             }

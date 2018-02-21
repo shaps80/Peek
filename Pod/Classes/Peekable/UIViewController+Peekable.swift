@@ -32,40 +32,39 @@ extension UIViewController {
     public override func preparePeek(_ context: Context) {
         super.preparePeek(context)
         
-        
         context.configure(.controller, "Status Bar") { (config) in
-            config.addProperty("preferredStatusBarStyle", displayName: "Preferred Style", cellConfiguration: { (cell, object, value) in
+            config.addProperty("preferredStatusBarStyle", displayName: "Preferred Style", cellConfiguration: { (cell, _, value) in
                 let style = UIStatusBarStyle(rawValue: value as! Int)!
                 cell.detailTextLabel?.text = style.description
             })
             
-            config.addProperty("preferredStatusBarUpdateAnimation", displayName: "Preferred Animation", cellConfiguration: { (cell, object, value) in
+            config.addProperty("preferredStatusBarUpdateAnimation", displayName: "Preferred Animation", cellConfiguration: { (cell, _, value) in
                 let style = UIStatusBarAnimation(rawValue: value as! Int)!
                 cell.detailTextLabel?.text = style.description
             })
         }
         
         context.configure(.controller, "Modal") { (config) in
-            config.addProperty("modalTransitionStyle", displayName: nil, cellConfiguration: { (cell, object, value) in
+            config.addProperty("modalTransitionStyle", displayName: nil, cellConfiguration: { (cell, _, value) in
                 let style = UIModalTransitionStyle(rawValue: value as! Int)
                 cell.detailTextLabel?.text = style?.description
             })
             
-            config.addProperty("modalPresentationStyle", displayName: nil, cellConfiguration: { (cell, object, value) in
+            config.addProperty("modalPresentationStyle", displayName: nil, cellConfiguration: { (cell, _, value) in
                 let style = UIModalPresentationStyle(rawValue: value as! Int)
                 cell.detailTextLabel?.text = style?.description
             })
         }
         
         context.configure(.controller, "Orientation") { (config) in
-            config.addProperty("interfaceOrientation", displayName: "Current Orientation", cellConfiguration: { (cell, object, value) in
+            config.addProperty("interfaceOrientation", displayName: "Current Orientation", cellConfiguration: { (cell, _, value) in
                 let orientation = UIInterfaceOrientation(rawValue: value as! Int)!
                 let image = Images.orientationImage(orientation)
                 cell.accessoryView = UIImageView(image: image)
                 cell.detailTextLabel?.text = "\(orientation.description)  "
             })
             
-            let property = config.addProperty("supportedInterfaceOrientations", displayName: "Supported Orientations", cellConfiguration: { (cell, object, value) in
+            let property = config.addProperty("supportedInterfaceOrientations", displayName: "Supported Orientations", cellConfiguration: { (cell, _, value) in
                 let mask = UIInterfaceOrientationMask(rawValue: value as! UInt)
                 let image = Images.orientationMaskImage(mask)
                 cell.accessoryView = UIImageView(image: image)

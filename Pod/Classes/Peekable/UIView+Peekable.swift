@@ -62,7 +62,7 @@ extension UIView {
         }
         
         context.configure(.view, "Appearance") { (config) in
-            config.addProperty("contentMode", displayName: nil, cellConfiguration: { (cell, view, value) in
+            config.addProperty("contentMode", displayName: nil, cellConfiguration: { (cell, _, value) in
                 if let mode = UIViewContentMode(rawValue: value as! Int) {
                     cell.detailTextLabel?.text = mode.description
                 }
@@ -76,7 +76,7 @@ extension UIView {
         context.configure(.view, "Color") { config in
             config.addProperties([ "alpha", "backgroundColor", "tintColor" ])
             
-            config.addProperty("tintAdjustmentMode", displayName: nil, cellConfiguration: { (cell, view, value) in
+            config.addProperty("tintAdjustmentMode", displayName: nil, cellConfiguration: { (cell, _, value) in
                 if let mode = UIViewTintAdjustmentMode(rawValue: value as! Int) {
                     cell.detailTextLabel?.text = mode.description
                 }
@@ -92,7 +92,7 @@ extension UIView {
         }
         
         context.configure(.layout, "Layer") { (config) in
-            config.addProperties([ "layer.position", "layer.anchorPoint", "layer.zPosition", "layer.geometryFlipped", "layer.anchorPointZ",  ])
+            config.addProperties([ "layer.position", "layer.anchorPoint", "layer.zPosition", "layer.geometryFlipped", "layer.anchorPointZ", ])
         }
         
         guard !translatesAutoresizingMaskIntoConstraints else { return }

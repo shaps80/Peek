@@ -147,7 +147,7 @@ final class MetricLabel: UILabel {
         setContentHuggingPriority(.required, for: .vertical)
     }
     
-    override var intrinsicContentSize : CGSize {
+    override var intrinsicContentSize: CGSize {
         let size = super.intrinsicContentSize
         return CGSize(width: size.width + 4, height: size.height + 2)
     }

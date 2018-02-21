@@ -129,7 +129,7 @@ class InspectorsTabBarController: UITabBarController, UINavigationControllerDele
         presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
-    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return peek.supportedOrientations
     }
     

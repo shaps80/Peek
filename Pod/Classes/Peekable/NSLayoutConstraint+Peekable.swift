@@ -58,14 +58,14 @@ extension NSLayoutConstraint {
         
         context.configure(.attributes, "Item") { config in
             config.addProperty("peek_firstItem", displayName: "First Item", cellConfiguration: nil)
-            config.addProperty("firstAttribute", displayName: "First Attribute", cellConfiguration: { (cell, object, value) in
+            config.addProperty("firstAttribute", displayName: "First Attribute", cellConfiguration: { (cell, _, value) in
                 if let mode = NSLayoutAttribute(rawValue: value as! Int) {
                     cell.detailTextLabel?.text = mode.description
                 }
             })
             
             config.addProperty("peek_secondItem", displayName: "Second Item", cellConfiguration: nil)
-            config.addProperty("secondAttribute", displayName: "Second Attribute", cellConfiguration: { (cell, object, value) in
+            config.addProperty("secondAttribute", displayName: "Second Attribute", cellConfiguration: { (cell, _, value) in
                 if let mode = NSLayoutAttribute(rawValue: value as! Int) {
                     cell.detailTextLabel?.text = mode.description
                 }
@@ -73,7 +73,7 @@ extension NSLayoutConstraint {
         }
         
         context.configure(.attributes, "Properties") { (config) in
-            config.addProperty("relation", displayName: nil, cellConfiguration: { (cell, object, value) in
+            config.addProperty("relation", displayName: nil, cellConfiguration: { (cell, _, value) in
                 if let mode = NSLayoutRelation(rawValue: value as! Int) {
                     cell.detailTextLabel?.text = mode.description
                 }

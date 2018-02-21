@@ -23,7 +23,6 @@
 import Foundation
 import MediaPlayer
 
-
 /**
  *  Defines a controller that is responsible for presenting Peek
  */
@@ -56,6 +55,7 @@ final class VolumeController: NSObject, PeekActivationController {
         unregister()
     }
     
+    //swiftlint:disable block_based_kvo
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if let keyPath = keyPath, keyPath == "outputVolume",
             let volume = change?[.newKey] as? NSNumber, volume.floatValue != previousVolume {
@@ -68,6 +68,7 @@ final class VolumeController: NSObject, PeekActivationController {
         }
         
     }
+    //swiftlint:enable block_based_kvo
     
     func resetVolume() {
         for view in volumeView.subviews {

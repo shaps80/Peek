@@ -26,7 +26,7 @@ import InkKit
 extension Images {
     
     static func orientationMaskImage(_ mask: UIInterfaceOrientationMask) -> UIImage {
-        return Image.draw(width: 60, height: 50, attributes: nil, drawing: { (context, rect, attributes) in
+        return Image.draw(width: 60, height: 50, attributes: nil, drawing: { (_, rect, _) in
             drawOrientationMask(mask: mask, frame: rect)
         })
     }
@@ -81,7 +81,6 @@ extension Images {
         
         context!.restoreGState()
         
-        
         //// portrait Drawing
         let portraitPath = UIBezierPath()
         portraitPath.move(to: CGPoint(x: frame.minX + 15.5, y: frame.minY + 19))
@@ -118,7 +117,6 @@ extension Images {
             portraitPath.stroke()
         }
         
-        
         //// portraitUpsideDown Drawing
         let portraitUpsideDownPath = UIBezierPath()
         portraitUpsideDownPath.move(to: CGPoint(x: frame.minX + 46.5, y: frame.minY + 3))
@@ -154,7 +152,6 @@ extension Images {
         } else {
             portraitUpsideDownPath.stroke()
         }
-        
         
         //// landscapeRight Drawing
         let landscapeRightPath = UIBezierPath()

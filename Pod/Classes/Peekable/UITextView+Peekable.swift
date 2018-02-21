@@ -35,7 +35,7 @@ extension UITextView {
         context.configure(.attributes, "Text") { (config) in
             config.addProperties([ "text", "attributedText", "textColor", "font" ])
             
-            config.addProperty("textAlignment", displayName: "Alignment", cellConfiguration: { (cell, object, value) in
+            config.addProperty("textAlignment", displayName: "Alignment", cellConfiguration: { (cell, _, value) in
                 let alignment = NSTextAlignment(rawValue: value as! Int)!
                 cell.detailTextLabel?.text = alignment.description
             })

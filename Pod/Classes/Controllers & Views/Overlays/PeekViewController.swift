@@ -112,7 +112,7 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        coordinator.animateAlongsideTransition(in: view, animation: { (context) -> Void in
+        coordinator.animateAlongsideTransition(in: view, animation: { (_) -> Void in
             self.overlayView.reload()
         }, completion: nil)
     }
@@ -140,7 +140,7 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
         let rect = peek.peekingWindow.bounds
         
         if peek.options.includeScreenshot {
-            peek.screenshot = UIImage.draw(width: rect.width, height: rect.height, scale: peek.options.screenshotScale, attributes: nil, drawing: { [unowned self] (context, rect, attributes) in
+            peek.screenshot = UIImage.draw(width: rect.width, height: rect.height, scale: peek.options.screenshotScale, attributes: nil, drawing: { [unowned self] (_, rect, _) in
                 self.peek.peekingWindow.drawHierarchy(in: rect, afterScreenUpdates: false)
                 self.peek.window?.drawHierarchy(in: rect, afterScreenUpdates: false)
             })
@@ -190,15 +190,15 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
         }
     }
     
-    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return peek.supportedOrientations
     }
     
-    override var prefersStatusBarHidden : Bool {
+    override var prefersStatusBarHidden: Bool {
         return peek.previousStatusBarHidden
     }
     
-    override var preferredStatusBarStyle : UIStatusBarStyle {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
         return peek.previousStatusBarStyle
     }
     

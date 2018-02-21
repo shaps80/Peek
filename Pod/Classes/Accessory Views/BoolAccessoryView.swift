@@ -66,7 +66,7 @@ final class BoolAccessoryView: UIView {
         fgPath.fill()
     }
     
-    override var intrinsicContentSize : CGSize {
+    override var intrinsicContentSize: CGSize {
         return CGSize(width: size.width, height: size.height)
     }
     

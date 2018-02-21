@@ -92,7 +92,6 @@ struct MetaDataItem: Equatable {
     
 }
 
-
 func ==(lhs: MetaDataSection, rhs: MetaDataSection) -> Bool {
     return lhs.title == rhs.title
 }

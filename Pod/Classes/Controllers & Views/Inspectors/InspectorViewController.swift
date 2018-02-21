@@ -116,7 +116,7 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        coordinator.animate(alongsideTransition: { (context) in
+        coordinator.animate(alongsideTransition: { (_) in
             self.tableView.reloadData()
         }, completion: nil)
     }
@@ -229,7 +229,7 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
         if let array = value as? [AnyObject] {
             context.configure(.attributes, "") { (config) in
                 for item in array {
-                    config.addProperty(value: item, displayName: "\(item)", cellConfiguration: { (cell, object, value) in
+                    config.addProperty(value: item, displayName: "\(item)", cellConfiguration: { (cell, _, value) in
                         cell.detailTextLabel?.text = nil
                         cell.textLabel?.textColor = UIColor.white
                         
@@ -266,15 +266,15 @@ final class InspectorViewController: UIViewController, UITableViewDelegate, UITa
         // actions are handled in the cell
     }
     
-    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return peek.supportedOrientations
     }
     
-    override var prefersStatusBarHidden : Bool {
+    override var prefersStatusBarHidden: Bool {
         return peek.previousStatusBarHidden
     }
     
-    override var preferredStatusBarStyle : UIStatusBarStyle {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
         return peek.previousStatusBarStyle
     }
     

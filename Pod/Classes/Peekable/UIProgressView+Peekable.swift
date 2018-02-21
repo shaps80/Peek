@@ -33,7 +33,7 @@ extension UIProgressView {
         super.preparePeek(context)
         
         context.configure(.attributes, "Appearance") { (config) in
-            config.addProperty("progressViewStyle", displayName: "View Style", cellConfiguration: { (cell, view, value) in
+            config.addProperty("progressViewStyle", displayName: "View Style", cellConfiguration: { (cell, _, value) in
                 if let mode = UIProgressViewStyle(rawValue: value as! Int) {
                     cell.detailTextLabel?.text = mode.description
                 }

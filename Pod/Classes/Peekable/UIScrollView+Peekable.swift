@@ -39,7 +39,7 @@ extension UIScrollView {
         context.configure(.attributes, "Behaviour") { (config) in
             config.addProperties([ "directionalLockEnabled", "pagingEnabled", "scrollEnabled", "decelerationRate", "scrollsToTop" ])
             
-            config.addProperty("keyboardDismissMode", displayName: nil, cellConfiguration: { (cell, object, value) in
+            config.addProperty("keyboardDismissMode", displayName: nil, cellConfiguration: { (cell, _, value) in
                 let mode = UIScrollViewKeyboardDismissMode(rawValue: value as! Int)!
                 cell.detailTextLabel?.text = mode.description
             })
@@ -48,7 +48,7 @@ extension UIScrollView {
         context.configure(.attributes, "Indicators") { (config) in
             config.addProperties([ "showsHorizontalScrollIndicator", "showsVerticalScrollIndicator" ])
             
-            config.addProperty("indicatorStyle", displayName: nil, cellConfiguration: { (cell, object, value) in
+            config.addProperty("indicatorStyle", displayName: nil, cellConfiguration: { (cell, _, value) in
                 let style = UIScrollViewIndicatorStyle(rawValue: value as! Int)!
                 cell.detailTextLabel?.text = style.description
             })

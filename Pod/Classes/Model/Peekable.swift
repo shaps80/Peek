@@ -151,8 +151,6 @@ extension NSLayoutConstraint: PeekSubPropertiesSupporting { }
 extension NSAttributedString: PeekSubPropertiesSupporting { }
 extension NSShadow: PeekSubPropertiesSupporting { }
 
-
-
 // This is a BAD name. What we really want to articulate here is that the scanner should stop at these views and not recurse deeper. Effectively treating these views as a leaf
 public protocol PeekContainer { }
 

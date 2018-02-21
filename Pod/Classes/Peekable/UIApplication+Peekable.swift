@@ -46,7 +46,7 @@ extension UIApplication {
             config.addProperties([ "statusBarFrame" ])
             config.addProperty("applicationIconBadgeNumber", displayName: "Icon Badge Number", cellConfiguration: nil)
             
-            let property = config.addProperty("bundle.supportedOrientations", displayName: nil, cellConfiguration: { (cell, object, value) in
+            let property = config.addProperty("bundle.supportedOrientations", displayName: nil, cellConfiguration: { (cell, _, value) in
                 let mask = UIInterfaceOrientationMask(rawValue: value as! UInt)
                 let image = Images.orientationMaskImage(mask)
                 cell.accessoryView = UIImageView(image: image)
