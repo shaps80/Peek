@@ -55,7 +55,7 @@ extension UIColor {
     }
     
     internal static var textLight: UIColor {
-        return UIColor(white: 1, alpha: 0.9)
+        return UIColor.white
     }
     
     internal static var editingTint: UIColor {
@@ -63,7 +63,7 @@ extension UIColor {
     }
     
     internal static var neutral: UIColor {
-        return UIColor(white: 0.6, alpha: 1)
+        return UIColor(white: 1, alpha: 0.6)
     }
     
     internal static var primaryTint: UIColor {

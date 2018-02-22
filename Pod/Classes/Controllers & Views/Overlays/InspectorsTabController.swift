@@ -45,14 +45,13 @@ internal final class InspectorsTabController: UITabBarController {
             tabBar.unselectedItemTintColor = .lightGray
         }
         
-        let inspector = InspectorViewController()
+        let inspector = InspectorViewController(model: model, context: context)
         let nav = UINavigationController(rootViewController: inspector)
         
         nav.navigationBar.shadowImage = UIImage()
         nav.navigationBar.setBackgroundImage(UIImage(), for: .default)
         nav.navigationBar.titleTextAttributes = [
-            .foregroundColor: UIColor.white.withAlphaComponent(0.8),
-            .font: UIFont.systemFont(ofSize: 17, weight: .regular)
+            .foregroundColor: UIColor.clear,
         ]
         
         inspector.title = "Overview"

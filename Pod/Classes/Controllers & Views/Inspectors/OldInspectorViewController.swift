@@ -29,7 +29,6 @@ final class OldInspectorViewController: UITableViewController {
     fileprivate unowned let peek: Peek
     fileprivate let model: Model
     fileprivate let dataSource: ContextDataSource
-    fileprivate var prototype = InspectorCell()
     
     init(peek: Peek, model: Model, dataSource: ContextDataSource) {
         self.peek = peek
@@ -115,11 +114,6 @@ final class OldInspectorViewController: UITableViewController {
     
     fileprivate func configureCell(_ cell: InspectorCell, forIndexPath indexPath: IndexPath) {
         let property = dataSource.propertyForIndexPath(indexPath)
-        
-        // FIXME: this is required atm for both copy: and slack:
-        cell.property = property
-        cell.model = model
-        cell.peek = peek
         
         cell.textLabel?.text = property.displayName
         cell.accessoryView = nil

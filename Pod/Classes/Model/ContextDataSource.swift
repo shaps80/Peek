@@ -41,7 +41,7 @@ final class ContextDataSource {
             categoryProperties.append(
                 properties
                     .filter { $0.category == category }
-                    .sorted { return $0.displayName < $1.displayName }
+//                    .sorted { return $0.displayName < $1.displayName }
             )
         }
     }

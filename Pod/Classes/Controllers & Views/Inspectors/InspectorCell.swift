@@ -26,29 +26,12 @@ import InkKit
 /// Defines an inspector's cell used to represent a Peek property
 final class InspectorCell: UITableViewCell {
     
-    weak var peek: Peek?
-    weak var property: Property?
-    weak var model: Model?
-    
     override var accessoryView: UIView? {
-        didSet {
-            setNeedsUpdateConstraints()
-        }
+        didSet { setNeedsUpdateConstraints() }
     }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .value1, reuseIdentifier: reuseIdentifier)
-        
-        selectedBackgroundView = UIView()
-        selectedBackgroundView?.backgroundColor = UIColor(white: 1, alpha: 0.07)
-        
-        backgroundColor = UIColor(white: 1, alpha: 0.03)
-        textLabel?.textColor = UIColor(white: 1, alpha: 0.6)
-        detailTextLabel?.textColor = UIColor.white
-        textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
-        detailTextLabel?.font = UIFont.preferredFont(forTextStyle: .body)
-        textLabel?.numberOfLines = 0
-        detailTextLabel?.numberOfLines = 0
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -67,44 +50,44 @@ final class InspectorCell: UITableViewCell {
         accessoryView?.backgroundColor = color
     }
     
-    fileprivate func metaData() -> MetaData {
-        guard let model = model else {
-            fatalError("Model should never be nil!")
-        }
-        
-        var metaData = MetaData()
-        
-        let object = MetaDataItem(key: "Object", value: "\(model.ObjClassName())")
-        let title = MetaDataItem(key: "Display Name", value: property?.displayName)
-        let keyPath = MetaDataItem(key: "Key Path", value: property?.keyPath)
-        let value = MetaDataItem(key: "Value", value: stringValue())
-        
-        metaData.property.items = [ object, title, keyPath, value ]
-        
-        if let meta = peek?.options.metaData {
-            for (key, value) in meta {
-                let item = MetaDataItem(key: key, value: value)
-                metaData.metaData.items.append(item)
-            }
-        }
-        
-        return metaData
-    }
+//    fileprivate func metaData() -> MetaData {
+//        guard let model = model else {
+//            fatalError("Model should never be nil!")
+//        }
+//
+//        var metaData = MetaData()
+//
+//        let object = MetaDataItem(key: "Object", value: "\(model.ObjClassName())")
+//        let title = MetaDataItem(key: "Display Name", value: property?.displayName)
+//        let keyPath = MetaDataItem(key: "Key Path", value: property?.keyPath)
+//        let value = MetaDataItem(key: "Value", value: stringValue())
+//
+//        metaData.property.items = [ object, title, keyPath, value ]
+//
+//        if let meta = peek?.options.metaData {
+//            for (key, value) in meta {
+//                let item = MetaDataItem(key: key, value: value)
+//                metaData.metaData.items.append(item)
+//            }
+//        }
+//
+//        return metaData
+//    }
     
-    fileprivate func stringValue() -> String? {
-        guard let model = self.model, let property = self.property else {
-            return nil
-        }
-        
-        if let value = detailTextLabel?.text {
-            return "\(value)"
-        }
-        
-        if let value = property.value(forModel: model) {
-            return "\(value)"
-        }
-        
-        return nil
-    }
+//    fileprivate func stringValue() -> String? {
+//        guard let model = self.model, let property = self.property else {
+//            return nil
+//        }
+//        
+//        if let value = detailTextLabel?.text {
+//            return "\(value)"
+//        }
+//        
+//        if let value = property.value(forModel: model) {
+//            return "\(value)"
+//        }
+//        
+//        return nil
+//    }
     
 }

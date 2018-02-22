@@ -56,7 +56,7 @@ extension UIView {
     public override func preparePeek(_ context: Context) {
         super.preparePeek(context)
         
-        context.configure(.view, "Accessibility") { config in
+        context.configure(.attributes, "Accessibility") { config in
             config.addProperties([
                 "accessibilityIdentifier",
                 "accessibilityHint",
@@ -67,12 +67,12 @@ extension UIView {
             ])
         }
         
-        context.configure(.layout, "General") { config in
+        context.configure(.attributes, "General") { config in
             config.addProperties([ "frame", "bounds", "center", "intrinsicContentSize", "alignmentRectInsets" ])
             config.addProperty("translatesAutoresizingMaskIntoConstraints", displayName: "Translates Resize Masks", cellConfiguration: nil)
         }
         
-        context.configure(.view, "Appearance") { (config) in
+        context.configure(.attributes, "Appearance") { (config) in
             config.addProperty("contentMode", displayName: nil, cellConfiguration: { (cell, _, value) in
                 if let mode = UIViewContentMode(rawValue: value as! Int) {
                     cell.detailTextLabel?.text = mode.description
@@ -80,11 +80,11 @@ extension UIView {
             })
         }
         
-        context.configure(.view, "Interaction") { config in
+        context.configure(.attributes, "Interaction") { config in
             config.addProperties([ "userInteractionEnabled", "multipleTouchEnabled", "exclusiveTouch" ])
         }
         
-        context.configure(.view, "Color") { config in
+        context.configure(.attributes, "Color") { config in
             config.addProperties([ "alpha", "backgroundColor", "tintColor" ])
             
             config.addProperty("tintAdjustmentMode", displayName: nil, cellConfiguration: { (cell, _, value) in
@@ -94,31 +94,31 @@ extension UIView {
             })
         }
         
-        context.configure(.view, "Drawing") { config in
+        context.configure(.attributes, "Drawing") { config in
             config.addProperties([ "opaque", "hidden", "clipsToBounds" ])
         }
         
-        context.configure(.view, "General") { config in
+        context.configure(.attributes, "General") { config in
             config.addProperties([ "tag", "class", "superclass" ])
         }
         
-        context.configure(.layout, "Layer") { (config) in
+        context.configure(.attributes, "Layer") { (config) in
             config.addProperties([ "layer.position", "layer.anchorPoint", "layer.zPosition", "layer.geometryFlipped", "layer.anchorPointZ", ])
         }
         
         guard !translatesAutoresizingMaskIntoConstraints else { return }
         
-        context.configure(.layout, "Content Hugging Priority") { (config) in
+        context.configure(.attributes, "Content Hugging Priority") { (config) in
             config.addProperty("horizontalContentHuggingPriority", displayName: "Horizontal", cellConfiguration: nil)
             config.addProperty("verticalContentHuggingPriority", displayName: "Vertical", cellConfiguration: nil)
         }
         
-        context.configure(.layout, "Content Compression Resistance") { (config) in
+        context.configure(.attributes, "Content Compression Resistance") { (config) in
             config.addProperty("horizontalContentCompressionResistance", displayName: "Horizontal", cellConfiguration: nil)
             config.addProperty("verticalContentCompressionResistance", displayName: "Vertical", cellConfiguration: nil)
         }
         
-        context.configure(.layout, "Constraints") { (config) in
+        context.configure(.attributes, "Constraints") { (config) in
             config.addProperty("horizontalConstraints", displayName: "Horizontal", cellConfiguration: nil)
             config.addProperty("verticalConstraints", displayName: "Vertical", cellConfiguration: nil)
             config.addProperties(["hasAmbiguousLayout"])

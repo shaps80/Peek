@@ -26,7 +26,7 @@ import UIKit
 final class ColorAccessoryView: UIView {
     
     fileprivate let value: UIColor?
-    fileprivate let size = CGSize(width: 24, height: 14)
+    fileprivate let size = CGSize(width: 20, height: 20)
     private let margin: CGFloat = 8
     
     init(value: UIColor?) {
@@ -40,7 +40,7 @@ final class ColorAccessoryView: UIView {
         view.isOpaque = true
         
         view.layer.cornerRadius = size.height / 2
-        view.layer.borderColor = UIColor(white: 1, alpha: 0.5).cgColor
+        view.layer.borderColor = UIColor(white: 1, alpha: 0.1).cgColor
         view.layer.borderWidth = 1
         addSubview(view)
     }

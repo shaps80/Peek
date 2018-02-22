@@ -25,7 +25,7 @@ import UIKit
 /// This accessory view is used in Peek to show a 'switch' representing the underlying Bool value
 final class BoolAccessoryView: UIView {
     
-    fileprivate let size = CGSize(width: 26, height: 16)
+    fileprivate let size = CGSize(width: 30, height: 20)
     fileprivate let value: Bool
     
     init(value: Bool) {
@@ -50,12 +50,12 @@ final class BoolAccessoryView: UIView {
         var fgPath: UIBezierPath
         
         if value {
-            bgColor = UIColor(white: 1, alpha: 1)
-            fgColor = UIColor.secondaryColor()
+            bgColor = UIColor(white: 1, alpha: 0.2)
+            fgColor = .primaryTint
             fgPath = UIBezierPath(ovalIn: CGRect(x: rect.maxX - rect.height, y: rect.minY, width: rect.height, height: rect.height))
         } else {
-            bgColor = UIColor(white: 1, alpha: 0.3)
-            fgColor = UIColor(white: 1, alpha: 0.5)
+            bgColor = UIColor(white: 1, alpha: 0.2)
+            fgColor = .neutral
             fgPath = UIBezierPath(ovalIn: CGRect(x: rect.minX, y: rect.minY, width: rect.height, height: rect.height))
         }
         
