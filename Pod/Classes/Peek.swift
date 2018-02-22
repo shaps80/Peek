@@ -84,7 +84,7 @@ public final class Peek: NSObject {
         window = UIWindow()
         window?.backgroundColor = UIColor.clear
         window?.frame = peekingWindow.bounds
-        window?.windowLevel = UIWindowLevelStatusBar
+        window?.windowLevel = UIWindowLevelNormal
         window?.alpha = 0
         
         window?.rootViewController = PeekViewController(peek: self)

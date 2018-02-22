@@ -110,6 +110,10 @@ internal final class InspectorsPresentationController: UIPresentationController,
             dimmingView.backgroundColor = dimmedColor
             dimmingView.isOpaque = false
             dimmingView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(dismiss))
+            dimmingView.addGestureRecognizer(gesture)
+            
             self.dimmingView = dimmingView
             containerView?.addSubview(dimmingView)
             
@@ -122,6 +126,10 @@ internal final class InspectorsPresentationController: UIPresentationController,
                 self.dimmingView?.alpha = self.dimmedAlpha
             }, completion: nil)
         }
+    }
+    
+    @objc private func dismiss() {
+        presentedViewController.dismiss(animated: true, completion: nil)
     }
     
     //| ----------------------------------------------------------------------------

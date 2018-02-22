@@ -40,6 +40,8 @@ extension InspectorViewController {
     
     private func prepareNavigationItems(animated: Bool) {
         if tableView.isEditing {
+            tableView.allowsMultipleSelection = true
+            
             let cancel = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(endReport))
             navigationItem.setLeftBarButton(cancel, animated: animated)
             
@@ -51,8 +53,11 @@ extension InspectorViewController {
                 self.navigationController?.navigationBar.tintColor = .white
             }
         } else {
+            tableView.allowsMultipleSelection = false
+            
 //            let settings = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(showSettings))
 //            navigationItem.setLeftBarButton(settings, animated: animated)
+            navigationItem.setLeftBarButton(nil, animated: animated)
             
             let report = UIBarButtonItem(title: "Report", style: .plain, target: self, action: #selector(beginReport))
             navigationItem.setRightBarButton(report, animated: animated)
@@ -125,6 +130,9 @@ extension InspectorViewController {
         tableView.estimatedSectionFooterHeight = 0
         tableView.allowsSelectionDuringEditing = true
         tableView.backgroundColor = .inspectorBackground
+        tableView.separatorColor = UIColor(white: 1, alpha: 0.1)
+        tableView.delegate = self
+        tableView.dataSource = self
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
@@ -138,12 +146,13 @@ extension InspectorViewController {
 
 extension InspectorViewController: UITableViewDelegate {
     
+    
 }
 
 extension InspectorViewController: UITableViewDataSource {
     
     public func numberOfSections(in tableView: UITableView) -> Int {
-        return 0
+        return 1
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -153,6 +162,9 @@ extension InspectorViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         cell.textLabel?.text = "\(indexPath)"
+        cell.textLabel?.textColor = UIColor(white: 0.9, alpha: 1)
+        cell.backgroundColor = .clear
+        cell.contentView.backgroundColor = .clear
         return cell
     }
     
