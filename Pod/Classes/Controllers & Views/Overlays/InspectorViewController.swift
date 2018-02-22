@@ -14,6 +14,8 @@ internal final class InspectorViewController: UIViewController {
     private var navigationBarEffectsView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     private var tabBarEffectsView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     
+    private var selectedAttributes: [String] = []
+    
     internal init() {
         tableView = UITableView(frame: .zero, style: .grouped)
         super.init(nibName: nil, bundle: nil)
@@ -39,22 +41,23 @@ internal final class InspectorViewController: UIViewController {
 extension InspectorViewController {
     
     private func prepareNavigationItems(animated: Bool) {
+        selectedAttributes.removeAll()
+        
         if tableView.isEditing {
-            tableView.allowsMultipleSelection = true
-            
             let cancel = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(endReport))
             navigationItem.setLeftBarButton(cancel, animated: animated)
             
             let send = UIBarButtonItem(title: "Send", style: .plain, target: self, action: #selector(sendReport))
+            send.isEnabled = false
             navigationItem.setRightBarButton(send, animated: animated)
             
             UIView.animate(withDuration: animated ? 0.25 : 0) {
                 self.navigationBarEffectsView.backgroundColor = .editingTint
                 self.navigationController?.navigationBar.tintColor = .white
             }
-        } else {
-            tableView.allowsMultipleSelection = false
             
+            tableView.tintColor = .editingTint
+        } else {
 //            let settings = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(showSettings))
 //            navigationItem.setLeftBarButton(settings, animated: animated)
             navigationItem.setLeftBarButton(nil, animated: animated)
@@ -63,9 +66,11 @@ extension InspectorViewController {
             navigationItem.setRightBarButton(report, animated: animated)
             
             UIView.animate(withDuration: animated ? 0.25 : 0) {
-                self.navigationBarEffectsView.backgroundColor = .inspectorBackground
+                self.navigationBarEffectsView.backgroundColor = nil
                 self.navigationController?.navigationBar.tintColor = .secondaryTint
             }
+            
+            tableView.tintColor = .primaryTint
         }
     }
     
@@ -75,7 +80,7 @@ extension InspectorViewController {
     }
     
     @objc private func sendReport() {
-        let sheet = UIActivityViewController(activityItems: ["Peek"], applicationActivities: nil)
+        let sheet = UIActivityViewController(activityItems: selectedAttributes, applicationActivities: nil)
         
         sheet.completionWithItemsHandler = { [weak self] type, success, activities, error in
             if success {
@@ -128,11 +133,13 @@ extension InspectorViewController {
         tableView.estimatedRowHeight = 44
         tableView.estimatedSectionHeaderHeight = 44
         tableView.estimatedSectionFooterHeight = 0
-        tableView.allowsSelectionDuringEditing = true
+        
         tableView.backgroundColor = .inspectorBackground
         tableView.separatorColor = UIColor(white: 1, alpha: 0.1)
         tableView.delegate = self
         tableView.dataSource = self
+        
+        tableView.allowsMultipleSelectionDuringEditing = true
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
@@ -146,25 +153,47 @@ extension InspectorViewController {
 
 extension InspectorViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedAttributes.append("\(indexPath)")
+        invalidateSendButton()
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if let index = selectedAttributes.index(of: "\(indexPath)") {
+            selectedAttributes.remove(at: index)
+        }
+        
+        invalidateSendButton()
+    }
+    
+    private func invalidateSendButton() {
+        navigationItem.rightBarButtonItem?.isEnabled = selectedAttributes.count > 0
+    }
     
 }
 
 extension InspectorViewController: UITableViewDataSource {
     
-    public func numberOfSections(in tableView: UITableView) -> Int {
+    internal func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 50
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let selectedView = UIView()
+        
+        selectedView.backgroundColor = UIColor(white: 1, alpha: 0.1)
+        cell.selectedBackgroundView = selectedView
+        
         cell.textLabel?.text = "\(indexPath)"
-        cell.textLabel?.textColor = UIColor(white: 0.9, alpha: 1)
+        cell.textLabel?.textColor = .textLight
         cell.backgroundColor = .clear
         cell.contentView.backgroundColor = .clear
+        
         return cell
     }
     

@@ -106,7 +106,7 @@ final class HighlightView: UIView {
     
     func setValue(_ value: CGFloat, forMetricsLabel label: MetricLabel) {
         if value != 0 {
-            label.text = MetricLabel.formatter.string(from: NSNumber(value: Float(value)))
+            label.label.text = MetricLabel.formatter.string(from: NSNumber(value: Float(value)))
             label.isHidden = false
         } else {
             label.isHidden = true
@@ -116,7 +116,7 @@ final class HighlightView: UIView {
 }
 
 /// Defines a label that will be used to represent a metric in the overlay view's
-final class MetricLabel: UILabel {
+final class MetricLabel: UIVisualEffectView {
     
     static let formatter: NumberFormatter = {
         let formatter = NumberFormatter()
@@ -126,30 +126,33 @@ final class MetricLabel: UILabel {
         return formatter
     }()
     
+    fileprivate let label: UILabel
+    
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        fatalError()
     }
     
     init() {
-        super.init(frame: CGRect.zero)
+        label = UILabel(frame: .zero)
+        label.font = UIFont.systemFont(ofSize: 10, weight: .semibold)
+        //        label.backgroundColor = UIColor(white: 1, alpha: 0.3) // UIColor.primaryColor()
+        label.textColor = .textDark
+        label.textAlignment = .center
         
-        font = UIFont.systemFont(ofSize: 10, weight: .semibold)
-        backgroundColor = UIColor.primaryColor()
-        textColor = UIColor.black
-        layer.masksToBounds = true
+        label.setContentCompressionResistancePriority(.required, for: .horizontal)
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
+        
+        label.setContentHuggingPriority(.required, for: .horizontal)
+        label.setContentHuggingPriority(.required, for: .vertical)
+        
+        super.init(effect: UIBlurEffect(style: .extraLight))
         layer.cornerRadius = 3
-        textAlignment = .center
+        layer.masksToBounds = true
         
-        setContentCompressionResistancePriority(.required, for: .horizontal)
-        setContentCompressionResistancePriority(.required, for: .vertical)
-        
-        setContentHuggingPriority(.required, for: .horizontal)
-        setContentHuggingPriority(.required, for: .vertical)
-    }
-    
-    override var intrinsicContentSize: CGSize {
-        let size = super.intrinsicContentSize
-        return CGSize(width: size.width + 4, height: size.height + 2)
+        contentView.addSubview(label, constraints: [
+            equal(\.leadingAnchor, constant: -2), equal(\.trailingAnchor, constant: 2),
+            equal(\.topAnchor, constant: -1), equal(\.bottomAnchor, constant: 1)
+        ])
     }
     
 }

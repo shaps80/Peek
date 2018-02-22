@@ -50,12 +50,24 @@ extension UIColor {
         return Color(hex: "1c1c1c")!.uiColor
     }
     
+    internal static var textDark: UIColor {
+        return Color(hex: "1c1c1c")!.uiColor
+    }
+    
+    internal static var textLight: UIColor {
+        return UIColor(white: 1, alpha: 0.9)
+    }
+    
     internal static var editingTint: UIColor {
         return Color(hex: "EE0000")!.uiColor
     }
     
     internal static var neutral: UIColor {
         return UIColor(white: 0.6, alpha: 1)
+    }
+    
+    internal static var primaryTint: UIColor {
+        return primaryColor()
     }
     
     internal static var secondaryTint: UIColor {
