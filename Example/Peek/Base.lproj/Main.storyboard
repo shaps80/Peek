@@ -37,7 +37,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="3Am-cC-9pB">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
-                                <color key="backgroundColor" red="0.1333333333" green="0.13725490200000001" blue="0.1450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.93333333330000001" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="jP9-7z-EMF">
                                     <size key="itemSize" width="75" height="70"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -83,7 +83,7 @@
                                                 </view>
                                             </subviews>
                                         </view>
-                                        <color key="backgroundColor" red="0.1333333333" green="0.13725490200000001" blue="0.1450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.93333333330000001" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstItem="IFI-BE-J7u" firstAttribute="top" secondItem="YI8-ch-Ga0" secondAttribute="bottom" constant="5" id="2s3-bA-XzA"/>
                                             <constraint firstAttribute="trailing" secondItem="Rd5-Hv-deW" secondAttribute="trailing" id="4ND-FI-Jhe"/>

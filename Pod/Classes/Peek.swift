@@ -47,7 +47,6 @@ public final class Peek: NSObject {
     /// The status bar style of the underlying app -- used to reset values when Peek is deactivated
     var previousStatusBarStyle = UIStatusBarStyle.default
     /// The status bar style of the underlying app -- used to reset values when Peek is deactivated
-    var previousStatusBarHidden = false
     var supportedOrientations = UIInterfaceOrientationMask.all
     unowned var peekingWindow: UIWindow // since this is the app's window, we don't want to retain it!
     
@@ -77,14 +76,13 @@ public final class Peek: NSObject {
         
         supportedOrientations = peekingWindow.rootViewController?.topViewController().supportedInterfaceOrientations ?? .all
         previousStatusBarStyle = UIApplication.shared.statusBarStyle
-        previousStatusBarHidden = UIApplication.shared.isStatusBarHidden
         
         peekingWindow.endEditing(true)
         
         window = UIWindow()
         window?.backgroundColor = UIColor.clear
         window?.frame = peekingWindow.bounds
-        window?.windowLevel = UIWindowLevelNormal
+        window?.windowLevel = UIWindowLevelStatusBar
         window?.alpha = 0
         
         window?.rootViewController = PeekViewController(peek: self)

@@ -210,7 +210,7 @@ internal final class InspectorsPresentationController: UIPresentationController,
             return super.size(forChildContentContainer: container, withParentContainerSize: parentSize)
         }
         
-        let width = min(UIScreen.main.nativeBounds.width / UIScreen.main.nativeScale, parentSize.width)
+        let width = parentSize.width
         let height = parentSize.height - UIApplication.shared.statusBarFrame.height
         return CGSize(width: width, height: height)
     }
@@ -295,7 +295,7 @@ internal final class InspectorsPresentationController: UIPresentationController,
         
         let transitionDuration = self.transitionDuration(using: transitionContext)
         
-        UIView.animate(withDuration: transitionDuration, delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 1, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
+        UIView.animate(withDuration: transitionDuration, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 2, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
             if isPresenting {
                 toView?.transform = .identity
                 toView?.alpha = 1
@@ -356,11 +356,9 @@ internal final class InspectorsPresentationController: UIPresentationController,
 extension NSShadow {
     public static var modal: NSShadow {
         let shadow = NSShadow()
-        shadow.shadowOffset = .zero
-        shadow.shadowBlurRadius = 30
-        shadow.shadowColor = UIDevice.current.userInterfaceIdiom == .pad
-            ? UIColor(white: 0, alpha: 0.4)
-            : UIColor(white: 0, alpha: 0.6)
+        shadow.shadowOffset = CGSize(width: 0, height: -2)
+        shadow.shadowBlurRadius = 10
+        shadow.shadowColor = UIColor(white: 0, alpha: 0.75)
         return shadow
     }
 }

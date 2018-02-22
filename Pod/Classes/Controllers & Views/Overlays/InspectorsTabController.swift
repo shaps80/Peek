@@ -20,6 +20,12 @@ internal final class InspectorsTabController: UITabBarController {
         self.peek = peek
         self.context = PeekContext()
         
+        if let view = model as? UIView {
+            view.preparePeek(context)
+            view.layer.preparePeek(context)
+            view.owningViewController()?.preparePeek(context)
+        }
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -42,20 +48,34 @@ internal final class InspectorsTabController: UITabBarController {
         let inspector = InspectorViewController()
         let nav = UINavigationController(rootViewController: inspector)
         
+        nav.navigationBar.shadowImage = UIImage()
+        nav.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        nav.navigationBar.titleTextAttributes = [
+            .foregroundColor: UIColor.white.withAlphaComponent(0.8),
+            .font: UIFont.systemFont(ofSize: 17, weight: .regular)
+        ]
+        
         inspector.title = "Overview"
-        inspector.tableView.backgroundColor = .inspectorBackground
         
         if #available(iOS 11.0, *) {
             nav.navigationBar.prefersLargeTitles = true
+            nav.navigationBar.largeTitleTextAttributes = [
+                .foregroundColor: UIColor.white
+            ]
         }
         
-        nav.navigationBar.barStyle = .black
-        nav.navigationBar.barTintColor = .inspectorBackground
-        nav.navigationBar.tintColor = .white
-        nav.navigationBar.shadowImage = UIImage()
-        nav.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        
         viewControllers = [nav]
+    }
+    
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        if let index = tabBar.items?.index(of: item) {
+            guard let nav = viewControllers?[index] as? UINavigationController,
+                let inspector = nav.viewControllers.first as? InspectorViewController else {
+                    fatalError()
+            }
+            
+            print(inspector)
+        }
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {

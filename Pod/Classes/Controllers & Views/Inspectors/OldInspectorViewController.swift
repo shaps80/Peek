@@ -246,10 +246,6 @@ final class OldInspectorViewController: UITableViewController {
         return peek.supportedOrientations
     }
     
-    override var prefersStatusBarHidden: Bool {
-        return peek.previousStatusBarHidden
-    }
-    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return peek.previousStatusBarStyle
     }

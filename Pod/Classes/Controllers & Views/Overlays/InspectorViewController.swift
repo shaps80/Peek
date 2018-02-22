@@ -11,6 +11,8 @@ import UIKit
 internal final class InspectorViewController: UIViewController {
     
     internal let tableView: UITableView
+    private var navigationBarEffectsView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+    private var tabBarEffectsView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     
     internal init() {
         tableView = UITableView(frame: .zero, style: .grouped)
@@ -20,45 +22,116 @@ internal final class InspectorViewController: UIViewController {
     internal override func viewDidLoad() {
         super.viewDidLoad()
         
-//        let redView = UIView(frame: view.bounds)
-//        view.addSubview(redView)
         prepareTableView()
-        prepareNavigationBar()
         prepareTabBar()
+        prepareNavigationBar()
+        prepareNavigationItems(animated: false)
     }
     
+    // MARK: Unused
+    internal required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}
+
+// MARK: - Reporting
+extension InspectorViewController {
+    
+    private func prepareNavigationItems(animated: Bool) {
+        if tableView.isEditing {
+            let cancel = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(endReport))
+            navigationItem.setLeftBarButton(cancel, animated: animated)
+            
+            let send = UIBarButtonItem(title: "Send", style: .plain, target: self, action: #selector(sendReport))
+            navigationItem.setRightBarButton(send, animated: animated)
+            
+            UIView.animate(withDuration: animated ? 0.25 : 0) {
+                self.navigationBarEffectsView.backgroundColor = .editingTint
+                self.navigationController?.navigationBar.tintColor = .white
+            }
+        } else {
+//            let settings = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(showSettings))
+//            navigationItem.setLeftBarButton(settings, animated: animated)
+            
+            let report = UIBarButtonItem(title: "Report", style: .plain, target: self, action: #selector(beginReport))
+            navigationItem.setRightBarButton(report, animated: animated)
+            
+            UIView.animate(withDuration: animated ? 0.25 : 0) {
+                self.navigationBarEffectsView.backgroundColor = .inspectorBackground
+                self.navigationController?.navigationBar.tintColor = .secondaryTint
+            }
+        }
+    }
+    
+    @objc private func beginReport() {
+        tableView.setEditing(true, animated: true)
+        prepareNavigationItems(animated: true)
+    }
+    
+    @objc private func sendReport() {
+        let sheet = UIActivityViewController(activityItems: ["Peek"], applicationActivities: nil)
+        
+        sheet.completionWithItemsHandler = { [weak self] type, success, activities, error in
+            if success {
+                self?.endReport()
+            }
+        }
+        
+        present(sheet, animated: true, completion: nil)
+    }
+    
+    @objc private func endReport() {
+        tableView.setEditing(false, animated: true)
+        prepareNavigationItems(animated: true)
+    }
+    
+    @objc private func showSettings() {
+        print("Show settings no implemented")
+    }
+    
+}
+
+// MARK: - Bars
+extension InspectorViewController {
+    
+    private func prepareNavigationBar() {
+        view.addSubview(navigationBarEffectsView, constraints: [
+            equal(\.leadingAnchor), equal(\.trailingAnchor), equal(\.topAnchor)
+        ])
+        
+        topLayoutGuide.bottomAnchor.constraint(equalTo: navigationBarEffectsView.bottomAnchor, constant: 0).isActive = true
+    }
+    
+    private func prepareTabBar() {
+        view.addSubview(tabBarEffectsView, constraints: [
+            equal(\.leadingAnchor), equal(\.trailingAnchor), equal(\.bottomAnchor)
+        ])
+        
+        bottomLayoutGuide.topAnchor.constraint(equalTo: tabBarEffectsView.topAnchor, constant: 0).isActive = true
+    }
+    
+}
+
+// MARK: - Table View Prep
+extension InspectorViewController {
+    
     private func prepareTableView() {
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.sectionHeaderHeight = UITableViewAutomaticDimension
+        tableView.sectionFooterHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 44
+        tableView.estimatedSectionHeaderHeight = 44
+        tableView.estimatedSectionFooterHeight = 0
+        tableView.allowsSelectionDuringEditing = true
+        tableView.backgroundColor = .inspectorBackground
+        
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
         view.addSubview(tableView, constraints: [
             equal(\.leadingAnchor), equal(\.trailingAnchor),
             equal(\.bottomAnchor), equal(\.topAnchor)
         ])
-    }
-    
-    private func prepareNavigationBar() {
-        let effectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
-        
-        view.addSubview(effectView, constraints: [
-            equal(\.leadingAnchor), equal(\.trailingAnchor), equal(\.topAnchor)
-        ])
-        
-        topLayoutGuide.bottomAnchor.constraint(equalTo: effectView.bottomAnchor, constant: 0).isActive = true
-    }
-    
-    private func prepareTabBar() {
-        let effectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
-        
-        view.addSubview(effectView, constraints: [
-            equal(\.leadingAnchor), equal(\.trailingAnchor), equal(\.bottomAnchor)
-            ])
-        
-        bottomLayoutGuide.topAnchor.constraint(equalTo: effectView.topAnchor, constant: 0).isActive = true
-    }
-    
-    // MARK: Unused
-    internal required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
 }

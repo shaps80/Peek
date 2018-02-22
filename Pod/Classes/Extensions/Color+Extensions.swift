@@ -31,13 +31,15 @@ extension UIColor {
         return UIColor(red: r + d, green: g + d, blue: b + d, alpha: a)
     }
     
+    @available(*, deprecated)
     class func neutralColor() -> UIColor {
         return UIColor(white: 0.6, alpha: 1)
     }
     
+    @available(*, deprecated)
     class func primaryColor() -> UIColor {
-        return Color(hex: "2be13c")!.uiColor
-//        return UIColor.colorWithRed(red: 135, green: 252, blue: 112, alpha: 1)
+//        return Color(hex: "2be13c")!.uiColor
+        return UIColor.colorWithRed(red: 135, green: 252, blue: 112, alpha: 1)
     }
     
     class func overlayColor() -> UIColor {
@@ -45,9 +47,23 @@ extension UIColor {
     }
     
     internal static var inspectorBackground: UIColor {
-        return Color(hex: "111111")!.uiColor
+        return Color(hex: "1c1c1c")!.uiColor
     }
     
+    internal static var editingTint: UIColor {
+        return Color(hex: "EE0000")!.uiColor
+    }
+    
+    internal static var neutral: UIColor {
+        return UIColor(white: 0.6, alpha: 1)
+    }
+    
+    internal static var secondaryTint: UIColor {
+        return primaryColor()
+//        return UIColor.colorWithRed(red: 255, green: 41, blue: 105, alpha: 1)
+    }
+    
+    @available(*, deprecated)
     class func secondaryColor() -> UIColor {
         return UIColor.colorWithRed(red: 255, green: 41, blue: 105, alpha: 1)
     }

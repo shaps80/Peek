@@ -188,10 +188,6 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
         return peek.supportedOrientations
     }
     
-    override var prefersStatusBarHidden: Bool {
-        return peek.previousStatusBarHidden
-    }
-    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return peek.previousStatusBarStyle
     }

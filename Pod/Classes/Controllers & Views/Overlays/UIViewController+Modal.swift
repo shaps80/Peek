@@ -19,7 +19,7 @@ extension UIViewController {
             viewControllerToPresent.popoverPresentationController?.sourceView = sourceView
             viewControllerToPresent.popoverPresentationController?.backgroundColor = .clear
             viewControllerToPresent.popoverPresentationController?.permittedArrowDirections = .any
-            viewControllerToPresent.popoverPresentationController?.backgroundColor = .inspectorBackground   
+            viewControllerToPresent.popoverPresentationController?.backgroundColor = .inspectorBackground
             viewControllerToPresent.preferredContentSize = CGSize(width: 375, height: 667)
             present(viewControllerToPresent, animated: true, completion: nil)
             
