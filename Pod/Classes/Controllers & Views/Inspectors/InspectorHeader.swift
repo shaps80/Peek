@@ -34,9 +34,10 @@ final class InspectorHeader: UIView {
         
         var headerImage: UIImage?
         
-        if image.renderingMode == .alwaysTemplate {
+        switch image.renderingMode {
+        case .alwaysTemplate, .automatic:
             headerImage = image.withRenderingMode(.alwaysTemplate)
-        } else {
+        case .alwaysOriginal:
             headerImage = image
         }
         

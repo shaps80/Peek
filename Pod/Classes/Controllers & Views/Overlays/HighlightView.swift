@@ -57,66 +57,66 @@ final class HighlightView: UIView {
         layer.borderWidth = 1
     }
     
-    fileprivate(set) lazy var leftMetricLabel: MetricLabel = {
-        let label = MetricLabel()
-        self.addSubview(label)
+    fileprivate(set) lazy var leftMetricView: MetricView = {
+        let view = MetricView()
+        self.addSubview(view)
         
-        label.align(axis: .vertical, to: self)
-        label.pin(edge: .right, to: .left, of: self, margin: 2)
+        view.align(axis: .vertical, to: self)
+        view.pin(edge: .right, to: .left, of: self, margin: 2)
         
-        return label
+        return view
     }()
     
-    fileprivate(set) lazy var topMetricLabel: MetricLabel = {
-        let label = MetricLabel()
-        self.addSubview(label)
+    fileprivate(set) lazy var topMetricView: MetricView = {
+        let view = MetricView()
+        self.addSubview(view)
         
-        label.align(axis: .horizontal, to: self)
-        label.pin(edge: .bottom, to: .top, of: self, margin: 2)
+        view.align(axis: .horizontal, to: self)
+        view.pin(edge: .bottom, to: .top, of: self, margin: 2)
         
-        return label
+        return view
     }()
     
-    fileprivate(set) lazy var rightMetricLabel: MetricLabel = {
-        let label = MetricLabel()
-        self.addSubview(label)
+    fileprivate(set) lazy var rightMetricView: MetricView = {
+        let view = MetricView()
+        self.addSubview(view)
         
-        label.align(axis: .vertical, to: self)
-        label.pin(edge: .left, to: .right, of: self, margin: 2)
+        view.align(axis: .vertical, to: self)
+        view.pin(edge: .left, to: .right, of: self, margin: 2)
         
-        return label
+        return view
     }()
     
-    fileprivate(set) lazy var bottomMetricLabel: MetricLabel = {
-        let label = MetricLabel()
-        self.addSubview(label)
+    fileprivate(set) lazy var bottomMetricView: MetricView = {
+        let view = MetricView()
+        self.addSubview(view)
         
-        label.align(axis: .horizontal, to: self)
-        label.pin(edge: .top, to: .bottom, of: self, margin: 2)
+        view.align(axis: .horizontal, to: self)
+        view.pin(edge: .top, to: .bottom, of: self, margin: 2)
         
-        return label
+        return view
     }()
     
     func setMetrics(_ metrics: Metrics) {
-        setValue(metrics.left, forMetricsLabel: leftMetricLabel)
-        setValue(metrics.right, forMetricsLabel: rightMetricLabel)
-        setValue(metrics.top, forMetricsLabel: topMetricLabel)
-        setValue(metrics.bottom, forMetricsLabel: bottomMetricLabel)
+        setValue(metrics.left, forMetricsView: leftMetricView)
+        setValue(metrics.right, forMetricsView: rightMetricView)
+        setValue(metrics.top, forMetricsView: topMetricView)
+        setValue(metrics.bottom, forMetricsView: bottomMetricView)
     }
     
-    func setValue(_ value: CGFloat, forMetricsLabel label: MetricLabel) {
+    func setValue(_ value: CGFloat, forMetricsView view: MetricView) {
         if value != 0 {
-            label.label.text = MetricLabel.formatter.string(from: NSNumber(value: Float(value)))
-            label.isHidden = false
+            view.label.text = MetricView.formatter.string(from: NSNumber(value: Float(value)))
+            view.isHidden = false
         } else {
-            label.isHidden = true
+            view.isHidden = true
         }
     }
     
 }
 
 /// Defines a label that will be used to represent a metric in the overlay view's
-final class MetricLabel: UIVisualEffectView {
+final class MetricView: UIVisualEffectView {
     
     static let formatter: NumberFormatter = {
         let formatter = NumberFormatter()
@@ -135,7 +135,6 @@ final class MetricLabel: UIVisualEffectView {
     init() {
         label = UILabel(frame: .zero)
         label.font = UIFont.systemFont(ofSize: 10, weight: .semibold)
-        //        label.backgroundColor = UIColor(white: 1, alpha: 0.3) // UIColor.primaryColor()
         label.textColor = .textDark
         label.textAlignment = .center
         
