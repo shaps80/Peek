@@ -120,7 +120,6 @@ internal final class InspectorsPresentationController: UIPresentationController,
             dimmingView.alpha = 0.0
             transitionCoordinator?.animate(alongsideTransition: { _ in
                 self.dimmingView?.alpha = self.dimmedAlpha
-                //                LightTheme.applyLightStatusBar()
             }, completion: nil)
         }
     }
@@ -149,7 +148,6 @@ internal final class InspectorsPresentationController: UIPresentationController,
         
         transitionCoordinator?.animate(alongsideTransition: { _ in
             self.dimmingView?.alpha = 0.0
-            //            LightTheme.applyDarkStatusBar()
         }, completion: nil)
     }
     
@@ -211,7 +209,7 @@ internal final class InspectorsPresentationController: UIPresentationController,
         }
         
         let width = parentSize.width
-        let height = parentSize.height - UIApplication.shared.statusBarFrame.height
+        let height = parentSize.height - max(UIApplication.shared.statusBarFrame.height, 20)
         return CGSize(width: width, height: height)
     }
     
@@ -223,11 +221,12 @@ internal final class InspectorsPresentationController: UIPresentationController,
         // The presented view extends presentedViewContentSize.height points from
         // the bottom edge of the screen.
         var presentedViewControllerFrame = containerViewBounds
+        let statusBarHeight = max(UIApplication.shared.statusBarFrame.height, 20)
         
         presentedViewControllerFrame.size = presentedViewContentSize
         presentedViewControllerFrame.origin.x = (containerViewBounds.width - presentedViewControllerFrame.width) / 2
-        presentedViewControllerFrame.size.height -= 20
-        presentedViewControllerFrame.origin.y = containerViewBounds.maxY - presentedViewContentSize.height + 20
+        presentedViewControllerFrame.size.height -= statusBarHeight
+        presentedViewControllerFrame.origin.y = containerViewBounds.maxY - presentedViewContentSize.height + statusBarHeight
         
         return presentedViewControllerFrame
     }
