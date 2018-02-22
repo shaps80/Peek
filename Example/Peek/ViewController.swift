@@ -75,6 +75,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         return .lightContent
     }
     
+    override var prefersStatusBarHidden: Bool {
+        return false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
