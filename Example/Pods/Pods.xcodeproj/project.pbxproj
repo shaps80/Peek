@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 47;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -297,9 +297,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		017F7DE7AD25A61BB69B03E4DC47A3E3 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		017F7DE7AD25A61BB69B03E4DC47A3E3 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		01AD904696C57C79CF166C324B3E2B98 /* PDFRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PDFRenderer.swift; path = GraphicsRenderer/Classes/PDFRenderer.swift; sourceTree = "<group>"; };
-		02065B5230DCE485C7534E6AA057584B /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "OpenSans-Italic.ttf"; path = "Fonts/OpenSans-Italic.ttf"; sourceTree = "<group>"; };
+		02065B5230DCE485C7534E6AA057584B /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "OpenSans-Italic.ttf"; path = "Fonts/OpenSans-Italic.ttf"; sourceTree = "<group>"; };
 		03B2AEF395626C3C8B5083EC582E91CE /* POPAnimationEvent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPAnimationEvent.h; path = pop/POPAnimationEvent.h; sourceTree = "<group>"; };
 		042253168CDEE40209271C8EE310A9EB /* Transforms+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Transforms+Extensions.swift"; path = "Pod/Classes/Transforms+Extensions.swift"; sourceTree = "<group>"; };
 		052A0A6E7AFE1A9BD3303DC4A2EAC171 /* GridLayout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GridLayout.swift; path = Pod/Classes/GridLayout.swift; sourceTree = "<group>"; };
@@ -317,7 +317,7 @@
 		1215CDB88E770FC576A08FB5A5A9B808 /* MultipleViews+Align.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "MultipleViews+Align.swift"; path = "Pod/Classes/MultipleViews+Align.swift"; sourceTree = "<group>"; };
 		1335C99A334E0691BE17FC97258CC7C8 /* Peek+Private.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Peek+Private.swift"; sourceTree = "<group>"; };
 		13935DA2616D0AF29D4718ADCFBFA968 /* Constraint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Constraint.swift; path = Pod/Classes/Constraint.swift; sourceTree = "<group>"; };
-		145817850E695E4589D2CDC6C3D0D0D0 /* POPAnimationTracer.mm */ = {isa = PBXFileReference; includeInIndex = 1; name = POPAnimationTracer.mm; path = pop/POPAnimationTracer.mm; sourceTree = "<group>"; };
+		145817850E695E4589D2CDC6C3D0D0D0 /* POPAnimationTracer.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPAnimationTracer.mm; path = pop/POPAnimationTracer.mm; sourceTree = "<group>"; };
 		14F643E5F912232D25FBFCD140C27716 /* UIColor+Transformer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIColor+Transformer.swift"; sourceTree = "<group>"; };
 		16039DA5CF2CA5A3A462C4AC7537E84B /* BoolAccessoryView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BoolAccessoryView.swift; sourceTree = "<group>"; };
 		169417A60B5256F01629F4CB24F0958E /* UIBarButtonItem+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Peekable.swift"; sourceTree = "<group>"; };
@@ -334,9 +334,9 @@
 		1FEEF7718AC16F2861F1356AF0A68BEA /* OpenSans-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "OpenSans-dummy.m"; sourceTree = "<group>"; };
 		213F22FE1E687B1506E7E828CCA2787A /* MultipleViews+Pin.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "MultipleViews+Pin.swift"; path = "Pod/Classes/MultipleViews+Pin.swift"; sourceTree = "<group>"; };
 		23B0816DBB46ABB43F2CF22C72B5AB77 /* POPAnimationExtras.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPAnimationExtras.h; path = pop/POPAnimationExtras.h; sourceTree = "<group>"; };
-		24243717959FE68BF4ACF32EE0A3B00F /* pop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = pop.framework; path = pop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		24243717959FE68BF4ACF32EE0A3B00F /* pop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = pop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		258DD9282BC692C8F78D9830B740A376 /* SPXMasking-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SPXMasking-prefix.pch"; sourceTree = "<group>"; };
-		27A3168F95C26482AD1B9855D388E0B9 /* POPAnimator.mm */ = {isa = PBXFileReference; includeInIndex = 1; name = POPAnimator.mm; path = pop/POPAnimator.mm; sourceTree = "<group>"; };
+		27A3168F95C26482AD1B9855D388E0B9 /* POPAnimator.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPAnimator.mm; path = pop/POPAnimator.mm; sourceTree = "<group>"; };
 		2A86A99D96164EFC2E66B65BC2785BC4 /* Peek.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Peek.swift; path = Pod/Classes/Peek.swift; sourceTree = "<group>"; };
 		2AB7DB1A54F87099CBC78FE2707AB045 /* POPAnimationInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPAnimationInternal.h; path = pop/POPAnimationInternal.h; sourceTree = "<group>"; };
 		2B0D6A5C12F35D95982B9E86C7C6322C /* PeekViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PeekViewController.swift; sourceTree = "<group>"; };
@@ -344,7 +344,7 @@
 		2DDE8875A21904DCB775530DC95140F5 /* UIApplication+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIApplication+Peekable.swift"; sourceTree = "<group>"; };
 		306CB73BB6B185D838B3EFBFE76FFF20 /* UIImage+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIImage+Peekable.swift"; sourceTree = "<group>"; };
 		3465C1A7A3F792ECB13D30BEEC3A3951 /* UISlider+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UISlider+Peekable.swift"; sourceTree = "<group>"; };
-		34667212337C49D13681C0C3B42DA315 /* POPPropertyAnimation.mm */ = {isa = PBXFileReference; includeInIndex = 1; name = POPPropertyAnimation.mm; path = pop/POPPropertyAnimation.mm; sourceTree = "<group>"; };
+		34667212337C49D13681C0C3B42DA315 /* POPPropertyAnimation.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPPropertyAnimation.mm; path = pop/POPPropertyAnimation.mm; sourceTree = "<group>"; };
 		35C96D06EB20E49266D89A0611848C08 /* UnitBezier.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = UnitBezier.h; path = pop/WebCore/UnitBezier.h; sourceTree = "<group>"; };
 		36FE3CFA84946B09275181E45A886AAC /* UIProgressView+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIProgressView+Peekable.swift"; sourceTree = "<group>"; };
 		3786C487CC7819D254EDC49046B6E438 /* Images+Inspectors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Images+Inspectors.swift"; sourceTree = "<group>"; };
@@ -356,15 +356,15 @@
 		390CE6AA657A9C8F8AA58B40CDF42756 /* HighlightView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HighlightView.swift; sourceTree = "<group>"; };
 		39BD443758E24486F6B4C4319B5A52FB /* UITextField+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UITextField+Peekable.swift"; sourceTree = "<group>"; };
 		3ACD478B3FB7923AECAAF27000FBDF26 /* SwiftLayout-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftLayout-prefix.pch"; sourceTree = "<group>"; };
-		3BAE4D50729E21AD324278985902D0FB /* POPGeometry.mm */ = {isa = PBXFileReference; includeInIndex = 1; name = POPGeometry.mm; path = pop/POPGeometry.mm; sourceTree = "<group>"; };
+		3BAE4D50729E21AD324278985902D0FB /* POPGeometry.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPGeometry.mm; path = pop/POPGeometry.mm; sourceTree = "<group>"; };
 		3FCC6D4813C6EE5A01440801D2ACF509 /* UIPicker+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIPicker+Peekable.swift"; sourceTree = "<group>"; };
-		418EC62984FB5031276A9A7135CDB99F /* POPAnimation.mm */ = {isa = PBXFileReference; includeInIndex = 1; name = POPAnimation.mm; path = pop/POPAnimation.mm; sourceTree = "<group>"; };
+		418EC62984FB5031276A9A7135CDB99F /* POPAnimation.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPAnimation.mm; path = pop/POPAnimation.mm; sourceTree = "<group>"; };
 		4199DE633F640B3EC052C3A515CA29F1 /* InspectorsPresentationController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = InspectorsPresentationController.swift; sourceTree = "<group>"; };
 		43C9F474C48C2F9961C1D5EFF5714549 /* UIColor+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIColor+Peekable.swift"; sourceTree = "<group>"; };
-		44F6D90EFE411D3254B95A0D34AB11B6 /* POPCustomAnimation.mm */ = {isa = PBXFileReference; includeInIndex = 1; name = POPCustomAnimation.mm; path = pop/POPCustomAnimation.mm; sourceTree = "<group>"; };
+		44F6D90EFE411D3254B95A0D34AB11B6 /* POPCustomAnimation.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPCustomAnimation.mm; path = pop/POPCustomAnimation.mm; sourceTree = "<group>"; };
 		45886670BC26B60FC31495E0E569494A /* UIViewController+Modal.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIViewController+Modal.swift"; sourceTree = "<group>"; };
 		46DEAD73F72D63239E7FBD20297DA1C2 /* UIView+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIView+Peekable.swift"; sourceTree = "<group>"; };
-		48326480F539E4ED3C371BEF8004299D /* POPAnimationRuntime.mm */ = {isa = PBXFileReference; includeInIndex = 1; name = POPAnimationRuntime.mm; path = pop/POPAnimationRuntime.mm; sourceTree = "<group>"; };
+		48326480F539E4ED3C371BEF8004299D /* POPAnimationRuntime.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPAnimationRuntime.mm; path = pop/POPAnimationRuntime.mm; sourceTree = "<group>"; };
 		48A3FF7FA5980FDB25C5F74A84B487E6 /* POPAnimationRuntime.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPAnimationRuntime.h; path = pop/POPAnimationRuntime.h; sourceTree = "<group>"; };
 		4A359DB99BF451FE6A0D7F8FB91A9844 /* PeekTapGestureRecognizer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PeekTapGestureRecognizer.swift; sourceTree = "<group>"; };
 		4A7A0D3AC101E9F073B213EF6E341EB7 /* GraphicsRenderer.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = GraphicsRenderer.xcconfig; sourceTree = "<group>"; };
@@ -373,9 +373,9 @@
 		4B9E7D497C1148134FFE7471818B3758 /* Fills.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Fills.swift; path = Pod/Classes/Fills.swift; sourceTree = "<group>"; };
 		4D29FD9CAA5BE13DF486006A96AECDD7 /* Strokes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Strokes.swift; path = Pod/Classes/Strokes.swift; sourceTree = "<group>"; };
 		4E66BEB3F3129F49C21927D0574435A6 /* SPXMasking.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SPXMasking.modulemap; sourceTree = "<group>"; };
-		4F7A6F44BDE98E332EAC658EDCA18A8A /* POPLayerExtras.mm */ = {isa = PBXFileReference; includeInIndex = 1; name = POPLayerExtras.mm; path = pop/POPLayerExtras.mm; sourceTree = "<group>"; };
+		4F7A6F44BDE98E332EAC658EDCA18A8A /* POPLayerExtras.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPLayerExtras.mm; path = pop/POPLayerExtras.mm; sourceTree = "<group>"; };
 		4F8E02961717451C2FAB411FB087A97D /* Pods-Peek-Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Peek-Example-resources.sh"; sourceTree = "<group>"; };
-		4FA3AC2A73913CD2F085D7049F8E9FDD /* InkKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = InkKit.framework; path = InkKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4FA3AC2A73913CD2F085D7049F8E9FDD /* InkKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = InkKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		520BE31D2F91DA08A9CAE0373F9D8843 /* POPSpringAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPSpringAnimation.h; path = pop/POPSpringAnimation.h; sourceTree = "<group>"; };
 		526A863DC439DEE8F79A8303CA22E32C /* POPBasicAnimationInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPBasicAnimationInternal.h; path = pop/POPBasicAnimationInternal.h; sourceTree = "<group>"; };
 		529EE928E412ABE4CD6D8A2E0D4F36B6 /* UIActivityIndicatorView+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIActivityIndicatorView+Peekable.swift"; sourceTree = "<group>"; };
@@ -389,7 +389,7 @@
 		5847AE8DD8D1127FE1DF5BE3BD2DCF20 /* Math.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Math.swift; path = Pod/Classes/Math.swift; sourceTree = "<group>"; };
 		59C70CEB28DA33246471612CC6361F13 /* UIFont+OpenSans.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIFont+OpenSans.m"; sourceTree = "<group>"; };
 		5B0BDEB9B64487CE24E1365BC77596CC /* POPDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPDefines.h; path = pop/POPDefines.h; sourceTree = "<group>"; };
-		5B78382396BAE57B1AFCC90295223896 /* POPMath.mm */ = {isa = PBXFileReference; includeInIndex = 1; name = POPMath.mm; path = pop/POPMath.mm; sourceTree = "<group>"; };
+		5B78382396BAE57B1AFCC90295223896 /* POPMath.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPMath.mm; path = pop/POPMath.mm; sourceTree = "<group>"; };
 		5C24A60310E614BD62FCC455FCEA7938 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		5CED4988C14F890F7FBF5A492871628C /* Attribute.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Attribute.swift; sourceTree = "<group>"; };
 		5DAAF4600AB878E90D499227AC7C3EB1 /* CALayer+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "CALayer+Peekable.swift"; sourceTree = "<group>"; };
@@ -398,35 +398,35 @@
 		604CE1EB9F4750A7582B96C3A306C50D /* Color.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Color.swift; path = Pod/Classes/Color.swift; sourceTree = "<group>"; };
 		60B213FB7E569A7962BC0DF929873F08 /* GraphicsRenderer-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "GraphicsRenderer-dummy.m"; sourceTree = "<group>"; };
 		6529364905BF404DC6FCD7CCCA4DD17A /* Deprecations.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Deprecations.swift; path = Pod/Classes/Deprecations.swift; sourceTree = "<group>"; };
-		65AAEC19A20EA27FA7F939A40BBCE5B3 /* TransformationMatrix.cpp */ = {isa = PBXFileReference; includeInIndex = 1; name = TransformationMatrix.cpp; path = pop/WebCore/TransformationMatrix.cpp; sourceTree = "<group>"; };
+		65AAEC19A20EA27FA7F939A40BBCE5B3 /* TransformationMatrix.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = TransformationMatrix.cpp; path = pop/WebCore/TransformationMatrix.cpp; sourceTree = "<group>"; };
 		66513B39256A6997FB656889688FCEFD /* UIWindow+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extensions.swift"; sourceTree = "<group>"; };
 		66E4B79677B2EE21B452919F06389D47 /* UIFont+OpenSans.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIFont+OpenSans.h"; sourceTree = "<group>"; };
 		66EE3BD15DFA63AB1A9FCA0D93F799C9 /* InspectorCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = InspectorCell.swift; sourceTree = "<group>"; };
 		6859F670A2469625A4BD6EE84C0B2A78 /* FloatConversion.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FloatConversion.h; path = pop/WebCore/FloatConversion.h; sourceTree = "<group>"; };
 		68CC2BD32B1CCDA314B2B4BDC6C2A3FA /* POPSpringAnimationInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPSpringAnimationInternal.h; path = pop/POPSpringAnimationInternal.h; sourceTree = "<group>"; };
 		6B644AAEA6B3966DBBE00EB8AD988E28 /* POPLayerExtras.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPLayerExtras.h; path = pop/POPLayerExtras.h; sourceTree = "<group>"; };
-		6B9C650FAD8ECE192A2477983647628E /* OpenSans.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = OpenSans.bundle; path = "OpenSans-OpenSans.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B9C650FAD8ECE192A2477983647628E /* OpenSans.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenSans.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BDEB2B53D3C439C6FAAB5C313EB47F3 /* OverlayView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
 		6EBA689D6BC3EE4C67FDF2E5F9A672A4 /* InspectorViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = InspectorViewController.swift; sourceTree = "<group>"; };
-		6EE5C10D2DF16DE092F75B96737B8606 /* POPCGUtils.mm */ = {isa = PBXFileReference; includeInIndex = 1; name = POPCGUtils.mm; path = pop/POPCGUtils.mm; sourceTree = "<group>"; };
+		6EE5C10D2DF16DE092F75B96737B8606 /* POPCGUtils.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPCGUtils.mm; path = pop/POPCGUtils.mm; sourceTree = "<group>"; };
 		6FDEAC1B2C6044F7B35B922872B6A0F6 /* UIStepper+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIStepper+Peekable.swift"; sourceTree = "<group>"; };
 		70F5A9328D4F73B0A9B67BABE33F8CB6 /* UILabel+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UILabel+Peekable.swift"; sourceTree = "<group>"; };
 		73131FE32D5802EF5D2B709F83CB71FA /* Peek-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Peek-umbrella.h"; sourceTree = "<group>"; };
-		749AE7BC8E86402F9A6CDBDC482911CD /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "OpenSans-BoldItalic.ttf"; path = "Fonts/OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		749AE7BC8E86402F9A6CDBDC482911CD /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "OpenSans-BoldItalic.ttf"; path = "Fonts/OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		7577E7341BD6E8D479325D66A236D2D4 /* POPCustomAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPCustomAnimation.h; path = pop/POPCustomAnimation.h; sourceTree = "<group>"; };
 		78B95441D7BCD41B27A6446363B1F1F1 /* UINavigationBar+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Peekable.swift"; sourceTree = "<group>"; };
-		790AC2F50C1D02CD97ED7BFFA56ED3A8 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "OpenSans-LightItalic.ttf"; path = "Fonts/OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
+		790AC2F50C1D02CD97ED7BFFA56ED3A8 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "OpenSans-LightItalic.ttf"; path = "Fonts/OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
 		79AC6F9C55B007D54F3445BFD0F3ACE1 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7B0E8EB0850F568B896EEB4BC8D9A967 /* SwiftLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftLayout.framework; path = SwiftLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B0E8EB0850F568B896EEB4BC8D9A967 /* SwiftLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F4849AF42B99C0FB7E3B0D856087CDB /* POP.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POP.h; path = pop/POP.h; sourceTree = "<group>"; };
 		802D72E3ECA5CA4742A0EDC759636356 /* LayoutDefines.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutDefines.swift; path = Pod/Classes/LayoutDefines.swift; sourceTree = "<group>"; };
 		8157A24F42005C49C5E1C6BAF5ACF31C /* Types.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Types.swift; path = Pod/Classes/Types.swift; sourceTree = "<group>"; };
-		8203284E476CBB1F4E5976614DDFDD55 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "OpenSans-Bold.ttf"; path = "Fonts/OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		8203284E476CBB1F4E5976614DDFDD55 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "OpenSans-Bold.ttf"; path = "Fonts/OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		82A5BFE96D499E0EAAC2A23E72B98237 /* POPVector.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPVector.h; path = pop/POPVector.h; sourceTree = "<group>"; };
 		82CE6F6CC6FB71FB34BA705D44FCBF0C /* GraphicsRenderer.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = GraphicsRenderer.modulemap; sourceTree = "<group>"; };
 		83A2D04A945367664A047310436237D9 /* UIPageControl+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIPageControl+Peekable.swift"; sourceTree = "<group>"; };
 		86D333A3F1D2DEC9124CF7BFC23FD226 /* Pods-Peek-Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Peek-Example.modulemap"; sourceTree = "<group>"; };
-		87DDA50BEF58BE3CF2206FA54B940465 /* GraphicsRenderer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = GraphicsRenderer.framework; path = GraphicsRenderer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		87DDA50BEF58BE3CF2206FA54B940465 /* GraphicsRenderer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GraphicsRenderer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8856C748694C035C412ECA9C7F98A4E2 /* POPBasicAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPBasicAnimation.h; path = pop/POPBasicAnimation.h; sourceTree = "<group>"; };
 		88AE4EA3650E7910245267310A48673A /* Pods-Peek-Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Peek-Example-dummy.m"; sourceTree = "<group>"; };
 		8964E5D52FEC84AB24D3B904A3A87C7F /* Peek-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Peek-prefix.pch"; sourceTree = "<group>"; };
@@ -439,11 +439,11 @@
 		8F070A0224AAB252AE642032177553A8 /* POPPropertyAnimationInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPPropertyAnimationInternal.h; path = pop/POPPropertyAnimationInternal.h; sourceTree = "<group>"; };
 		90AA2EA4BB96CF4AFD124F42E91A5E8B /* PeekOptions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PeekOptions.swift; path = Pod/Classes/PeekOptions.swift; sourceTree = "<group>"; };
 		916A3B5CE5134B73543794E6E8928D9E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		92011AA383050CAC902C1FEFB1186F7B /* Peek.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = Peek.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		92011AA383050CAC902C1FEFB1186F7B /* Peek.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = Peek.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		926FD14286B5C304F1E3AB5F6F4AE9B0 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		92DFA2ECABD8A1674BA409BE6D1FE12B /* CALayer+SPXMasking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CALayer+SPXMasking.m"; sourceTree = "<group>"; };
-		930ABF553B30207C1FEC70F24CEF16D7 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "OpenSans-ExtraBold.ttf"; path = "Fonts/OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		930ABF553B30207C1FEC70F24CEF16D7 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "OpenSans-ExtraBold.ttf"; path = "Fonts/OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9491EB1EEAC5BEE3D385AE0E37E9460A /* OldInspectorViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OldInspectorViewController.swift; sourceTree = "<group>"; };
 		951C10D0B1024B02A73CB9F8C2DE5DFE /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		951F057A907D32C41A2AA37AE5D5F711 /* InkKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "InkKit-dummy.m"; sourceTree = "<group>"; };
@@ -456,19 +456,19 @@
 		9FC54FA6DDDC1F075CB5E86088A276BF /* SwiftLayout.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SwiftLayout.modulemap; sourceTree = "<group>"; };
 		A0A2F47D226E9DAFD7340B7807B71101 /* TransformationMatrix.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TransformationMatrix.h; path = pop/WebCore/TransformationMatrix.h; sourceTree = "<group>"; };
 		A19863C399A15B2C00DEC536C1C62C0E /* UIViewController+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIViewController+Peekable.swift"; sourceTree = "<group>"; };
-		A1EFA95F61920768B6FE84693A6E849B /* Pods_Peek_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Peek_Example.framework; path = "Pods-Peek-Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1EFA95F61920768B6FE84693A6E849B /* Pods_Peek_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Peek_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A34DAA500F7CFBB596C681D19AEFB9C1 /* SingleView+Align.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "SingleView+Align.swift"; path = "Pod/Classes/SingleView+Align.swift"; sourceTree = "<group>"; };
 		A560CDECDF07C8489859675D320FAECD /* POPAnimator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPAnimator.h; path = pop/POPAnimator.h; sourceTree = "<group>"; };
 		A5F93D71BFC6C5F8B718E97970652398 /* ResourceBundle-OpenSans-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-OpenSans-Info.plist"; sourceTree = "<group>"; };
 		A61183DAB0F411F4A1245F9996174382 /* Image+Drawing.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Image+Drawing.swift"; path = "Pod/Classes/Image+Drawing.swift"; sourceTree = "<group>"; };
-		A61B626B2EFDD99BFA153D5866D74E4E /* SPXMasking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SPXMasking.framework; path = SPXMasking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A61B626B2EFDD99BFA153D5866D74E4E /* SPXMasking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SPXMasking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6579950CC9C794F97DE1AD4559DDE74 /* Images+OrientationMask.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Images+OrientationMask.swift"; sourceTree = "<group>"; };
 		A753AB02EA04FBA4A103234D0978D9E7 /* SwiftLayout-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftLayout-umbrella.h"; sourceTree = "<group>"; };
 		A7B41713999A36ED61EAF30119C869DA /* String+Drawing.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+Drawing.swift"; path = "Pod/Classes/String+Drawing.swift"; sourceTree = "<group>"; };
 		A88406681317F62BC3C8955FA374FE29 /* POPPropertyAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPPropertyAnimation.h; path = pop/POPPropertyAnimation.h; sourceTree = "<group>"; };
 		A9D74E2C94420A4C5A14987851ACB751 /* Drawing.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Drawing.swift; path = Pod/Classes/Drawing.swift; sourceTree = "<group>"; };
 		A9F8CB4524273FB2D00744B3D0E67988 /* GraphicsRenderer-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "GraphicsRenderer-prefix.pch"; sourceTree = "<group>"; };
-		AACAA85215D3D290EF159C8C8CBD83E5 /* OpenSans.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = OpenSans.framework; path = OpenSans.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AACAA85215D3D290EF159C8C8CBD83E5 /* OpenSans.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OpenSans.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC4B20EF8C97349C618FC94B063D323E /* POPAnimationPrivate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPAnimationPrivate.h; path = pop/POPAnimationPrivate.h; sourceTree = "<group>"; };
 		AFB072BDC1C2286DA4694BE8ADA3AB9A /* Platforms.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Platforms.swift; path = GraphicsRenderer/Classes/Platforms.swift; sourceTree = "<group>"; };
 		B0B03F09CB89597AF95A9262D681FFA0 /* POPAnimationTracer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPAnimationTracer.h; path = pop/POPAnimationTracer.h; sourceTree = "<group>"; };
@@ -478,14 +478,14 @@
 		B29993EF1044311DC7E60F9ECBA7F5FA /* InkKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = InkKit.modulemap; sourceTree = "<group>"; };
 		B3B6902D565C43577A55EC7DB5AD6588 /* String+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		B45BC73C5AC396E6FBE33877CA6613B5 /* SwiftLayout-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftLayout-dummy.m"; sourceTree = "<group>"; };
-		B4FA754A763362A5B5FCC7B7BE71F2D2 /* Peek.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Peek.framework; path = Peek.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B4FA754A763362A5B5FCC7B7BE71F2D2 /* Peek.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Peek.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B67DA9ACA1915509926D65F6088C1A90 /* UIToolbar+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIToolbar+Peekable.swift"; sourceTree = "<group>"; };
-		B8083900EAD07C4E22944B73EEF5284F /* POPAnimationExtras.mm */ = {isa = PBXFileReference; includeInIndex = 1; name = POPAnimationExtras.mm; path = pop/POPAnimationExtras.mm; sourceTree = "<group>"; };
+		B8083900EAD07C4E22944B73EEF5284F /* POPAnimationExtras.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPAnimationExtras.mm; path = pop/POPAnimationExtras.mm; sourceTree = "<group>"; };
 		BA2E69F6A0644B38EFA7310AC4960691 /* Pods-Peek-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Peek-Example.release.xcconfig"; sourceTree = "<group>"; };
 		BA59938082CEA34CB4B5AD8DC1B3C258 /* Platform.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Platform.swift; path = Pod/Classes/Platform.swift; sourceTree = "<group>"; };
 		BCD2DBA8E0B7ACD886A54DA212EA4079 /* InspectorHeader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = InspectorHeader.swift; sourceTree = "<group>"; };
 		BD02AC259FF20B874031F129508D844F /* TransitionAnimators.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TransitionAnimators.swift; sourceTree = "<group>"; };
-		BDD1E48C3DCF4CFB75F38053398B318A /* POPDecayAnimation.mm */ = {isa = PBXFileReference; includeInIndex = 1; name = POPDecayAnimation.mm; path = pop/POPDecayAnimation.mm; sourceTree = "<group>"; };
+		BDD1E48C3DCF4CFB75F38053398B318A /* POPDecayAnimation.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPDecayAnimation.mm; path = pop/POPDecayAnimation.mm; sourceTree = "<group>"; };
 		BE2197F53D654004D889C4D66A57EF96 /* InkKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = InkKit.xcconfig; sourceTree = "<group>"; };
 		BEB9B8E578E7B78349DB77FC45E9BD12 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF0305640593A6524965BE55D98535D2 /* Constraints.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Constraints.swift; path = Pod/Classes/Constraints.swift; sourceTree = "<group>"; };
@@ -493,35 +493,35 @@
 		C17D1CEFBF73F71F70338F0C14667EBF /* POPDecayAnimationInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPDecayAnimationInternal.h; path = pop/POPDecayAnimationInternal.h; sourceTree = "<group>"; };
 		C51A589A3BA1D8D0E21268424C6E1D1D /* Pods-Peek-Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Peek-Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		C5EEC056FDE6DBF467AB9C8D6BA214C8 /* Color+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
-		C6F9A8D458D1DBBB0A133F2829D2EB5F /* OpenSans-Light.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "OpenSans-Light.ttf"; path = "Fonts/OpenSans-Light.ttf"; sourceTree = "<group>"; };
+		C6F9A8D458D1DBBB0A133F2829D2EB5F /* OpenSans-Light.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "OpenSans-Light.ttf"; path = "Fonts/OpenSans-Light.ttf"; sourceTree = "<group>"; };
 		C795C53950A1969C302A46D7507CB7F3 /* POPDecayAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPDecayAnimation.h; path = pop/POPDecayAnimation.h; sourceTree = "<group>"; };
-		C8A94698B64433F0FE8006460AB3CD20 /* POPAnimatableProperty.mm */ = {isa = PBXFileReference; includeInIndex = 1; name = POPAnimatableProperty.mm; path = pop/POPAnimatableProperty.mm; sourceTree = "<group>"; };
+		C8A94698B64433F0FE8006460AB3CD20 /* POPAnimatableProperty.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPAnimatableProperty.mm; path = pop/POPAnimatableProperty.mm; sourceTree = "<group>"; };
 		C8D8ED470A72C405C16A20DB44A224B0 /* Pods-Peek-Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Peek-Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		C8E8B94808F7F1001872D395209CDA87 /* Pods-Peek-Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Peek-Example-umbrella.h"; sourceTree = "<group>"; };
-		C90FF3391D29594BECEE0E9EC985CC7E /* POPBasicAnimation.mm */ = {isa = PBXFileReference; includeInIndex = 1; name = POPBasicAnimation.mm; path = pop/POPBasicAnimation.mm; sourceTree = "<group>"; };
+		C90FF3391D29594BECEE0E9EC985CC7E /* POPBasicAnimation.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPBasicAnimation.mm; path = pop/POPBasicAnimation.mm; sourceTree = "<group>"; };
 		C9244914C27B62EEDCF74D73A2D638C5 /* Enum+Descriptions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Enum+Descriptions.swift"; sourceTree = "<group>"; };
 		C924F13AF3D185C1BCB6F698D701A9DF /* Peek.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Peek.modulemap; sourceTree = "<group>"; };
 		C99218EC328DA24B83C970B3C7214DE0 /* NSObject+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "NSObject+Extensions.swift"; sourceTree = "<group>"; };
 		CA4C785261BCA6E9D1E18254606397A7 /* OpenSans-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OpenSans-umbrella.h"; sourceTree = "<group>"; };
 		CAAB30EB2908E539C16967195F7C5A43 /* UIButton+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIButton+Peekable.swift"; sourceTree = "<group>"; };
 		CD3BDC599EF9FBA8E025E1152291E4DD /* SingleView+Size.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "SingleView+Size.swift"; path = "Pod/Classes/SingleView+Size.swift"; sourceTree = "<group>"; };
-		CEA444916532C398802657848834C1BF /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
-		D0623F30EB0B018767B4E46C047E6283 /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "OpenSans-SemiboldItalic.ttf"; path = "Fonts/OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
-		D0D6AF06CE18A4E477AAA7ABA4855F40 /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "OpenSans-ExtraBoldItalic.ttf"; path = "Fonts/OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		CEA444916532C398802657848834C1BF /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D0623F30EB0B018767B4E46C047E6283 /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "OpenSans-SemiboldItalic.ttf"; path = "Fonts/OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
+		D0D6AF06CE18A4E477AAA7ABA4855F40 /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "OpenSans-ExtraBoldItalic.ttf"; path = "Fonts/OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		D25B9D52D99689A2593E3A574CBF9C5B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		D4432803876EB95313CA0BF5BEA60A30 /* SPXMasking-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SPXMasking-umbrella.h"; sourceTree = "<group>"; };
 		D51C02C6962F13636742E994364B99F4 /* InkKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "InkKit-prefix.pch"; sourceTree = "<group>"; };
-		D812AFF8FBB14694B806EE132DE9B8DA /* POPAnimationEvent.mm */ = {isa = PBXFileReference; includeInIndex = 1; name = POPAnimationEvent.mm; path = pop/POPAnimationEvent.mm; sourceTree = "<group>"; };
+		D812AFF8FBB14694B806EE132DE9B8DA /* POPAnimationEvent.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPAnimationEvent.mm; path = pop/POPAnimationEvent.mm; sourceTree = "<group>"; };
 		D8DCB0466AC2A58FE1C3CB15853FB6B2 /* pop-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "pop-dummy.m"; sourceTree = "<group>"; };
-		DE5F8074613FC6194D6FE2B516613047 /* POPSpringAnimation.mm */ = {isa = PBXFileReference; includeInIndex = 1; name = POPSpringAnimation.mm; path = pop/POPSpringAnimation.mm; sourceTree = "<group>"; };
+		DE5F8074613FC6194D6FE2B516613047 /* POPSpringAnimation.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPSpringAnimation.mm; path = pop/POPSpringAnimation.mm; sourceTree = "<group>"; };
 		DFDC62448E8A95365E80AF394F0D5579 /* POPAnimatablePropertyTypes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPAnimatablePropertyTypes.h; path = pop/POPAnimatablePropertyTypes.h; sourceTree = "<group>"; };
 		E42DE1D55AD11D7A5801F8ED43B54922 /* UIControl+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIControl+Peekable.swift"; sourceTree = "<group>"; };
 		E5370E0B1DFB22D2061AC16EE6CA8A4E /* Pods-Peek-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Peek-Example.debug.xcconfig"; sourceTree = "<group>"; };
-		E62FB4F00B295637D4E08082E4E7C70E /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "OpenSans-Semibold.ttf"; path = "Fonts/OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
+		E62FB4F00B295637D4E08082E4E7C70E /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "OpenSans-Semibold.ttf"; path = "Fonts/OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
 		E75550AEE9E905462FA0F9ED3EB2E4ED /* OpenSans.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = OpenSans.modulemap; sourceTree = "<group>"; };
 		E93F785DE916CD9E308567A0909ADF33 /* POPAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPAnimation.h; path = pop/POPAnimation.h; sourceTree = "<group>"; };
 		E9EAD1DB27855D93EA9671482B07250B /* SPXMasking-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SPXMasking-dummy.m"; sourceTree = "<group>"; };
-		EA6CF274BE7E49E3C34D1EFB8EA4DC4A /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "OpenSans-Regular.ttf"; path = "Fonts/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		EA6CF274BE7E49E3C34D1EFB8EA4DC4A /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "Fonts/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		EA924809BE122F8B5421349FC1E1DEA1 /* SwiftLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAA48320FF0C727193FE10B42900D42B /* NSNumber+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "NSNumber+Extensions.swift"; sourceTree = "<group>"; };
 		EAA644589076F89E3954BB04B1D9A32E /* UISegmentedControl+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+Peekable.swift"; sourceTree = "<group>"; };
@@ -530,7 +530,7 @@
 		EF7BA2EEB5CD7A43E2D3D24FBBDCB113 /* MetaData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MetaData.swift; sourceTree = "<group>"; };
 		F4E9C981F4603E4458352C33CB564BBE /* Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Pod/Classes/Extensions.swift; sourceTree = "<group>"; };
 		F6B16EFCC435141F3D36A49340F08002 /* Peek-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Peek-dummy.m"; sourceTree = "<group>"; };
-		F7E44B5ACE9CB5DDA1301E17E24F8DEB /* POPVector.mm */ = {isa = PBXFileReference; includeInIndex = 1; name = POPVector.mm; path = pop/POPVector.mm; sourceTree = "<group>"; };
+		F7E44B5ACE9CB5DDA1301E17E24F8DEB /* POPVector.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPVector.mm; path = pop/POPVector.mm; sourceTree = "<group>"; };
 		FA7E12480ABDE899A2D7D48E04A7DF90 /* POPAnimationEventInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPAnimationEventInternal.h; path = pop/POPAnimationEventInternal.h; sourceTree = "<group>"; };
 		FB67E632D35BE03B203E1113D43AB93C /* Models.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		FC0FA3A7A108C073F254B293D3C430B5 /* Transform+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Transform+Extensions.swift"; path = "Pod/Classes/Transform+Extensions.swift"; sourceTree = "<group>"; };
@@ -678,7 +678,6 @@
 				35C96D06EB20E49266D89A0611848C08 /* UnitBezier.h */,
 				B8240796929C244291CFD9480B41C851 /* Support Files */,
 			);
-			name = pop;
 			path = pop;
 			sourceTree = "<group>";
 		};
@@ -783,7 +782,6 @@
 				A8EEFEECB4DFAA49FB56A740F6790867 /* Resources */,
 				B0B6C241392BB1FA4A10BF87CA1F0BA8 /* Support Files */,
 			);
-			name = OpenSans;
 			path = OpenSans;
 			sourceTree = "<group>";
 		};
@@ -822,7 +820,6 @@
 				99D9196BAE7F7279829D91EEC7488EDA /* RendererDrawable.swift */,
 				7D2B0A2EA339024713F773F0A8EE5A94 /* Support Files */,
 			);
-			name = GraphicsRenderer;
 			path = GraphicsRenderer;
 			sourceTree = "<group>";
 		};
@@ -831,7 +828,6 @@
 			children = (
 				EF7BA2EEB5CD7A43E2D3D24FBBDCB113 /* MetaData.swift */,
 			);
-			name = Reporting;
 			path = Reporting;
 			sourceTree = "<group>";
 		};
@@ -905,7 +901,6 @@
 				8157A24F42005C49C5E1C6BAF5ACF31C /* Types.swift */,
 				177CEA28696EA290B34C36F8632CF7B5 /* Support Files */,
 			);
-			name = InkKit;
 			path = InkKit;
 			sourceTree = "<group>";
 		};
@@ -1069,7 +1064,6 @@
 				FF38331116CD7AD49612A428EA1A16E5 /* InspectorsTabBarController.swift */,
 				9491EB1EEAC5BEE3D385AE0E37E9460A /* OldInspectorViewController.swift */,
 			);
-			name = Inspectors;
 			path = Inspectors;
 			sourceTree = "<group>";
 		};
@@ -1088,7 +1082,6 @@
 				CD3BDC599EF9FBA8E025E1152291E4DD /* SingleView+Size.swift */,
 				619BADC9E0FC1A7C42A61D42466C927B /* Support Files */,
 			);
-			name = SwiftLayout;
 			path = SwiftLayout;
 			sourceTree = "<group>";
 		};
@@ -1110,7 +1103,6 @@
 				92DFA2ECABD8A1674BA409BE6D1FE12B /* CALayer+SPXMasking.m */,
 				49061377F00320E825FBEDA34B858A0B /* Support Files */,
 			);
-			name = SPXMasking;
 			path = SPXMasking;
 			sourceTree = "<group>";
 		};
@@ -1125,7 +1117,6 @@
 				2B0D6A5C12F35D95982B9E86C7C6322C /* PeekViewController.swift */,
 				45886670BC26B60FC31495E0E569494A /* UIViewController+Modal.swift */,
 			);
-			name = Overlays;
 			path = Overlays;
 			sourceTree = "<group>";
 		};
@@ -1937,6 +1928,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
