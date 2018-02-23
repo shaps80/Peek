@@ -129,6 +129,14 @@ internal final class InspectorsPresentationController: UIPresentationController,
     }
     
     @objc private func dismiss() {
+        if let tab = presentedViewController as? InspectorsTabController,
+            let nav = tab.selectedViewController as? UINavigationController,
+            let controller = nav.topViewController as? InspectorViewController {
+            if controller.tableView.isEditing {
+                return
+            }
+        }
+        
         presentedViewController.dismiss(animated: true, completion: nil)
     }
     
