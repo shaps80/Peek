@@ -32,6 +32,23 @@ final class InspectorCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .value1, reuseIdentifier: reuseIdentifier)
+        
+        textLabel?.numberOfLines = 0
+        detailTextLabel?.numberOfLines = 0
+        
+        textLabel?.setContentHuggingPriority(.required, for: .vertical)
+        textLabel?.setContentCompressionResistancePriority(.required, for: .vertical)
+        detailTextLabel?.setContentHuggingPriority(.required, for: .vertical)
+        detailTextLabel?.setContentCompressionResistancePriority(.required, for: .vertical)
+        
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
+        clipsToBounds = true
+        contentView.clipsToBounds = true
+        
+        let selectedView = UIView()
+        selectedView.backgroundColor = UIColor(white: 1, alpha: 0.1)
+        selectedBackgroundView = selectedView
     }
     
     required init?(coder aDecoder: NSCoder) {

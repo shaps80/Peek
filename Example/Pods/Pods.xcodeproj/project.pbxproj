@@ -41,7 +41,6 @@
 		336C020F14034716F8CE41876040154B /* UINavigationBar+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B95441D7BCD41B27A6446363B1F1F1 /* UINavigationBar+Peekable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		38399FF653F8408E25C2AF77A9C527F6 /* POPPropertyAnimationInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F070A0224AAB252AE642032177553A8 /* POPPropertyAnimationInternal.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		39920495279993F15DD91AE89ABA66C7 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E66FDEF68D1F1D1B5C3D5F67AFC19AC /* CoreText.framework */; };
-		3B1EBC3F0B22F5F1FFC9261982BC6BC0 /* OldInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9491EB1EEAC5BEE3D385AE0E37E9460A /* OldInspectorViewController.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		3B659221632B9D3E5C1FF2058356D51C /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13935DA2616D0AF29D4718ADCFBFA968 /* Constraint.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		3FE6F70C229FDAC5D81869C94F3BC9AC /* UIFont+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFB86554EDE0C1C8855F045F88A8C97 /* UIFont+Peekable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		4035B3C8FD4EC9C9E033BBF25220B817 /* BezierPath+MacOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC2CBF6AB7A2EC6990C648F0A3400ED /* BezierPath+MacOS.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -71,7 +70,6 @@
 		5622FF02AF6F346D45799C26FFC4224D /* POPAnimationEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 03B2AEF395626C3C8B5083EC582E91CE /* POPAnimationEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5711336AFB90268CAA3FBAF1767259C5 /* UIApplication+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DDE8875A21904DCB775530DC95140F5 /* UIApplication+Peekable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		577F3AA89EBFF9E91E00009C617F9D3B /* Strokes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D29FD9CAA5BE13DF486006A96AECDD7 /* Strokes.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		57C8ECEF2BB40660EAA12DC62B4CB69A /* InspectorsTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF38331116CD7AD49612A428EA1A16E5 /* InspectorsTabBarController.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		582919A822C35E97AAEF1D4234454BAF /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EEC056FDE6DBF467AB9C8D6BA214C8 /* Color+Extensions.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		5F81EA70A45C10BFD8DDFF1CF7A794C8 /* RendererDrawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D9196BAE7F7279829D91EEC7488EDA /* RendererDrawable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		60CA42F9B85727364CE08955791DD5A8 /* NSAttributedString+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ED4CAA70D9E937D6138F69E430AF10 /* NSAttributedString+Peekable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -448,7 +446,6 @@
 		92DFA2ECABD8A1674BA409BE6D1FE12B /* CALayer+SPXMasking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CALayer+SPXMasking.m"; sourceTree = "<group>"; };
 		930ABF553B30207C1FEC70F24CEF16D7 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "OpenSans-ExtraBold.ttf"; path = "Fonts/OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9491EB1EEAC5BEE3D385AE0E37E9460A /* OldInspectorViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OldInspectorViewController.swift; sourceTree = "<group>"; };
 		951C10D0B1024B02A73CB9F8C2DE5DFE /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		951F057A907D32C41A2AA37AE5D5F711 /* InkKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "InkKit-dummy.m"; sourceTree = "<group>"; };
 		9694C01EC1003A9F61943BE9C7448348 /* GraphicsRenderer-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "GraphicsRenderer-umbrella.h"; sourceTree = "<group>"; };
@@ -540,7 +537,6 @@
 		FC0FA3A7A108C073F254B293D3C430B5 /* Transform+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Transform+Extensions.swift"; path = "Pod/Classes/Transform+Extensions.swift"; sourceTree = "<group>"; };
 		FD337582740908B4CA98C8EFC5872FE2 /* MultipleViews+Size.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "MultipleViews+Size.swift"; path = "Pod/Classes/MultipleViews+Size.swift"; sourceTree = "<group>"; };
 		FDC1C1C0BB5AA7618E7C025B7111BAB8 /* ContextDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ContextDataSource.swift; sourceTree = "<group>"; };
-		FF38331116CD7AD49612A428EA1A16E5 /* InspectorsTabBarController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = InspectorsTabBarController.swift; sourceTree = "<group>"; };
 		FFC2CBF6AB7A2EC6990C648F0A3400ED /* BezierPath+MacOS.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "BezierPath+MacOS.swift"; path = "Pod/Classes/BezierPath+MacOS.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1066,8 +1062,6 @@
 			children = (
 				66EE3BD15DFA63AB1A9FCA0D93F799C9 /* InspectorCell.swift */,
 				BCD2DBA8E0B7ACD886A54DA212EA4079 /* InspectorHeader.swift */,
-				FF38331116CD7AD49612A428EA1A16E5 /* InspectorsTabBarController.swift */,
-				9491EB1EEAC5BEE3D385AE0E37E9460A /* OldInspectorViewController.swift */,
 			);
 			path = Inspectors;
 			sourceTree = "<group>";
@@ -1577,7 +1571,6 @@
 				8D1ECBAA5E5FF598C70FFE2268371D05 /* InspectorCell.swift in Sources */,
 				AD0AC934218EC07E3673D237EEE4FD9E /* InspectorHeader.swift in Sources */,
 				B9F6FDB49FCD500A49BC4BA24B7A5D10 /* InspectorsPresentationController.swift in Sources */,
-				57C8ECEF2BB40660EAA12DC62B4CB69A /* InspectorsTabBarController.swift in Sources */,
 				F85019B56E17172D131F2DFF5BE7C64F /* InspectorsTabController.swift in Sources */,
 				DA2323F6A0FB91DA66AD7FE816694697 /* InspectorViewController.swift in Sources */,
 				4E4D0BC2213E4F54C925D6FE41B53548 /* MetaData.swift in Sources */,
@@ -1588,7 +1581,6 @@
 				F6A5EFCDFE470B9F49A1D4ABECE5EE79 /* NSNumber+Transformer.swift in Sources */,
 				F588797DCA40A19908ACE1ED3FD6034F /* NSObject+Extensions.swift in Sources */,
 				9FCEC99C5A35D0306FB650DBE4EAA4FF /* NSValue+Transformer.swift in Sources */,
-				3B1EBC3F0B22F5F1FFC9261982BC6BC0 /* OldInspectorViewController.swift in Sources */,
 				617037E33F744A046D3C9BB5972F8874 /* OverlayView.swift in Sources */,
 				1E83E157563EA45C7FC4672F9B3B4C76 /* Peek+Private.swift in Sources */,
 				8948DF464C6EDBDB30C680E1451459A7 /* Peek+Public.swift in Sources */,

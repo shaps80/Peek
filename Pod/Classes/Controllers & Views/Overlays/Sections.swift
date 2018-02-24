@@ -10,14 +10,28 @@ import InkKit
 import GraphicsRenderer
 
 internal struct Section {
-    let title: String
-    let items: [Item]
-    var isExpanded: Bool
+    internal let title: String
+    internal let items: [Item]
+    
+    internal var isExpanded: Bool {
+        get { return UserDefaults.standard.bool(forKey: title) }
+        set { UserDefaults.standard.set(newValue, forKey: title) }
+    }
+    
+    internal init(title: String, items: [Item], isExpanded: Bool) {
+        self.title = title
+        self.items = items
+        UserDefaults.standard.register(defaults: [title: isExpanded])
+    }
 }
 
 internal struct Item {
-    let title: String
-    let property: Property
+    internal let title: String
+    internal let property: Property
+    
+    internal var isParent: Bool {
+        return property.value == nil
+    }
 }
 
 internal protocol SectionHeaderViewDelegate: class {

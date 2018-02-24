@@ -137,17 +137,6 @@ extension Inspector {
     @discardableResult
     func addProperty(_ keyPath: String, displayName: String?, cellConfiguration: PropertyCellConfiguration) -> Property
     
-    /**
-     Adds the specified value as a Peek Property
-     
-     - parameter value:             The value representing this property's value
-     - parameter displayName:       The display name for this property (optional) -- If you pass nil, the keyPath will be used -- Peek will automatically convert it to a readable string
-     - parameter cellConfiguration: An optional cell configuration for this property -- this allows you to provide custom logic for updating your property cell at runtime
-     
-     - returns: A new Property
-     */
-    @discardableResult
-    func addProperty(value: AnyObject?, displayName: String?, cellConfiguration: PropertyCellConfiguration) -> Property
 }
 
 /// A context represents the current Peek context when its activated. You can use this context to add properties and categories to your inspectors
@@ -171,9 +160,6 @@ public typealias PropertyCellConfiguration = ((_ cell: UITableViewCell, _ object
 
 /// A property defines a property that can be presented in Peek to represent a value for a given model
 @objc public protocol Property: class {
-    
-    /// Get/set the value associated with this Property
-    weak var value: AnyObject? { get set }
     
     /// Returns the keyPath associated with this Property
     var keyPath: String { get }
@@ -205,7 +191,7 @@ public typealias PropertyCellConfiguration = ((_ cell: UITableViewCell, _ object
      
      - returns: A newly configured Property
      */
-    init(keyPath: String, displayName: String?, value: AnyObject?, category: String, inspector: Inspector, configuration: PropertyCellConfiguration)
+    init(keyPath: String, displayName: String?, category: String, inspector: Inspector, configuration: PropertyCellConfiguration)
     
     /**
      Returns the value runtime associated with this property
@@ -216,4 +202,10 @@ public typealias PropertyCellConfiguration = ((_ cell: UITableViewCell, _ object
      */
     func value(forModel model: AnyObject) -> AnyObject?
     
+}
+
+extension Property {
+    internal var isGroup: Bool {
+        return value != nil
+    }
 }

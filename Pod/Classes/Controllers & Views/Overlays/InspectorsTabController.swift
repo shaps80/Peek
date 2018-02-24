@@ -44,7 +44,7 @@ internal final class InspectorsTabController: UITabBarController {
             tabBar.unselectedItemTintColor = .lightGray
         }
         
-        let inspector = InspectorViewController(model: model, context: context)
+        let inspector = InspectorViewController(peek: peek, model: model, context: context)
         let nav = UINavigationController(rootViewController: inspector)
         
         nav.navigationBar.shadowImage = UIImage()
@@ -55,7 +55,7 @@ internal final class InspectorsTabController: UITabBarController {
             .foregroundColor: UIColor.clear,
         ]
         
-        inspector.title = "Overview"
+        inspector.title = "Attributes"
         
         if #available(iOS 11.0, *) {
             nav.navigationBar.prefersLargeTitles = true

@@ -11,19 +11,22 @@ import GraphicsRenderer
 
 internal final class InspectorViewController: UIViewController {
     
-    internal let tableView: TableView
+    internal let tableView: UITableView
     
     private let dataSource: ContextDataSource
     private let model: Model
     private let context: Context
+    private unowned let peek: Peek
     
     private var selectedAttributes: [String] = []
     
-    internal init(model: Model, context: Context) {
+    internal init(peek: Peek, model: Model, context: Context) {
+        self.peek = peek
         self.context = context
-        self.tableView = TableView(frame: .zero, style: .plain)
-        self.dataSource = ContextDataSource(context: context, inspector: .attributes)
         self.model = model
+        
+        self.tableView = UITableView(frame: .zero, style: .plain)
+        self.dataSource = ContextDataSource(context: context, inspector: .attributes)
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -71,6 +74,14 @@ internal final class InspectorViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return peek.supportedOrientations
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return peek.previousStatusBarStyle
+    }
+    
 }
 
 extension InspectorViewController: UIViewControllerPreviewingDelegate {
@@ -91,7 +102,7 @@ extension InspectorViewController: UIViewControllerPreviewingDelegate {
                 value.preparePeek(context)
             }
             
-            let controller = InspectorViewController(model: value, context: context)
+            let controller = InspectorViewController(peek: peek, model: value, context: context)
             return controller
         } else {
             return nil
@@ -192,6 +203,7 @@ extension InspectorViewController {
         tableView.estimatedRowHeight = 44
         tableView.estimatedSectionHeaderHeight = 44
         tableView.estimatedSectionFooterHeight = 0
+        tableView.keyboardDismissMode = .interactive
         
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = .inspectorBackground
@@ -271,7 +283,7 @@ extension InspectorViewController: UITableViewDelegate {
             }
             
             if let value = property.value(forModel: model) as? Model {
-                let controller = InspectorViewController(model: value, context: context)
+                let controller = InspectorViewController(peek: peek, model: value, context: context)
                 navigationController?.pushViewController(controller, animated: true)
             } else {
                 tableView.deselectRow(at: indexPath, animated: true)
@@ -307,29 +319,12 @@ extension InspectorViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "InspectorCell", for: indexPath) as? InspectorCell else { fatalError() }
         let property = dataSource.property(at: indexPath)
         
-        let selectedView = UIView()
-        
-        selectedView.backgroundColor = UIColor(white: 1, alpha: 0.1)
-        cell.selectedBackgroundView = selectedView
-        
-        cell.backgroundColor = .clear
-        cell.contentView.backgroundColor = .clear
-        cell.clipsToBounds = true
-        cell.contentView.clipsToBounds = true
-        
-        cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         cell.detailTextLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         cell.detailTextLabel?.textColor = .textLight
+        cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         cell.textLabel?.textColor = .neutral
-        cell.textLabel?.numberOfLines = 0
-        cell.detailTextLabel?.numberOfLines = 0
-        
-        cell.textLabel?.setContentHuggingPriority(.required, for: .vertical)
-        cell.textLabel?.setContentCompressionResistancePriority(.required, for: .vertical)
-        cell.detailTextLabel?.setContentHuggingPriority(.required, for: .vertical)
-        cell.detailTextLabel?.setContentCompressionResistancePriority(.required, for: .vertical)
-        
         cell.textLabel?.text = property.displayName
+        
         cell.accessoryView = nil
         cell.accessoryType = .none
         cell.editingAccessoryView = nil
@@ -359,13 +354,11 @@ extension InspectorViewController: UITableViewDataSource {
                 if let value = value as? NSNumber {
                     text = NumberTransformer().transformedValue(value) as? String
                     accessoryView = value.isBool() ? BoolAccessoryView(value: value.boolValue) : nil
-                    editingAccessoryView = accessoryView
                 }
             case is UIColor:
                 if let value = value as? UIColor {
                     text = ColorTransformer().transformedValue(value) as? String
                     accessoryView = ColorAccessoryView(color: value)
-                    editingAccessoryView = accessoryView
                 }
             case is NSValue:
                 if let value = value as? NSValue {
@@ -378,14 +371,20 @@ extension InspectorViewController: UITableViewDataSource {
                 text = ColorTransformer().transformedValue(value) as? String
                 //swiftlint:disable force_cast
                 accessoryView = ColorAccessoryView(color: UIColor(cgColor: value as! CGColor))
-                editingAccessoryView = accessoryView
             }
             
-            if let value = property.value(forModel: model) as? Model {
+            if tableView.isEditing || !property.isGroup {
                 cell.accessoryType = .disclosureIndicator
+            } else {
+                cell.accessoryType = .none
             }
+
+//            if let value = property.value(forModel: model) as? Model {
+//                cell.accessoryType = tableView.isEditing ? .none : .disclosureIndicator
+//            }
             
             cell.accessoryView = accessoryView
+            cell.editingAccessoryView = accessoryView
             cell.detailTextLabel?.text = text
             
             property.configurationBlock?(cell, model, value)
@@ -394,16 +393,6 @@ extension InspectorViewController: UITableViewDataSource {
         }
         
         return cell
-    }
-    
-}
-
-public final class TableView: UITableView {
-    
-    public override func setEditing(_ editing: Bool, animated: Bool) {
-        super.setEditing(editing, animated: animated)
-        beginUpdates()
-        endUpdates()
     }
     
 }

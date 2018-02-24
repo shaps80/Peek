@@ -51,12 +51,6 @@ final class PeekConfiguration: Configuration {
         return property
     }
     
-    @objc func addProperty(value: AnyObject?, displayName: String?, cellConfiguration: PropertyCellConfiguration) -> Property {
-        let property = PeekProperty(keyPath: "", displayName: displayName, value: value, category: category, inspector: inspector, configuration: cellConfiguration)
-        properties.append(property)
-        return property
-    }
-    
     @objc func addProperties(_ keyPaths: [String]) -> [Property] {
         var properties = [Property]()
         keyPaths.forEach { properties.append(addProperty($0)) }
@@ -74,7 +68,6 @@ final class PeekConfiguration: Configuration {
 
 final class PeekProperty: Property, CustomStringConvertible, Equatable {
     
-    @objc weak var value: AnyObject?
     @objc let keyPath: String
     @objc let displayName: String
     @objc let category: String
@@ -86,8 +79,7 @@ final class PeekProperty: Property, CustomStringConvertible, Equatable {
         return "keyPath: \(keyPath)"
     }
     
-    @objc init(keyPath: String, displayName: String?, value: AnyObject? = nil, category: String, inspector: Inspector, configuration: PropertyCellConfiguration = nil) {
-        self.value = value
+    @objc init(keyPath: String, displayName: String?, category: String, inspector: Inspector, configuration: PropertyCellConfiguration = nil) {
         self.keyPath = keyPath
         self.displayName = displayName ?? String.capitalized(keyPath)
         self.category = category
@@ -96,11 +88,7 @@ final class PeekProperty: Property, CustomStringConvertible, Equatable {
     }
     
     @objc func value(forModel model: AnyObject) -> AnyObject? {
-        if let value = self.value {
-            return value
-        } else {
-            return model.value(forKeyPath: keyPath) as AnyObject?
-        }
+        return model.value(forKeyPath: keyPath) as AnyObject?
     }
     
 }
