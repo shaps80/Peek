@@ -48,6 +48,18 @@ extension UIView {
         return contentCompressionResistancePriority(for: .vertical)
     }
     
+    public override func preparePeek(with coordinator: Coordinator) {
+        coordinator.append(keyPaths: ["backgroundColor"], forModel: self, in: .appearance)
+        
+        var current = classForCoder
+        coordinator.append(displayName: String(describing: current), value: "", in: .classes)
+        
+        while let next = current.superclass() {
+            coordinator.append(displayName: String(describing: next), value: "", in: .classes)
+            current = next
+        }
+    }
+    
     /**
      Configures Peek's properties for this object
      

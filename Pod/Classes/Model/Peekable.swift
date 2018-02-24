@@ -29,9 +29,13 @@ import UIKit
     var classForCoder: AnyClass { get }
     func preparePeek(_ context: Context)
     func shouldIgnore(options: PeekOptions) -> Bool
+    
+    func preparePeek(with coordinator: Coordinator)
 }
 
 extension NSObject: Peekable {
+    
+    @objc public func preparePeek(with coordinator: Coordinator) { }
     
     /**
      Gives the caller an opportunity to configure Peek's current context

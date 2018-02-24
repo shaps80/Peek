@@ -16,14 +16,18 @@ internal final class InspectorViewController: UIViewController {
     private let dataSource: ContextDataSource
     private let model: Model
     private let context: Context
+    private let coordinator: Coordinator
     private unowned let peek: Peek
     
     private var selectedAttributes: [String] = []
     
-    internal init(peek: Peek, model: Model, context: Context) {
+    internal init(peek: Peek, model: Model & Peekable, context: Context) {
         self.peek = peek
         self.context = context
         self.model = model
+        
+        self.coordinator = PeekCoordinator()
+        model.preparePeek(with: coordinator)
         
         self.tableView = UITableView(frame: .zero, style: .plain)
         self.dataSource = ContextDataSource(context: context, inspector: .attributes)
@@ -95,7 +99,7 @@ extension InspectorViewController: UIViewControllerPreviewingDelegate {
         
         let property = dataSource.property(at: indexPath)
         
-        if let value = property.value(forModel: model) as? Model {
+        if let value = property.value(forModel: model) as? Model & Peekable {
             let context = PeekContext()
             
             if let value = property.value(forModel: model) as? Peekable {
@@ -282,7 +286,7 @@ extension InspectorViewController: UITableViewDelegate {
                 value.preparePeek(context)
             }
             
-            if let value = property.value(forModel: model) as? Model {
+            if let value = property.value(forModel: model) as? Model & Peekable {
                 let controller = InspectorViewController(peek: peek, model: value, context: context)
                 navigationController?.pushViewController(controller, animated: true)
             } else {

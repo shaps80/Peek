@@ -11,11 +11,11 @@ import GraphicsRenderer
 
 internal final class InspectorsTabController: UITabBarController {
     
-    fileprivate let model: Model
+    fileprivate let model: Model & Peekable
     unowned var peek: Peek
     fileprivate let context: Context
     
-    init(peek: Peek, model: Model) {
+    init(peek: Peek, model: Model & Peekable) {
         self.model = model
         self.peek = peek
         self.context = PeekContext()
