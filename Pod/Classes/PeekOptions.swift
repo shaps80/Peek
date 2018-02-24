@@ -41,15 +41,6 @@ public final class PeekOptions: NSObject {
     /// Defines how Peek is activated/de-activated. Default to auto
     public var activationMode: PeekActivationMode = .auto
     
-    /// Enables/disables dark mode. Default to true
-    public var darkMode: Bool = true
-    
-    /// The barTintColor will be applied to navigation and tab bars. By default this uses a Peek specified value
-    public var barTintColor: UIColor? = nil
-    
-    /// The tintColor will be applied to tab bar items, navigation items, etc... By default this uses a Peek specified value
-    public var tintColor: UIColor? = nil
-    
     /// Defines whether Peek should ignore pure containers (i.e. UIView's (NOT subclassed) where subviews.count > 0)
     public var shouldIgnoreContainers = true
     

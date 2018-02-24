@@ -48,8 +48,8 @@ final class VolumeController: NSObject, PeekActivationController {
         
         super.init()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(VolumeController.register), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(VolumeController.unregister), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(register), name: .UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(unregister), name: .UIApplicationWillResignActive, object: nil)
     }
     
     deinit {
