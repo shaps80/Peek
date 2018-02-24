@@ -43,13 +43,13 @@ final class ColorAccessoryView: UIView {
         super.draw(rect)
         
         let stroke = UIColor(white: 1, alpha: 0.1)
-        
-        let rect = CGRect(x: 8, y: 0, width: size.width, height: size.height)
+        let rect = CGRect(x: 8, y: 0, width: size.width, height: size.height).insetBy(dx: 1, dy: 1)
         let path = UIBezierPath(roundedRect: rect, cornerRadius: size.height / 2)
         
-        UIColor(white: 1, alpha: 0.1).setStroke()
         color?.setFill()
         
+        UIColor(white: 1, alpha: 0.1).setStroke()
+        path.lineWidth = 1
         path.fill()
         path.stroke()
     }

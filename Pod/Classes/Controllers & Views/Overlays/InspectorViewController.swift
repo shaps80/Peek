@@ -13,24 +13,23 @@ internal final class InspectorViewController: UIViewController {
     
     internal let tableView: UITableView
     
-    private let dataSource: ContextDataSource
     private let model: Model
-    private let context: Context
-    private let coordinator: Coordinator
+    private let coordinator: PeekCoordinator
+    private let dataSource: ContextDataSource
+    
     private unowned let peek: Peek
     
     private var selectedAttributes: [String] = []
     
-    internal init(peek: Peek, model: Model & Peekable, context: Context) {
+    internal init(peek: Peek, model: Model & Peekable) {
         self.peek = peek
-        self.context = context
         self.model = model
         
         self.coordinator = PeekCoordinator()
         model.preparePeek(with: coordinator)
         
         self.tableView = UITableView(frame: .zero, style: .plain)
-        self.dataSource = ContextDataSource(context: context, inspector: .attributes)
+        self.dataSource = ContextDataSource(coordinator: coordinator)
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -97,17 +96,10 @@ extension InspectorViewController: UIViewControllerPreviewingDelegate {
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard !tableView.isEditing, let indexPath = tableView.indexPathForRow(at: location) else { return nil }
         
-        let property = dataSource.property(at: indexPath)
+        let attribute = dataSource.attribute(at: indexPath)
         
-        if let value = property.value(forModel: model) as? Model & Peekable {
-            let context = PeekContext()
-            
-            if let value = property.value(forModel: model) as? Peekable {
-                value.preparePeek(context)
-            }
-            
-            let controller = InspectorViewController(peek: peek, model: value, context: context)
-            return controller
+        if let value = attribute.value as? Model & PeekableContainer {
+            return InspectorViewController(peek: peek, model: value)
         } else {
             return nil
         }
@@ -219,6 +211,7 @@ extension InspectorViewController {
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         
         tableView.register(InspectorCell.self, forCellReuseIdentifier: "InspectorCell")
+        tableView.register(PreviewCell.self, forCellReuseIdentifier: "PreviewCell")
         tableView.register(SectionHeaderView.self, forHeaderFooterViewReuseIdentifier: "InspectorHeader")
         
         view.addSubview(tableView, constraints: [
@@ -244,6 +237,16 @@ extension InspectorViewController: SectionHeaderViewDelegate {
 }
 
 extension InspectorViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        let attribute = dataSource.attribute(at: indexPath)
+        return !(attribute is PreviewAttribute)
+    }
+    
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        let attribute = dataSource.attribute(at: indexPath)
+        return !(attribute is PreviewAttribute)
+    }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "InspectorHeader") as? SectionHeaderView else { fatalError() }
@@ -279,15 +282,10 @@ extension InspectorViewController: UITableViewDelegate {
             
             present(controller, animated: true, completion: nil)
         } else {
-            let property = dataSource.property(at: indexPath)
-            let context = PeekContext()
+            let attribute = dataSource.attribute(at: indexPath)
             
-            if let value = property.value(forModel: model) as? Peekable {
-                value.preparePeek(context)
-            }
-            
-            if let value = property.value(forModel: model) as? Model & Peekable {
-                let controller = InspectorViewController(peek: peek, model: value, context: context)
+            if let value = attribute.value as? Model & PeekableContainer {
+                let controller = InspectorViewController(peek: peek, model: value)
                 navigationController?.pushViewController(controller, animated: true)
             } else {
                 tableView.deselectRow(at: indexPath, animated: true)
@@ -320,21 +318,28 @@ extension InspectorViewController: UITableViewDataSource {
     }
     
     internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let attribute = dataSource.attribute(at: indexPath)
+        
+        if let preview = attribute as? PreviewAttribute,
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PreviewCell", for: indexPath) as? PreviewCell {
+            cell.previewImageView.image = preview.image
+            return cell
+        }
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "InspectorCell", for: indexPath) as? InspectorCell else { fatalError() }
-        let property = dataSource.property(at: indexPath)
         
         cell.detailTextLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         cell.detailTextLabel?.textColor = .textLight
         cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         cell.textLabel?.textColor = .neutral
-        cell.textLabel?.text = property.displayName
+        cell.textLabel?.text = attribute.title
         
         cell.accessoryView = nil
         cell.accessoryType = .none
         cell.editingAccessoryView = nil
         cell.editingAccessoryType = .none
         
-        if let value = property.value(forModel: model) as? NSObjectProtocol {
+        if let value = attribute.value as? NSObjectProtocol {
             var text: String?
             var accessoryView: UIView?
             var editingAccessoryView: UIView?
@@ -376,24 +381,18 @@ extension InspectorViewController: UITableViewDataSource {
                 //swiftlint:disable force_cast
                 accessoryView = ColorAccessoryView(color: UIColor(cgColor: value as! CGColor))
             }
-            
-            if tableView.isEditing || !property.isGroup {
-                cell.accessoryType = .disclosureIndicator
-            } else {
-                cell.accessoryType = .none
-            }
 
-//            if let value = property.value(forModel: model) as? Model {
-//                cell.accessoryType = tableView.isEditing ? .none : .disclosureIndicator
-//            }
+            if let value = value as? PeekableContainer {
+                cell.accessoryType = tableView.isEditing ? .none : .disclosureIndicator
+            }
             
             cell.accessoryView = accessoryView
             cell.editingAccessoryView = accessoryView
-            cell.detailTextLabel?.text = text
+            cell.detailTextLabel?.text = attribute.detail ?? text
             
-            property.configurationBlock?(cell, model, value)
+//            attribute.configurationBlock?(cell, model, value)
         } else {
-            cell.detailTextLabel?.text = "NIL"
+            cell.detailTextLabel?.text = "none"
         }
         
         return cell

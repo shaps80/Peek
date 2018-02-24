@@ -35,7 +35,9 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             /*
              Configure the metadata asscociated with this app.
              */
-            options.metaData = [ "Environment": "UAT" ]
+            options.metaData = [
+                "Environment": "UAT"
+            ]
             
             /**
              When sending reports, some services support an image attachment.

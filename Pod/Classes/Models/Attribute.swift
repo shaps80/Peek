@@ -7,29 +7,50 @@
 
 import Foundation
 
-@objc internal protocol Attribute: class {
-    var displayName: String { get }
+@objc public protocol Attribute: class {
+    var title: String { get }
+    var detail: String? { get }
     var value: Any? { get }
+}
+
+internal final class PreviewAttribute: Attribute {
+    
+    internal let title: String
+    internal let detail: String? = nil
+    internal let value: Any?
+    
+    internal var image: UIImage? {
+        return value as? UIImage
+    }
+    
+    internal init(image: UIImage) {
+        title = ""
+        value = image
+    }
+    
 }
 
 internal final class DynamicAttribute: Attribute, CustomStringConvertible, Equatable {
     
     internal let keyPath: String
-    internal let displayName: String
+    internal let title: String
+    internal let detail: String?
+    internal var previewImage: UIImage? = nil
     internal private(set) weak var model: Model?
     
     internal var value: Any? {
         return model?.value(forKeyPath: keyPath)
     }
     
-    internal init(displayName: String?, keyPath: String, model: Model) {
-        self.displayName = displayName ?? String.capitalized(keyPath)
+    internal init(title: String?, detail: String? = nil, keyPath: String, model: Model) {
+        self.title = title ?? String.capitalized(keyPath)
+        self.detail = detail
         self.keyPath = keyPath
         self.model = model
     }
     
     internal var description: String {
-        return "\(displayName) – \(keyPath) | \(value == nil ? "nil" : value!)"
+        return "\(title) – \(keyPath) | \(value == nil ? "nil" : value!)"
     }
     
     internal static func ==(lhs: DynamicAttribute, rhs: DynamicAttribute) -> Bool {
@@ -40,20 +61,23 @@ internal final class DynamicAttribute: Attribute, CustomStringConvertible, Equat
 
 internal final class StaticAttribute: Attribute, CustomStringConvertible, Equatable {
     
-    internal let displayName: String
+    internal let title: String
+    internal let detail: String?
     internal let value: Any?
+    internal var previewImage: UIImage? = nil
     
-    init(displayName: String, value: Any?) {
-        self.displayName = displayName
+    init(title: String, detail: String? = nil, value: Any?) {
+        self.title = title
+        self.detail = detail
         self.value = value
     }
     
     internal var description: String {
-        return "\(displayName) – \(value == nil ? "nil" : value!)"
+        return "\(title) – \(value == nil ? "nil" : value!)"
     }
     
     internal static func ==(lhs: StaticAttribute, rhs: StaticAttribute) -> Bool {
-        return lhs.displayName == rhs.displayName
+        return lhs.title == rhs.title
     }
     
 }

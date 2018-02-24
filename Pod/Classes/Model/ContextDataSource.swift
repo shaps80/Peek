@@ -25,30 +25,23 @@ import Foundation
 /// Provides a data-source for representing properties in a Context -- used by InspectorViewController 
 internal final class ContextDataSource {
     
-    private let inspectorType: Inspector
     internal private(set) var sections: [Section]
     
-    internal init(context: Context, inspector: Inspector) {
-        inspectorType = inspector
+    internal init(coordinator: PeekCoordinator) {
+        let groups = Group.all
         
-        let properties = context.properties
-        let categories = Array(Set(properties
-            .filter { $0.inspector == inspector }
-            .map { $0.category }))
-            .sorted()
-        
-        sections = categories.map { category in
-            let items = properties
-                .filter { $0.category == category }
-                .sorted(by: { $0.displayName < $1.displayName })
-                .map { Item(title: $0.displayName, property: $0) }
+        sections = groups.flatMap { group in
+            guard let peekGroup = coordinator.groupsMapping[group] else { return nil }
             
-            return Section(title: category, items: items, isExpanded: true)
+            let items = peekGroup.attributes
+                .map { Item(title: $0.title, attribute: $0) }
+            
+            return Section(title: peekGroup.title, items: items, isExpanded: true)
         }
     }
     
-    internal func property(at indexPath: IndexPath) -> Property {
-        return sections[indexPath.section].items[indexPath.item].property
+    internal func attribute(at indexPath: IndexPath) -> Attribute {
+        return sections[indexPath.section].items[indexPath.item].attribute
     }
     
     internal func setExpanded(_ expanded: Bool, for section: Int) {

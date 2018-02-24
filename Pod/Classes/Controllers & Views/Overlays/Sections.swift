@@ -27,11 +27,7 @@ internal struct Section {
 
 internal struct Item {
     internal let title: String
-    internal let property: Property
-    
-    internal var isParent: Bool {
-        return property.value == nil
-    }
+    internal let attribute: Attribute
 }
 
 internal protocol SectionHeaderViewDelegate: class {

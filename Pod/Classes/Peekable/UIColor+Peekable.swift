@@ -21,6 +21,7 @@
  */
 
 import UIKit
+import GraphicsRenderer
 
 extension UIColor: Model {
     
@@ -38,6 +39,27 @@ extension UIColor: Model {
     
     @objc var peek_RGB: String {
         return "\(Int(rgbComponents.red * 255)), \(Int(rgbComponents.green * 255)), \(Int(rgbComponents.blue * 255))"
+    }
+    
+    public override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
+        
+        let image = ImageRenderer(size: CGSize(width: UIScreen.main.bounds.width, height: 88)).image { context in
+            let rect = context.format.bounds
+            setFill()
+            UIRectFill(rect)
+        }
+        
+        coordinator.appendPreview(image: image, forModel: self)
+        
+        guard cgColor.pattern == nil else { return }
+        
+        coordinator.appendDynamic(keyPathToName: [
+            ["peek_HEX": "HEX"],
+            ["peek_RGB": "RGB"],
+            ["peek_HSL": "HSL"],
+            ["peek_alpha": "Alpha"],
+        ], forModel: self, in: .general)
     }
     
     /**

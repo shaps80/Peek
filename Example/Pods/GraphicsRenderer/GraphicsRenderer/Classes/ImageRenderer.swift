@@ -164,7 +164,7 @@ public final class ImageRenderer: Renderer {
             image = context.currentImage
         }
         
-        return image!
+        return image ?? UIImage()
     }
     
     /**
@@ -204,7 +204,7 @@ public final class ImageRenderer: Renderer {
         
         #if os(iOS)
             UIGraphicsBeginImageContextWithOptions(format.bounds.size, format.opaque, format.scale)
-            let cgContext = CGContext.current!
+            guard let cgContext = CGContext.current else { return }
             
             if format.isFlipped {
                 let transform = CGAffineTransform(a: 1, b: 0, c: 0, d: -1, tx: 0, ty: format.bounds.height)

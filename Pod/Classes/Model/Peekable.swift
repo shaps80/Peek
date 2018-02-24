@@ -27,11 +27,17 @@ import UIKit
  */
 @objc public protocol Peekable: NSObjectProtocol {
     var classForCoder: AnyClass { get }
+    
     func preparePeek(_ context: Context)
     func shouldIgnore(options: PeekOptions) -> Bool
     
     func preparePeek(with coordinator: Coordinator)
 }
+
+@objc public protocol PeekableContainer: Peekable { }
+
+extension UIView: PeekableContainer { }
+extension UIColor: PeekableContainer { }
 
 extension NSObject: Peekable {
     

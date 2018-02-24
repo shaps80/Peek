@@ -72,6 +72,10 @@ extension UIButton {
         return titleColor(for: .disabled)
     }
     
+    public override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
+    }
+    
     /**
      Configures Peek's properties for this object
      
@@ -80,7 +84,7 @@ extension UIButton {
     public override func preparePeek(_ context: Context) {
         super.preparePeek(context)
         
-        context.configure(.attributes, "Components") { (config) in
+        context.configure(.attributes, "Components") { config in
             config.addProperties([ "imageView", "titleLabel" ])
         }
         

@@ -45,7 +45,7 @@ internal final class InspectorsTabController: UITabBarController {
             tabBar.unselectedItemTintColor = .lightGray
         }
         
-        let inspector = InspectorViewController(peek: peek, model: model, context: context)
+        let inspector = InspectorViewController(peek: peek, model: model)
         let nav = UINavigationController(rootViewController: inspector)
         
         nav.navigationBar.shadowImage = UIImage()

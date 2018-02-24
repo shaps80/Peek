@@ -21,6 +21,7 @@
  */
 
 import UIKit
+import GraphicsRenderer
 
 extension UIView {
     
@@ -49,14 +50,36 @@ extension UIView {
     }
     
     public override func preparePeek(with coordinator: Coordinator) {
-        coordinator.append(keyPaths: ["backgroundColor"], forModel: self, in: .appearance)
+        if bounds.size != .zero {
+            let image = ImageRenderer(size: bounds.size).image { [weak self] context in
+                let rect = context.format.bounds
+                self?.drawHierarchy(in: rect, afterScreenUpdates: true)
+            }
+            
+            if image.size != .zero {
+                coordinator.appendPreview(image: image, forModel: self)
+            }
+        }
+        
+        coordinator.appendDynamic(keyPaths: [
+            "backgroundColor",
+            "tintColor"
+        ], forModel: self, in: .appearance)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "translatesAutoresizingMaskIntoConstraints"
+        ], forModel: self, in: .layout)
         
         var current = classForCoder
-        coordinator.append(displayName: String(describing: current), value: "", in: .classes)
+        coordinator.appendStatic(title: String(describing: current), detail: nil, value: "", in: .classes)
         
         while let next = current.superclass() {
-            coordinator.append(displayName: String(describing: next), value: "", in: .classes)
+            coordinator.appendStatic(title: String(describing: next), detail: nil, value: "", in: .classes)
             current = next
+        }
+        
+        for view in subviews {
+            coordinator.appendStatic(title: String(describing: view.classForCoder), detail: "", value: view, in: .views)
         }
     }
     

@@ -8,45 +8,55 @@
 import Foundation
 
 @objc public protocol Coordinator: class {
-    func append(keyPaths: [String], forModel model: Model, in group: Group)
-    func append(keyPathToName mapping: [[String: String]], forModel model: Model, in group: Group)
-    func append(displayName: String, value: Any?, in group: Group)
+    func appendDynamic(keyPaths: [String], forModel model: Model, in group: Group)
+    func appendDynamic(keyPathToName mapping: [[String: String]], forModel model: Model, in group: Group)
+    func appendStatic(title: String, detail: String?, value: Any?, in group: Group)
+    func appendPreview(image: UIImage, forModel model: Model)
 }
 
 internal final class PeekCoordinator: Coordinator, CustomStringConvertible {
     
-    internal private(set) var groups: [Group: PeekGroup] = [:]
+    internal private(set) var groupsMapping: [Group: PeekGroup] = [:]
     
-    internal func append(keyPaths: [String], forModel model: Model, in group: Group) {
-        let peekGroup = groups[group] ?? PeekGroup.make(from: group)
-        groups[group] = peekGroup
+    internal func appendPreview(image: UIImage, forModel model: Model) {
+        let peekGroup = groupsMapping[.preview] ?? PeekGroup.make(from: .preview)
+        groupsMapping[.preview] = peekGroup
+        
+        peekGroup.attributes.append(
+            PreviewAttribute(image: image)
+        )
+    }
+    
+    internal func appendDynamic(keyPaths: [String], forModel model: Model, in group: Group) {
+        let peekGroup = groupsMapping[group] ?? PeekGroup.make(from: group)
+        groupsMapping[group] = peekGroup
         
         peekGroup.attributes.append(contentsOf: keyPaths.map {
-            DynamicAttribute(displayName: String.capitalized($0), keyPath: $0, model: model)
+            DynamicAttribute(title: String.capitalized($0), keyPath: $0, model: model)
         })
     }
     
-    internal func append(keyPathToName mapping: [[String : String]], forModel model: Model, in group: Group) {
-        let peekGroup = groups[group] ?? PeekGroup.make(from: group)
-        groups[group] = peekGroup
+    internal func appendDynamic(keyPathToName mapping: [[String : String]], forModel model: Model, in group: Group) {
+        let peekGroup = groupsMapping[group] ?? PeekGroup.make(from: group)
+        groupsMapping[group] = peekGroup
         
         peekGroup.attributes.append(contentsOf: mapping.map {
-            DynamicAttribute(displayName: $0.values.first!, keyPath: $0.keys.first!, model: model)
+            DynamicAttribute(title: $0.values.first!, keyPath: $0.keys.first!, model: model)
         })
     }
     
-    internal func append(displayName: String, value: Any?, in group: Group) {
-        let peekGroup = groups[group] ?? PeekGroup.make(from: group)
-        groups[group] = peekGroup
+    internal func appendStatic(title: String, detail: String? = nil, value: Any?, in group: Group) {
+        let peekGroup = groupsMapping[group] ?? PeekGroup.make(from: group)
+        groupsMapping[group] = peekGroup
         
-        let attribute = StaticAttribute(displayName: displayName, value: value)
+        let attribute = StaticAttribute(title: title, detail: detail, value: value)
         peekGroup.attributes.append(attribute)
     }
     
     internal var description: String {
         return """
         \(type(of: self))
-        \(groups.map { "▹ \($0)" }.joined(separator: "\n"))
+        \(groupsMapping.values.map { "▹ \($0)" }.joined(separator: "\n"))
         """
     }
     

@@ -85,6 +85,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         stackContainerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ViewController.handleTap(_:))))
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ViewController.handleTap(_:))))
         
+        hipsButton.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "tick"))
         collectionViewTopConstraint.constant = 0
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
