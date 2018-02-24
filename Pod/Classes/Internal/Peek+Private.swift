@@ -73,10 +73,9 @@ final class PeekProperty: Property, CustomStringConvertible, Equatable {
     @objc let category: String
     @objc let inspector: Inspector
     @objc var configurationBlock: PropertyCellConfiguration
-    @objc var cellHeight: CGFloat = 0
     
     var description: String {
-        return "keyPath: \(keyPath)"
+        return "\(displayName) – \(keyPath)"
     }
     
     @objc init(keyPath: String, displayName: String?, category: String, inspector: Inspector, configuration: PropertyCellConfiguration = nil) {
@@ -87,8 +86,8 @@ final class PeekProperty: Property, CustomStringConvertible, Equatable {
         self.configurationBlock = configuration
     }
     
-    @objc func value(forModel model: AnyObject) -> AnyObject? {
-        return model.value(forKeyPath: keyPath) as AnyObject?
+    @objc func value(forModel model: AnyObject) -> Any? {
+        return model.value(forKeyPath: keyPath)
     }
     
 }

@@ -39,6 +39,7 @@ internal final class InspectorsTabController: UITabBarController {
         tabBar.backgroundImage = UIImage()
         tabBar.backgroundColor = .inspectorBackground
         tabBar.tintColor = .primaryTint
+        tabBar.isHidden = true
         
         if #available(iOS 10.0, *) {
             tabBar.unselectedItemTintColor = .lightGray
@@ -56,6 +57,7 @@ internal final class InspectorsTabController: UITabBarController {
         ]
         
         inspector.title = "Attributes"
+        inspector.tabBarItem.image = Images.inspectorImage(.attributes)
         
         if #available(iOS 11.0, *) {
             nav.navigationBar.prefersLargeTitles = true

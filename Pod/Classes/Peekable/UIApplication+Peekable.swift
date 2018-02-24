@@ -52,8 +52,6 @@ extension UIApplication {
                 cell.accessoryView = UIImageView(image: image)
                 cell.detailTextLabel?.text = nil
             })
-            
-            property.cellHeight = 70
         }
         
         context.configure(.application, "Behaviour") { (config) in

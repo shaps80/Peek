@@ -70,8 +70,6 @@ extension UIViewController {
                 cell.accessoryView = UIImageView(image: image)
                 cell.detailTextLabel?.text = nil
             })
-            
-            property.cellHeight = 70
         }
         
         if self is UITableViewController {
@@ -82,7 +80,7 @@ extension UIViewController {
         
         if self is UICollectionViewController {
             context.configure(.controller, "Collection View", configuration: { (config) in
-                config.addProperty("clearsSelectionOnViewWillAppear", displayName: "Clears Selection on View", cellConfiguration: nil)
+                config.addProperty("clearsSelectionOnViewWillAppear", displayName: "Auto Clears Selection", cellConfiguration: nil)
                 config.addProperty("useLayoutToLayoutNavigationTransitions", displayName: "Layout to Layout Transitions", cellConfiguration: nil)
                 config.addProperty("installsStandardGestureForInteractiveMovement", displayName: "Uses Default Reordering Gesture", cellConfiguration: nil)
             })

@@ -176,9 +176,6 @@ public typealias PropertyCellConfiguration = ((_ cell: UITableViewCell, _ object
     /// Returns the cell configuration block associated with this Property
     var configurationBlock: PropertyCellConfiguration { get }
     
-    /// Returns the preferred cell height associated with this Property
-    var cellHeight: CGFloat { get set }
-    
     /**
      Initializes a new property for the associated keyPath
      
@@ -191,7 +188,7 @@ public typealias PropertyCellConfiguration = ((_ cell: UITableViewCell, _ object
      
      - returns: A newly configured Property
      */
-    init(keyPath: String, displayName: String?, category: String, inspector: Inspector, configuration: PropertyCellConfiguration)
+    @objc init(keyPath: String, displayName: String?, category: String, inspector: Inspector, configuration: PropertyCellConfiguration)
     
     /**
      Returns the value runtime associated with this property
@@ -200,7 +197,7 @@ public typealias PropertyCellConfiguration = ((_ cell: UITableViewCell, _ object
      
      - returns: The underlying runtime value associated with this model
      */
-    func value(forModel model: AnyObject) -> AnyObject?
+    @objc func value(forModel model: AnyObject) -> Any?
     
 }
 
