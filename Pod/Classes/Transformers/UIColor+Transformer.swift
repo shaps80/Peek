@@ -27,11 +27,17 @@ final class ColorTransformer: Foundation.ValueTransformer {
     
     override func transformedValue(_ value: Any?) -> Any? {
         if let value = value as? UIColor {
+            if value == .clear {
+                return "Clear"
+            }
+            
             if value.cgColor.pattern != nil {
                 return "Pattern"
             }
             
-            return value.values().a == 0 ? "Clear" : value.hexValue(includeAlpha: false)
+            return value.values().a == 0
+                ? "Transparent"
+                : value.hexValue(includeAlpha: false)
         }
         
         if CFGetTypeID(value as CFTypeRef) == CGColor.typeID {

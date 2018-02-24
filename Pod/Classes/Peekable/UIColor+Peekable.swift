@@ -44,6 +44,16 @@ extension UIColor: Model {
     public override func preparePeek(with coordinator: Coordinator) {
         super.preparePeek(with: coordinator)
         
+        guard self != .clear else {
+            coordinator.appendStatic(title: "Color", detail: nil, value: "Clear", in: .appearance)
+            return
+        }
+        
+        guard self.values().a != 0 else {
+            coordinator.appendStatic(title: "Color", detail: nil, value: "Transparent", in: .appearance)
+            return
+        }
+        
         let image = ImageRenderer(size: CGSize(width: UIScreen.main.bounds.width, height: 88)).image { context in
             let rect = context.format.bounds
             setFill()
@@ -60,22 +70,6 @@ extension UIColor: Model {
             ["peek_HSL": "HSL"],
             ["peek_alpha": "Alpha"],
         ], forModel: self, in: .general)
-    }
-    
-    /**
-     Configures Peek's properties for this object
-     
-     - parameter context: The context to apply these properties to
-     */
-    public override func preparePeek(_ context: Context) {
-        super.preparePeek(context)
-        
-        context.configure(.attributes, "Values") { (config) in
-            config.addProperty("peek_alpha", displayName: "Alpha", cellConfiguration: nil)
-            config.addProperty("peek_RGB", displayName: "RGB", cellConfiguration: nil)
-            config.addProperty("peek_HSL", displayName: "HSL", cellConfiguration: nil)
-            config.addProperty("peek_HEX", displayName: "HEX", cellConfiguration: nil)
-        }
     }
     
 }
