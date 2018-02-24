@@ -63,6 +63,13 @@ final class PeekConfiguration: Configuration {
         return properties
     }
     
+    @objc func addProperties(keyPaths: [[String : String]]) -> [Property] {
+        return keyPaths.flatMap {
+            guard let key = $0.keys.first, let value = $0.values.first else { return nil }
+            return addProperty(key, displayName: value, cellConfiguration: nil)
+        }
+    }
+    
 }
 
 final class PeekProperty: Property, CustomStringConvertible, Equatable {

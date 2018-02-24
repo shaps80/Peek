@@ -23,43 +23,40 @@
 import Foundation
 
 /// Provides a data-source for representing properties in a Context -- used by InspectorViewController 
-final class ContextDataSource {
+internal final class ContextDataSource {
     
-    let inspectorType: Inspector
-    fileprivate var categories: [String]
-    fileprivate var properties: [Property]
-    fileprivate var categoryProperties = [[Property]]()
+    private let inspectorType: Inspector
+    internal private(set) var sections: [Section]
     
-    init(context: Context, inspector: Inspector) {
+    internal init(context: Context, inspector: Inspector) {
         inspectorType = inspector
-        properties = context.properties.filter { $0.inspector == inspector }
-        categories = Array(Set(properties
+        
+        let properties = context.properties
+        let categories = Array(Set(properties
+            .filter { $0.inspector == inspector }
             .map { $0.category }))
             .sorted()
         
-        categories.forEach { category in
-            categoryProperties.append(
-                properties
-                    .filter { $0.category == category }
-//                    .sorted { return $0.displayName < $1.displayName }
-            )
+        sections = categories.map { category in
+            let items = properties
+                .filter { $0.category == category }
+                .sorted(by: { $0.displayName < $1.displayName })
+                .map { Item(title: $0.displayName, property: $0) }
+            
+            return Section(title: category, items: items, isExpanded: true)
         }
     }
     
-    func propertyForIndexPath(_ indexPath: IndexPath) -> Property {
-        return categoryProperties[indexPath.section][indexPath.item]
+    internal func property(at indexPath: IndexPath) -> Property {
+        return sections[indexPath.section].items[indexPath.item].property
     }
     
-    func numberOfCategories() -> Int {
-        return categoryProperties.count
+    internal func setExpanded(_ expanded: Bool, for section: Int) {
+        sections[section].isExpanded = expanded
     }
     
-    func numberOfProperties(inCategory category: Int) -> Int {
-        return categoryProperties[category].count
-    }
-    
-    func titleForCategory(_ category: Int) -> String {
-        return categories[category]
+    internal func toggleVisibility(forSection section: Int) {
+        sections[section].isExpanded = !sections[section].isExpanded
     }
     
 }

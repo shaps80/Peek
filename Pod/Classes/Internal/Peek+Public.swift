@@ -122,6 +122,9 @@ extension Inspector {
     @discardableResult
     func addProperties(_ keyPaths: [String]) -> [Property]
     
+    @discardableResult
+    func addProperties(keyPaths: [[String: String]]) -> [Property]
+    
     /**
      Adds the specified keyPath as a Peek Property
      

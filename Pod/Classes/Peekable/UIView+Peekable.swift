@@ -57,13 +57,13 @@ extension UIView {
         super.preparePeek(context)
         
         context.configure(.attributes, "Accessibility") { config in
-            config.addProperties([
-                "accessibilityIdentifier",
-                "accessibilityHint",
-                "accessibilityPath",
-                "accessibilityFrame",
-                "accessibilityLabel",
-                "accessibilityValue"
+            config.addProperties(keyPaths: [
+                ["accessibilityIdentifier": "Identifier"],
+                ["accessibilityHint": "Hint"],
+                ["accessibilityPath": "Path"],
+                ["accessibilityFrame": "Frame"],
+                ["accessibilityLabel": "Label"],
+                ["accessibilityValue": "Value"]
             ])
         }
         

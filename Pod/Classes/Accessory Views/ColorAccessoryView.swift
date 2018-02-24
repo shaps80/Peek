@@ -25,28 +25,33 @@ import UIKit
 /// This accessory view is used in Peek to show an icon representing the underlying UIColor value
 final class ColorAccessoryView: UIView {
     
-    fileprivate let value: UIColor?
+    fileprivate let color: UIColor?
     fileprivate let size = CGSize(width: 20, height: 20)
     private let margin: CGFloat = 8
     
-    init(value: UIColor?) {
-        self.value = value
+    init(color: UIColor?) {
+        self.color = color
         super.init(frame: CGRect(x: 0, y: 0, width: size.width + margin, height: size.height))
-        
         backgroundColor = .clear
-        
-        let view = UIView(frame: CGRect(x: margin, y: 0, width: size.width, height: size.height))
-        view.backgroundColor = value
-        view.isOpaque = true
-        
-        view.layer.cornerRadius = size.height / 2
-        view.layer.borderColor = UIColor(white: 1, alpha: 0.1).cgColor
-        view.layer.borderWidth = 1
-        addSubview(view)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        
+        let stroke = UIColor(white: 1, alpha: 0.1)
+        
+        let rect = CGRect(x: 8, y: 0, width: size.width, height: size.height)
+        let path = UIBezierPath(roundedRect: rect, cornerRadius: size.height / 2)
+        
+        UIColor(white: 1, alpha: 0.1).setStroke()
+        color?.setFill()
+        
+        path.fill()
+        path.stroke()
     }
     
     override var intrinsicContentSize: CGSize {

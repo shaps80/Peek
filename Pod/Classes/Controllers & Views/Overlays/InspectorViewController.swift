@@ -12,8 +12,6 @@ import GraphicsRenderer
 internal final class InspectorViewController: UIViewController {
     
     internal let tableView: TableView
-    private var navigationBarEffectsView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
-    private var tabBarEffectsView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     
     private let dataSource: ContextDataSource
     private let model: Model
@@ -21,7 +19,7 @@ internal final class InspectorViewController: UIViewController {
     private var selectedAttributes: [String] = []
     
     internal init(model: Model, context: Context) {
-        self.tableView = TableView(frame: .zero, style: .grouped)
+        self.tableView = TableView(frame: .zero, style: .plain)
         self.dataSource = ContextDataSource(context: context, inspector: .attributes)
         self.model = model
         
@@ -32,14 +30,16 @@ internal final class InspectorViewController: UIViewController {
         super.viewDidLoad()
         
         prepareTableView()
-        prepareTabBar()
-        prepareNavigationBar()
         prepareNavigationItems(animated: false)
     }
     
     // MARK: Unused
     internal required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc private func dismissController() {
+        dismiss(animated: true, completion: nil)
     }
     
 }
@@ -59,7 +59,7 @@ extension InspectorViewController {
             navigationItem.setRightBarButton(send, animated: animated)
             
             UIView.animate(withDuration: animated ? 0.25 : 0) {
-                self.navigationBarEffectsView.backgroundColor = .editingTint
+                self.navigationController?.navigationBar.backgroundColor = .editingTint
                 self.navigationController?.navigationBar.tintColor = .white
                 self.navigationItem.titleView = nil
             }
@@ -89,8 +89,8 @@ extension InspectorViewController {
             button.tintColor = .neutral
             
             UIView.animate(withDuration: animated ? 0.25 : 0) {
-                self.navigationBarEffectsView.backgroundColor = nil
-                self.navigationController?.navigationBar.tintColor = .secondaryTint
+                self.navigationController?.navigationBar.backgroundColor = .inspectorBackground
+                self.navigationController?.navigationBar.tintColor = .primaryTint
                 self.navigationItem.titleView = button
             }
             
@@ -126,31 +126,6 @@ extension InspectorViewController {
     
 }
 
-// MARK: - Bars
-extension InspectorViewController {
-    
-    private func prepareNavigationBar() {
-        view.addSubview(navigationBarEffectsView, constraints: [
-            equal(\.leadingAnchor), equal(\.trailingAnchor), equal(\.topAnchor)
-        ])
-        
-        topLayoutGuide.bottomAnchor.constraint(equalTo: navigationBarEffectsView.bottomAnchor, constant: 0).isActive = true
-    }
-    
-    private func prepareTabBar() {
-        view.addSubview(tabBarEffectsView, constraints: [
-            equal(\.leadingAnchor), equal(\.trailingAnchor), equal(\.bottomAnchor)
-        ])
-        
-        bottomLayoutGuide.topAnchor.constraint(equalTo: tabBarEffectsView.topAnchor, constant: 0).isActive = true
-    }
-    
-    @objc private func dismissController() {
-        dismiss(animated: true, completion: nil)
-    }
-    
-}
-
 // MARK: - Table View Prep
 extension InspectorViewController {
     
@@ -162,14 +137,17 @@ extension InspectorViewController {
         tableView.estimatedSectionHeaderHeight = 44
         tableView.estimatedSectionFooterHeight = 0
         
+        tableView.tableFooterView = UIView()
         tableView.backgroundColor = .inspectorBackground
-        tableView.separatorColor = UIColor(white: 1, alpha: 0.1)
+        tableView.separatorColor = .separator
         tableView.delegate = self
         tableView.dataSource = self
         
         tableView.allowsMultipleSelectionDuringEditing = true
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         
         tableView.register(InspectorCell.self, forCellReuseIdentifier: "InspectorCell")
+        tableView.register(SectionHeaderView.self, forHeaderFooterViewReuseIdentifier: "InspectorHeader")
         
         view.addSubview(tableView, constraints: [
             equal(\.leadingAnchor), equal(\.trailingAnchor),
@@ -179,11 +157,58 @@ extension InspectorViewController {
     
 }
 
+extension InspectorViewController: SectionHeaderViewDelegate {
+    
+    func sectionHeader(_ view: SectionHeaderView, shouldToggleAt index: Int) {
+        dataSource.toggleVisibility(forSection: index)
+        let expanded = dataSource.sections[index].isExpanded
+        
+        view.setExpanded(expanded) { [weak self] in
+            let section = IndexSet(integer: index)
+            self?.tableView.reloadSections(section, with: .automatic)
+        }
+    }
+    
+}
+
 extension InspectorViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "InspectorHeader") as? SectionHeaderView else { fatalError() }
+        header.label.text = dataSource.sections[section].title
+        header.label.font = UIFont.systemFont(ofSize: 15, weight: .black)
+        header.label.textColor = .textLight
+        header.prepareHeader(for: section, delegate: self)
+        header.setExpanded(dataSource.sections[section].isExpanded)
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return dataSource.sections[indexPath.section].isExpanded ? UITableViewAutomaticDimension : 0
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedAttributes.append("\(indexPath)")
-        invalidateSendButton()
+        if tableView.isEditing {
+            let controller = UIAlertController(title: "Report Issue", message: "Select the reason for reporting this issue", preferredStyle: .actionSheet)
+            
+            controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+                tableView.deselectRow(at: indexPath, animated: true)
+            }))
+            
+            controller.addAction(UIAlertAction(title: "Invalid Value", style: .destructive, handler: { [weak self] _ -> Void in
+                self?.selectedAttributes.append("Invalid Value")
+                self?.invalidateSendButton()
+            }))
+            
+            controller.addAction(UIAlertAction(title: "Write a note", style: .default, handler: { [weak self] _ -> Void in
+                self?.selectedAttributes.append("Note")
+                self?.invalidateSendButton()
+            }))
+            
+            present(controller, animated: true, completion: nil)
+        } else {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -203,16 +228,16 @@ extension InspectorViewController: UITableViewDelegate {
 extension InspectorViewController: UITableViewDataSource {
     
     internal func numberOfSections(in tableView: UITableView) -> Int {
-        return dataSource.numberOfCategories()
+        return dataSource.sections.count
     }
     
     internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.numberOfProperties(inCategory: section)
+        return dataSource.sections[section].items.count
     }
     
     internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "InspectorCell", for: indexPath) as? InspectorCell else { fatalError() }
-        let property = dataSource.propertyForIndexPath(indexPath)
+        let property = dataSource.property(at: indexPath)
         
         let selectedView = UIView()
         
@@ -221,6 +246,8 @@ extension InspectorViewController: UITableViewDataSource {
         
         cell.backgroundColor = .clear
         cell.contentView.backgroundColor = .clear
+        cell.clipsToBounds = true
+        cell.contentView.clipsToBounds = true
         
         cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         cell.detailTextLabel?.font = UIFont.preferredFont(forTextStyle: .body)
@@ -237,10 +264,13 @@ extension InspectorViewController: UITableViewDataSource {
         cell.textLabel?.text = property.displayName
         cell.accessoryView = nil
         cell.accessoryType = .none
+        cell.editingAccessoryView = nil
+        cell.editingAccessoryType = .none
         
         if let value = property.value(forModel: model) as? NSObjectProtocol {
             var text: String?
             var accessoryView: UIView?
+            var editingAccessoryView: UIView?
             
             switch value {
             case is [AnyObject]:
@@ -261,11 +291,13 @@ extension InspectorViewController: UITableViewDataSource {
                 if let value = value as? NSNumber {
                     text = NumberTransformer().transformedValue(value) as? String
                     accessoryView = value.isBool() ? BoolAccessoryView(value: value.boolValue) : nil
+                    editingAccessoryView = accessoryView
                 }
             case is UIColor:
                 if let value = value as? UIColor {
                     text = ColorTransformer().transformedValue(value) as? String
-                    accessoryView = ColorAccessoryView(value: value)
+                    accessoryView = ColorAccessoryView(color: value)
+                    editingAccessoryView = accessoryView
                 }
             case is NSValue:
                 if let value = value as? NSValue {
@@ -277,7 +309,8 @@ extension InspectorViewController: UITableViewDataSource {
             if CFGetTypeID(value) == CGColor.typeID {
                 text = ColorTransformer().transformedValue(value) as? String
                 //swiftlint:disable force_cast
-                accessoryView = ColorAccessoryView(value: UIColor(cgColor: value as! CGColor))
+                accessoryView = ColorAccessoryView(color: UIColor(cgColor: value as! CGColor))
+                editingAccessoryView = accessoryView
             }
             
             if let value = property.value(forModel: model) as? PeekSubPropertiesSupporting, value.hasProperties {
@@ -286,6 +319,7 @@ extension InspectorViewController: UITableViewDataSource {
             
             cell.accessoryView = accessoryView
             cell.detailTextLabel?.text = text
+            
             property.configurationBlock?(cell, model, value)
         } else {
             cell.detailTextLabel?.text = "NIL"

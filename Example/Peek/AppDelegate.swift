@@ -24,8 +24,7 @@ import UIKit
 import Peek
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-    
+final class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -43,6 +42,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
              */
             options.includeScreenshot = true
             options.screenshotScale = 1
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            self?.window?.peek.present()
         }
         
         return true

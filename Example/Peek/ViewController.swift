@@ -87,7 +87,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         collectionViewTopConstraint.constant = 0
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(0.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) { () -> Void in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.previousWeekNumber = -1
             
             let animation = POPSpringAnimation(propertyNamed: kPOPLayoutConstraintConstant)

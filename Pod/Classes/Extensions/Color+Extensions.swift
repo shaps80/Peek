@@ -46,6 +46,10 @@ extension UIColor {
         return UIColor.black
     }
     
+    internal static var separator: UIColor {
+        return UIColor(white: 1, alpha: 0.1)
+    }
+    
     internal static var inspectorBackground: UIColor {
         return Color(hex: "1c1c1c")!.uiColor
     }
@@ -59,7 +63,7 @@ extension UIColor {
     }
     
     internal static var editingTint: UIColor {
-        return Color(hex: "EE0000")!.uiColor
+        return Color(hex: "AA0000")!.uiColor
     }
     
     internal static var neutral: UIColor {

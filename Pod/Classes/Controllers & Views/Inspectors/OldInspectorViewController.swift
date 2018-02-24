@@ -38,9 +38,9 @@ final class OldInspectorViewController: UITableViewController {
         super.init(style: .grouped)
         
         // we do this here to ensure the tabItems are populated immediately
-        title = "\(dataSource.inspectorType)"
+//        title = "\(dataSource.inspectorType)"
         
-        tabBarItem.image = dataSource.inspectorType.image
+//        tabBarItem.image = dataSource.inspectorType.image
         tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -2)
         tabBarItem.setTitleTextAttributes([ .font: UIFont(name: "Avenir-Medium", size: 12)! ], for: UIControlState())
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
@@ -65,7 +65,7 @@ final class OldInspectorViewController: UITableViewController {
         tableView.estimatedRowHeight = 44
         tableView.estimatedSectionHeaderHeight = 44
         
-        if dataSource.numberOfCategories() == 0 {
+        if dataSource.sections.count == 0 {
             let label = UILabel()
             label.font = UIFont.preferredFont(forTextStyle: .body)
             label.numberOfLines = 0
@@ -113,7 +113,7 @@ final class OldInspectorViewController: UITableViewController {
     }
     
     fileprivate func configureCell(_ cell: InspectorCell, forIndexPath indexPath: IndexPath) {
-        let property = dataSource.propertyForIndexPath(indexPath)
+        let property = dataSource.property(at: indexPath)
         
         cell.textLabel?.text = property.displayName
         cell.accessoryView = nil
@@ -146,7 +146,7 @@ final class OldInspectorViewController: UITableViewController {
             case is UIColor:
                 if let value = value as? UIColor {
                     text = ColorTransformer().transformedValue(value) as? String
-                    accessoryView = ColorAccessoryView(value: value)
+                    accessoryView = ColorAccessoryView(color: value)
                 }
             case is NSValue:
                 if let value = value as? NSValue {
@@ -158,7 +158,7 @@ final class OldInspectorViewController: UITableViewController {
             if CFGetTypeID(value) == CGColor.typeID {
                 text = ColorTransformer().transformedValue(value) as? String
                 //swiftlint:disable force_cast
-                accessoryView = ColorAccessoryView(value: UIColor(cgColor: value as! CGColor))
+                accessoryView = ColorAccessoryView(color: UIColor(cgColor: value as! CGColor))
             }
             
             if let value = property.value(forModel: model) as? PeekSubPropertiesSupporting, value.hasProperties {
@@ -174,19 +174,19 @@ final class OldInspectorViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return dataSource.numberOfCategories() 
+        return dataSource.sections.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.numberOfProperties(inCategory: section) 
+        return dataSource.sections[section].items.count
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return dataSource.titleForCategory(section)
+        return dataSource.sections[section].title
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let cellHeight = dataSource.propertyForIndexPath(indexPath).cellHeight
+        let cellHeight = dataSource.property(at: indexPath).cellHeight
 
         if cellHeight != 0 {
             return cellHeight
@@ -196,7 +196,7 @@ final class OldInspectorViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let property = dataSource.propertyForIndexPath(indexPath)
+        let property = dataSource.property(at: indexPath)
         
         guard let value = property.value(forModel: model) as? PeekSubPropertiesSupporting, value.hasProperties else {
             tableView.deselectRow(at: indexPath, animated: true)

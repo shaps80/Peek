@@ -35,11 +35,10 @@ internal final class InspectorsTabController: UITabBarController {
         modalPresentationStyle = .popover
         preferredContentSize = CGSize(width: 375, height: CGFloat.greatestFiniteMagnitude)
         
-        tabBar.barStyle = .black
-        tabBar.barTintColor = .inspectorBackground
-        tabBar.tintColor = .white
         tabBar.shadowImage = UIImage()
         tabBar.backgroundImage = UIImage()
+        tabBar.backgroundColor = .inspectorBackground
+        tabBar.tintColor = .primaryTint
         
         if #available(iOS 10.0, *) {
             tabBar.unselectedItemTintColor = .lightGray
@@ -50,6 +49,8 @@ internal final class InspectorsTabController: UITabBarController {
         
         nav.navigationBar.shadowImage = UIImage()
         nav.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        nav.navigationBar.backgroundColor = .inspectorBackground
+        nav.navigationBar.tintColor = .primaryTint
         nav.navigationBar.titleTextAttributes = [
             .foregroundColor: UIColor.clear,
         ]
