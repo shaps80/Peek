@@ -15,10 +15,12 @@ internal final class InspectorViewController: UIViewController {
     
     private let dataSource: ContextDataSource
     private let model: Model
+    private let context: Context
     
     private var selectedAttributes: [String] = []
     
     internal init(model: Model, context: Context) {
+        self.context = context
         self.tableView = TableView(frame: .zero, style: .plain)
         self.dataSource = ContextDataSource(context: context, inspector: .attributes)
         self.model = model
@@ -31,6 +33,33 @@ internal final class InspectorViewController: UIViewController {
         
         prepareTableView()
         prepareNavigationItems(animated: false)
+        prepareNavigationBar()
+    
+        if traitCollection.forceTouchCapability == .available {
+            registerForPreviewing(with: self, sourceView: tableView)
+        }
+    }
+    
+    private func prepareNavigationBar() {
+        if #available(iOS 11.0, *) {
+            guard navigationController?.viewControllers.count == 1 else {
+                navigationItem.largeTitleDisplayMode = .never
+                return
+            }
+            
+            navigationItem.largeTitleDisplayMode = .always
+            navigationController?.navigationBar.largeTitleTextAttributes = [
+                .foregroundColor: UIColor.white
+            ]
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let indexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
     }
     
     // MARK: Unused
@@ -40,6 +69,33 @@ internal final class InspectorViewController: UIViewController {
     
     @objc private func dismissController() {
         dismiss(animated: true, completion: nil)
+    }
+    
+}
+
+extension InspectorViewController: UIViewControllerPreviewingDelegate {
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        navigationController?.pushViewController(viewControllerToCommit, animated: false)
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard !tableView.isEditing, let indexPath = tableView.indexPathForRow(at: location) else { return nil }
+        
+        let property = dataSource.property(at: indexPath)
+        
+        if let value = property.value(forModel: model) as? Model {
+            let context = PeekContext()
+            
+            if let value = property.value(forModel: model) as? Peekable {
+                value.preparePeek(context)
+            }
+            
+            let controller = InspectorViewController(model: value, context: context)
+            return controller
+        } else {
+            return nil
+        }
     }
     
 }
@@ -207,7 +263,19 @@ extension InspectorViewController: UITableViewDelegate {
             
             present(controller, animated: true, completion: nil)
         } else {
-            tableView.deselectRow(at: indexPath, animated: true)
+            let property = dataSource.property(at: indexPath)
+            let context = PeekContext()
+            
+            if let value = property.value(forModel: model) as? Peekable {
+                value.preparePeek(context)
+            }
+            
+            if let value = property.value(forModel: model) as? Model {
+                let controller = InspectorViewController(model: value, context: context)
+                navigationController?.pushViewController(controller, animated: true)
+            } else {
+                tableView.deselectRow(at: indexPath, animated: true)
+            }
         }
     }
     
@@ -313,7 +381,7 @@ extension InspectorViewController: UITableViewDataSource {
                 editingAccessoryView = accessoryView
             }
             
-            if let value = property.value(forModel: model) as? PeekSubPropertiesSupporting, value.hasProperties {
+            if let value = property.value(forModel: model) as? Model {
                 cell.accessoryType = .disclosureIndicator
             }
             

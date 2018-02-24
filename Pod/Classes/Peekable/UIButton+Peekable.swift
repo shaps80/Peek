@@ -95,10 +95,6 @@ extension UIButton {
             config.addProperties([ "contentEdgeInsets", "titleEdgeInsets", "imageEdgeInsets" ])
         }
         
-        context.configure(.attributes, "State") { (config) in
-            config.addProperties([ "selected", "highlighted" ])
-        }
-        
         context.configure(.attributes, "Behaviour") { (config) in
             config.addProperties([ "showsTouchWhenHighlighted", "adjustsImageWhenDisabled", "adjustsImageWhenHighlighted" ])
         }

@@ -22,7 +22,7 @@
 
 import UIKit
 
-extension UIColor {
+extension UIColor: Model {
     
     @objc var peek_alpha: CGFloat {
         return rgbComponents.alpha

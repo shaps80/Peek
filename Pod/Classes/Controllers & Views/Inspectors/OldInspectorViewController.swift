@@ -226,7 +226,7 @@ final class OldInspectorViewController: UITableViewController {
         }
         
         guard let model = value as? Model else { return } // FIXME: This could be handled better -- perhaps better structure in terms of protocol conformance
-        let controller = OldInspectorViewController(peek: peek, model	: model, dataSource: ContextDataSource(context: context, inspector: .attributes))
+        let controller = OldInspectorViewController(peek: peek, model: model, dataSource: ContextDataSource(context: context, inspector: .attributes))
         controller.title = property.displayName
         controller.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(controller, animated: true)
