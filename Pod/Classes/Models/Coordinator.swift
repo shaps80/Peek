@@ -22,19 +22,16 @@ internal final class PeekCoordinator: Coordinator, CustomStringConvertible {
     internal func appendPreview(image: UIImage, forModel model: Model) {
         let peekGroup = groupsMapping[.preview] ?? PeekGroup.make(from: .preview)
         groupsMapping[.preview] = peekGroup
-        
-        peekGroup.attributes.append(
-            PreviewAttribute(image: image)
-        )
+        peekGroup.attributes.insert(PreviewAttribute(image: image), at: 0)
     }
     
     func appendTransformed(keyPaths: [String], valueTransformer: AttributeValueTransformer?, forModel model: Model, in group: Group) {
         let peekGroup = groupsMapping[group] ?? PeekGroup.make(from: group)
         groupsMapping[group] = peekGroup
         
-        peekGroup.attributes.append(contentsOf: keyPaths.map {
+        peekGroup.attributes.insert(contentsOf: keyPaths.map {
             DynamicAttribute(title: String.capitalized($0), detail: nil, keyPath: $0, model: model, valueTransformer: valueTransformer)
-        })
+        }, at: 0)
     }
     
     internal func appendDynamic(keyPaths: [String], forModel model: Model, in group: Group) {
@@ -45,9 +42,9 @@ internal final class PeekCoordinator: Coordinator, CustomStringConvertible {
         let peekGroup = groupsMapping[group] ?? PeekGroup.make(from: group)
         groupsMapping[group] = peekGroup
         
-        peekGroup.attributes.append(contentsOf: mapping.map {
+        peekGroup.attributes.insert(contentsOf: mapping.map {
             DynamicAttribute(title: $0.values.first!, keyPath: $0.keys.first!, model: model)
-        })
+        }, at: 0)
     }
     
     internal func appendStatic(title: String, detail: String? = nil, value: Any?, in group: Group) {
@@ -55,7 +52,7 @@ internal final class PeekCoordinator: Coordinator, CustomStringConvertible {
         groupsMapping[group] = peekGroup
         
         let attribute = StaticAttribute(title: title, detail: detail, value: value)
-        peekGroup.attributes.append(attribute)
+        peekGroup.attributes.insert(attribute, at: 0)
     }
     
     internal var description: String {
