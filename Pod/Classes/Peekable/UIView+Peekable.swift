@@ -50,6 +50,8 @@ extension UIView {
     }
     
     public override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
+        
         if bounds.size != .zero {
             let image = ImageRenderer(size: bounds.size).image { [weak self] context in
                 let rect = context.format.bounds
@@ -60,36 +62,6 @@ extension UIView {
                 coordinator.appendPreview(image: image, forModel: self)
             }
         }
-        
-        coordinator.appendDynamic(keyPaths: [
-            "backgroundColor",
-            "tintColor",
-            "alpha",
-            "opaque",
-            "hidden",
-            "clipsToBounds",
-            "layer.cornerRadius",
-            "layer.masksToBounds",
-        ], forModel: self, in: .appearance)
-        
-        coordinator.appendDynamic(keyPaths: [
-            "frame",
-            "bounds",
-            "center",
-            "intrinsicContentSize",
-            "alignmentRectInsets",
-            "contentMode"
-        ], forModel: self, in: .layout)
-        
-        coordinator.appendDynamic(keyPaths: [
-            "translatesAutoresizingMaskIntoConstraints"
-        ], forModel: self, in: .constraints)
-        
-        guard !translatesAutoresizingMaskIntoConstraints else { return }
-        
-        let constraints = Constraints(view: self)
-        let count = horizontalConstraints.count + verticalConstraints.count
-        coordinator.appendStatic(title: "Constraints", detail: "\(count)", value: constraints, in: .constraints)
         
         var current = classForCoder
         coordinator.appendStatic(title: String(describing: current), detail: nil, value: "", in: .classes)
@@ -112,23 +84,48 @@ extension UIView {
             ["accessibilityHint": "Hint"],
             ["accessibilityPath": "Path"],
             ["accessibilityFrame": "Frame"],
-        ], forModel: self, in: .accessibility)
+            ], forModel: self, in: .accessibility)
         
         coordinator.appendDynamic(keyPaths: [
             "userInteractionEnabled",
             "multipleTouchEnabled",
             "exclusiveTouch"
-        ], forModel: self, in: .general)
+            ], forModel: self, in: .general)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "backgroundColor",
+            "tintColor",
+            "tintAdjustmentMode",
+            "alpha",
+            "opaque",
+            "hidden",
+            "clipsToBounds",
+            "layer.cornerRadius",
+            "layer.masksToBounds",
+        ], forModel: self, in: .appearance)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "frame",
+            "bounds",
+            "center",
+            "intrinsicContentSize",
+            "alignmentRectInsets",
+        ], forModel: self, in: .layout)
+        
+        coordinator.appendTransformed(keyPaths: ["contentMode"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let contentMode = UIViewContentMode(rawValue: rawValue) else { return nil }
+            return contentMode.description
+        }, forModel: self, in: .layout)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "translatesAutoresizingMaskIntoConstraints"
+        ], forModel: self, in: .constraints)
         
         guard !translatesAutoresizingMaskIntoConstraints else { return }
         
-//        context.configure(.attributes, "Color") { config in
-//            config.addProperty("tintAdjustmentMode", displayName: nil, cellConfiguration: { (cell, _, value) in
-//                if let mode = UIViewTintAdjustmentMode(rawValue: value as! Int) {
-//                    cell.detailTextLabel?.text = mode.description
-//                }
-//            })
-//        }
+        let constraints = Constraints(view: self)
+        let count = horizontalConstraints.count + verticalConstraints.count
+        coordinator.appendStatic(title: "Constraints", detail: "\(count)", value: constraints, in: .constraints)
     }
     
 }
@@ -142,6 +139,8 @@ extension UIView {
     }
     
     override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
+        
         guard let view = view else { return }
         
         coordinator.appendDynamic(keyPaths: ["hasAmbiguousLayout"], forModel: view, in: .constraints)

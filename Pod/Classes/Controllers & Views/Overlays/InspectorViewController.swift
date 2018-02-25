@@ -339,7 +339,8 @@ extension InspectorViewController: UITableViewDataSource {
         cell.editingAccessoryView = nil
         cell.editingAccessoryType = .none
         
-        if let value = attribute.value as? NSObjectProtocol {
+        let value = attribute.valueTransformer?(attribute.value) ?? attribute.value
+        if let value = value as? NSObjectProtocol {
             var text: String?
             var accessoryView: UIView?
             var editingAccessoryView: UIView?
@@ -348,6 +349,10 @@ extension InspectorViewController: UITableViewDataSource {
             case is [AnyObject]:
                 if let value = value as? [AnyObject] {
                     text = "\(value.count)"
+                }
+            case is UIFont:
+                if let value = value as? UIFont {
+                    text = "\(value.fontName), \(value.pointSize)"
                 }
             case is UIImageView, is UILabel, is UIBarButtonItem, /*is Segment,*/ is UIImage:
                 text = nil

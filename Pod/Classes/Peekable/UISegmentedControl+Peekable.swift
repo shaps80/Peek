@@ -22,7 +22,7 @@
 
 import UIKit
 
-class Segment: NSObject {
+internal final class Segment: NSObject {
     
     override var description: String {
         return title ?? super.description

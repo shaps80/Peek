@@ -7,10 +7,13 @@
 
 import Foundation
 
+public typealias AttributeValueTransformer = (Any?) -> String?
+
 @objc public protocol Attribute: class {
     var title: String { get }
     var detail: String? { get }
     var value: Any? { get }
+    var valueTransformer: AttributeValueTransformer? { get }
 }
 
 internal final class PreviewAttribute: Attribute {
@@ -18,6 +21,7 @@ internal final class PreviewAttribute: Attribute {
     internal let title: String
     internal let detail: String? = nil
     internal let value: Any?
+    internal let valueTransformer: AttributeValueTransformer?
     
     internal var image: UIImage? {
         return value as? UIImage
@@ -26,6 +30,7 @@ internal final class PreviewAttribute: Attribute {
     internal init(image: UIImage) {
         title = ""
         value = image
+        valueTransformer = nil
     }
     
 }
@@ -38,15 +43,18 @@ internal final class DynamicAttribute: Attribute, CustomStringConvertible, Equat
     internal var previewImage: UIImage? = nil
     internal private(set) weak var model: Model?
     
+    internal let valueTransformer: AttributeValueTransformer?
+    
     internal var value: Any? {
         return model?.value(forKeyPath: keyPath)
     }
     
-    internal init(title: String?, detail: String? = nil, keyPath: String, model: Model) {
+    internal init(title: String?, detail: String? = nil, keyPath: String, model: Model, valueTransformer: AttributeValueTransformer? = nil) {
         self.title = title ?? String.capitalized(keyPath)
         self.detail = detail
         self.keyPath = keyPath
         self.model = model
+        self.valueTransformer = valueTransformer
     }
     
     internal var description: String {
@@ -64,12 +72,14 @@ internal final class StaticAttribute: Attribute, CustomStringConvertible, Equata
     internal let title: String
     internal let detail: String?
     internal let value: Any?
+    internal let valueTransformer: AttributeValueTransformer?
     internal var previewImage: UIImage? = nil
     
-    init(title: String, detail: String? = nil, value: Any?) {
+    init(title: String, detail: String? = nil, value: Any?, valueTransformer: AttributeValueTransformer? = nil) {
         self.title = title
         self.detail = detail
         self.value = value
+        self.valueTransformer = valueTransformer
     }
     
     internal var description: String {

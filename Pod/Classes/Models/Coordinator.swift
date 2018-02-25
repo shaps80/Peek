@@ -10,6 +10,7 @@ import Foundation
 @objc public protocol Coordinator: class {
     func appendDynamic(keyPaths: [String], forModel model: Model, in group: Group)
     func appendDynamic(keyPathToName mapping: [[String: String]], forModel model: Model, in group: Group)
+    func appendTransformed(keyPaths: [String], valueTransformer: AttributeValueTransformer?, forModel model: Model, in group: Group)
     func appendStatic(title: String, detail: String?, value: Any?, in group: Group)
     func appendPreview(image: UIImage, forModel model: Model)
 }
@@ -27,13 +28,17 @@ internal final class PeekCoordinator: Coordinator, CustomStringConvertible {
         )
     }
     
-    internal func appendDynamic(keyPaths: [String], forModel model: Model, in group: Group) {
+    func appendTransformed(keyPaths: [String], valueTransformer: AttributeValueTransformer?, forModel model: Model, in group: Group) {
         let peekGroup = groupsMapping[group] ?? PeekGroup.make(from: group)
         groupsMapping[group] = peekGroup
         
         peekGroup.attributes.append(contentsOf: keyPaths.map {
-            DynamicAttribute(title: String.capitalized($0), keyPath: $0, model: model)
+            DynamicAttribute(title: String.capitalized($0), detail: nil, keyPath: $0, model: model, valueTransformer: valueTransformer)
         })
+    }
+    
+    internal func appendDynamic(keyPaths: [String], forModel model: Model, in group: Group) {
+        appendTransformed(keyPaths: keyPaths, valueTransformer: nil, forModel: model, in: group)
     }
     
     internal func appendDynamic(keyPathToName mapping: [[String : String]], forModel model: Model, in group: Group) {
