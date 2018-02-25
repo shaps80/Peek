@@ -74,55 +74,28 @@ extension UIButton {
     
     public override func preparePeek(with coordinator: Coordinator) {
         super.preparePeek(with: coordinator)
-    }
-    
-    /**
-     Configures Peek's properties for this object
-     
-     - parameter context: The context to apply these properties to
-     */
-    public override func preparePeek(_ context: Context) {
-        super.preparePeek(context)
         
-        context.configure(.attributes, "Components") { config in
-            config.addProperties([ "imageView", "titleLabel" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "buttonType"
+        ], forModel: self, in: .appearance)
         
-        context.configure(.attributes, "General") { (config) in
-            config.addProperty("buttonType", displayName: nil, cellConfiguration: { (cell, _, value) in
-                let type = UIButtonType(rawValue: value as! Int)!
-                cell.detailTextLabel?.text = type.description
-            })
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "contentEdgeInsets",
+            "titleEdgeInsets",
+            "imageEdgeInsets"
+        ], forModel: self, in: .layout)
         
-        context.configure(.layout, "Button") { (config) in
-            config.addProperties([ "contentEdgeInsets", "titleEdgeInsets", "imageEdgeInsets" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "showsTouchWhenHighlighted",
+            "adjustsImageWhenDisabled",
+            "adjustsImageWhenHighlighted"
+        ], forModel: self, in: .behaviour)
         
-        context.configure(.attributes, "Behaviour") { (config) in
-            config.addProperties([ "showsTouchWhenHighlighted", "adjustsImageWhenDisabled", "adjustsImageWhenHighlighted" ])
-        }
-        
-        context.configure(.attributes, "Title") { (config) in
-            config.addProperty("normalTitle", displayName: "Normal", cellConfiguration: nil)
-            config.addProperty("selectedTitle", displayName: "Selected", cellConfiguration: nil)
-            config.addProperty("highlightedTitle", displayName: "Highlighted", cellConfiguration: nil)
-            config.addProperty("disabledTitle", displayName: "Disabled", cellConfiguration: nil)
-        }
-        
-        context.configure(.attributes, "Attributed Title") { (config) in
-            config.addProperty("normalAttributedTitle", displayName: "Normal", cellConfiguration: nil)
-            config.addProperty("selectedAttributedTitle", displayName: "Selected", cellConfiguration: nil)
-            config.addProperty("highlightedAttributedTitle", displayName: "Highlighted", cellConfiguration: nil)
-            config.addProperty("disabledAttributedTitle", displayName: "Disabled", cellConfiguration: nil)
-        }
-        
-        context.configure(.attributes, "Title Colors") { (config) in
-            config.addProperty("normalTitleColor", displayName: "Normal", cellConfiguration: nil)
-            config.addProperty("selectedTitleColor", displayName: "Selected", cellConfiguration: nil)
-            config.addProperty("highlightedTitleColor", displayName: "Highlighted", cellConfiguration: nil)
-            config.addProperty("disabledTitleColor", displayName: "Disabled", cellConfiguration: nil)
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "normalTitle", "selectedTitle", "highlightedTitle", "disabledTitle",
+            "normalAttributedTitle", "selectedAttributedTitle", "highlightedAttributedTitle", "disabledAttributedTitle",
+            "normalTitleColor", "selectedTitleColor", "highlightedTitleColor", "disabledTitleColor"
+        ], forModel: self, in: .states)
     }
     
 }

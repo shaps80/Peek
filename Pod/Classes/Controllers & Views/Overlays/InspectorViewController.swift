@@ -349,10 +349,6 @@ extension InspectorViewController: UITableViewDataSource {
                 if let value = value as? [AnyObject] {
                     text = "\(value.count)"
                 }
-            case is UIFont:
-                if let value = value as? UIFont {
-                    text = "\(value.fontName), \(value.pointSize)"
-                }
             case is UIImageView, is UILabel, is UIBarButtonItem, /*is Segment,*/ is UIImage:
                 text = nil
             case is NSAttributedString:

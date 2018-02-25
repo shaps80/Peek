@@ -43,3 +43,11 @@ extension UIFont {
     }
     
 }
+
+extension UIFont: CustomStringConvertible {
+    
+    open override var description: String {
+        return "\(fontName), \(pointSize)"
+    }
+    
+}

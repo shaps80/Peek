@@ -63,12 +63,33 @@ extension UIView {
         
         coordinator.appendDynamic(keyPaths: [
             "backgroundColor",
-            "tintColor"
+            "tintColor",
+            "alpha",
+            "opaque",
+            "hidden",
+            "clipsToBounds",
+            "layer.cornerRadius",
+            "layer.masksToBounds",
         ], forModel: self, in: .appearance)
         
         coordinator.appendDynamic(keyPaths: [
-            "translatesAutoresizingMaskIntoConstraints"
+            "frame",
+            "bounds",
+            "center",
+            "intrinsicContentSize",
+            "alignmentRectInsets",
+            "contentMode"
         ], forModel: self, in: .layout)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "translatesAutoresizingMaskIntoConstraints"
+        ], forModel: self, in: .constraints)
+        
+        guard !translatesAutoresizingMaskIntoConstraints else { return }
+        
+        let constraints = Constraints(view: self)
+        let count = horizontalConstraints.count + verticalConstraints.count
+        coordinator.appendStatic(title: "Constraints", detail: "\(count)", value: constraints, in: .constraints)
         
         var current = classForCoder
         coordinator.appendStatic(title: String(describing: current), detail: nil, value: "", in: .classes)
@@ -78,85 +99,69 @@ extension UIView {
             current = next
         }
         
+        coordinator.appendStatic(title: "Layer", detail: "", value: layer, in: .views)
+        
         for view in subviews {
             coordinator.appendStatic(title: String(describing: view.classForCoder), detail: "", value: view, in: .views)
         }
-    }
-    
-    /**
-     Configures Peek's properties for this object
-     
-     - parameter context: The context to apply these properties to
-     */
-    public override func preparePeek(_ context: Context) {
-        super.preparePeek(context)
         
-        context.configure(.attributes, "Accessibility") { config in
-            config.addProperties(keyPaths: [
-                ["accessibilityIdentifier": "Identifier"],
-                ["accessibilityHint": "Hint"],
-                ["accessibilityPath": "Path"],
-                ["accessibilityFrame": "Frame"],
-                ["accessibilityLabel": "Label"],
-                ["accessibilityValue": "Value"]
-            ])
-        }
+        coordinator.appendDynamic(keyPathToName: [
+            ["accessibilityIdentifier": "Identifier"],
+            ["accessibilityLabel": "Label"],
+            ["accessibilityValue": "Value"],
+            ["accessibilityHint": "Hint"],
+            ["accessibilityPath": "Path"],
+            ["accessibilityFrame": "Frame"],
+        ], forModel: self, in: .accessibility)
         
-        context.configure(.attributes, "General") { config in
-            config.addProperties([ "frame", "bounds", "center", "intrinsicContentSize", "alignmentRectInsets" ])
-            config.addProperty("translatesAutoresizingMaskIntoConstraints", displayName: "Translates Resize Masks", cellConfiguration: nil)
-        }
-        
-        context.configure(.attributes, "Appearance") { (config) in
-            config.addProperty("contentMode", displayName: nil, cellConfiguration: { (cell, _, value) in
-                if let mode = UIViewContentMode(rawValue: value as! Int) {
-                    cell.detailTextLabel?.text = mode.description
-                }
-            })
-        }
-        
-        context.configure(.attributes, "Interaction") { config in
-            config.addProperties([ "userInteractionEnabled", "multipleTouchEnabled", "exclusiveTouch" ])
-        }
-        
-        context.configure(.attributes, "Color") { config in
-            config.addProperties([ "alpha", "backgroundColor", "tintColor" ])
-            
-            config.addProperty("tintAdjustmentMode", displayName: nil, cellConfiguration: { (cell, _, value) in
-                if let mode = UIViewTintAdjustmentMode(rawValue: value as! Int) {
-                    cell.detailTextLabel?.text = mode.description
-                }
-            })
-        }
-        
-        context.configure(.attributes, "Drawing") { config in
-            config.addProperties([ "opaque", "hidden", "clipsToBounds" ])
-        }
-        
-        context.configure(.attributes, "General") { config in
-            config.addProperties([ "tag", "class", "superclass" ])
-        }
-        
-        context.configure(.attributes, "Layer") { (config) in
-            config.addProperties([ "layer.position", "layer.anchorPoint", "layer.zPosition", "layer.geometryFlipped", "layer.anchorPointZ", ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "userInteractionEnabled",
+            "multipleTouchEnabled",
+            "exclusiveTouch"
+        ], forModel: self, in: .general)
         
         guard !translatesAutoresizingMaskIntoConstraints else { return }
         
-        context.configure(.attributes, "Content Hugging Priority") { (config) in
-            config.addProperty("horizontalContentHuggingPriority", displayName: "Horizontal", cellConfiguration: nil)
-            config.addProperty("verticalContentHuggingPriority", displayName: "Vertical", cellConfiguration: nil)
+//        context.configure(.attributes, "Color") { config in
+//            config.addProperty("tintAdjustmentMode", displayName: nil, cellConfiguration: { (cell, _, value) in
+//                if let mode = UIViewTintAdjustmentMode(rawValue: value as! Int) {
+//                    cell.detailTextLabel?.text = mode.description
+//                }
+//            })
+//        }
+    }
+    
+}
+
+@objc internal final class Constraints: NSObject, PeekableContainer {
+    
+    internal weak var view: UIView?
+    
+    internal init(view: UIView) {
+        self.view = view
+    }
+    
+    override func preparePeek(with coordinator: Coordinator) {
+        guard let view = view else { return }
+        
+        coordinator.appendDynamic(keyPaths: ["hasAmbiguousLayout"], forModel: view, in: .constraints)
+        
+        coordinator.appendDynamic(keyPathToName: [
+            ["horizontalContentHuggingPriority": "Horizontal"],
+            ["verticalContentHuggingPriority": "Vertical"],
+        ], forModel: view, in: .hugging)
+        
+        coordinator.appendDynamic(keyPathToName: [
+            ["horizontalContentCompressionResistance": "Horizontal"],
+            ["verticalContentCompressionResistance": "Vertical"]
+        ], forModel: view, in: .resistance)
+        
+        for constraint in view.horizontalConstraints {
+            coordinator.appendStatic(title: "\(constraint)", detail: "", value: constraint, in: .horizontal)
         }
         
-        context.configure(.attributes, "Content Compression Resistance") { (config) in
-            config.addProperty("horizontalContentCompressionResistance", displayName: "Horizontal", cellConfiguration: nil)
-            config.addProperty("verticalContentCompressionResistance", displayName: "Vertical", cellConfiguration: nil)
-        }
-        
-        context.configure(.attributes, "Constraints") { (config) in
-            config.addProperty("horizontalConstraints", displayName: "Horizontal", cellConfiguration: nil)
-            config.addProperty("verticalConstraints", displayName: "Vertical", cellConfiguration: nil)
-            config.addProperties(["hasAmbiguousLayout"])
+        for constraint in view.verticalConstraints {
+            coordinator.appendStatic(title: "\(constraint)", detail: "", value: constraint, in: .vertical)
         }
     }
     

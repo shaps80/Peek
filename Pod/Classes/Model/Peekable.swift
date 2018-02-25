@@ -36,8 +36,11 @@ import UIKit
 
 @objc public protocol PeekableContainer: Peekable { }
 
+extension CALayer: PeekableContainer { }
 extension UIView: PeekableContainer { }
 extension UIColor: PeekableContainer { }
+extension UIImage: PeekableContainer { }
+extension NSLayoutConstraint: PeekableContainer { }
 
 extension NSObject: Peekable {
     

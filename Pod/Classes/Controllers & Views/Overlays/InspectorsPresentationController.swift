@@ -224,7 +224,7 @@ internal final class InspectorsPresentationController: UIPresentationController,
             return super.size(forChildContentContainer: container, withParentContainerSize: parentSize)
         }
         
-        let width = UIApplication.shared.statusBarOrientation == .portrait ? parentSize.width : parentSize.width * 0.85
+        let width = UIApplication.shared.statusBarOrientation == .portrait ? parentSize.width : parentSize.height
         let statusBarHeight: CGFloat = UIApplication.shared.statusBarFrame.height + 20
         let height = parentSize.height - statusBarHeight
         return CGSize(width: width, height: height)

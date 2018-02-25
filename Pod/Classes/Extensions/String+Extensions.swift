@@ -26,9 +26,13 @@ extension String {
     
     // Converts a camel case string to a capitalized one -- e.g. 'firstName' -> 'First Name'
     static func capitalized(_ camelCase: String) -> String {
-        
         let chars = CharacterSet.uppercaseLetters
         var string = camelCase.components(separatedBy: ".").last ?? camelCase
+        let prefix = "peek_"
+        
+        if string.contains(prefix) {
+            string = String(string.dropFirst(prefix.count))
+        }
         
         while let range = string.rangeOfCharacter(from: chars) {
             let char = string[range]

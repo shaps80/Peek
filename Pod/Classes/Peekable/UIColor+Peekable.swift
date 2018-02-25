@@ -54,7 +54,8 @@ extension UIColor: Model {
             return
         }
         
-        let image = ImageRenderer(size: CGSize(width: UIScreen.main.bounds.width, height: 88)).image { context in
+        let width = UIScreen.main.nativeBounds.width / UIScreen.main.nativeScale
+        let image = ImageRenderer(size: CGSize(width: width, height: 88)).image { context in
             let rect = context.format.bounds
             setFill()
             UIRectFill(rect)

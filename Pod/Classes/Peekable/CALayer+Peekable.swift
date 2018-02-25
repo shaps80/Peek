@@ -23,61 +23,76 @@
 import UIKit
 
 extension CALayer {
-  
-  @objc var peek_borderColor: UIColor? {
-    if let color = borderColor {
-      return UIColor(cgColor: color)
+    
+    @objc var peek_borderColor: UIColor? {
+        if let color = borderColor {
+            return UIColor(cgColor: color)
+        }
+        
+        return nil
     }
     
-    return nil
-  }
-  
-  @objc var peek_shadowColor: UIColor? {
-    if let color = shadowColor {
-      return UIColor(cgColor: color)
+    @objc var peek_shadowColor: UIColor? {
+        if let color = shadowColor {
+            return UIColor(cgColor: color)
+        }
+        
+        return nil
     }
     
-    return nil
-  }
-  
-  @objc var peek_backgroundColor: UIColor? {
-    if let color = backgroundColor {
-      return UIColor(cgColor: color)
+    @objc var peek_backgroundColor: UIColor? {
+        if let color = backgroundColor {
+            return UIColor(cgColor: color)
+        }
+        
+        return nil
     }
     
-    return nil
-  }
-  
-  public override func preparePeek(_ context: Context) {
-    context.configure(.layer, "Appearance") { config in
-      config.addProperty("layer.peek_backgroundColor", displayName: "Background Color", cellConfiguration: nil)
-      config.addProperties(["layer.cornerRadius", "layer.masksToBounds", "layer.doubleSided"])
+    public override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "doubleSided",
+            "allowsGroupOpacity",
+            "shouldRasterize",
+            "rasterizationScale",
+        ], forModel: self, in: .appearance)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "peek_shadowColor",
+            "shadowOpacity",
+            "shadowRadius",
+            "shadowOffset",
+        ], forModel: self, in: .shadow)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "peek_borderColor",
+            "borderWidth"
+        ], forModel: self, in: .border)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "contentsRect",
+            "contentsCenter",
+            "contentsScale",
+            "contentsGravity",
+            "geometryFlipped",
+            "anchorPointZ",
+            "position",
+            "anchorPoint",
+            "zPosition",
+        ], forModel: self, in: .layout)
+        
+        var current = classForCoder
+        coordinator.appendStatic(title: String(describing: current), detail: nil, value: "", in: .classes)
+        
+        while let next = current.superclass() {
+            coordinator.appendStatic(title: String(describing: next), detail: nil, value: "", in: .classes)
+            current = next
+        }
+        
+        for layer in sublayers ?? [] {
+            coordinator.appendStatic(title: String(describing: layer.classForCoder), detail: "", value: layer, in: .layers)
+        }
     }
     
-    context.configure(.layer, "Visibility") { config in
-      config.addProperties(["layer.opacity", "layer.allowsGroupOpacity", "layer.hidden"])
-    }
-    
-    context.configure(.layer, "Rasterization") { config in
-      config.addProperties(["layer.shouldRasterize", "layer.rasterizationScale", "opaque"])
-    }
-    
-    context.configure(.layer, "Shadow") { config in
-      config.addProperty("layer.peek_shadowColor", displayName: "Shadow Color", cellConfiguration: nil)
-      config.addProperties(["layer.shadowOffset", "layer.shadowOpacity", "layer.shadowRadius"])
-    }
-    
-    context.configure(.layer, "Border") { config in
-      config.addProperty("layer.peek_borderColor", displayName: "Border Color", cellConfiguration: nil)
-      config.addProperties(["layer.borderWidth"])
-    }
-    
-    context.configure(.layer, "Contents") { config in
-      config.addProperties(["layer.contentsRect", "layer.contentsScale", "layer.contentsCenter"])
-      config.addProperty("layer.contentsGravity", displayName: nil) { cell, _, value in
-        cell.detailTextLabel?.text = value.capitalized
-      }
-    }
-  }
-  
 }
