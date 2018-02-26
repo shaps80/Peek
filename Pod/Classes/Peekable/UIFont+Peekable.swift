@@ -24,22 +24,22 @@ import UIKit
 
 extension UIFont {
     
-    /**
-     Configures Peek's properties for this object
-     
-     - parameter context: The context to apply these properties to
-     */
-    public override func preparePeek(_ context: Context) {
-        super.preparePeek(context)
+    public override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
         
-        context.configure(.attributes, "Basic") { (config) in
-            config.addProperties([ "fontName", "pointSize" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "familyName",
+            "fontName",
+            "pointSize"
+        ], forModel: self, in: .general)
         
-        context.configure(.attributes, "Extended") { (config) in
-            config.addProperties([ "familyName", "ascender", "descender", "capHeight", "xHeight", "lineHeight", "leading" ])
-        }
-        
+        coordinator.appendDynamic(keyPaths: [
+            "descender",
+            "capHeight",
+            "xHeight",
+            "lineHeight",
+            "leading"
+        ], forModel: self, in: .layout)
     }
     
 }

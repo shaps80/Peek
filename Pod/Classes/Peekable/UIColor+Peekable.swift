@@ -41,19 +41,14 @@ extension UIColor: Model {
         return "\(Int(rgbComponents.red * 255)), \(Int(rgbComponents.green * 255)), \(Int(rgbComponents.blue * 255))"
     }
     
+    @available(iOS 10.0, *)
+    @objc var colorSpace: String {
+        return (cgColor.colorSpace?.name as? String) ?? "Unknown"
+    }
+    
     public override func preparePeek(with coordinator: Coordinator) {
         super.preparePeek(with: coordinator)
-        
-        guard self != .clear else {
-            coordinator.appendStatic(title: "Color", detail: nil, value: "Clear", in: .appearance)
-            return
-        }
-        
-        guard self.values().a != 0 else {
-            coordinator.appendStatic(title: "Color", detail: nil, value: "Transparent", in: .appearance)
-            return
-        }
-        
+
         let width = UIScreen.main.nativeBounds.width / UIScreen.main.nativeScale
         let image = ImageRenderer(size: CGSize(width: width, height: 88)).image { context in
             let rect = context.format.bounds
@@ -63,7 +58,19 @@ extension UIColor: Model {
         
         coordinator.appendPreview(image: image, forModel: self)
         
-        guard cgColor.pattern == nil else { return }
+        guard cgColor.pattern == nil else {
+            coordinator.appendStatic(title: "Color", detail: nil, value: "Pattern", in: .appearance)
+            return
+        }
+        
+        guard self != .clear else {
+            coordinator.appendStatic(title: "Color", detail: nil, value: "Clear", in: .appearance)
+            return
+        }
+        
+        if #available(iOS 10.0, *) {
+            coordinator.appendDynamic(keyPaths: ["colorSpace"], forModel: self, in: .general)
+        }
         
         coordinator.appendDynamic(keyPathToName: [
             ["peek_HEX": "HEX"],

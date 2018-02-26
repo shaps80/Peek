@@ -37,6 +37,8 @@ internal final class InspectorViewController: UIViewController {
     internal override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.backBarButtonItem?.title = ""
+        
         prepareTableView()
         prepareNavigationItems(animated: false)
         prepareNavigationBar()

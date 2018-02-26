@@ -40,7 +40,9 @@ extension CALayer: PeekableContainer { }
 extension UIView: PeekableContainer { }
 extension UIColor: PeekableContainer { }
 extension UIImage: PeekableContainer { }
+extension UIFont: PeekableContainer { }
 extension NSLayoutConstraint: PeekableContainer { }
+extension NSAttributedString: PeekableContainer { }
 
 extension NSObject: Peekable {
     

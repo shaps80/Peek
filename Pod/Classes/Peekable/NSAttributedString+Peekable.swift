@@ -89,26 +89,42 @@ extension NSAttributedString {
         return attributes.paragraphStyle
     }
     
-    override public func preparePeek(_ context: Context) {
-        super.preparePeek(context)
+    public override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
         
-        context.configure(.attributes, "General") { (config) in
-            config.addProperties([ "attributes.fontName", "attributes.foregroundColor", "attributes.backgroundColor", "attributes.ligature", "attributes.kerning", "attributes.strokeColor", "attributes.strokeWidth" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "attributes.fontName",
+            "attributes.foregroundColor",
+            "attributes.backgroundColor",
+            "attributes.ligature",
+            "attributes.kerning",
+            "attributes.strokeColor",
+            "attributes.strokeWidth"
+        ], forModel: self, in: .general)
         
-        context.configure(.attributes, "Shadow") { (config) in
-            config.addProperties([ "attributes.shadow.shadowOffset", "attributes.shadow.shadowColor", "attributes.shadow.shadowBlurRadius" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "paragraph.lineSpacing",
+            "paragraph.headIndent",
+            "paragraph.tailIndent",
+            "paragraph.minimumLineHeight",
+            "paragraph.maximumLineHeight",
+            "paragraph.lineHeightMultiple",
+            "paragraph.hyphenationFactor",
+            "paragraph.spacingBefore",
+            "paragraph.spacingAfter",
+            "paragraph.firstLineHeadIndent"
+        ], forModel: self, in: .paragraph)
         
-        if self.paragraph != nil {
-            context.configure(.attributes, "Paragraph") { (config) in
-                config.addProperties([ "paragraph.lineSpacing", "paragraph.headIndent", "paragraph.tailIndent", "paragraph.minimumLineHeight", "paragraph.maximumLineHeight", "paragraph.lineHeightMultiple", "paragraph.hyphenationFactor", "paragraph.spacingBefore", "paragraph.spacingAfter", "paragraph.firstLineHeadIndent" ])
-                
-                config.addProperty("paragraph.lineBreakMode", displayName: nil, cellConfiguration: { (cell, _, value) in
-                    cell.detailTextLabel?.text = NSLineBreakMode(rawValue: value as! Int)?.description
-                })
-            }
-        }
+        coordinator.appendTransformed(keyPaths: ["paragraph.lineBreakMode"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let lineBreakMode = NSLineBreakMode(rawValue: rawValue) else { return nil }
+            return lineBreakMode.description
+        }, forModel: self, in: .paragraph)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "attributes.shadow.shadowOffset",
+            "attributes.shadow.shadowColor",
+            "attributes.shadow.shadowBlurRadius"
+        ], forModel: self, in: .shadow)
     }
     
 }

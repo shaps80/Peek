@@ -24,51 +24,44 @@ import UIKit
 
 extension UILabel {
     
-    /**
-     Configures Peek's properties for this object
-     
-     - parameter context: The context to apply these properties to
-     */
-    public override func preparePeek(_ context: Context) {
-        super.preparePeek(context)
+    public override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
         
-        context.configure(.attributes, "Text") { (config) in
-            config.addProperties([ "text", "attributedText" ])
-            
-            config.addProperty("textAlignment", displayName: "Alignment", cellConfiguration: { (cell, _, value) in
-                let alignment = NSTextAlignment(rawValue: value as! Int)!
-                cell.detailTextLabel?.text = alignment.description
-            })
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "adjustsFontSizeToFitWidth",
+            "minimumScaleFactor",
+        ], forModel: self, in: .behaviour)
         
-        context.configure(.attributes, "Color") { (config) in
-            config.addProperties([ "textColor", "highlightedTextColor" ])
-        }
+        coordinator.appendDynamic(keyPaths: ["preferredMaxLayoutWidth"], forModel: self, in: .layout)
         
-        context.configure(.attributes, "Behaviour") { (config) in
-            config.addProperty("lineBreakMode", displayName: nil, cellConfiguration: { (cell, _, value) in
-                let mode = NSLineBreakMode(rawValue: value as! Int)!
-                cell.detailTextLabel?.text = mode.description
-            })
-            
-            config.addProperties([ "numberOfLines" ])
-        }
+        coordinator.appendTransformed(keyPaths: ["lineBreakMode"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let lineBreakMode = NSLineBreakMode(rawValue: rawValue) else { return nil }
+            return lineBreakMode.description
+        }, forModel: self, in: .behaviour)
         
-        context.configure(.attributes, "Font") { (config) in
-            config.addProperties([ "font", "font.pointSize", "adjustsFontSizeToFitWidth", "minimumScaleFactor" ])
-        }
+        coordinator.appendTransformed(keyPaths: ["textAlignment"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let textAlignment = NSTextAlignment(rawValue: rawValue) else { return nil }
+            return textAlignment.description
+        }, forModel: self, in: .appearance)
         
-        context.configure(.attributes, "State") { (config) in
-            config.addProperties([ "enabled", "highlighted" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "text",
+            "attributedText",
+            "textColor",
+            "highlightedTextColor",
+            "font",
+            "numberOfLines"
+        ], forModel: self, in: .appearance)
         
-        context.configure(.attributes, "Shadow") { (config) in
-            config.addProperties([ "shadowColor", "shadowOffset" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "enabled",
+            "highlighted"
+        ], forModel: self, in: .states)
         
-        context.configure(.layout, "Label") { (config) in
-            config.addProperties([ "preferredMaxLayoutWidth" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "shadowColor",
+            "shadowOffset"
+        ], forModel: self, in: .shadow)
     }
     
 }

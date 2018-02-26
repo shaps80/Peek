@@ -44,43 +44,36 @@ extension NSLayoutConstraint {
         return "\(item.classForCoder!)"
     }
     
-    /**
-     Configures Peek's properties for this object
-     
-     - parameter context: The context to apply these properties to
-     */
-    public override func preparePeek(_ context: Context) {
-        super.preparePeek(context)
+    public override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
         
-        context.configure(.attributes, "Behaviour") { (config) in
-            config.addProperties([ "active", "shouldBeArchived" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "active",
+            "shouldBeArchived"
+        ], forModel: self, in: .behaviour)
         
-        context.configure(.attributes, "Item") { config in
-            config.addProperty("peek_firstItem", displayName: "First Item", cellConfiguration: nil)
-            config.addProperty("firstAttribute", displayName: "First Attribute", cellConfiguration: { (cell, _, value) in
-                if let mode = NSLayoutAttribute(rawValue: value as! Int) {
-                    cell.detailTextLabel?.text = mode.description
-                }
-            })
-            
-            config.addProperty("peek_secondItem", displayName: "Second Item", cellConfiguration: nil)
-            config.addProperty("secondAttribute", displayName: "Second Attribute", cellConfiguration: { (cell, _, value) in
-                if let mode = NSLayoutAttribute(rawValue: value as! Int) {
-                    cell.detailTextLabel?.text = mode.description
-                }
-            })
-        }
+        coordinator.appendTransformed(keyPaths: ["secondAttribute"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let attribute = NSLayoutAttribute(rawValue: rawValue) else { return nil }
+            return attribute.description
+        }, forModel: self, in: .general)
         
-        context.configure(.attributes, "Properties") { (config) in
-            config.addProperty("relation", displayName: nil, cellConfiguration: { (cell, _, value) in
-                if let mode = NSLayoutRelation(rawValue: value as! Int) {
-                    cell.detailTextLabel?.text = mode.description
-                }
-            })
-            
-            config.addProperties([ "constant", "multiplier", "priority" ])
-        }
+        coordinator.appendDynamic(keyPaths: ["peek_secondItem"], forModel: self, in: .general)
+        
+        coordinator.appendTransformed(keyPaths: ["firstAttribute"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let attribute = NSLayoutAttribute(rawValue: rawValue) else { return nil }
+            return attribute.description
+        }, forModel: self, in: .general)
+        
+        coordinator.appendDynamic(keyPaths: ["peek_firstItem"], forModel: self, in: .general)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "constant", "multiplier", "priority"
+        ], forModel: self, in: .layout)
+        
+        coordinator.appendTransformed(keyPaths: ["relation"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let relation = NSLayoutRelation(rawValue: rawValue) else { return nil }
+            return relation.description
+        }, forModel: self, in: .layout)
     }
     
 }

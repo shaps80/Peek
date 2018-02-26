@@ -104,12 +104,24 @@ extension UIView {
             "layer.masksToBounds",
         ], forModel: self, in: .appearance)
         
+        if #available(iOS 11.0, *) {
+            coordinator.appendDynamic(keyPaths: [
+                "safeAreaInsets"
+            ], forModel: self, in: .layout)
+            
+            coordinator.appendDynamic(keyPaths: [
+                "preservesSuperviewLayoutMargins",
+                "insetsLayoutMarginsFromSafeArea"
+            ], forModel: self, in: .behaviour)
+        }
+        
         coordinator.appendDynamic(keyPaths: [
             "frame",
             "bounds",
             "center",
             "intrinsicContentSize",
             "alignmentRectInsets",
+            "layoutMargins",
         ], forModel: self, in: .layout)
         
         coordinator.appendTransformed(keyPaths: ["contentMode"], valueTransformer: { value in
@@ -117,15 +129,15 @@ extension UIView {
             return contentMode.description
         }, forModel: self, in: .layout)
         
+        if !translatesAutoresizingMaskIntoConstraints {
+            let constraints = Constraints(view: self)
+            let count = horizontalConstraints.count + verticalConstraints.count
+            coordinator.appendStatic(title: "Constraints", detail: "\(count)", value: constraints, in: .constraints)
+        }
+        
         coordinator.appendDynamic(keyPaths: [
             "translatesAutoresizingMaskIntoConstraints"
         ], forModel: self, in: .constraints)
-        
-        guard !translatesAutoresizingMaskIntoConstraints else { return }
-        
-        let constraints = Constraints(view: self)
-        let count = horizontalConstraints.count + verticalConstraints.count
-        coordinator.appendStatic(title: "Constraints", detail: "\(count)", value: constraints, in: .constraints)
     }
     
 }

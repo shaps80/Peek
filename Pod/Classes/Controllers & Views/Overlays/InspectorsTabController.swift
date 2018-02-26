@@ -56,7 +56,7 @@ internal final class InspectorsTabController: UITabBarController {
             .foregroundColor: UIColor.clear,
         ]
         
-        inspector.title = "Attributes"
+        inspector.title = "Peek"
         inspector.tabBarItem.image = Images.inspectorImage(.attributes)
         
         if #available(iOS 11.0, *) {

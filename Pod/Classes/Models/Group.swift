@@ -9,18 +9,20 @@ import Foundation
 
 @objc public enum Group: Int {
     case preview
-    case appearance
     case accessibility
-    case general
+    case appearance
+    case paragraph
     case behaviour
     case states
     case shadow
     case border
-    case constraints
+    case general
+    
     case horizontal
     case vertical
     case hugging
     case resistance
+    case constraints
     
     case layout
     case classes
@@ -82,6 +84,7 @@ extension PeekGroup {
     public static var appearance = { PeekGroup(title: "Appearance", group: .appearance) }
     public static var accessibility = { PeekGroup(title: "Accessibility", group: .accessibility, isExpandedByDefault: false) }
     public static var general = { PeekGroup(title: "General", group: .general, isExpandedByDefault: false) }
+    public static var paragraph = { PeekGroup(title: "Paragraph", group: .paragraph) }
     public static var behaviour = { PeekGroup(title: "Behaviour", group: .behaviour) }
     public static var states = { PeekGroup(title: "States", group: .states, isExpandedByDefault: false) }
     public static var constraints = { PeekGroup(title: "Constraints", group: .constraints) }
@@ -102,6 +105,7 @@ extension PeekGroup {
         case .appearance: return .appearance()
         case .accessibility: return .accessibility()
         case .general: return .general()
+        case .paragraph: return .paragraph()
         case .states: return .states()
         case .behaviour: return .behaviour()
         case .constraints: return .constraints()
