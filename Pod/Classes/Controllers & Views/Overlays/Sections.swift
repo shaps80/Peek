@@ -35,10 +35,18 @@ internal protocol SectionHeaderViewDelegate: class {
 
 internal final class SectionHeaderView: UITableViewHeaderFooterView {
     
-    internal weak var delegate: SectionHeaderViewDelegate?
+    internal weak var delegate: SectionHeaderViewDelegate? {
+        didSet {
+            imageView.isHidden = delegate == nil
+            gesture.isEnabled = delegate != nil
+        }
+    }
     
     internal let label: UILabel
     internal let separator: UIView
+    private lazy var gesture: UITapGestureRecognizer = {
+        UITapGestureRecognizer(target: self, action: #selector(handleTap(gesture:)))
+    }()
     
     private let imageView: UIImageView
     
@@ -46,6 +54,7 @@ internal final class SectionHeaderView: UITableViewHeaderFooterView {
         label = UILabel(frame: .zero)
         imageView = UIImageView(image: nil) // collapsed/expanded indicator
         separator = UIView(frame: .zero)
+        imageView.isHidden = true
         
         super.init(reuseIdentifier: reuseIdentifier)
         
@@ -90,7 +99,7 @@ internal final class SectionHeaderView: UITableViewHeaderFooterView {
             label.trailingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 16)
         ])
         
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(gesture:)))
+        gesture.isEnabled = false
         addGestureRecognizer(gesture)
     }
     

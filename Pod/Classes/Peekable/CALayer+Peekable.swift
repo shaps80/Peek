@@ -83,15 +83,15 @@ extension CALayer {
         ], forModel: self, in: .layout)
         
         var current = classForCoder
-        coordinator.appendStatic(title: String(describing: current), detail: nil, value: "", in: .classes)
+        coordinator.appendStatic(keyPath: "classForCoder", title: String(describing: current), detail: nil, value: "", in: .classes)
         
         while let next = current.superclass() {
-            coordinator.appendStatic(title: String(describing: next), detail: nil, value: "", in: .classes)
+            coordinator.appendStatic(keyPath: "classForCoder", title: String(describing: next), detail: nil, value: "", in: .classes)
             current = next
         }
         
         for layer in sublayers ?? [] {
-            coordinator.appendStatic(title: String(describing: layer.classForCoder), detail: "", value: layer, in: .layers)
+            coordinator.appendStatic(keyPath: "layer.classForCoder", title: String(describing: layer.classForCoder), detail: "", value: layer, in: .layers)
         }
     }
     

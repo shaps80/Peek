@@ -9,55 +9,31 @@
 import UIKit
 import GraphicsRenderer
 
-internal final class InspectorViewController: UIViewController {
-    
-    internal let tableView: UITableView
+internal final class InspectorViewController: PeekSectionedViewController {
     
     private let model: Model
     private let coordinator: PeekCoordinator
     private let dataSource: ContextDataSource
-    private var reportingIndexPaths: [IndexPath: String] = [:]
-    
-    private unowned let peek: Peek
+    private var reportingIndexPaths: [IndexPath: Report.Item] = [:]
     
     internal init(peek: Peek, model: Model & Peekable) {
-        self.peek = peek
         self.model = model
         
         self.coordinator = PeekCoordinator(model: model)
         model.preparePeek(with: coordinator)
         
-        self.tableView = UITableView(frame: .zero, style: .plain)
         self.dataSource = ContextDataSource(coordinator: coordinator)
         
-        super.init(nibName: nil, bundle: nil)
+        super.init(peek: peek)
     }
     
     internal override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        
-        prepareTableView()
         prepareNavigationItems(animated: false)
-        prepareNavigationBar()
     
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: tableView)
-        }
-    }
-    
-    private func prepareNavigationBar() {
-        if #available(iOS 11.0, *) {
-            guard navigationController?.viewControllers.count == 1 else {
-                navigationItem.largeTitleDisplayMode = .never
-                return
-            }
-            
-            navigationItem.largeTitleDisplayMode = .always
-            navigationController?.navigationBar.largeTitleTextAttributes = [
-                .foregroundColor: UIColor.white
-            ]
         }
     }
     
@@ -78,275 +54,34 @@ internal final class InspectorViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return peek.supportedOrientations
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return peek.previousStatusBarStyle
-    }
-    
-}
-
-extension InspectorViewController: UIViewControllerPreviewingDelegate {
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        navigationController?.pushViewController(viewControllerToCommit, animated: false)
-    }
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard !tableView.isEditing, let indexPath = tableView.indexPathForRow(at: location) else { return nil }
-        
-        let attribute = dataSource.attribute(at: indexPath)
-        
-        if let value = attribute.value as? Model & PeekableContainer {
-            return InspectorViewController(peek: peek, model: value)
-        } else {
-            return nil
-        }
-    }
-    
-}
-
-// MARK: - Reporting
-extension InspectorViewController {
-    
-    private func prepareNavigationItems(animated: Bool) {
-        reportingIndexPaths.removeAll()
-        
-        if tableView.isEditing {
-            let cancel = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(endReport))
-            navigationItem.setLeftBarButton(cancel, animated: animated)
-            
-            let send = UIBarButtonItem(title: "Send", style: .plain, target: self, action: #selector(sendReport))
-            send.isEnabled = false
-            navigationItem.setRightBarButton(send, animated: animated)
-            
-            UIView.animate(withDuration: animated ? 0.25 : 0) {
-                self.navigationController?.navigationBar.backgroundColor = .editingTint
-                self.navigationController?.navigationBar.tintColor = .white
-                self.navigationItem.titleView = nil
-            }
-            
-            tableView.tintColor = .editingTint
-        } else {
-//            let settings = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(showSettings))
-//            navigationItem.setLeftBarButton(settings, animated: animated)
-            navigationItem.setLeftBarButton(nil, animated: animated)
-            
-            let report = UIBarButtonItem(title: "Report", style: .plain, target: self, action: #selector(beginReport))
-            navigationItem.setRightBarButton(report, animated: animated)
-            
-            let image = ImageRenderer(size: CGSize(width: 44, height: 20)).image { context in
-                var rect = context.format.bounds
-                rect.origin.y = 4
-                rect.size.height = 4
-                let path = UIBezierPath(roundedRect: rect, cornerRadius: 2)
-                
-                UIColor(white: 1, alpha: 0.7).setFill()
-                path.fill()
-            }
-            
-            let button = UIButton(type: .system)
-            button.addTarget(self, action: #selector(dismissController), for: .touchUpInside)
-            button.setImage(image, for: .normal)
-            button.tintColor = .neutral
-            
-            UIView.animate(withDuration: animated ? 0.25 : 0) {
-                self.navigationController?.navigationBar.backgroundColor = .inspectorBackground
-                self.navigationController?.navigationBar.tintColor = .primaryTint
-                self.navigationItem.titleView = button
-            }
-            
-            tableView.tintColor = .primaryTint
-        }
-    }
-    
-    @objc private func beginReport() {
-        tableView.setEditing(true, animated: true)
-        prepareNavigationItems(animated: true)
-    }
-    
-    @objc private func sendReport() {
-        var items: [Any?] = reportingIndexPaths
-            .map { dataSource.attribute(at: $0.key) }
-            .map { $0.title }
-        
-        items.append(peek.screenshot)
-        
-        let sheet = UIActivityViewController(activityItems: items, applicationActivities: nil)
-        
-        sheet.completionWithItemsHandler = { [weak self] type, success, activities, error in
-            if success {
-                self?.endReport()
-            } else {
-                print("Didn't send")
-            }
-        }
-        
-        present(sheet, animated: true, completion: nil)
-    }
-    
-    @objc private func endReport() {
-        tableView.setEditing(false, animated: true)
-        prepareNavigationItems(animated: true)
-    }
-    
-    @objc private func showSettings() {
-        print("Show settings no implemented")
-    }
-    
-}
-
-// MARK: - Table View Prep
-extension InspectorViewController {
-    
-    private func prepareTableView() {
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.sectionHeaderHeight = UITableViewAutomaticDimension
-        tableView.sectionFooterHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 44
-        tableView.estimatedSectionHeaderHeight = 44
-        tableView.estimatedSectionFooterHeight = 0
-        tableView.keyboardDismissMode = .interactive
-        
-        tableView.tableFooterView = UIView()
-        tableView.backgroundColor = .inspectorBackground
-        tableView.separatorColor = .separator
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        tableView.allowsMultipleSelectionDuringEditing = true
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-        
-        tableView.register(InspectorCell.self, forCellReuseIdentifier: "InspectorCell")
-        tableView.register(PreviewCell.self, forCellReuseIdentifier: "PreviewCell")
-        tableView.register(SectionHeaderView.self, forHeaderFooterViewReuseIdentifier: "InspectorHeader")
-        
-        view.addSubview(tableView, constraints: [
-            equal(\.leadingAnchor), equal(\.trailingAnchor),
-            equal(\.bottomAnchor), equal(\.topAnchor)
-        ])
-    }
-    
-}
-
-extension InspectorViewController: SectionHeaderViewDelegate {
-    
-    func sectionHeader(_ view: SectionHeaderView, shouldToggleAt index: Int) {
-        dataSource.toggleVisibility(forSection: index)
-        let expanded = dataSource.sections[index].isExpanded
-        
-        view.setExpanded(expanded) { [weak self] in
-            let section = IndexSet(integer: index)
-            self?.tableView.reloadSections(section, with: .automatic)
-            
-            self?.reportingIndexPaths
-                .filter { $0.key.section == index }
-                .forEach { self?.tableView.selectRow(at: $0.key, animated: true, scrollPosition: .none) }
-        }
-    }
-    
-}
-
-extension InspectorViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        let attribute = dataSource.attribute(at: indexPath)
-        return !(attribute is PreviewAttribute)
-    }
-    
-    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        let attribute = dataSource.attribute(at: indexPath)
-        return !(attribute is PreviewAttribute)
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "InspectorHeader") as? SectionHeaderView else { fatalError() }
-        header.label.text = dataSource.sections[section].group.title
-        header.label.font = UIFont.systemFont(ofSize: 15, weight: .black)
-        header.label.textColor = .textLight
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = super.tableView(tableView, viewForHeaderInSection: section) as? SectionHeaderView else { fatalError() }
         header.prepareHeader(for: section, delegate: self)
-        header.setExpanded(dataSource.sections[section].isExpanded)
         return header
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return dataSource.sections[indexPath.section].isExpanded ? UITableViewAutomaticDimension : 0
+    override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        let attribute = dataSource.attribute(at: indexPath)
+        return !(attribute is PreviewAttribute)
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let attribute = self.dataSource.attribute(at: indexPath)
-        let cell = tableView.cellForRow(at: indexPath)
-        
-        if tableView.isEditing {
-            let controller = UIAlertController(title: "Report Issue", message: "Select the reason for reporting this issue", preferredStyle: .actionSheet)
-            
-            controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
-                tableView.deselectRow(at: indexPath, animated: true)
-            }))
-            
-            if attribute.value == nil {
-                controller.addAction(UIAlertAction(title: "Missing Value", style: .destructive, handler: { [weak self] _ -> Void in
-                    self?.reportingIndexPaths[indexPath] = "Missing Value"
-                    self?.invalidateSendButton()
-                }))
-            } else {
-                controller.addAction(UIAlertAction(title: "Wrong Value", style: .destructive, handler: { [weak self] _ -> Void in
-                    self?.reportingIndexPaths[indexPath] = "Wrong Value"
-                    self?.invalidateSendButton()
-                }))
-            }
-            
-            controller.addAction(UIAlertAction(title: "Suggest Alternative", style: .default, handler: { [weak self] _ -> Void in
-                let alert = UIAlertController(title: "\(attribute.title)", message: "What is the expected value?", preferredStyle: .alert)
-                alert.addTextField(configurationHandler: nil)
-                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in
-                    tableView.deselectRow(at: indexPath, animated: true)
-                })
-                
-                alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-                    let note = alert.textFields?.first?.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-                    self?.reportingIndexPaths[indexPath] = note
-                    self?.invalidateSendButton()
-                })
-                
-                self?.present(alert, animated: true, completion: nil)
-            }))
-            
-            present(controller, animated: true, completion: nil)
-        } else {
-            if let value = attribute.value as? Model & PeekableContainer {
-                let controller = InspectorViewController(peek: peek, model: value)
-                navigationController?.pushViewController(controller, animated: true)
-            } else {
-                tableView.deselectRow(at: indexPath, animated: true)
-            }
-        }
+    override func sectionTitle(for section: Int) -> String {
+        return dataSource.sections[section].group.title
     }
     
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        reportingIndexPaths[indexPath] = nil
-        invalidateSendButton()
+    override func sectionIsExpanded(for section: Int) -> Bool {
+        return dataSource.sections[section].isExpanded
     }
-    
-    private func invalidateSendButton() {
-        navigationItem.rightBarButtonItem?.isEnabled = reportingIndexPaths.count > 0
-    }
-    
-}
-
-extension InspectorViewController: UITableViewDataSource {
     
     internal func numberOfSections(in tableView: UITableView) -> Int {
         return dataSource.sections.count
     }
     
-    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    internal override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.sections[section].items.count
     }
     
-    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    internal override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let attribute = dataSource.attribute(at: indexPath)
         
         if let preview = attribute as? PreviewAttribute,
@@ -355,18 +90,8 @@ extension InspectorViewController: UITableViewDataSource {
             return cell
         }
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "InspectorCell", for: indexPath) as? InspectorCell else { fatalError() }
-        
-        cell.detailTextLabel?.font = UIFont.preferredFont(forTextStyle: .body)
-        cell.detailTextLabel?.textColor = .textLight
-        cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
-        cell.textLabel?.textColor = .neutral
+        guard let cell = super.tableView(tableView, cellForRowAt: indexPath) as? InspectorCell else { fatalError() }
         cell.textLabel?.text = attribute.title
-        
-        cell.accessoryView = nil
-        cell.accessoryType = .none
-        cell.editingAccessoryView = nil
-        cell.editingAccessoryType = .none
         
         let value = attribute.valueTransformer?(attribute.value) ?? attribute.value
         if let value = value as? NSObjectProtocol {
@@ -411,7 +136,7 @@ extension InspectorViewController: UITableViewDataSource {
                 //swiftlint:disable force_cast
                 accessoryView = ColorAccessoryView(color: UIColor(cgColor: value as! CGColor))
             }
-
+            
             if let value = value as? PeekableContainer {
                 cell.accessoryType = tableView.isEditing ? .none : .disclosureIndicator
             }
@@ -419,13 +144,244 @@ extension InspectorViewController: UITableViewDataSource {
             cell.accessoryView = accessoryView
             cell.editingAccessoryView = accessoryView
             cell.detailTextLabel?.text = attribute.detail ?? text
-            
-//            attribute.configurationBlock?(cell, model, value)
         } else {
             cell.detailTextLabel?.text = "none"
         }
         
         return cell
+    }
+    
+}
+
+extension InspectorViewController: UIViewControllerPreviewingDelegate {
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        navigationController?.pushViewController(viewControllerToCommit, animated: false)
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard !tableView.isEditing, let indexPath = tableView.indexPathForRow(at: location) else { return nil }
+        
+        let attribute = dataSource.attribute(at: indexPath)
+        
+        if let value = attribute.value as? Model & PeekableContainer {
+            return InspectorViewController(peek: peek, model: value)
+        } else {
+            return nil
+        }
+    }
+    
+}
+
+// MARK: - Reporting
+extension InspectorViewController {
+    
+    private func prepareNavigationItems(animated: Bool) {
+        reportingIndexPaths.removeAll()
+        
+        if tableView.isEditing {
+            let cancel = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(endReport))
+            navigationItem.setLeftBarButton(cancel, animated: animated)
+            
+            let send = UIBarButtonItem(title: "Send", style: .plain, target: self, action: #selector(showReport))
+            send.isEnabled = false
+            navigationItem.setRightBarButton(send, animated: animated)
+            
+            UIView.animate(withDuration: animated ? 0.25 : 0) {
+                self.navigationController?.navigationBar.backgroundColor = .editingTint
+                self.navigationController?.navigationBar.tintColor = .white
+                self.navigationItem.titleView = nil
+            }
+            
+            tableView.tintColor = .editingTint
+        } else {
+            navigationItem.setLeftBarButton(nil, animated: animated)
+            
+            let report = UIBarButtonItem(title: "Report", style: .plain, target: self, action: #selector(beginReport))
+            navigationItem.setRightBarButton(report, animated: animated)
+            
+            let image = ImageRenderer(size: CGSize(width: 44, height: 20)).image { context in
+                var rect = context.format.bounds
+                rect.origin.y = 4
+                rect.size.height = 4
+                let path = UIBezierPath(roundedRect: rect, cornerRadius: 2)
+                
+                UIColor(white: 1, alpha: 0.7).setFill()
+                path.fill()
+            }
+            
+            let button = UIButton(type: .system)
+            button.addTarget(self, action: #selector(dismissController), for: .touchUpInside)
+            button.setImage(image, for: .normal)
+            button.tintColor = .neutral
+            
+            UIView.animate(withDuration: animated ? 0.25 : 0) {
+                self.navigationController?.navigationBar.backgroundColor = .inspectorBackground
+                self.navigationController?.navigationBar.tintColor = .primaryTint
+                self.navigationItem.titleView = button
+            }
+            
+            tableView.tintColor = .primaryTint
+        }
+    }
+    
+    @objc private func beginReport() {
+        tableView.setEditing(true, animated: true)
+        prepareNavigationItems(animated: true)
+    }
+    
+    @objc private func showReport() {
+        let sectionIndexes = Set(reportingIndexPaths.map { $0.key.section }).sorted()
+        let sections: [Report.Section] = sectionIndexes.map { index in
+            let title = dataSource.sections[index].group.title
+            let items = reportingIndexPaths.filter { $0.key.section == index }.flatMap { $0.value }
+            return Report.Section(title: title, items: items)
+        }
+        
+        let report = Report(sections: sections)
+        let controller = ReportViewController(peek: peek, report: report)
+        
+        controller.delegate = self
+        controller.modalPresentationStyle = .formSheet
+        
+        let nav = UINavigationController(rootViewController: controller)
+        controller.modalTransitionStyle = .crossDissolve
+        presentModal(nav, from: view, animated: true, completion: nil)
+    }
+    
+    @objc private func endReport() {
+        tableView.setEditing(false, animated: true)
+        prepareNavigationItems(animated: true)
+        
+        if let controller = presentedViewController {
+            controller.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    @objc private func showSettings() {
+        print("Show settings no implemented")
+    }
+    
+}
+
+extension InspectorViewController: ReportViewControllerDelegate {
+    
+    func reportController(_ controller: ReportViewController, didSend report: Report) {
+        endReport()
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
+    func reportControllerDidCancel(_ controller: ReportViewController) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
+}
+
+extension InspectorViewController: SectionHeaderViewDelegate {
+    
+    func sectionHeader(_ view: SectionHeaderView, shouldToggleAt index: Int) {
+        dataSource.toggleVisibility(forSection: index)
+        let expanded = dataSource.sections[index].isExpanded
+        
+        view.setExpanded(expanded) { [weak self] in
+            let section = IndexSet(integer: index)
+            self?.tableView.reloadSections(section, with: .automatic)
+            
+            self?.reportingIndexPaths
+                .filter { $0.key.section == index }
+                .forEach { self?.tableView.selectRow(at: $0.key, animated: true, scrollPosition: .none) }
+        }
+    }
+    
+}
+
+extension InspectorViewController {
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        let attribute = dataSource.attribute(at: indexPath)
+        if attribute.value is UIColor { return true }
+        return !(attribute is PreviewAttribute)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let attribute = self.dataSource.attribute(at: indexPath)
+        let cell = tableView.cellForRow(at: indexPath)
+        
+        if !tableView.isEditing, let value = attribute.value as? Model & PeekableContainer {
+            let controller = InspectorViewController(peek: peek, model: value)
+            navigationController?.pushViewController(controller, animated: true)
+            
+            return
+        }
+        
+        if tableView.isEditing {
+            let controller = UIAlertController(title: "Report Issue", message: "Select the reason for reporting this issue", preferredStyle: .actionSheet)
+            
+            controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+                tableView.deselectRow(at: indexPath, animated: true)
+            }))
+            
+            if let value = attribute.value as? NSNumber, value.isBool() {
+                let note = "Expected \(value.boolValue ? "false" : "true")"
+                controller.addAction(UIAlertAction(title: note, style: .destructive, handler: { [weak self] _ -> Void in
+                    let item = Report.Item(model: self?.model, keyPath: attribute.keyPath, displayTitle: attribute.title, displayValue: cell?.detailTextLabel?.text ?? "", reportersNote: note)
+                    self?.reportingIndexPaths[indexPath] = item
+                    self?.invalidateSendButton()
+                }))
+            } else if attribute.value == nil {
+                controller.addAction(UIAlertAction(title: "Missing Value", style: .destructive, handler: { [weak self] _ -> Void in
+                    let item = Report.Item(model: self?.model, keyPath: attribute.keyPath, displayTitle: attribute.title, displayValue: cell?.detailTextLabel?.text ?? "", reportersNote: "Missing Value")
+                    self?.reportingIndexPaths[indexPath] = item
+                    self?.invalidateSendButton()
+                }))
+            } else {
+                controller.addAction(UIAlertAction(title: "Wrong Value", style: .destructive, handler: { [weak self] _ -> Void in
+                    let item = Report.Item(model: self?.model, keyPath: attribute.keyPath, displayTitle: attribute.title, displayValue: cell?.detailTextLabel?.text ?? "", reportersNote: "Wrong Value")
+                    self?.reportingIndexPaths[indexPath] = item
+                    self?.invalidateSendButton()
+                }))
+            }
+            
+            controller.addAction(UIAlertAction(title: "Suggest Alternative", style: .default, handler: { [weak self] _ -> Void in
+                let alert = UIAlertController(title: "\(attribute.title)", message: "What is the expected value?", preferredStyle: .alert)
+                
+                alert.addTextField { field in
+                    if let value = attribute.value as? NSNumber, !value.isBool() {
+                        field.keyboardType = .decimalPad
+                    } else {
+                        field.autocapitalizationType = .sentences
+                    }
+                    
+                    field.keyboardAppearance = .dark
+                }
+                
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in
+                    tableView.deselectRow(at: indexPath, animated: true)
+                })
+                
+                alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                    let note = alert.textFields?.first?.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+                    let item = Report.Item(model: self?.model, keyPath: attribute.keyPath, displayTitle: attribute.title, displayValue: cell?.detailTextLabel?.text ?? "", reportersNote: note ?? "")
+                    self?.reportingIndexPaths[indexPath] = item
+                    self?.invalidateSendButton()
+                })
+                
+                self?.present(alert, animated: true, completion: nil)
+            }))
+            
+            present(controller, animated: true, completion: nil)
+        } else {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        reportingIndexPaths[indexPath] = nil
+        invalidateSendButton()
+    }
+    
+    private func invalidateSendButton() {
+        navigationItem.rightBarButtonItem?.isEnabled = reportingIndexPaths.count > 0
     }
     
 }

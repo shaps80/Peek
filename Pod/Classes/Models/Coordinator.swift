@@ -11,7 +11,7 @@ import Foundation
     func appendDynamic(keyPaths: [String], forModel model: Model, in group: Group)
     func appendDynamic(keyPathToName mapping: [[String: String]], forModel model: Model, in group: Group)
     func appendTransformed(keyPaths: [String], valueTransformer: AttributeValueTransformer?, forModel model: Model, in group: Group)
-    func appendStatic(title: String, detail: String?, value: Any?, in group: Group)
+    func appendStatic(keyPath: String, title: String, detail: String?, value: Any?, in group: Group)
     func appendPreview(image: UIImage, forModel model: Model)
 }
 
@@ -52,11 +52,11 @@ internal final class PeekCoordinator: Coordinator, CustomStringConvertible {
         }, at: 0)
     }
     
-    internal func appendStatic(title: String, detail: String? = nil, value: Any?, in group: Group) {
+    internal func appendStatic(keyPath: String, title: String, detail: String? = nil, value: Any?, in group: Group) {
         let peekGroup = groupsMapping[group] ?? group.peekGroup()
         groupsMapping[group] = peekGroup
         
-        let attribute = StaticAttribute(title: title, detail: detail, value: value)
+        let attribute = StaticAttribute(keyPath: keyPath, title: title, detail: detail, value: value)
         peekGroup.attributes.insert(attribute, at: 0)
     }
     

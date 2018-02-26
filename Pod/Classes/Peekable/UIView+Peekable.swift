@@ -64,19 +64,23 @@ extension UIView {
         }
         
         var current = classForCoder
-        coordinator.appendStatic(title: String(describing: current), detail: nil, value: "", in: .classes)
+        var classHierarchy = [String(describing: current)]
         
         while let next = current.superclass() {
-            coordinator.appendStatic(title: String(describing: next), detail: nil, value: "", in: .classes)
+            classHierarchy.append(String(describing: next))
             current = next
+        }
+        
+        for `class` in classHierarchy.reversed() {
+            coordinator.appendStatic(keyPath: "classForCoder", title: String(describing: `class`), detail: nil, value: "", in: .classes)
         }
         
         // we have to reverse them to ensure they are inserted in the correct order.
         for view in subviews.reversed() {
-            coordinator.appendStatic(title: String(describing: view.classForCoder), detail: "", value: view, in: .views)
+            coordinator.appendStatic(keyPath: "classForCoder", title: String(describing: view.classForCoder), detail: "", value: view, in: .views)
         }
         
-        coordinator.appendStatic(title: "Layer", detail: "", value: layer, in: .views)
+        coordinator.appendStatic(keyPath: "layer", title: "Layer", detail: "", value: layer, in: .views)
         
         coordinator.appendDynamic(keyPathToName: [
             ["accessibilityIdentifier": "Identifier"],
@@ -140,7 +144,7 @@ extension UIView {
         if !translatesAutoresizingMaskIntoConstraints {
             let constraints = Constraints(view: self)
             let count = horizontalConstraints.count + verticalConstraints.count
-            coordinator.appendStatic(title: "Constraints", detail: "\(count)", value: constraints, in: .constraints)
+            coordinator.appendStatic(keyPath: "none", title: "Constraints", detail: "\(count)", value: constraints, in: .constraints)
         }
         
         coordinator.appendDynamic(keyPaths: [
@@ -176,11 +180,11 @@ extension UIView {
         ], forModel: view, in: .resistance)
         
         for constraint in view.horizontalConstraints {
-            coordinator.appendStatic(title: "\(constraint)", detail: "", value: constraint, in: .horizontal)
+            coordinator.appendStatic(keyPath: "horizontalConstraints", title: "\(constraint)", detail: "", value: constraint, in: .horizontal)
         }
         
         for constraint in view.verticalConstraints {
-            coordinator.appendStatic(title: "\(constraint)", detail: "", value: constraint, in: .vertical)
+            coordinator.appendStatic(keyPath: "verticalConstraints", title: "\(constraint)", detail: "", value: constraint, in: .vertical)
         }
     }
     

@@ -48,23 +48,8 @@ internal final class InspectorsTabController: UITabBarController {
         let inspector = InspectorViewController(peek: peek, model: model)
         let nav = UINavigationController(rootViewController: inspector)
         
-        nav.navigationBar.shadowImage = UIImage()
-        nav.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        nav.navigationBar.backgroundColor = .inspectorBackground
-        nav.navigationBar.tintColor = .primaryTint
-        nav.navigationBar.titleTextAttributes = [
-            .foregroundColor: UIColor.clear,
-        ]
-        
         inspector.title = "Peek"
         inspector.tabBarItem.image = Images.inspectorImage(.attributes)
-        
-        if #available(iOS 11.0, *) {
-            nav.navigationBar.prefersLargeTitles = true
-            nav.navigationBar.largeTitleTextAttributes = [
-                .foregroundColor: UIColor.white
-            ]
-        }
         
         viewControllers = [nav]
     }

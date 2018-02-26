@@ -28,11 +28,9 @@ internal final class ContextDataSource {
     internal private(set) var sections: [Section]
     
     internal init(coordinator: PeekCoordinator) {
-        let groups = Group.all
-        
-        sections = groups.flatMap { group in
+        sections = Group.all.flatMap { group in
             guard let peekGroup = coordinator.groupsMapping[group] else { return nil }
-            
+
             let items = peekGroup.attributes
                 .map { Item(title: $0.title, attribute: $0) }
         

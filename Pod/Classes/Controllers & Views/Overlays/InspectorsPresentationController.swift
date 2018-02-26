@@ -305,8 +305,13 @@ internal final class InspectorsPresentationController: UIPresentationController,
             containerView.addSubview(toView!)
         }
         
+       
         if isPresenting {
-            toView?.transform = CGAffineTransform(translationX: 0, y: toView?.bounds.maxY ?? containerView.bounds.maxY)
+            if presentedViewController.modalTransitionStyle == .crossDissolve {
+                toView?.alpha = 0
+            } else {
+                toView?.transform = CGAffineTransform(translationX: 0, y: toView?.bounds.maxY ?? containerView.bounds.maxY)
+            }
         }
         
         let transitionDuration = self.transitionDuration(using: transitionContext)
@@ -316,7 +321,11 @@ internal final class InspectorsPresentationController: UIPresentationController,
                 toView?.transform = .identity
                 toView?.alpha = 1
             } else {
-                fromView?.transform = CGAffineTransform(translationX: 0, y: fromView?.bounds.maxY ?? containerView.bounds.maxY)
+                if self.presentedViewController.modalTransitionStyle == .crossDissolve {
+                    fromView?.alpha = 0
+                } else {
+                    fromView?.transform = CGAffineTransform(translationX: 0, y: fromView?.bounds.maxY ?? containerView.bounds.maxY)
+                }
             }
             
         }, completion: { _ in

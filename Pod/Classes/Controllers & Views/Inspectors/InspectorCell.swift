@@ -41,6 +41,11 @@ final class InspectorCell: UITableViewCell {
         detailTextLabel?.setContentHuggingPriority(.required, for: .vertical)
         detailTextLabel?.setContentCompressionResistancePriority(.required, for: .vertical)
         
+        textLabel?.setContentHuggingPriority(UILayoutPriority(rawValue: 250), for: .horizontal)
+        textLabel?.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 250), for: .horizontal)
+        detailTextLabel?.setContentHuggingPriority(UILayoutPriority(rawValue: 500), for: .horizontal)
+        detailTextLabel?.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 500), for: .horizontal)
+        
         backgroundColor = .inspectorBackground
         contentView.backgroundColor = .inspectorBackground
         clipsToBounds = true

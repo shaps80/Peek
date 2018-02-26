@@ -7,9 +7,10 @@
 
 import Foundation
 
-public typealias AttributeValueTransformer = (Any?) -> String?
+public typealias AttributeValueTransformer = (Any?) -> Any?
 
 @objc public protocol Attribute: class {
+    var keyPath: String { get }
     var title: String { get }
     var detail: String? { get }
     var value: Any? { get }
@@ -18,6 +19,7 @@ public typealias AttributeValueTransformer = (Any?) -> String?
 
 internal final class PreviewAttribute: Attribute {
     
+    internal let keyPath: String
     internal let title: String
     internal let detail: String? = nil
     internal let value: Any?
@@ -31,6 +33,7 @@ internal final class PreviewAttribute: Attribute {
         title = ""
         value = image
         valueTransformer = nil
+        keyPath = "none"
     }
     
 }
@@ -69,13 +72,15 @@ internal final class DynamicAttribute: Attribute, CustomStringConvertible, Equat
 
 internal final class StaticAttribute: Attribute, CustomStringConvertible, Equatable {
     
+    internal let keyPath: String
     internal let title: String
     internal let detail: String?
     internal let value: Any?
     internal let valueTransformer: AttributeValueTransformer?
     internal var previewImage: UIImage? = nil
     
-    init(title: String, detail: String? = nil, value: Any?, valueTransformer: AttributeValueTransformer? = nil) {
+    init(keyPath: String, title: String, detail: String? = nil, value: Any?, valueTransformer: AttributeValueTransformer? = nil) {
+        self.keyPath = keyPath
         self.title = title
         self.detail = detail
         self.value = value
@@ -83,7 +88,7 @@ internal final class StaticAttribute: Attribute, CustomStringConvertible, Equata
     }
     
     internal var description: String {
-        return "\(title) – \(value == nil ? "nil" : value!)"
+        return "\(title) – \(keyPath) | \(value == nil ? "nil" : value!)"
     }
     
     internal static func ==(lhs: StaticAttribute, rhs: StaticAttribute) -> Bool {

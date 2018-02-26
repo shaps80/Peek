@@ -59,12 +59,12 @@ extension UIColor: Model {
         coordinator.appendPreview(image: image, forModel: self)
         
         guard cgColor.pattern == nil else {
-            coordinator.appendStatic(title: "Color", detail: nil, value: "Pattern", in: .appearance)
+            coordinator.appendStatic(keyPath: "cgColor.pattern", title: "Color", detail: nil, value: "Pattern", in: .appearance)
             return
         }
         
         guard self != .clear else {
-            coordinator.appendStatic(title: "Color", detail: nil, value: "Clear", in: .appearance)
+            coordinator.appendStatic(keyPath: "self", title: "Color", detail: nil, value: "Clear", in: .appearance)
             return
         }
         

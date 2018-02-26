@@ -32,7 +32,7 @@ import Foundation
     internal var title: String {
         switch self {
         case .preview: return "Preview"
-        case .appearance: return "Apperance"
+        case .appearance: return "Appearance"
         case .accessibility: return "Accessibility"
         case .general: return "General"
         case .paragraph: return "Paragraph"
