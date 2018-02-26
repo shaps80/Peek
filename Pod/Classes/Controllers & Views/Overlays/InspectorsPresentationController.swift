@@ -130,9 +130,10 @@ internal final class InspectorsPresentationController: UIPresentationController,
     
     @objc private func dismiss() {
         if let tab = presentedViewController as? InspectorsTabController,
-            let nav = tab.selectedViewController as? UINavigationController,
-            let controller = nav.topViewController as? InspectorViewController {
-            if controller.tableView.isEditing {
+            let nav = tab.selectedViewController as? UINavigationController {
+            let inspectors = nav.viewControllers.flatMap { $0 as? InspectorViewController }
+            
+            if (inspectors.filter { $0.tableView.isEditing }).count > 0 {
                 return
             }
         }
@@ -224,7 +225,7 @@ internal final class InspectorsPresentationController: UIPresentationController,
             return super.size(forChildContentContainer: container, withParentContainerSize: parentSize)
         }
         
-        let width = UIApplication.shared.statusBarOrientation == .portrait ? parentSize.width : parentSize.height
+        let width = min(UIApplication.shared.statusBarOrientation == .portrait ? parentSize.width : parentSize.height, 375)
         let statusBarHeight: CGFloat = UIApplication.shared.statusBarFrame.height + 20
         let height = parentSize.height - statusBarHeight
         return CGSize(width: width, height: height)

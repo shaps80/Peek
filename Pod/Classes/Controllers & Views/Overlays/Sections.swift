@@ -58,19 +58,9 @@ internal final class SectionHeaderView: UITableViewHeaderFooterView {
         
         super.init(reuseIdentifier: reuseIdentifier)
         
-        let lineWidth: CGFloat = 1.5
-        imageView.image = ImageRenderer(size: CGSize(width: 8 + lineWidth, height: 13 + lineWidth)).image { context in
-            let rect = context.format.bounds.insetBy(dx: lineWidth, dy: lineWidth)
-            
-            let path = UIBezierPath()
-            path.move(to: rect.origin)
-            path.addLine(to: CGPoint(x: rect.maxX, y: rect.midY))
-            path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
-            
-            path.lineWidth = lineWidth
-            UIColor.white.setStroke()
-            path.stroke()
-        }
+        let thickness: CGFloat = 1.5
+        let size = CGSize(width: 13 + thickness, height: 8 + thickness)
+        imageView.image = Images.disclosure(size: size, thickness: thickness)
         
         contentView.backgroundColor = .inspectorBackground
         imageView.tintColor = .neutral
@@ -109,8 +99,8 @@ internal final class SectionHeaderView: UITableViewHeaderFooterView {
     
     func setExpanded(_ expanded: Bool, completion: (() -> Void)? = nil) {
         UIView.animate(withDuration: 0.25, animations: {
-            let angle = radians(from: 90)
-            self.imageView.transform = expanded ? CGAffineTransform(rotationAngle: angle) : .identity
+            let angle = radians(from: -90)
+            self.imageView.transform = expanded ? .identity : CGAffineTransform(rotationAngle: angle)
         }, completion: { _ in
             completion?()
         })

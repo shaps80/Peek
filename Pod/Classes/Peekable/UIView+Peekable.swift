@@ -147,9 +147,11 @@ extension UIView {
             coordinator.appendStatic(keyPath: "none", title: "Constraints", detail: "\(count)", value: constraints, in: .constraints)
         }
         
-        coordinator.appendDynamic(keyPaths: [
-            "translatesAutoresizingMaskIntoConstraints"
-        ], forModel: self, in: .constraints)
+        coordinator.appendStatic(keyPath: "translatesAutoresizingMaskIntoConstraints",
+                                 title: "Uses AutoLayout",
+                                 detail: nil,
+                                 value: !translatesAutoresizingMaskIntoConstraints,
+                                 in: .constraints)
     }
     
 }

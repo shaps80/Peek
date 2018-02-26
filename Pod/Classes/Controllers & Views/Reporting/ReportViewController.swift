@@ -42,10 +42,12 @@ internal final class ReportViewController: PeekSectionedViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let cancel = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelReport))
-        let send = UIBarButtonItem(title: "Send", style: .plain, target: self, action: #selector(sendReport))
+        title = "Report"
         
-        navigationItem.leftBarButtonItem = cancel
+        navigationController?.navigationBar.backgroundColor = .editingTint
+        navigationController?.navigationBar.tintColor = .white
+        
+        let send = UIBarButtonItem(title: "Send", style: .plain, target: self, action: #selector(sendReport(_:)))
         navigationItem.rightBarButtonItem = send
     }
     
@@ -53,7 +55,7 @@ internal final class ReportViewController: PeekSectionedViewController {
         delegate?.reportControllerDidCancel(self)
     }
     
-    @objc private func sendReport() {
+    @objc private func sendReport(_ sender: UIBarButtonItem) {
         do {
             let encoder = JSONEncoder()
             let jsonData = try encoder.encode(report)
@@ -75,6 +77,7 @@ internal final class ReportViewController: PeekSectionedViewController {
             }
             
             let sheet = UIActivityViewController(activityItems: items, applicationActivities: nil)
+            sheet.popoverPresentationController?.barButtonItem = sender
             
             sheet.completionWithItemsHandler = { [weak self] type, success, activities, error in
                 guard let `self` = self else { return }

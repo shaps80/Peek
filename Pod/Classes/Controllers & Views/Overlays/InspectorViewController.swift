@@ -30,6 +30,10 @@ internal final class InspectorViewController: PeekSectionedViewController {
     internal override func viewDidLoad() {
         super.viewDidLoad()
         
+        if navigationController?.viewControllers.count == 1 {
+            navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
+        }
+        
         prepareNavigationItems(animated: false)
     
         if traitCollection.forceTouchCapability == .available {
@@ -182,23 +186,28 @@ extension InspectorViewController {
         if tableView.isEditing {
             let cancel = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(endReport))
             navigationItem.setLeftBarButton(cancel, animated: animated)
+            navigationItem.setHidesBackButton(true, animated: animated)
             
-            let send = UIBarButtonItem(title: "Send", style: .plain, target: self, action: #selector(showReport))
+            let send = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(showReport))
             send.isEnabled = false
             navigationItem.setRightBarButton(send, animated: animated)
             
             UIView.animate(withDuration: animated ? 0.25 : 0) {
                 self.navigationController?.navigationBar.backgroundColor = .editingTint
                 self.navigationController?.navigationBar.tintColor = .white
-                self.navigationItem.titleView = nil
             }
             
             tableView.tintColor = .editingTint
         } else {
-            navigationItem.setLeftBarButton(nil, animated: animated)
+            let size = CGSize(width: 22, height: 12)
+            let disclosure = Images.disclosure(size: size, thickness: 2)
+            let close = UIBarButtonItem(image: disclosure, style: .plain, target: self, action: #selector(dismissController))
+            navigationItem.setRightBarButton(close, animated: animated)
             
-            let report = UIBarButtonItem(title: "Report", style: .plain, target: self, action: #selector(beginReport))
-            navigationItem.setRightBarButton(report, animated: animated)
+            let report = UIBarButtonItem(image: Images.report, style: .plain, target: self, action: #selector(beginReport))
+            navigationItem.setLeftBarButton(report, animated: animated)
+            navigationItem.leftItemsSupplementBackButton = true
+            navigationItem.setHidesBackButton(false, animated: animated)
             
             let image = ImageRenderer(size: CGSize(width: 44, height: 20)).image { context in
                 var rect = context.format.bounds
@@ -210,15 +219,9 @@ extension InspectorViewController {
                 path.fill()
             }
             
-            let button = UIButton(type: .system)
-            button.addTarget(self, action: #selector(dismissController), for: .touchUpInside)
-            button.setImage(image, for: .normal)
-            button.tintColor = .neutral
-            
             UIView.animate(withDuration: animated ? 0.25 : 0) {
                 self.navigationController?.navigationBar.backgroundColor = .inspectorBackground
                 self.navigationController?.navigationBar.tintColor = .primaryTint
-                self.navigationItem.titleView = button
             }
             
             tableView.tintColor = .primaryTint
@@ -242,19 +245,28 @@ extension InspectorViewController {
         let controller = ReportViewController(peek: peek, report: report)
         
         controller.delegate = self
-        controller.modalPresentationStyle = .formSheet
-        
-        let nav = UINavigationController(rootViewController: controller)
-        controller.modalTransitionStyle = .crossDissolve
-        presentModal(nav, from: view, animated: true, completion: nil)
+        navigationController?.pushViewController(controller, animated: true)
     }
     
-    @objc private func endReport() {
-        tableView.setEditing(false, animated: true)
-        prepareNavigationItems(animated: true)
+    @objc private func endReport(animated: Bool) {
+        func end(animated: Bool) {
+            tableView.setEditing(false, animated: animated)
+            prepareNavigationItems(animated: animated)
+            
+            if let controller = presentedViewController {
+                controller.dismiss(animated: animated, completion: nil)
+            }
+        }
         
-        if let controller = presentedViewController {
-            controller.dismiss(animated: true, completion: nil)
+        if reportingIndexPaths.count > 0 {
+            let alert = UIAlertController(title: "Cancel Report", message: "Are you sure you want to cancel this report?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Yes, Cancel", style: .destructive) { _ in
+                end(animated: true)
+            })
+            present(alert, animated: true, completion: nil)
+        } else {
+            end(animated: true)
         }
     }
     
@@ -267,12 +279,12 @@ extension InspectorViewController {
 extension InspectorViewController: ReportViewControllerDelegate {
     
     func reportController(_ controller: ReportViewController, didSend report: Report) {
-        endReport()
-        controller.dismiss(animated: true, completion: nil)
+        endReport(animated: false)
+        navigationController?.popViewController(animated: true)
     }
     
     func reportControllerDidCancel(_ controller: ReportViewController) {
-        controller.dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
     
 }
@@ -316,6 +328,8 @@ extension InspectorViewController {
         
         if tableView.isEditing {
             let controller = UIAlertController(title: "Report Issue", message: "Select the reason for reporting this issue", preferredStyle: .actionSheet)
+            controller.popoverPresentationController?.sourceView = cell
+            controller.popoverPresentationController?.sourceRect = cell?.bounds ?? .zero
             
             controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
                 tableView.deselectRow(at: indexPath, animated: true)

@@ -49,27 +49,29 @@ extension UIColor: Model {
     public override func preparePeek(with coordinator: Coordinator) {
         super.preparePeek(with: coordinator)
 
-        let width = UIScreen.main.nativeBounds.width / UIScreen.main.nativeScale
-        let image = ImageRenderer(size: CGSize(width: width, height: 88)).image { context in
-            let rect = context.format.bounds
-            setFill()
-            UIRectFill(rect)
-        }
-        
-        coordinator.appendPreview(image: image, forModel: self)
-        
-        guard cgColor.pattern == nil else {
-            coordinator.appendStatic(keyPath: "cgColor.pattern", title: "Color", detail: nil, value: "Pattern", in: .appearance)
-            return
-        }
-        
-        guard self != .clear else {
-            coordinator.appendStatic(keyPath: "self", title: "Color", detail: nil, value: "Clear", in: .appearance)
-            return
+        if cgColor.pattern != nil || (self != .clear && values().a != 0) {
+            let width = UIScreen.main.nativeBounds.width / UIScreen.main.nativeScale
+            let image = ImageRenderer(size: CGSize(width: width, height: 88)).image { context in
+                let rect = context.format.bounds
+                setFill()
+                UIRectFill(rect)
+            }
+            
+            coordinator.appendPreview(image: image, forModel: self)
         }
         
         if #available(iOS 10.0, *) {
             coordinator.appendDynamic(keyPaths: ["colorSpace"], forModel: self, in: .general)
+        }
+        
+        guard cgColor.pattern == nil else {
+            coordinator.appendStatic(keyPath: "cgColor.pattern", title: "Color", detail: nil, value: "Pattern", in: .general)
+            return
+        }
+        
+        guard self != .clear else {
+            coordinator.appendStatic(keyPath: "self", title: "Color", detail: nil, value: "Clear", in: .general)
+            return
         }
         
         coordinator.appendDynamic(keyPathToName: [

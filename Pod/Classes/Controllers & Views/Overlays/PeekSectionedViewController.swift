@@ -103,7 +103,7 @@ extension PeekSectionedViewController {
                 .foregroundColor: UIColor.white
             ]
             
-            guard navigationController?.viewControllers.count == 1 else {
+            guard navigationController?.viewControllers.count == 1 || self is ReportViewController else {
                 navigationItem.largeTitleDisplayMode = .never
                 return
             }

@@ -24,7 +24,46 @@ import UIKit
 import InkKit
 
 //swiftlint:disable type_body_length
+//swiftlint:disable file_length
 final class Images {
+    
+    static func disclosure(size: CGSize, thickness: CGFloat) -> UIImage {
+        return Image.draw(size: size, attributes: nil) { _, rect, _ in
+            let rect = rect.insetBy(dx: thickness, dy: thickness)
+            let path = UIBezierPath()
+            
+            path.move(to: rect.origin)
+            path.addLine(to: CGPoint(x: rect.midX, y: rect.maxY))
+            path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
+            
+            path.lineWidth = thickness
+            path.lineCapStyle = .round
+            path.lineJoinStyle = .round
+            
+            UIColor.white.setStroke()
+            path.stroke()
+        }
+    }
+    
+    static var close: UIImage {
+        return Image.draw(width: 18, height: 18, attributes: nil) { _, rect, _ in
+            let color = UIColor.neutral
+            let thickness: CGFloat = 2
+            let rect = rect.insetBy(dx: thickness, dy: thickness)
+            
+            let path = UIBezierPath()
+            path.move(to: CGPoint(x: rect.minX, y: rect.minY))
+            path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+            path.move(to: CGPoint(x: rect.maxX, y: rect.minY))
+            path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
+            
+            color.setStroke()
+            path.lineCapStyle = .round
+            path.lineJoinStyle = .round
+            path.lineWidth = thickness
+            path.stroke()
+        }
+    }
     
     static func backIndicatorImage() -> UIImage {
         return Image.draw(width: 12, height: 22, attributes: nil, drawing: { (_, rect, _) in
@@ -475,4 +514,57 @@ final class Images {
         })
     }
     
+    internal static var report: UIImage {
+        return Image.draw(width: 26, height: 22, attributes: nil) { _, rect, _ in
+            drawReportIcon(frame: rect)
+        }.withRenderingMode(.alwaysTemplate)
+    }
+    
+    private static func drawReportIcon(frame: CGRect) {
+        //// Oval Drawing
+        let ovalPath = UIBezierPath(ovalIn: CGRect(x: frame.minX + 2.5, y: frame.minY + 3, width: 2, height: 2))
+        UIColor.gray.setFill()
+        ovalPath.fill()
+        UIColor.gray.setStroke()
+        ovalPath.lineWidth = 1
+        ovalPath.stroke()
+        
+        //// Oval 2 Drawing
+        let oval2Path = UIBezierPath()
+        oval2Path.move(to: CGPoint(x: frame.minX + 4.5, y: frame.minY + 11))
+        oval2Path.addCurve(to: CGPoint(x: frame.minX + 3.5, y: frame.minY + 12), controlPoint1: CGPoint(x: frame.minX + 4.5, y: frame.minY + 11.55), controlPoint2: CGPoint(x: frame.minX + 4.05, y: frame.minY + 12))
+        oval2Path.addCurve(to: CGPoint(x: frame.minX + 2.5, y: frame.minY + 11), controlPoint1: CGPoint(x: frame.minX + 2.95, y: frame.minY + 12), controlPoint2: CGPoint(x: frame.minX + 2.5, y: frame.minY + 11.55))
+        oval2Path.addCurve(to: CGPoint(x: frame.minX + 3.5, y: frame.minY + 10), controlPoint1: CGPoint(x: frame.minX + 2.5, y: frame.minY + 10.45), controlPoint2: CGPoint(x: frame.minX + 2.95, y: frame.minY + 10))
+        oval2Path.addCurve(to: CGPoint(x: frame.minX + 4.5, y: frame.minY + 11), controlPoint1: CGPoint(x: frame.minX + 4.05, y: frame.minY + 10), controlPoint2: CGPoint(x: frame.minX + 4.5, y: frame.minY + 10.45))
+        oval2Path.close()
+        UIColor.gray.setFill()
+        oval2Path.fill()
+        UIColor.gray.setStroke()
+        oval2Path.lineWidth = 1
+        oval2Path.stroke()
+        
+        //// Oval 3 Drawing
+        let oval3Path = UIBezierPath(ovalIn: CGRect(x: frame.minX + 2.5, y: frame.minY + 17, width: 2, height: 2))
+        UIColor.gray.setFill()
+        oval3Path.fill()
+        UIColor.gray.setStroke()
+        oval3Path.lineWidth = 1
+        oval3Path.stroke()
+        
+        //// Rectangle Drawing
+        let rectanglePath = UIBezierPath(roundedRect: CGRect(x: frame.minX + 7.5, y: frame.minY + 3, width: 15.5, height: 2), cornerRadius: 1)
+        UIColor.gray.setFill()
+        rectanglePath.fill()
+        
+        //// Rectangle 2 Drawing
+        let rectangle2Path = UIBezierPath(roundedRect: CGRect(x: frame.minX + 7.5, y: frame.minY + 10, width: 15.5, height: 2), cornerRadius: 1)
+        UIColor.gray.setFill()
+        rectangle2Path.fill()
+        
+        //// Rectangle 3 Drawing
+        let rectangle3Path = UIBezierPath(roundedRect: CGRect(x: frame.minX + 7.5, y: frame.minY + 17, width: 15.5, height: 2), cornerRadius: 1)
+        UIColor.gray.setFill()
+        rectangle3Path.fill()
+    }
+
 }
