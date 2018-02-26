@@ -36,7 +36,34 @@ import Foundation
      */
     //  func valueForKeyPath(_ key: String) -> AnyObject?
     func value(forKeyPath: String) -> Any?
+    
+    func isExpandedByDefault(for group: Group) -> Bool
 }
 
 // MARK: - Adds Model support to all NSObject types
-extension NSObject: Model { }
+extension NSObject: Model {
+    
+    public func isExpandedByDefault(for group: Group) -> Bool {
+        switch group {
+        case .preview: return true
+        case .appearance: return true
+        case .accessibility: return false
+        case .general: return false
+        case .paragraph: return true
+        case .states: return false
+        case .behaviour: return true
+        case .constraints: return false
+        case .hugging: return true
+        case .resistance: return true
+        case .horizontal: return true
+        case .vertical: return true
+        case .layout: return false
+        case .classes: return false
+        case .views: return false
+        case .layers: return false
+        case .shadow: return true
+        case .border: return true
+        }
+    }
+    
+}

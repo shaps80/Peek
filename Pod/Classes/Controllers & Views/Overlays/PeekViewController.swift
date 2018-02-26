@@ -67,7 +67,6 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "" // this is to remove the back button title
         view.addSubview(overlayView)
         overlayView.pin(edges: .all, to: view)
         
@@ -139,6 +138,12 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     
     fileprivate func presentInspectorsForModel(_ model: Model) {
         let rect = peek.peekingWindow.bounds
+
+        var defaults: [String: Bool] = [:]
+        Group.all.forEach {
+            defaults[$0.title] = model.isExpandedByDefault(for: $0)
+        }
+        UserDefaults.standard.register(defaults: defaults)
         
         if peek.options.includeScreenshot {
             peek.screenshot = UIImage.draw(width: rect.width, height: rect.height, scale: peek.options.screenshotScale, attributes: nil, drawing: { [unowned self] (_, rect, _) in

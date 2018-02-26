@@ -35,8 +35,8 @@ internal final class ContextDataSource {
             
             let items = peekGroup.attributes
                 .map { Item(title: $0.title, attribute: $0) }
-            
-            return Section(title: peekGroup.title, items: items, isExpanded: peekGroup.isExpandedByDefault)
+        
+            return Section(group: peekGroup, items: items)
         }
     }
     

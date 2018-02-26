@@ -80,4 +80,8 @@ extension UIColor: Model {
         ], forModel: self, in: .general)
     }
     
+    public override func isExpandedByDefault(for group: Group) -> Bool {
+        return true
+    }
+    
 }

@@ -71,11 +71,12 @@ extension UIView {
             current = next
         }
         
-        coordinator.appendStatic(title: "Layer", detail: "", value: layer, in: .views)
-        
-        for view in subviews {
+        // we have to reverse them to ensure they are inserted in the correct order.
+        for view in subviews.reversed() {
             coordinator.appendStatic(title: String(describing: view.classForCoder), detail: "", value: view, in: .views)
         }
+        
+        coordinator.appendStatic(title: "Layer", detail: "", value: layer, in: .views)
         
         coordinator.appendDynamic(keyPathToName: [
             ["accessibilityIdentifier": "Identifier"],
@@ -93,15 +94,22 @@ extension UIView {
             ], forModel: self, in: .general)
         
         coordinator.appendDynamic(keyPaths: [
-            "backgroundColor",
-            "tintColor",
-            "tintAdjustmentMode",
             "alpha",
             "opaque",
             "hidden",
             "clipsToBounds",
             "layer.cornerRadius",
             "layer.masksToBounds",
+            ], forModel: self, in: .appearance)
+        
+        coordinator.appendTransformed(keyPaths: ["tintAdjustmentMode"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let adjustmodeMode = UIViewTintAdjustmentMode(rawValue: rawValue) else { return nil }
+            return adjustmodeMode.description
+        }, forModel: self, in: .appearance)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "backgroundColor",
+            "tintColor",
         ], forModel: self, in: .appearance)
         
         if #available(iOS 11.0, *) {

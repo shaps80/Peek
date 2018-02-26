@@ -10,18 +10,17 @@ import InkKit
 import GraphicsRenderer
 
 internal struct Section {
-    internal let title: String
+    internal let group: PeekGroup
     internal let items: [Item]
     
     internal var isExpanded: Bool {
-        get { return UserDefaults.standard.bool(forKey: title) }
-        set { UserDefaults.standard.set(newValue, forKey: title) }
+        get { return UserDefaults.standard.bool(forKey: group.title) }
+        set { UserDefaults.standard.set(newValue, forKey: group.title) }
     }
     
-    internal init(title: String, items: [Item], isExpanded: Bool) {
-        self.title = title
+    internal init(group: PeekGroup, items: [Item]) {
+        self.group = group
         self.items = items
-        UserDefaults.standard.register(defaults: [title: isExpanded])
     }
 }
 
@@ -45,7 +44,7 @@ internal final class SectionHeaderView: UITableViewHeaderFooterView {
     
     override init(reuseIdentifier: String?) {
         label = UILabel(frame: .zero)
-        imageView = UIImageView(image: nil) // dislosure
+        imageView = UIImageView(image: nil) // collapsed/expanded indicator
         separator = UIView(frame: .zero)
         
         super.init(reuseIdentifier: reuseIdentifier)

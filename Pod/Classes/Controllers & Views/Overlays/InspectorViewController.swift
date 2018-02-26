@@ -16,16 +16,15 @@ internal final class InspectorViewController: UIViewController {
     private let model: Model
     private let coordinator: PeekCoordinator
     private let dataSource: ContextDataSource
+    private var reportingIndexPaths: [IndexPath: String] = [:]
     
     private unowned let peek: Peek
-    
-    private var selectedAttributes: [String] = []
     
     internal init(peek: Peek, model: Model & Peekable) {
         self.peek = peek
         self.model = model
         
-        self.coordinator = PeekCoordinator()
+        self.coordinator = PeekCoordinator(model: model)
         model.preparePeek(with: coordinator)
         
         self.tableView = UITableView(frame: .zero, style: .plain)
@@ -65,7 +64,7 @@ internal final class InspectorViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if let indexPath = tableView.indexPathForSelectedRow {
+        if !tableView.isEditing, let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: true)
         }
     }
@@ -113,7 +112,7 @@ extension InspectorViewController: UIViewControllerPreviewingDelegate {
 extension InspectorViewController {
     
     private func prepareNavigationItems(animated: Bool) {
-        selectedAttributes.removeAll()
+        reportingIndexPaths.removeAll()
         
         if tableView.isEditing {
             let cancel = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(endReport))
@@ -169,11 +168,19 @@ extension InspectorViewController {
     }
     
     @objc private func sendReport() {
-        let sheet = UIActivityViewController(activityItems: selectedAttributes, applicationActivities: nil)
+        var items: [Any?] = reportingIndexPaths
+            .map { dataSource.attribute(at: $0.key) }
+            .map { $0.title }
+        
+        items.append(peek.screenshot)
+        
+        let sheet = UIActivityViewController(activityItems: items, applicationActivities: nil)
         
         sheet.completionWithItemsHandler = { [weak self] type, success, activities, error in
             if success {
                 self?.endReport()
+            } else {
+                print("Didn't send")
             }
         }
         
@@ -233,6 +240,10 @@ extension InspectorViewController: SectionHeaderViewDelegate {
         view.setExpanded(expanded) { [weak self] in
             let section = IndexSet(integer: index)
             self?.tableView.reloadSections(section, with: .automatic)
+            
+            self?.reportingIndexPaths
+                .filter { $0.key.section == index }
+                .forEach { self?.tableView.selectRow(at: $0.key, animated: true, scrollPosition: .none) }
         }
     }
     
@@ -252,7 +263,7 @@ extension InspectorViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "InspectorHeader") as? SectionHeaderView else { fatalError() }
-        header.label.text = dataSource.sections[section].title
+        header.label.text = dataSource.sections[section].group.title
         header.label.font = UIFont.systemFont(ofSize: 15, weight: .black)
         header.label.textColor = .textLight
         header.prepareHeader(for: section, delegate: self)
@@ -265,6 +276,9 @@ extension InspectorViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let attribute = self.dataSource.attribute(at: indexPath)
+        let cell = tableView.cellForRow(at: indexPath)
+        
         if tableView.isEditing {
             let controller = UIAlertController(title: "Report Issue", message: "Select the reason for reporting this issue", preferredStyle: .actionSheet)
             
@@ -272,20 +286,36 @@ extension InspectorViewController: UITableViewDelegate {
                 tableView.deselectRow(at: indexPath, animated: true)
             }))
             
-            controller.addAction(UIAlertAction(title: "Invalid Value", style: .destructive, handler: { [weak self] _ -> Void in
-                self?.selectedAttributes.append("Invalid Value")
-                self?.invalidateSendButton()
-            }))
+            if attribute.value == nil {
+                controller.addAction(UIAlertAction(title: "Missing Value", style: .destructive, handler: { [weak self] _ -> Void in
+                    self?.reportingIndexPaths[indexPath] = "Missing Value"
+                    self?.invalidateSendButton()
+                }))
+            } else {
+                controller.addAction(UIAlertAction(title: "Wrong Value", style: .destructive, handler: { [weak self] _ -> Void in
+                    self?.reportingIndexPaths[indexPath] = "Wrong Value"
+                    self?.invalidateSendButton()
+                }))
+            }
             
-            controller.addAction(UIAlertAction(title: "Write a note", style: .default, handler: { [weak self] _ -> Void in
-                self?.selectedAttributes.append("Note")
-                self?.invalidateSendButton()
+            controller.addAction(UIAlertAction(title: "Suggest Alternative", style: .default, handler: { [weak self] _ -> Void in
+                let alert = UIAlertController(title: "\(attribute.title)", message: "What is the expected value?", preferredStyle: .alert)
+                alert.addTextField(configurationHandler: nil)
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in
+                    tableView.deselectRow(at: indexPath, animated: true)
+                })
+                
+                alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                    let note = alert.textFields?.first?.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+                    self?.reportingIndexPaths[indexPath] = note
+                    self?.invalidateSendButton()
+                })
+                
+                self?.present(alert, animated: true, completion: nil)
             }))
             
             present(controller, animated: true, completion: nil)
         } else {
-            let attribute = dataSource.attribute(at: indexPath)
-            
             if let value = attribute.value as? Model & PeekableContainer {
                 let controller = InspectorViewController(peek: peek, model: value)
                 navigationController?.pushViewController(controller, animated: true)
@@ -296,15 +326,12 @@ extension InspectorViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        if let index = selectedAttributes.index(of: "\(indexPath)") {
-            selectedAttributes.remove(at: index)
-        }
-        
+        reportingIndexPaths[indexPath] = nil
         invalidateSendButton()
     }
     
     private func invalidateSendButton() {
-        navigationItem.rightBarButtonItem?.isEnabled = selectedAttributes.count > 0
+        navigationItem.rightBarButtonItem?.isEnabled = reportingIndexPaths.count > 0
     }
     
 }

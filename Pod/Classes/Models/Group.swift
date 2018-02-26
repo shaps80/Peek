@@ -29,6 +29,33 @@ import Foundation
     case views
     case layers
     
+    internal var title: String {
+        switch self {
+        case .preview: return "Preview"
+        case .appearance: return "Apperance"
+        case .accessibility: return "Accessibility"
+        case .general: return "General"
+        case .paragraph: return "Paragraph"
+        case .states: return "States"
+        case .behaviour: return "Behaviour"
+        case .constraints: return "Constraints"
+        case .hugging: return "Hugging"
+        case .resistance: return "Resistance"
+        case .horizontal: return "Horizontal"
+        case .vertical: return "Vertical"
+        case .layout: return "Layout"
+        case .classes: return "Classes"
+        case .views: return "Views"
+        case .layers: return "Layers"
+        case .shadow: return "Shadow"
+        case .border: return "Border"
+        }
+    }
+    
+    internal func peekGroup() -> PeekGroup {
+        return PeekGroup(title: title, group: self)
+    }
+    
     internal static var all: [Group] {
         var values: [Group] = []
         var index = 0
@@ -52,10 +79,8 @@ internal final class PeekGroup: PeekGroupProtocol, Hashable, CustomStringConvert
     internal let title: String
     internal var attributes: [Attribute]
     internal let group: Group
-    internal let isExpandedByDefault: Bool
     
-    internal init(title: String, group: Group, isExpandedByDefault: Bool = true) {
-        self.isExpandedByDefault = isExpandedByDefault
+    internal init(title: String, group: Group) {
         self.title = title
         self.group = group
         self.attributes = []
@@ -74,52 +99,6 @@ internal final class PeekGroup: PeekGroupProtocol, Hashable, CustomStringConvert
         \(title)
         \(attributes.map { "  ▹ \($0)" }.joined(separator: "\n"))
         """
-    }
-    
-}
-
-extension PeekGroup {
-    
-    public static var preview = { PeekGroup(title: "Preview", group: .preview) }
-    public static var appearance = { PeekGroup(title: "Appearance", group: .appearance) }
-    public static var accessibility = { PeekGroup(title: "Accessibility", group: .accessibility, isExpandedByDefault: false) }
-    public static var general = { PeekGroup(title: "General", group: .general, isExpandedByDefault: false) }
-    public static var paragraph = { PeekGroup(title: "Paragraph", group: .paragraph) }
-    public static var behaviour = { PeekGroup(title: "Behaviour", group: .behaviour) }
-    public static var states = { PeekGroup(title: "States", group: .states, isExpandedByDefault: false) }
-    public static var constraints = { PeekGroup(title: "Constraints", group: .constraints) }
-    public static var hugging = { PeekGroup(title: "Content Hugging", group: .hugging) }
-    public static var resistance = { PeekGroup(title: "Compression Resistance", group: .resistance) }
-    public static var horizontal = { PeekGroup(title: "Horizontal", group: .horizontal, isExpandedByDefault: false) }
-    public static var vertical = { PeekGroup(title: "Vertical", group: .vertical, isExpandedByDefault: false) }
-    public static var layout = { PeekGroup(title: "Layout", group: .layout, isExpandedByDefault: false) }
-    public static var classes = { PeekGroup(title: "Class Hierarchy", group: .classes, isExpandedByDefault: false) }
-    public static var views = { PeekGroup(title: "View Hierarchy", group: .views, isExpandedByDefault: false) }
-    public static var layers = { PeekGroup(title: "Layer Hierarchy", group: .layers, isExpandedByDefault: false) }
-    public static var shadow = { PeekGroup(title: "Shadow", group: .shadow, isExpandedByDefault: true) }
-    public static var border = { PeekGroup(title: "Border", group: .border, isExpandedByDefault: true) }
-    
-    public static func make(from group: Group) -> PeekGroup {
-        switch group {
-        case .preview: return .preview()
-        case .appearance: return .appearance()
-        case .accessibility: return .accessibility()
-        case .general: return .general()
-        case .paragraph: return .paragraph()
-        case .states: return .states()
-        case .behaviour: return .behaviour()
-        case .constraints: return .constraints()
-        case .hugging: return .hugging()
-        case .resistance: return .resistance()
-        case .horizontal: return .horizontal()
-        case .vertical: return .vertical()
-        case .layout: return .layout()
-        case .classes: return .classes()
-        case .views: return .views()
-        case .layers: return .layers()
-        case .shadow: return .shadow()
-        case .border: return .border()
-        }
     }
     
 }

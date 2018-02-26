@@ -17,18 +17,23 @@ import Foundation
 
 internal final class PeekCoordinator: Coordinator, CustomStringConvertible {
     
+    internal unowned let model: Model
     internal private(set) var groupsMapping: [Group: PeekGroup] = [:]
     
+    internal init(model: Model) {
+        self.model = model
+    }
+    
     internal func appendPreview(image: UIImage, forModel model: Model) {
-        let peekGroup = groupsMapping[.preview] ?? PeekGroup.make(from: .preview)
+        let peekGroup = groupsMapping[.preview] ?? Group.preview.peekGroup()
         groupsMapping[.preview] = peekGroup
         peekGroup.attributes.insert(PreviewAttribute(image: image), at: 0)
     }
     
     func appendTransformed(keyPaths: [String], valueTransformer: AttributeValueTransformer?, forModel model: Model, in group: Group) {
-        let peekGroup = groupsMapping[group] ?? PeekGroup.make(from: group)
+        let peekGroup = groupsMapping[group] ?? group.peekGroup()
         groupsMapping[group] = peekGroup
-        
+
         peekGroup.attributes.insert(contentsOf: keyPaths.map {
             DynamicAttribute(title: String.capitalized($0), detail: nil, keyPath: $0, model: model, valueTransformer: valueTransformer)
         }, at: 0)
@@ -39,7 +44,7 @@ internal final class PeekCoordinator: Coordinator, CustomStringConvertible {
     }
     
     internal func appendDynamic(keyPathToName mapping: [[String : String]], forModel model: Model, in group: Group) {
-        let peekGroup = groupsMapping[group] ?? PeekGroup.make(from: group)
+        let peekGroup = groupsMapping[group] ?? group.peekGroup()
         groupsMapping[group] = peekGroup
         
         peekGroup.attributes.insert(contentsOf: mapping.map {
@@ -48,7 +53,7 @@ internal final class PeekCoordinator: Coordinator, CustomStringConvertible {
     }
     
     internal func appendStatic(title: String, detail: String? = nil, value: Any?, in group: Group) {
-        let peekGroup = groupsMapping[group] ?? PeekGroup.make(from: group)
+        let peekGroup = groupsMapping[group] ?? group.peekGroup()
         groupsMapping[group] = peekGroup
         
         let attribute = StaticAttribute(title: title, detail: detail, value: value)
