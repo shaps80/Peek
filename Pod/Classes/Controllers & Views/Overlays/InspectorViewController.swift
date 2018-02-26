@@ -37,7 +37,7 @@ internal final class InspectorViewController: UIViewController {
     internal override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.backBarButtonItem?.title = ""
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         prepareTableView()
         prepareNavigationItems(animated: false)
