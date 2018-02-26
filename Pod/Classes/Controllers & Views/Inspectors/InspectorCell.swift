@@ -40,11 +40,15 @@ final class InspectorCell: UITableViewCell {
         textLabel?.setContentCompressionResistancePriority(.required, for: .vertical)
         detailTextLabel?.setContentHuggingPriority(.required, for: .vertical)
         detailTextLabel?.setContentCompressionResistancePriority(.required, for: .vertical)
+        imageView?.setContentHuggingPriority(.required, for: .vertical)
+        imageView?.setContentCompressionResistancePriority(.required, for: .vertical)
         
         textLabel?.setContentHuggingPriority(UILayoutPriority(rawValue: 250), for: .horizontal)
         textLabel?.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 250), for: .horizontal)
         detailTextLabel?.setContentHuggingPriority(UILayoutPriority(rawValue: 500), for: .horizontal)
         detailTextLabel?.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 500), for: .horizontal)
+        imageView?.setContentHuggingPriority(.required, for: .horizontal)
+        imageView?.setContentCompressionResistancePriority(.required, for: .horizontal)
         
         backgroundColor = .inspectorBackground
         contentView.backgroundColor = .inspectorBackground
@@ -71,45 +75,5 @@ final class InspectorCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         accessoryView?.backgroundColor = color
     }
-    
-//    fileprivate func metaData() -> MetaData {
-//        guard let model = model else {
-//            fatalError("Model should never be nil!")
-//        }
-//
-//        var metaData = MetaData()
-//
-//        let object = MetaDataItem(key: "Object", value: "\(model.ObjClassName())")
-//        let title = MetaDataItem(key: "Display Name", value: property?.displayName)
-//        let keyPath = MetaDataItem(key: "Key Path", value: property?.keyPath)
-//        let value = MetaDataItem(key: "Value", value: stringValue())
-//
-//        metaData.property.items = [ object, title, keyPath, value ]
-//
-//        if let meta = peek?.options.metaData {
-//            for (key, value) in meta {
-//                let item = MetaDataItem(key: key, value: value)
-//                metaData.metaData.items.append(item)
-//            }
-//        }
-//
-//        return metaData
-//    }
-    
-//    fileprivate func stringValue() -> String? {
-//        guard let model = self.model, let property = self.property else {
-//            return nil
-//        }
-//        
-//        if let value = detailTextLabel?.text {
-//            return "\(value)"
-//        }
-//        
-//        if let value = property.value(forModel: model) {
-//            return "\(value)"
-//        }
-//        
-//        return nil
-//    }
     
 }

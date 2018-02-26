@@ -29,7 +29,7 @@ extension UIView {
      
      - returns: The owning view controller
      */
-    func owningViewController() -> UIViewController? {
+    @objc internal func owningViewController() -> UIViewController? {
         var responder: UIResponder? = self
         
         while !(responder is UIViewController) {

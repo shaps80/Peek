@@ -28,10 +28,15 @@ extension String {
     static func capitalized(_ camelCase: String) -> String {
         let chars = CharacterSet.uppercaseLetters
         var string = camelCase.components(separatedBy: ".").last ?? camelCase
-        let prefix = "peek_"
+        let peekPrefix = "peek_"
+        let supportPrefix = "supports"
         
-        if string.contains(prefix) {
-            string = String(string.dropFirst(prefix.count))
+        if string.contains(peekPrefix) {
+            string = String(string.dropFirst(peekPrefix.count))
+        }
+        
+        if string.contains(supportPrefix) {
+            string = String(string.dropFirst(supportPrefix.count))
         }
         
         while let range = string.rangeOfCharacter(from: chars) {

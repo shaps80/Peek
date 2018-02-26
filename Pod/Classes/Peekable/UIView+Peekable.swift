@@ -25,28 +25,40 @@ import GraphicsRenderer
 
 extension UIView {
     
-    @objc var horizontalConstraints: [NSLayoutConstraint] {
+    @objc fileprivate var horizontalConstraints: [NSLayoutConstraint] {
         return constraintsAffectingLayout(for: .horizontal)
     }
     
-    @objc var verticalConstraints: [NSLayoutConstraint] {
+    @objc fileprivate var verticalConstraints: [NSLayoutConstraint] {
         return constraintsAffectingLayout(for: .vertical)
     }
     
-    @objc var horizontalContentHuggingPriority: UILayoutPriority {
+    @objc fileprivate var horizontalContentHuggingPriority: UILayoutPriority {
         return contentHuggingPriority(for: .horizontal)
     }
     
-    @objc var verticalContentHuggingPriority: UILayoutPriority {
+    @objc fileprivate var verticalContentHuggingPriority: UILayoutPriority {
         return contentHuggingPriority(for: .vertical)
     }
     
-    @objc var horizontalContentCompressionResistance: UILayoutPriority {
+    @objc fileprivate var horizontalContentCompressionResistance: UILayoutPriority {
         return contentCompressionResistancePriority(for: .horizontal)
     }
     
-    @objc var verticalContentCompressionResistance: UILayoutPriority {
+    @objc fileprivate var verticalContentCompressionResistance: UILayoutPriority {
         return contentCompressionResistancePriority(for: .vertical)
+    }
+    
+    @objc private var peek_application: UIApplication {
+        return UIApplication.shared
+    }
+    
+    @objc private var peek_screen: UIScreen {
+        return UIScreen.main
+    }
+    
+    @objc private var peek_device: UIDevice {
+        return UIDevice.current
     }
     
     public override func preparePeek(with coordinator: Coordinator) {
@@ -75,12 +87,9 @@ extension UIView {
             coordinator.appendStatic(keyPath: "classForCoder", title: String(describing: `class`), detail: nil, value: "", in: .classes)
         }
         
-        // we have to reverse them to ensure they are inserted in the correct order.
         for view in subviews.reversed() {
             coordinator.appendStatic(keyPath: "classForCoder", title: String(describing: view.classForCoder), detail: "", value: view, in: .views)
         }
-        
-        coordinator.appendStatic(keyPath: "layer", title: "Layer", detail: "", value: layer, in: .views)
         
         coordinator.appendDynamic(keyPathToName: [
             ["accessibilityIdentifier": "Identifier"],
@@ -98,23 +107,21 @@ extension UIView {
             ], forModel: self, in: .general)
         
         coordinator.appendDynamic(keyPaths: [
+            "backgroundColor",
             "alpha",
-            "opaque",
             "hidden",
-            "clipsToBounds",
+            "opaque",
             "layer.cornerRadius",
+            "clipsToBounds",
             "layer.masksToBounds",
-            ], forModel: self, in: .appearance)
+        ], forModel: self, in: .appearance)
         
         coordinator.appendTransformed(keyPaths: ["tintAdjustmentMode"], valueTransformer: { value in
             guard let rawValue = value as? Int, let adjustmodeMode = UIViewTintAdjustmentMode(rawValue: rawValue) else { return nil }
             return adjustmodeMode.description
         }, forModel: self, in: .appearance)
         
-        coordinator.appendDynamic(keyPaths: [
-            "backgroundColor",
-            "tintColor",
-        ], forModel: self, in: .appearance)
+        coordinator.appendDynamic(keyPaths: ["tintColor"], forModel: self, in: .appearance)
         
         if #available(iOS 11.0, *) {
             coordinator.appendDynamic(keyPaths: [
@@ -152,6 +159,17 @@ extension UIView {
                                  detail: nil,
                                  value: !translatesAutoresizingMaskIntoConstraints,
                                  in: .constraints)
+        
+        let screen = ValueTransformer().transformedValue(UIScreen.main.bounds.size) as? String
+        coordinator.appendStatic(keyPath: "UIScreen.main", title: "Screen", detail: screen, value: UIScreen.main, in: .more)
+        coordinator.appendStatic(keyPath: "UIDevice.current", title: "Device", detail: UIDevice.current.name, value: UIDevice.current, in: .more)
+        coordinator.appendStatic(keyPath: "UIApplication.shared", title: "Application", detail: Bundle.main.appName, value: UIApplication.shared, in: .more)
+        
+        coordinator.appendDynamic(keyPathToName: [
+            ["owningViewController": "View Controller"]
+        ], forModel: self, in: .more)
+        
+        coordinator.appendStatic(keyPath: "layer", title: "Layer", detail: String(describing: layer.classForCoder), value: layer, in: .more)
     }
     
 }

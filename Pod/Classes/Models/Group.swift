@@ -29,6 +29,9 @@ import Foundation
     case views
     case layers
     
+    case capabilities
+    case more
+    
     internal var title: String {
         switch self {
         case .preview: return "Preview"
@@ -44,11 +47,13 @@ import Foundation
         case .horizontal: return "Horizontal"
         case .vertical: return "Vertical"
         case .layout: return "Layout"
-        case .classes: return "Classes"
-        case .views: return "Views"
+        case .classes: return "Class Hierarchy"
+        case .views: return "View Hierarchy"
         case .layers: return "Layers"
         case .shadow: return "Shadow"
         case .border: return "Border"
+        case .capabilities: return "Capabilities"
+        case .more: return "More"
         }
     }
     
@@ -67,6 +72,36 @@ import Foundation
         
         return values
     }
+}
+
+// MARK: - Adds Model support to all NSObject types
+extension NSObject: Model {
+    
+    public func isExpandedByDefault(for group: Group) -> Bool {
+        switch group {
+        case .preview: return true
+        case .appearance: return true
+        case .accessibility: return false
+        case .general: return false
+        case .paragraph: return true
+        case .states: return false
+        case .behaviour: return true
+        case .constraints: return false
+        case .hugging: return true
+        case .resistance: return true
+        case .horizontal: return true
+        case .vertical: return true
+        case .layout: return false
+        case .classes: return false
+        case .views: return false
+        case .layers: return false
+        case .shadow: return true
+        case .border: return true
+        case .capabilities: return true
+        case .more: return false
+        }
+    }
+    
 }
 
 @objc public protocol PeekGroupProtocol: class {

@@ -46,7 +46,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             options.screenshotScale = 1
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
             self?.window?.peek.present()
         }
         

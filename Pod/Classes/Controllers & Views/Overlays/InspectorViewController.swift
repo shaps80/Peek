@@ -104,6 +104,10 @@ internal final class InspectorViewController: PeekSectionedViewController {
             var editingAccessoryView: UIView?
             
             switch value {
+            case is UIViewController:
+                if let value = value as? UIViewController {
+                    text = String(describing: value.classForCoder)
+                }
             case is [AnyObject]:
                 if let value = value as? [AnyObject] {
                     text = "\(value.count)"

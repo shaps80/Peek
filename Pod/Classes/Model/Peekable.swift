@@ -43,6 +43,11 @@ extension UIImage: PeekableContainer { }
 extension UIFont: PeekableContainer { }
 extension NSLayoutConstraint: PeekableContainer { }
 extension NSAttributedString: PeekableContainer { }
+extension UIViewController: PeekableContainer { }
+extension UIScreen: PeekableContainer { }
+extension UIDevice: PeekableContainer { }
+extension UIApplication: PeekableContainer { }
+extension Bundle: PeekableContainer { }
 
 extension NSObject: Peekable {
     

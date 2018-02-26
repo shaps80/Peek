@@ -24,31 +24,17 @@ import UIKit
 
 extension UIActivityIndicatorView {
     
-    /**
-     Configures Peek's properties for this object
-     
-     - parameter context: The context to apply these properties to
-     */
-    public override func preparePeek(_ context: Context) {
-        super.preparePeek(context)
+    public override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
         
-        context.configure(.attributes, "Behaviour") { (config) in
-            config.addProperties([ "hidesWhenStopped" ])
-        }
+        coordinator.appendDynamic(keyPaths: ["hidesWhenStopped"], forModel: self, in: .behaviour)
+        coordinator.appendDynamic(keyPaths: ["isAnimating"], forModel: self, in: .states)
+        coordinator.appendDynamic(keyPaths: ["color"], forModel: self, in: .appearance)
         
-        context.configure(.attributes, "State") { (config) in
-            config.addProperties([ "isAnimating" ])
-        }
-        
-        context.configure(.attributes, "Appearance") { (config) in
-            config.addProperties([ "color" ])
-            
-            config.addProperty("activityIndicatorViewStyle", displayName: "Display Style", cellConfiguration: { (cell, _, value) in
-                if let mode = UIActivityIndicatorViewStyle(rawValue: value as! Int) {
-                    cell.detailTextLabel?.text = mode.description
-                }
-            })
-        }
+        coordinator.appendTransformed(keyPaths: ["activityIndicatorViewStyle"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let style = UIActivityIndicatorViewStyle(rawValue: rawValue) else { return nil }
+            return style.description
+        }, forModel: self, in: .appearance)
     }
     
 }
