@@ -41,6 +41,7 @@ extension UIView: PeekableContainer { }
 extension UIColor: PeekableContainer { }
 extension UIImage: PeekableContainer { }
 extension UIFont: PeekableContainer { }
+extension UIBarButtonItem: PeekableContainer { }
 extension NSLayoutConstraint: PeekableContainer { }
 extension NSAttributedString: PeekableContainer { }
 extension UIViewController: PeekableContainer { }
@@ -185,3 +186,4 @@ extension UIProgressView: PeekContainer { }
 extension UIActivityIndicatorView: PeekContainer { }
 extension UISegmentedControl: PeekContainer { }
 extension UIDatePicker: PeekContainer { }
+

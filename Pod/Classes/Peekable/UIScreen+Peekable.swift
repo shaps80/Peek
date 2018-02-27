@@ -24,26 +24,22 @@ import UIKit
 
 extension UIScreen {
     
-    /**
-     Configures Peek's properties for this object
-     
-     - parameter context: The context to apply these properties to
-     */
-    public override func preparePeek(_ context: Context) {
-        super.preparePeek(context)
+    public override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
         
-        context.configure(.screen, "Brightness") { (config) in
-            config.addProperties([ "wantsSoftwareDimming", "brightness" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "wantsSoftwareDimming",
+            "brightness"
+        ], forModel: self, in: .appearance)
         
-        context.configure(.screen, "Layout") { (config) in
-            config.addProperties([ "applicationFrame", "bounds", "currentMode.size" ])
-        }
-        
-        context.configure(.screen, "Scale") { (config) in
-            config.addProperty("scale", displayName: "Device Scale", cellConfiguration: nil)
-            config.addProperties([ "nativeScale", "currentMode.pixelAspectRatio" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "applicationFrame",
+            "bounds",
+            "currentMode.size",
+            "scale",
+            "nativeScale",
+            "currentMode.pixelAspectRatio"
+        ], forModel: self, in: .layout)
     }
     
 }

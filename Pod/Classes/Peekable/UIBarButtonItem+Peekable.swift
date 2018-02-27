@@ -24,17 +24,25 @@ import UIKit
 
 extension UIBarButtonItem {
     
-    /**
-     Configures Peek's properties for this object
-     
-     - parameter context: The context to apply these properties to
-     */
-    public override func preparePeek(_ context: Context) {
-        super.preparePeek(context)
+    public override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
         
-        context.configure(.attributes, "General") { (config) in
-            config.addProperties([ "title", "enabled", "image", "landscapeImagePhone", "imageInsets", "landscapeImagePhoneInsets", "tag" ])
-        }
+        coordinator.appendDynamic(keyPaths:
+            "title",
+            "image",
+            "landscapeImagePhone"
+        ], forModel: self, in: .appearance)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "tag"
+        ], forModel: self, in: .general)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "imageInsets",
+            "landscapeImagePhoneInsets"
+        ], forModel: self, in: .layout)
+        
+        coordinator.appendDynamic(keyPaths: ["enabled"], forModel: self, in: .behaviour)
     }
     
 }

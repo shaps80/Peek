@@ -24,56 +24,74 @@ import UIKit
 
 extension UIDevice {
     
-    @objc fileprivate var processInfo: ProcessInfo {
-        return ProcessInfo.processInfo
+    public override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "batteryMonitoringEnabled",
+            "proximityMonitoringEnabled"
+        ], forModel: self, in: .states)
+        
+        coordinator.appendTransformed(keyPaths: ["batteryState"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let state = UIDeviceBatteryState(rawValue: rawValue) else { return nil }
+            return state.description
+        }, forModel: self, in: .general)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "batteryLevel",
+        ], forModel: self, in: .general)
+        
+        coordinator.appendTransformed(keyPaths: ["peek_totalMemory"], valueTransformer: { value in
+            guard let value = value as? Int64 else { return nil }
+            let formatter = ByteCountFormatter()
+            formatter.countStyle = .memory
+            return formatter.string(fromByteCount: value)
+        }, forModel: self, in: .general)
+        
+        coordinator.appendTransformed(keyPaths: ["peek_totalStorage"], valueTransformer: { value in
+            guard let value = value as? Int64 else { return nil }
+            let formatter = ByteCountFormatter()
+            formatter.countStyle = .file
+            return formatter.string(fromByteCount: value)
+        }, forModel: self, in: .general)
+        
+        coordinator.appendTransformed(keyPaths: ["peek_usedStorage"], valueTransformer: { value in
+            guard let value = value as? Int64 else { return nil }
+            let formatter = ByteCountFormatter()
+            formatter.countStyle = .file
+            return formatter.string(fromByteCount: value)
+        }, forModel: self, in: .general)
+        
+        coordinator.appendTransformed(keyPaths: ["peek_availableStorage"], valueTransformer: { value in
+            guard let value = value as? Int64 else { return nil }
+            let formatter = ByteCountFormatter()
+            formatter.countStyle = .file
+            return formatter.string(fromByteCount: value)
+        }, forModel: self, in: .general)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "name",
+            "model",
+            "systemVersion"
+        ], forModel: self, in: .general)
     }
     
-    /**
-     Configures Peek's properties for this object
-     
-     - parameter context: The context to apply these properties to
-     */
-    public override func preparePeek(_ context: Context) {
-        super.preparePeek(context)
-        
-        context.configure(.device, "Battery") { (config) in
-            config.addProperties([ "batteryMonitoringEnabled" ])
-            
-            if isBatteryMonitoringEnabled {
-                config.addProperties([ "batteryLevel" ])
-                
-                config.addProperty("batteryState", displayName: nil, cellConfiguration: { (cell, _, value) in
-                    if let state = UIDeviceBatteryState(rawValue: value as! Int) {
-                        cell.detailTextLabel?.text = state.description
-                    }
-                })
-            }
-        }
-        
-        context.configure(.device, "Hardware") { (config) in
-            config.addProperties([ "processInfo.processorCount", ])
-            
-            config.addProperty("processInfo.physicalMemory", displayName: nil, cellConfiguration: { (cell, _, _) in
-                let formatter = ByteCountFormatter()
-                let memory = ProcessInfo.processInfo.physicalMemory
-                formatter.countStyle = .memory
-                cell.detailTextLabel?.text = formatter.string(fromByteCount: Int64(memory))
-            })
-        }
-        
-        context.configure(.device, "System") { (config) in
-            config.addProperties([ "name", "model" ])
-            config.addProperty("systemVersion", displayName: "iOS Version", cellConfiguration: nil)
-        }
-        
-        context.configure(.device, "Proximity") { (config) in
-            config.addProperties([ "proximityMonitoringEnabled" ])
-            
-            if isProximityMonitoringEnabled {
-                config.addProperty("proximityState", displayName: "Proximity Detected", cellConfiguration: nil)
-            }
-        }
-        
+    @objc private var peek_usedStorage: Int64 {
+        return peek_totalStorage - peek_availableStorage
+    }
+    
+    @objc private var peek_totalStorage: Int64 {
+        let attributes = try? FileManager.default.attributesOfFileSystem(forPath: NSHomeDirectory())
+        return attributes?[.systemSize] as? Int64 ?? 0
+    }
+    
+    @objc private var peek_availableStorage: Int64 {
+        let attributes = try? FileManager.default.attributesOfFileSystem(forPath: NSHomeDirectory())
+        return attributes?[.systemFreeSize] as? Int64 ?? 0
+    }
+    
+    @objc private var peek_totalMemory: Int64 {
+        return Int64(ProcessInfo.processInfo.physicalMemory)
     }
     
 }

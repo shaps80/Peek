@@ -24,91 +24,140 @@ import UIKit
 
 extension UIViewController {
     
-    /**
-     Configures Peek's properties for this object
-     
-     - parameter context: The context to apply these properties to
-     */
-    public override func preparePeek(_ context: Context) {
-        super.preparePeek(context)
+    public override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
         
-        context.configure(.controller, "Status Bar") { (config) in
-            config.addProperty("preferredStatusBarStyle", displayName: "Preferred Style", cellConfiguration: { (cell, _, value) in
-                let style = UIStatusBarStyle(rawValue: value as! Int)!
-                cell.detailTextLabel?.text = style.description
-            })
-            
-            config.addProperty("preferredStatusBarUpdateAnimation", displayName: "Preferred Animation", cellConfiguration: { (cell, _, value) in
-                let style = UIStatusBarAnimation(rawValue: value as! Int)!
-                cell.detailTextLabel?.text = style.description
-            })
-        }
+        coordinator.appendTransformed(keyPaths: ["modalTransitionStyle"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let style = UIModalTransitionStyle(rawValue: rawValue) else { return nil }
+            return style.description
+        }, forModel: self, in: .appearance)
         
-        context.configure(.controller, "Modal") { (config) in
-            config.addProperty("modalTransitionStyle", displayName: nil, cellConfiguration: { (cell, _, value) in
-                let style = UIModalTransitionStyle(rawValue: value as! Int)
-                cell.detailTextLabel?.text = style?.description
-            })
-            
-            config.addProperty("modalPresentationStyle", displayName: nil, cellConfiguration: { (cell, _, value) in
-                let style = UIModalPresentationStyle(rawValue: value as! Int)
-                cell.detailTextLabel?.text = style?.description
-            })
-        }
+        coordinator.appendTransformed(keyPaths: ["modalPresentationStyle"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let style = UIModalPresentationStyle(rawValue: rawValue) else { return nil }
+            return style.description
+        }, forModel: self, in: .appearance)
         
-        context.configure(.controller, "Orientation") { (config) in
-            config.addProperty("interfaceOrientation", displayName: "Current Orientation", cellConfiguration: { (cell, _, value) in
-                let orientation = UIInterfaceOrientation(rawValue: value as! Int)!
-                let image = Images.orientationImage(orientation)
-                cell.accessoryView = UIImageView(image: image)
-                cell.detailTextLabel?.text = "\(orientation.description)  "
-            })
-            
-            let property = config.addProperty("supportedInterfaceOrientations", displayName: "Supported Orientations", cellConfiguration: { (cell, _, value) in
-                let mask = UIInterfaceOrientationMask(rawValue: value as! UInt)
-                let image = Images.orientationMaskImage(mask)
-                cell.accessoryView = UIImageView(image: image)
-                cell.detailTextLabel?.text = nil
-            })
-        }
+        coordinator.appendTransformed(keyPaths: ["preferredStatusBarStyle"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let style = UIStatusBarStyle(rawValue: rawValue) else { return nil }
+            return style.description
+        }, forModel: self, in: .appearance)
+        
+        coordinator.appendTransformed(keyPaths: ["preferredStatusBarUpdateAnimation"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let style = UIStatusBarAnimation(rawValue: rawValue) else { return nil }
+            return style.description
+        }, forModel: self, in: .appearance)
         
         if self is UITableViewController {
-            context.configure(.controller, "Table View", configuration: { (config) in
-                config.addProperty("clearsSelectionOnViewWillAppear", displayName: "Clears Selection on View", cellConfiguration: nil)
-            })
+            coordinator.appendDynamic(keyPathToName: [
+                ["clearsSelectionOnViewWillAppear": "Auto Clears Selection"],
+            ], forModel: self, in: .behaviour)
         }
         
         if self is UICollectionViewController {
-            context.configure(.controller, "Collection View", configuration: { (config) in
-                config.addProperty("clearsSelectionOnViewWillAppear", displayName: "Auto Clears Selection", cellConfiguration: nil)
-                config.addProperty("useLayoutToLayoutNavigationTransitions", displayName: "Layout to Layout Transitions", cellConfiguration: nil)
-                config.addProperty("installsStandardGestureForInteractiveMovement", displayName: "Uses Default Reordering Gesture", cellConfiguration: nil)
-            })
+            coordinator.appendDynamic(keyPathToName: [
+                ["clearsSelectionOnViewWillAppear": "Auto Clears Selection"],
+                ["useLayoutToLayoutNavigationTransitions": "Transitions between Layouts"],
+                ["installsStandardGestureForInteractiveMovement": "Supports Reordering Gesture"]
+            ], forModel: self, in: .behaviour)
+        }
+        
+        if splitViewController != nil {
+            coordinator.appendDynamic(keyPaths: ["splitViewController"], forModel: self, in: .more)
+        }
+        
+        if tabBarController != nil {
+            coordinator.appendDynamic(keyPaths: ["tabBarController"], forModel: self, in: .more)
         }
         
         if navigationController != nil {
-            context.configure(.controller, "Navigation") { (config) in
-                config.addProperties([ "navigationController.navigationBarHidden", "navigationController.toolbarHidden", "navigationController.hidesBarsWhenKeyboardAppears", "navigationController.hidesBarsOnSwipe", "navigationController.hidesBarsWhenVerticallyCompact", "navigationController.hidesBarsOnTap" ])
+            coordinator.appendStatic(keyPath: "navigationItem.backBarButtonItem", title: "Back Navigation Item", detail: navigationItem.backBarButtonItem?.title, value: navigationItem.backBarButtonItem, in: .views)
+            coordinator.appendStatic(keyPath: "navigationItem.rightBarButtonItem", title: "Right Navigation Item", detail: navigationItem.rightBarButtonItem?.title, value: navigationItem.rightBarButtonItem, in: .views)
+            coordinator.appendStatic(keyPath: "navigationItem.leftBarButtonItem", title: "Left Navigation Item", detail: navigationItem.leftBarButtonItem?.title, value: navigationItem.leftBarButtonItem, in: .views)
+            
+            coordinator.appendDynamic(keyPaths: [
+                "navigationController",
+            ], forModel: self, in: .more)
+            
+            coordinator.appendDynamic(keyPaths: [
+                "navigationItem.hidesBackButton",
+            ], forModel: self, in: .behaviour)
+            
+            coordinator.appendDynamic(keyPaths: [
+                "navigationItem.title",
+                "navigationItem.prompt",
+            ], forModel: self, in: .appearance)
+        }
+        
+        if self is UINavigationController {
+            coordinator.appendDynamic(keyPaths: [
+                "navigationBarHidden",
+                "toolbarHidden",
+                "hidesBarsWhenKeyboardAppears",
+                "hidesBarsOnSwipe",
+                "hidesBarsWhenVerticallyCompact",
+                "hidesBarsOnTap"
+            ], forModel: self, in: .behaviour)
+        }
+        
+        if self is UISplitViewController {
+            coordinator.appendTransformed(keyPaths: ["preferredDisplayMode"], valueTransformer: { value in
+                guard let rawValue = value as? Int, let mode = UISplitViewControllerDisplayMode(rawValue: rawValue) else { return nil }
+                return mode.description
+            }, forModel: self, in: .appearance)
+            
+            coordinator.appendTransformed(keyPaths: ["displayMode"], valueTransformer: { value in
+                guard let rawValue = value as? Int, let mode = UISplitViewControllerDisplayMode(rawValue: rawValue) else { return nil }
+                return mode.description
+            }, forModel: self, in: .appearance)
+            
+            if #available(iOS 11.0, *) {
+                coordinator.appendTransformed(keyPaths: ["primaryEdge"], valueTransformer: { value in
+                    guard let rawValue = value as? Int, let edge = UISplitViewControllerPrimaryEdge(rawValue: rawValue) else { return nil }
+                    return edge.description
+                }, forModel: self, in: .appearance)
             }
             
-            context.configure(.controller, "Navigation Item", configuration: { (config) in
-                config.addProperties([ "navigationItem.hidesBackButton", "navigationItem.title", "navigationItem.prompt" ])
-            })
+            coordinator.appendDynamic(keyPaths: [
+                "isCollapsed"
+            ], forModel: self, in: .states)
             
-            context.configure(.controller, "Navigation Items", configuration: { (config) in
-                if navigationItem.leftBarButtonItem != nil {
-                    config.addProperties([ "navigationItem.leftBarButtonItem" ])
-                }
-                
-                if navigationItem.rightBarButtonItem != nil {
-                    config.addProperties([ "navigationItem.rightBarButtonItem" ])
-                }
-                
-                if navigationItem.backBarButtonItem != nil {
-                    config.addProperties([ "navigationItem.backBarButtonItem" ])
-                }
-            })
+            coordinator.appendDynamic(keyPaths: [
+                "presentsWithGesture",
+            ], forModel: self, in: .behaviour)
+            
+            coordinator.appendTransformed(keyPaths: ["preferredPrimaryColumnWidthFraction"], valueTransformer: { value in
+                guard let value = value as? CGFloat else { return nil }
+                return value == UISplitViewControllerAutomaticDimension ? "Automatic" : "\(value)"
+            }, forModel: self, in: .layout)
+            
+            coordinator.appendTransformed(keyPaths: ["maximumPrimaryColumnWidth"], valueTransformer: { value in
+                guard let value = value as? CGFloat else { return nil }
+                return value == UISplitViewControllerAutomaticDimension ? "Automatic" : "\(value)"
+            }, forModel: self, in: .layout)
+            
+            coordinator.appendTransformed(keyPaths: ["primaryColumnWidth"], valueTransformer: { value in
+                guard let value = value as? CGFloat else { return nil }
+                return value == UISplitViewControllerAutomaticDimension ? "Automatic" : "\(value)"
+            }, forModel: self, in: .layout)
+            
+            coordinator.appendDynamic(keyPaths: [
+                "displayModeButtonItem"
+            ], forModel: self, in: .more)
         }
+        
+//        config.addProperty("interfaceOrientation", displayName: "Current Orientation", cellConfiguration: { (cell, _, value) in
+//            let orientation = UIInterfaceOrientation(rawValue: value as! Int)!
+//            let image = Images.orientationImage(orientation)
+//            cell.accessoryView = UIImageView(image: image)
+//            cell.detailTextLabel?.text = "\(orientation.description)  "
+//        })
+//
+//        let property = config.addProperty("supportedInterfaceOrientations", displayName: "Supported Orientations", cellConfiguration: { (cell, _, value) in
+//            let mask = UIInterfaceOrientationMask(rawValue: value as! UInt)
+//            let image = Images.orientationMaskImage(mask)
+//            cell.accessoryView = UIImageView(image: image)
+//            cell.detailTextLabel?.text = nil
+//        })
     }
     
 }

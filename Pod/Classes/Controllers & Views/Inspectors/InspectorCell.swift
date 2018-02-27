@@ -36,20 +36,6 @@ final class InspectorCell: UITableViewCell {
         textLabel?.numberOfLines = 0
         detailTextLabel?.numberOfLines = 0
         
-        textLabel?.setContentHuggingPriority(.required, for: .vertical)
-        textLabel?.setContentCompressionResistancePriority(.required, for: .vertical)
-        detailTextLabel?.setContentHuggingPriority(.required, for: .vertical)
-        detailTextLabel?.setContentCompressionResistancePriority(.required, for: .vertical)
-        imageView?.setContentHuggingPriority(.required, for: .vertical)
-        imageView?.setContentCompressionResistancePriority(.required, for: .vertical)
-        
-        textLabel?.setContentHuggingPriority(UILayoutPriority(rawValue: 250), for: .horizontal)
-        textLabel?.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 250), for: .horizontal)
-        detailTextLabel?.setContentHuggingPriority(UILayoutPriority(rawValue: 500), for: .horizontal)
-        detailTextLabel?.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 500), for: .horizontal)
-        imageView?.setContentHuggingPriority(.required, for: .horizontal)
-        imageView?.setContentCompressionResistancePriority(.required, for: .horizontal)
-        
         backgroundColor = .inspectorBackground
         contentView.backgroundColor = .inspectorBackground
         clipsToBounds = true

@@ -22,6 +22,31 @@
 
 import UIKit
 
+extension UISplitViewControllerDisplayMode: CustomStringConvertible {
+    
+    public var description: String {
+        switch self {
+        case .allVisible: return "All Visible"
+        case .automatic: return "Automatic"
+        case .primaryHidden: return "Primary Hidden"
+        case .primaryOverlay: return "Primary Overlay"
+        }
+    }
+    
+}
+
+@available(iOS 11.0, *)
+extension UISplitViewControllerPrimaryEdge: CustomStringConvertible {
+    
+    public var description: String {
+        switch self {
+        case .leading: return "Leading"
+        case .trailing: return "Trailing"
+        }
+    }
+    
+}
+
 extension NSLayoutRelation: CustomStringConvertible {
     
     public var description: String {
