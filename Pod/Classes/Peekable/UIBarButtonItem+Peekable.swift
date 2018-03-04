@@ -27,7 +27,7 @@ extension UIBarButtonItem {
     public override func preparePeek(with coordinator: Coordinator) {
         super.preparePeek(with: coordinator)
         
-        coordinator.appendDynamic(keyPaths:
+        coordinator.appendDynamic(keyPaths: [
             "title",
             "image",
             "landscapeImagePhone"
