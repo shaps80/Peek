@@ -24,7 +24,6 @@ import UIKit
 
 extension UIToolbar {
     
-    
     public override func preparePeek(with coordinator: Coordinator) {
         super.preparePeek(with: coordinator)
         
