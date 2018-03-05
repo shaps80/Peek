@@ -109,69 +109,6 @@ final class Images {
         })
     }
     
-    static func inspectorImage(_ inspector: Inspector) -> UIImage? {
-        switch inspector {
-        case .attributes: return attributesImage()
-        case .view: return viewImage()
-        case .layout: return layoutImage()
-        case .layer: return layerImage()
-        case .controller: return controllerImage()
-        case .device: return deviceImage()
-        case .screen: return screenImage()
-        case .application: return applicationImage()
-        }
-    }
-    
-    static func inspectorsToggleImage(_ inspectorSet: InspectorSet) -> UIImage {
-        return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (_, _, _) in
-            //// Color Declarations
-            let white = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
-            let gray = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 0.500)
-            
-            //// Rectangle Drawing
-            let rectanglePath = UIBezierPath(roundedRect: CGRect(x: 4, y: 1, width: 23.5, height: 21.5), cornerRadius: 2)
-            white.setStroke()
-            rectanglePath.lineWidth = 1
-            rectanglePath.stroke()
-            
-            //// tab1 Drawing
-            let tab1Path = UIBezierPath()
-            tab1Path.move(to: CGPoint(x: 15, y: 15))
-            tab1Path.addCurve(to: CGPoint(x: 15, y: 20.5), controlPoint1: CGPoint(x: 15, y: 15), controlPoint2: CGPoint(x: 15, y: 20.5))
-            tab1Path.addLine(to: CGPoint(x: 6, y: 20.5))
-            tab1Path.addLine(to: CGPoint(x: 6, y: 15))
-            tab1Path.addLine(to: CGPoint(x: 15, y: 15))
-            tab1Path.addLine(to: CGPoint(x: 15, y: 15))
-            tab1Path.close()
-            
-            if inspectorSet == .primary {
-                white.setFill()
-            } else {
-                gray.setFill()
-            }
-            
-            tab1Path.fill()
-            
-            //// tab2 Drawing
-            let tab2Path = UIBezierPath()
-            tab2Path.move(to: CGPoint(x: 25.5, y: 15))
-            tab2Path.addCurve(to: CGPoint(x: 25.5, y: 20.5), controlPoint1: CGPoint(x: 25.5, y: 15), controlPoint2: CGPoint(x: 25.5, y: 20.5))
-            tab2Path.addLine(to: CGPoint(x: 16.5, y: 20.5))
-            tab2Path.addLine(to: CGPoint(x: 16.5, y: 15))
-            tab2Path.addLine(to: CGPoint(x: 25.5, y: 15))
-            tab2Path.addLine(to: CGPoint(x: 25.5, y: 15))
-            tab2Path.close()
-            
-            if inspectorSet == .secondary {
-                white.setFill()
-            } else {
-                gray.setFill()
-            }
-            
-            tab2Path.fill()
-        })
-    }
-    
     fileprivate static func applicationImage() -> UIImage {
         return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (_, _, _) in
             //// Color Declarations

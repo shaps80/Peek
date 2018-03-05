@@ -28,9 +28,7 @@ import UIKit
 @objc public protocol Peekable: NSObjectProtocol {
     var classForCoder: AnyClass { get }
     
-    func preparePeek(_ context: Context)
     func shouldIgnore(options: PeekOptions) -> Bool
-    
     func preparePeek(with coordinator: Coordinator)
 }
 
@@ -49,17 +47,16 @@ extension UIScreen: PeekableContainer { }
 extension UIDevice: PeekableContainer { }
 extension UIApplication: PeekableContainer { }
 extension Bundle: PeekableContainer { }
+extension NSShadow: PeekableContainer { }
 
 extension NSObject: Peekable {
     
-    @objc public func preparePeek(with coordinator: Coordinator) { }
-    
     /**
-     Gives the caller an opportunity to configure Peek's current context
+     Gives the caller an opportunity to configure Peek with additional attributes
      
-     - parameter context: The context to configure
+     - parameter coordinator: The coordinator to prepare
      */
-    @objc public func preparePeek(_ context: Context) { }
+    @objc public func preparePeek(with coordinator: Coordinator) { }
     
     /**
      Determines if Peek should ignore this type when parsing it into a model
@@ -134,44 +131,6 @@ extension UIView {
     
 }
 
-/**
- *  Defines a Peek type that supports sub-properties -- this allows Peek to determine when nested properties should be used
- */
-public protocol PeekSubPropertiesSupporting {
-    var hasProperties: Bool { get }
-}
-
-extension PeekSubPropertiesSupporting {
-    
-    /// Returns true when this type contains sub-properties
-    public var hasProperties: Bool { return true }
-    
-}
-
-extension Array: PeekSubPropertiesSupporting {
-    
-    /// Returns true when this array's count > 0
-    public var hasProperties: Bool {
-        return count > 0
-    }
-    
-}
-
-extension NSArray: PeekSubPropertiesSupporting { }
-extension CGColor: PeekSubPropertiesSupporting { }
-extension UIColor: PeekSubPropertiesSupporting { }
-extension UIButton: PeekSubPropertiesSupporting { }
-extension UIImage: PeekSubPropertiesSupporting { }
-extension UIImageView: PeekSubPropertiesSupporting { }
-extension UIFont: PeekSubPropertiesSupporting { }
-extension UISegmentedControl: PeekSubPropertiesSupporting { }
-extension UILabel: PeekSubPropertiesSupporting { }
-extension UIBarButtonItem: PeekSubPropertiesSupporting { }
-extension NSLayoutConstraint: PeekSubPropertiesSupporting { }
-//extension Segment: PeekSubPropertiesSupporting { }
-extension NSAttributedString: PeekSubPropertiesSupporting { }
-extension NSShadow: PeekSubPropertiesSupporting { }
-
 // This is a BAD name. What we really want to articulate here is that the scanner should stop at these views and not recurse deeper. Effectively treating these views as a leaf
 public protocol PeekContainer { }
 
@@ -186,4 +145,3 @@ extension UIProgressView: PeekContainer { }
 extension UIActivityIndicatorView: PeekContainer { }
 extension UISegmentedControl: PeekContainer { }
 extension UIDatePicker: PeekContainer { }
-

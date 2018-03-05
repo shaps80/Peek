@@ -13,19 +13,10 @@ internal final class InspectorsTabController: UITabBarController {
     
     fileprivate let model: Model & Peekable
     unowned var peek: Peek
-    fileprivate let context: Context
     
     init(peek: Peek, model: Model & Peekable) {
         self.model = model
         self.peek = peek
-        self.context = PeekContext()
-        
-        if let view = model as? UIView {
-            view.preparePeek(context)
-            view.layer.preparePeek(context)
-            view.owningViewController()?.preparePeek(context)
-        }
-        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -49,8 +40,6 @@ internal final class InspectorsTabController: UITabBarController {
         let nav = UINavigationController(rootViewController: inspector)
         
         inspector.title = "Peek"
-        inspector.tabBarItem.image = Images.inspectorImage(.attributes)
-        
         viewControllers = [nav]
     }
     

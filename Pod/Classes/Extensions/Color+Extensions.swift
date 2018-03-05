@@ -94,20 +94,6 @@ extension UIColor {
         return (r, g, b, a)
     }
     
-    func hexValue(includeAlpha alpha: Bool) -> String {
-        var r: CGFloat = 0
-        var g: CGFloat = 0
-        var b: CGFloat = 0
-        var a: CGFloat = 0
-        self.getRed(&r, green: &g, blue: &b, alpha: &a)
-        
-        if alpha {
-            return String(format: "#%02X%02X%02X%02X", Int(r * 255), Int(g * 255), Int(b * 255), Int(a * 255))
-        } else {
-            return String(format: "#%02X%02X%02X", Int(r * 255), Int(g * 255), Int(b * 255))
-        }
-    }
-    
     fileprivate class func colorWithRed(red: UInt, green: UInt, blue: UInt, alpha: CGFloat) -> UIColor {
         return UIColor(red: CGFloat(red) / 255, green: CGFloat(green) / 255, blue: CGFloat(blue) / 255, alpha: alpha)
     }

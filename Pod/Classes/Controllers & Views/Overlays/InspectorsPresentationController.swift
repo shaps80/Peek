@@ -305,7 +305,6 @@ internal final class InspectorsPresentationController: UIPresentationController,
         if toView != nil {
             containerView.addSubview(toView!)
         }
-        
        
         if isPresenting {
             if presentedViewController.modalTransitionStyle == .crossDissolve {

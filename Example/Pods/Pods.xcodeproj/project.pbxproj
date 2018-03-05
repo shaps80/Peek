@@ -114,7 +114,6 @@
 		8E883316DE03D57EC5641F3BAA4825C6 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA6CF274BE7E49E3C34D1EFB8EA4DC4A /* OpenSans-Regular.ttf */; };
 		8F2E969CF23419AA5162EC6C237B4BBB /* POPAnimationExtras.h in Headers */ = {isa = PBXBuildFile; fileRef = 23B0816DBB46ABB43F2CF22C72B5AB77 /* POPAnimationExtras.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8F7E4945697906FD83D6AC825F9264F1 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C6F9A8D458D1DBBB0A133F2829D2EB5F /* OpenSans-Light.ttf */; };
-		8FC94694941BC5DCD1352FF0B178E4D3 /* Peek+Private.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BBEB264E8EAD94D20291EAD89B22E1 /* Peek+Private.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		9130F5C9E38F43D2EFADEFD9CF8B947B /* UIWindow+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D306D3AD192C672E36CC566D965D025 /* UIWindow+Extensions.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		929EBD24904FBB7B571C3BC2CDD7984F /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E62FB4F00B295637D4E08082E4E7C70E /* OpenSans-Semibold.ttf */; };
 		939F15785682428222CFEBA562392E90 /* POPSpringAnimation.mm in Sources */ = {isa = PBXBuildFile; fileRef = DE5F8074613FC6194D6FE2B516613047 /* POPSpringAnimation.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -152,7 +151,6 @@
 		B3C4998C7FD177E8279E34572FD568A1 /* POPAnimatableProperty.mm in Sources */ = {isa = PBXBuildFile; fileRef = C8A94698B64433F0FE8006460AB3CD20 /* POPAnimatableProperty.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		B42585CCA73EE692B54183607EFB936C /* FloatConversion.h in Headers */ = {isa = PBXBuildFile; fileRef = 6859F670A2469625A4BD6EE84C0B2A78 /* FloatConversion.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		B4F11D6627E5F9932E64C9F4FB90014D /* UIDevice+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB10BFE006556E817CFA0E45FC0E2F83 /* UIDevice+Peekable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		B51C892512FE1BC5CF568A8BF7AD5EE2 /* Peek+Public.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98753B3094EC3A8340E694C3B4404BC4 /* Peek+Public.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		B5D2E603B2E0A8558CFFBCFE595E122D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E9C981F4603E4458352C33CB564BBE /* Extensions.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		B67BF0BA7194EB386F272BB5620CC41D /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 790AC2F50C1D02CD97ED7BFFA56ED3A8 /* OpenSans-LightItalic.ttf */; };
 		B686C2720A52EB8593BDD2334C4B8A73 /* UIImage+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C8FA29848C1829434DF21056CEDD47 /* UIImage+Peekable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -321,7 +319,6 @@
 		117861749450EEA23ACCCE566490F9DA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		1204B2B913CFA56F9A78F71BFB137CC5 /* POPAnimatorPrivate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPAnimatorPrivate.h; path = pop/POPAnimatorPrivate.h; sourceTree = "<group>"; };
 		1215CDB88E770FC576A08FB5A5A9B808 /* MultipleViews+Align.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "MultipleViews+Align.swift"; path = "Pod/Classes/MultipleViews+Align.swift"; sourceTree = "<group>"; };
-		12BBEB264E8EAD94D20291EAD89B22E1 /* Peek+Private.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Peek+Private.swift"; sourceTree = "<group>"; };
 		13935DA2616D0AF29D4718ADCFBFA968 /* Constraint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Constraint.swift; path = Pod/Classes/Constraint.swift; sourceTree = "<group>"; };
 		13A1B8E9AAECF9A1C6601C61E17AD770 /* ReportViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
 		145817850E695E4589D2CDC6C3D0D0D0 /* POPAnimationTracer.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPAnimationTracer.mm; path = pop/POPAnimationTracer.mm; sourceTree = "<group>"; };
@@ -447,7 +444,6 @@
 		951F057A907D32C41A2AA37AE5D5F711 /* InkKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "InkKit-dummy.m"; sourceTree = "<group>"; };
 		9694C01EC1003A9F61943BE9C7448348 /* GraphicsRenderer-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "GraphicsRenderer-umbrella.h"; sourceTree = "<group>"; };
 		982234DD73282D8860D3F85163F76555 /* POPAnimationTracerInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPAnimationTracerInternal.h; path = pop/POPAnimationTracerInternal.h; sourceTree = "<group>"; };
-		98753B3094EC3A8340E694C3B4404BC4 /* Peek+Public.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Peek+Public.swift"; sourceTree = "<group>"; };
 		990088D7DA28E3EB225D52C72B79E000 /* Shadows.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Shadows.swift; path = Pod/Classes/Shadows.swift; sourceTree = "<group>"; };
 		99D9196BAE7F7279829D91EEC7488EDA /* RendererDrawable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RendererDrawable.swift; path = GraphicsRenderer/Classes/RendererDrawable.swift; sourceTree = "<group>"; };
 		99E9DAA30278B04F842C2073DB782569 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -707,7 +703,7 @@
 				4786CC58F583A0062A157910E8B46028 /* Extensions */,
 				5AD36BE42E6E1236650E23A2C892DCB6 /* Images */,
 				5FE97B83C6027B047F25D3C12679C718 /* Model */,
-				2135A555615C435398E7A27E032D41A2 /* Models */,
+				2135A555615C435398E7A27E032D41A2 /* Coordinator */,
 				672C655FCE5DAE563F1B82AC55F83367 /* Peekable */,
 				A727068F0C9697B2E86C5C3F7A7AF7CD /* Pod */,
 				5BBAAA8806A67F64E9752C2681D56EC2 /* Support Files */,
@@ -760,17 +756,15 @@
 			path = "../Target Support Files/InkKit";
 			sourceTree = "<group>";
 		};
-		2135A555615C435398E7A27E032D41A2 /* Models */ = {
+		2135A555615C435398E7A27E032D41A2 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
 				3521E67FE7C1251B27EBEA8FB9E80E41 /* Attribute.swift */,
 				9A6651F06B2C11AB324F01CB5ED06F8B /* Coordinator.swift */,
 				06CEB07A8B0380BCAF5C4347A75DAE14 /* Group.swift */,
-				12BBEB264E8EAD94D20291EAD89B22E1 /* Peek+Private.swift */,
-				98753B3094EC3A8340E694C3B4404BC4 /* Peek+Public.swift */,
 			);
-			name = Models;
-			path = Pod/Classes/Models;
+			name = Coordinator;
+			path = Pod/Classes/Coordinator;
 			sourceTree = "<group>";
 		};
 		3585255B2A67451F5F1CA1D1DDFCE182 /* Pods-Peek-Example */ = {
@@ -1664,8 +1658,6 @@
 				501908F8F8565A121194AE5659F6E48D /* NSObject+Extensions.swift in Sources */,
 				05C926F82DECA7B15DF82950B9EF8B8A /* NSValue+Transformer.swift in Sources */,
 				AC0ABFA0B4289F4F3BBF57235533FD34 /* OverlayView.swift in Sources */,
-				8FC94694941BC5DCD1352FF0B178E4D3 /* Peek+Private.swift in Sources */,
-				B51C892512FE1BC5CF568A8BF7AD5EE2 /* Peek+Public.swift in Sources */,
 				E31569562CBA0A4141016876C4D09616 /* Peek-dummy.m in Sources */,
 				564ED9F7A2F8E04947AA50C7ADDEA108 /* Peek.swift in Sources */,
 				6242613EBF7F375526D0FFB559C3159B /* Peekable.swift in Sources */,
