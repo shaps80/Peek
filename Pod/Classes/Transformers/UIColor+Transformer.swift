@@ -37,12 +37,13 @@ final class ColorTransformer: Foundation.ValueTransformer {
             
             return value.values().a == 0
                 ? "Transparent"
-                : value.hexValue(includeAlpha: false)
+                : value.peek_HEX
         }
         
         if CFGetTypeID(value as CFTypeRef) == CGColor.typeID {
+            // swiftlint:disable force_cast
             let color = UIColor(cgColor: value as! CGColor)
-            return color.values().a == 0 ? "Clear" : color.hexValue(includeAlpha: false)
+            return color.values().a == 0 ? "Clear" : color.peek_HEX
         }
         
         return "none"

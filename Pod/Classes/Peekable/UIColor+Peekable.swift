@@ -22,6 +22,7 @@
 
 import UIKit
 import GraphicsRenderer
+import InkKit
 
 extension UIColor: Model {
     
@@ -30,7 +31,11 @@ extension UIColor: Model {
     }
     
     @objc var peek_HEX: String {
-        return hexValue(includeAlpha: false)
+        if let hex = Color(color: self)?.toHex(withAlpha: false) {
+            return "#\(hex)"
+        } else {
+            return "Unknown"
+        }
     }
     
     @objc var peek_HSL: String {

@@ -364,7 +364,9 @@ extension InspectorViewController {
                 let alert = UIAlertController(title: "\(attribute.title)", message: "What is the expected value?", preferredStyle: .alert)
                 
                 alert.addTextField { field in
-                    if let value = attribute.value as? NSNumber, !value.isBool() {
+                    if attribute.valueTransformer == nil,
+                        let value = attribute.value as? NSNumber,
+                        !value.isBool() {
                         field.keyboardType = .decimalPad
                     } else {
                         field.autocapitalizationType = .sentences
