@@ -17,7 +17,11 @@ internal struct Report: Encodable {
     
     internal init(sections: [Section]) {
         self.sections = sections
-        UserDefaults.standard.register(defaults: ["includeScreenshot": true, "includeJSON": true])
+        UserDefaults.standard.register(defaults: [
+            "includeScreenshot": true,
+            "includeJSON": true,
+            "includeMetadata": true
+        ])
     }
     
     internal var includeScreenshot: Bool {
@@ -28,6 +32,11 @@ internal struct Report: Encodable {
     internal var includeJSON: Bool {
         get { return UserDefaults.standard.bool(forKey: "includeJSON") }
         set { UserDefaults.standard.set(newValue, forKey: "includeJSON") }
+    }
+    
+    internal var includeMetadata: Bool {
+        get { return UserDefaults.standard.bool(forKey: "includeMetadata") }
+        set { UserDefaults.standard.set(newValue, forKey: "includeMetadata") }
     }
     
     internal var html: String {

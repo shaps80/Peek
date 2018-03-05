@@ -47,13 +47,11 @@ public final class PeekOptions: NSObject {
     /// You can provide meta data that will be attached to every report. This is useful for passing additional info about the app, e.g. Environment, etc...
     public var metaData: [String: String]?
     
-    /// Defines whether or not a screenshot should be included when posting an issue. Note: if you're using Slack, you'll also need to provide a slackImageUploader block
-    public var includeScreenshot = true
-    
-    /// Defines the render scale to use when generating screenshots
-    public var screenshotScale = UIScreen.main.scale
-    
     // Obsoletions
+    @available(*, obsoleted: 4.0.1)
+    public var includeScreenshot = true
+    @available(*, obsoleted: 4.0.1)
+    public var screenshotScale = UIScreen.main.scale
     @available(*, obsoleted: 4.0.1)
     public var slackUserName = "Peek"
     @available(*, obsoleted: 4.0.1)

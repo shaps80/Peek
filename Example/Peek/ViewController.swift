@@ -311,7 +311,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         return model.weeks[indexPath.item]
     }
     
-    // Peek Activation
+}
+
+// MARK: Peek
+extension ViewController {
     
     override var canBecomeFirstResponder: Bool {
         return true

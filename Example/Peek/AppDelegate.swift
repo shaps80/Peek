@@ -38,12 +38,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             options.metaData = [
                 "Environment": "UAT"
             ]
-            
-            /**
-             When sending reports, some services support an image attachment.
-             */
-            options.includeScreenshot = true
-            options.screenshotScale = 1
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in

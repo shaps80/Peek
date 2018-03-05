@@ -18,6 +18,7 @@ internal final class ReportViewController: PeekSectionedViewController {
     
     private let includeScreenshotSwitch: UISwitch
     private let includeJSONSwitch: UISwitch
+    private let includeMetadataSwitch: UISwitch
     
     private var report: Report
     
@@ -26,6 +27,7 @@ internal final class ReportViewController: PeekSectionedViewController {
         
         includeScreenshotSwitch = UISwitch()
         includeJSONSwitch = UISwitch()
+        includeMetadataSwitch = UISwitch()
         
         super.init(peek: peek)
         
@@ -33,6 +35,7 @@ internal final class ReportViewController: PeekSectionedViewController {
         
         includeScreenshotSwitch.addTarget(self, action: #selector(toggleScreenshot(_:)), for: .valueChanged)
         includeJSONSwitch.addTarget(self, action: #selector(toggleJSON(_:)), for: .valueChanged)
+        includeMetadataSwitch.addTarget(self, action: #selector(toggleMetadata(_:)), for: .valueChanged)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -72,6 +75,13 @@ internal final class ReportViewController: PeekSectionedViewController {
                 items.append(jsonUrl)
             }
             
+            if let metadata = peek.options.metaData, report.includeJSON {
+                let data = try JSONSerialization.data(withJSONObject: metadata, options: .prettyPrinted)
+                let url = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent("metadata.json")
+                try data.write(to: url, options: [.atomicWrite])
+                items.append(url)
+            }
+            
             if report.includeScreenshot {
                 items.append(peek.screenshot)
             }
@@ -95,6 +105,10 @@ internal final class ReportViewController: PeekSectionedViewController {
         }
     }
     
+    @objc private func toggleMetadata(_ toggle: UISwitch) {
+        report.includeMetadata = toggle.isOn
+    }
+    
     @objc private func toggleScreenshot(_ toggle: UISwitch) {
         report.includeScreenshot = toggle.isOn
     }
@@ -109,7 +123,7 @@ internal final class ReportViewController: PeekSectionedViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let mappedSection = section - 1
-        return section == 0 ? 2 : report.sections[mappedSection].items.count
+        return section == 0 ? 3 : report.sections[mappedSection].items.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -125,6 +139,10 @@ internal final class ReportViewController: PeekSectionedViewController {
                 cell.textLabel?.text = "Include Detailed Report"
                 cell.accessoryView = includeJSONSwitch
                 includeJSONSwitch.isOn = report.includeJSON
+            case 2:
+                cell.textLabel?.text = "Include Metadata"
+                cell.accessoryView = includeMetadataSwitch
+                includeMetadataSwitch.isOn = report.includeMetadata
             default: break
             }
         } else {

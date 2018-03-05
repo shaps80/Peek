@@ -145,12 +145,10 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
         }
         UserDefaults.standard.register(defaults: defaults)
         
-        if peek.options.includeScreenshot {
-            peek.screenshot = UIImage.draw(width: rect.width, height: rect.height, scale: peek.options.screenshotScale, attributes: nil, drawing: { [unowned self] (_, rect, _) in
-                self.peek.peekingWindow.drawHierarchy(in: rect, afterScreenUpdates: false)
-                self.peek.window?.drawHierarchy(in: rect, afterScreenUpdates: false)
-            })
-        }
+        peek.screenshot = UIImage.draw(width: rect.width, height: rect.height, scale: 1 / UIScreen.main.scale, attributes: nil, drawing: { [unowned self] (_, rect, _) in
+            self.peek.peekingWindow.drawHierarchy(in: rect, afterScreenUpdates: false)
+            self.peek.window?.drawHierarchy(in: rect, afterScreenUpdates: false)
+        })
         
         if let model = model as? UIView {
             let controller = InspectorsTabController(peek: peek, model: model)
