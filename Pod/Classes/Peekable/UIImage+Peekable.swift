@@ -24,36 +24,29 @@ import UIKit
 
 extension UIImage {
     
-    /**
-     Configures Peek's properties for this object
-     
-     - parameter context: The context to apply these properties to
-     */
-    public override func preparePeek(_ context: Context) {
-        super.preparePeek(context)
+    public override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
         
-        context.configure(.attributes, "Layout") { (config) in
-            config.addProperties([ "size", "capInsets", "alignmentRectInsets" ])
-        }
+        coordinator.appendPreview(image: self, forModel: self)
         
-        context.configure(.attributes, "General") { (config) in
-            config.addProperties([ "scale" ])
-            
-            config.addProperty("renderingMode", displayName: nil, cellConfiguration: { (cell, _, value) in
-                let mode = UIImageRenderingMode(rawValue: value as! Int)!
-                cell.detailTextLabel?.text = mode.description
-            })
-            
-            config.addProperty("resizingMode", displayName: nil, cellConfiguration: { (cell, _, value) in
-                let mode = UIImageResizingMode(rawValue: value as! Int)!
-                cell.detailTextLabel?.text = mode.description
-            })
-            
-            config.addProperty("imageOrientation", displayName: "Orientation", cellConfiguration: { (cell, _, value) in
-                let orientation = UIImageOrientation(rawValue: value as! Int)!
-                cell.detailTextLabel?.text = orientation.description
-            })
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "scale", "size", "capInsets", "alignmentRectInsets"
+        ], forModel: self, in: .layout)
+        
+        coordinator.appendTransformed(keyPaths: ["imageOrientation"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let mode = UIImageOrientation(rawValue: rawValue) else { return nil }
+            return mode.description
+        }, forModel: self, in: .appearance)
+        
+        coordinator.appendTransformed(keyPaths: ["resizingMode"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let mode = UIImageResizingMode(rawValue: rawValue) else { return nil }
+            return mode.description
+        }, forModel: self, in: .appearance)
+        
+        coordinator.appendTransformed(keyPaths: ["renderingMode"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let mode = UIImageRenderingMode(rawValue: rawValue) else { return nil }
+            return mode.description
+        }, forModel: self, in: .appearance)
     }
     
 }

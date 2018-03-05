@@ -24,43 +24,38 @@ import UIKit
 
 extension UIScrollView {
     
-    /**
-     Configures Peek's properties for this object
-     
-     - parameter context: The context to apply these properties to
-     */
-    public override func preparePeek(_ context: Context) {
-        super.preparePeek(context)
+    public override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
         
-        context.configure(.layout, "Scroll View") { (config) in
-            config.addProperties([ "contentOffset", "contentSize", "contentInset", "scrollIndicatorInsets" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "showsHorizontalScrollIndicator",
+            "showsVerticalScrollIndicator",
+            "zoomScale",
+            "minimumZoomScale",
+            "maximumZoomScale",
+            "bounces",
+            "bouncesZoom",
+            "alwaysBounceHorizontal",
+            "alwaysBounceVertical",
+        ], forModel: self, in: .appearance)
         
-        context.configure(.attributes, "Behaviour") { (config) in
-            config.addProperties([ "directionalLockEnabled", "pagingEnabled", "scrollEnabled", "decelerationRate", "scrollsToTop" ])
-            
-            config.addProperty("keyboardDismissMode", displayName: nil, cellConfiguration: { (cell, _, value) in
-                let mode = UIScrollViewKeyboardDismissMode(rawValue: value as! Int)!
-                cell.detailTextLabel?.text = mode.description
-            })
-        }
+        coordinator.appendTransformed(keyPaths: ["indicatorStyle"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let style = UIScrollViewIndicatorStyle(rawValue: rawValue) else { return nil }
+            return style.description
+        }, forModel: self, in: .appearance)
         
-        context.configure(.attributes, "Indicators") { (config) in
-            config.addProperties([ "showsHorizontalScrollIndicator", "showsVerticalScrollIndicator" ])
-            
-            config.addProperty("indicatorStyle", displayName: nil, cellConfiguration: { (cell, _, value) in
-                let style = UIScrollViewIndicatorStyle(rawValue: value as! Int)!
-                cell.detailTextLabel?.text = style.description
-            })
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "contentOffset", "contentSize", "contentInset", "scrollIndicatorInsets"
+        ], forModel: self, in: .layout)
         
-        context.configure(.attributes, "Zoom") { (config) in
-            config.addProperties([ "minimumZoomScale", "maximumZoomScale", "zoomScale", "bouncesZoom" ])
-        }
+        coordinator.appendTransformed(keyPaths: ["keyboardDismissMode"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let mode = UIScrollViewKeyboardDismissMode(rawValue: rawValue) else { return nil }
+            return mode.description
+        }, forModel: self, in: .behaviour)
         
-        context.configure(.attributes, "Bounce") { (config) in
-            config.addProperties([ "bounces", "alwaysBounceVertical", "alwaysBounceHorizontal" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "scrollEnabled", "scrollsToTop", "pagingEnabled", "decelerationRate", "directionalLockEnabled"
+        ], forModel: self, in: .behaviour)
     }
     
 }

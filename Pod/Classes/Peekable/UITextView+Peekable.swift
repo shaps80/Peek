@@ -23,31 +23,26 @@
 import UIKit
 
 extension UITextView {
-    
-    /**
-     Configures Peek's properties for this object
-     
-     - parameter context: The context to apply these properties to
-     */
-    public override func preparePeek(_ context: Context) {
-        super.preparePeek(context)
+ 
+    public override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
         
-        context.configure(.attributes, "Text") { (config) in
-            config.addProperties([ "text", "attributedText", "textColor", "font" ])
-            
-            config.addProperty("textAlignment", displayName: "Alignment", cellConfiguration: { (cell, _, value) in
-                let alignment = NSTextAlignment(rawValue: value as! Int)!
-                cell.detailTextLabel?.text = alignment.description
-            })
-        }
+        coordinator.appendTransformed(keyPaths: ["textAlignment"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let style = NSTextAlignment(rawValue: rawValue) else { return nil }
+            return style.description
+        }, forModel: self, in: .appearance)
         
-        context.configure(.attributes, "State") { (config) in
-            config.addProperties([ "enabled", "editing", "selectable" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "text", "attributedText", "textColor", "font"
+        ], forModel: self, in: .appearance)
         
-        context.configure(.attributes, "Behaviour") { (config) in
-            config.addProperties([ "clearsOnInsertion", "allowsEditingTextAttributes" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "clearsOnInsertion", "allowsEditingTextAttributes"
+        ], forModel: self, in: .behaviour)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "editing", "selectable"
+        ], forModel: self, in: .states)
     }
     
 }

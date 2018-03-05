@@ -24,56 +24,53 @@ import UIKit
 
 extension UITextField {
     
-    /**
-     Configures Peek's properties for this object
-     
-     - parameter context: The context to apply these properties to
-     */
-    public override func preparePeek(_ context: Context) {
-        super.preparePeek(context)
+    public override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
         
-        context.configure(.attributes, "Appearance") { (config) in
-            config.addProperty("borderStyle", displayName: nil, cellConfiguration: { (cell, _, value) in
-                let style = UITextBorderStyle(rawValue: value as! Int)!
-                cell.detailTextLabel?.text = style.description
-            })
-        }
+        coordinator.appendTransformed(keyPaths: ["borderStyle"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let style = UITextBorderStyle(rawValue: rawValue) else { return nil }
+            return style.description
+        }, forModel: self, in: .appearance)
         
-        context.configure(.attributes, "Text") { (config) in
-            config.addProperties([ "text", "textColor", "attributedText" ])
-            
-            config.addProperty("textAlignment", displayName: "Alignment", cellConfiguration: { (cell, _, value) in
-                let alignment = NSTextAlignment(rawValue: value as! Int)!
-                cell.detailTextLabel?.text = alignment.description
-            })
-        }
+        coordinator.appendTransformed(keyPaths: ["textAlignment"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let style = NSTextAlignment(rawValue: rawValue) else { return nil }
+            return style.description
+        }, forModel: self, in: .appearance)
         
-        context.configure(.attributes, "Behaviour") { (config) in
-            config.addProperties([ "adjustsFontSizeToFitWidth", "allowsEditingTextAttributes", "clearsOnBeginEditing", "clearsOnInsertion" ])
-            
-            config.addProperty("clearButtonMode", displayName: nil, cellConfiguration: { (cell, _, value) in
-                let mode = UITextFieldViewMode(rawValue: value as! Int)!
-                cell.detailTextLabel?.text = mode.description
-            })
-            
-            config.addProperty("leftViewMode", displayName: nil, cellConfiguration: { (cell, _, value) in
-                let mode = UITextFieldViewMode(rawValue: value as! Int)!
-                cell.detailTextLabel?.text = mode.description
-            })
-            
-            config.addProperty("rightViewMode", displayName: nil, cellConfiguration: { (cell, _, value) in
-                let mode = UITextFieldViewMode(rawValue: value as! Int)!
-                cell.detailTextLabel?.text = mode.description
-            })
-        }
+        coordinator.appendTransformed(keyPaths: ["clearButtonMode", "leftViewMode", "rightViewMode"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let style = UITextFieldViewMode(rawValue: rawValue) else { return nil }
+            return style.description
+        }, forModel: self, in: .appearance)
         
-        context.configure(.attributes, "State") { (config) in
-            config.addProperties([ "enabled", "editing" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "leftView", "rightView"
+        ], forModel: self, in: .views)
         
-        context.configure(.attributes, "Font") { (config) in
-            config.addProperties([ "minimumFontSize", "font", "font.pointSize" ])
-        }
+        coordinator.appendTransformed(keyPaths: ["rightViewMode"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let style = UITextFieldViewMode(rawValue: rawValue) else { return nil }
+            return style.description
+        }, forModel: self, in: .appearance)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "placeholder",
+            "attributedPlaceholder",
+            "text",
+            "attributedText",
+            "textColor",
+            "font",
+            "minimumFontSize"
+        ], forModel: self, in: .appearance)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "adjustsFontSizeToFitWidth",
+            "allowsEditingTextAttributes",
+            "clearsOnBeginEditing",
+            "clearsOnInsertion"
+        ], forModel: self, in: .behaviour)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "editing"
+        ], forModel: self, in: .states)
     }
     
 }

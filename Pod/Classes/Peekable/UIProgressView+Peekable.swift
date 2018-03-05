@@ -24,33 +24,17 @@ import UIKit
 
 extension UIProgressView {
     
-    /**
-     Configures Peek's properties for this object
-     
-     - parameter context: The context to apply these properties to
-     */
-    public override func preparePeek(_ context: Context) {
-        super.preparePeek(context)
+    public override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
         
-        context.configure(.attributes, "Appearance") { (config) in
-            config.addProperty("progressViewStyle", displayName: "View Style", cellConfiguration: { (cell, _, value) in
-                if let mode = UIProgressViewStyle(rawValue: value as! Int) {
-                    cell.detailTextLabel?.text = mode.description
-                }
-            })
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "trackTintColor", "progressTintColor",
+            "trackImage", "progressImage"
+        ], forModel: self, in: .appearance)
         
-        context.configure(.attributes, "Colors") { (config) in
-            config.addProperties([ "progressTintColor", "trackTintColor" ])
-        }
-        
-        context.configure(.attributes, "Images") { (config) in
-            config.addProperties([ "trackImage", "progressImage" ])
-        }
-        
-        context.configure(.attributes, "Value") { (config) in
-            config.addProperties([ "progress" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "progress",
+        ], forModel: self, in: .general)
     }
     
 }

@@ -24,22 +24,18 @@ import UIKit
 
 extension UIToolbar {
     
-    /**
-     Configures Peek's properties for this object
-     
-     - parameter context: The context to apply these properties to
-     */
-    public override func preparePeek(_ context: Context) {
-        super.preparePeek(context)
+    
+    public override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
         
-        context.configure(.attributes, "Appearance") { (config) in
-            config.addProperties([ "translucent", "barTintColor" ])
-            
-            config.addProperty("barStyle", displayName: nil, cellConfiguration: { (cell, _, value) in
-                let style = UIBarStyle(rawValue: value as! Int)!
-                cell.detailTextLabel?.text = style.description
-            })
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "barTintColor", "translucent"
+        ], forModel: self, in: .appearance)
+        
+        coordinator.appendTransformed(keyPaths: ["barStyle"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let style = UIBarStyle(rawValue: rawValue) else { return nil }
+            return style.description
+        }, forModel: self, in: .appearance)
     }
     
 }

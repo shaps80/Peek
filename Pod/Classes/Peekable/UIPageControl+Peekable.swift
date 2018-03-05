@@ -24,25 +24,20 @@ import UIKit
 
 extension UIPageControl {
     
-    /**
-     Configures Peek's properties for this object
-     
-     - parameter context: The context to apply these properties to
-     */
-    public override func preparePeek(_ context: Context) {
-        super.preparePeek(context)
+    public override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
         
-        context.configure(.attributes, "Color") { (config) in
-            config.addProperties([ "pageIndicatorTintColor", "currentPageIndicatorTintColor" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "pageIndicatorTintColor", "currentPageIndicatorTintColor"
+        ], forModel: self, in: .appearance)
         
-        context.configure(.attributes, "General") { (config) in
-            config.addProperties([ "numberOfPages", "currentPage" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "numberOfPages", "currentPage"
+        ], forModel: self, in: .states)
         
-        context.configure(.attributes, "Behaviour") { (config) in
-            config.addProperties([ "hidesForSinglePage", "defersCurrentPageDisplay" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "hidesForSinglePage", "defersCurrentPageDisplay"
+        ], forModel: self, in: .behaviour)
     }
     
 }

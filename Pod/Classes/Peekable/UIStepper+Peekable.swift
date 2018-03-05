@@ -56,38 +56,28 @@ extension UIStepper {
         return decrementImage(for: .selected)
     }
     
-    /**
-     Configures Peek's properties for this object
-     
-     - parameter context: The context to apply these properties to
-     */
-    public override func preparePeek(_ context: Context) {
-        super.preparePeek(context)
+    public override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
         
-        context.configure(.attributes, "Behaviour") { (config) in
-            config.addProperties([ "continuous", "wraps" ])
+        coordinator.appendDynamic(keyPaths: [
+            "autorepeat", "continuous", "wraps"
+        ], forModel: self, in: .behaviour)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "normalIncrementImage",
+            "disabledIncrementImage",
+            "highlightedIncrementImage",
+            "selectedIncrementImage",
             
-            config.addProperty("autorepeat", displayName: "Auto Repeat", cellConfiguration: nil)
-        }
+            "normalDecrementImage",
+            "disabledDecrementImage",
+            "highlightedDecrementImage",
+            "selectedDecrementImage"
+        ], forModel: self, in: .states)
         
-        context.configure(.attributes, "General") { (config) in
-            config.addProperties([ "value", "minimumValue", "maximumValue", "stepValue" ])
-        }
-        
-        context.configure(.attributes, "Increment Images") { (config) in
-            config.addProperty("normalIncrementImage", displayName: "Normal", cellConfiguration: nil)
-            config.addProperty("disabledIncrementImage", displayName: "Disabled", cellConfiguration: nil)
-            config.addProperty("highlightedIncrementImage", displayName: "Highlighted", cellConfiguration: nil)
-            config.addProperty("selectedIncrementImage", displayName: "Selected", cellConfiguration: nil)
-        }
-        
-        context.configure(.attributes, "Decrement Images") { (config) in
-            config.addProperty("normalDecrementImage", displayName: "Normal", cellConfiguration: nil)
-            config.addProperty("disabledDecrementImage", displayName: "Disabled", cellConfiguration: nil)
-            config.addProperty("highlightedDecrementImage", displayName: "Highlighted", cellConfiguration: nil)
-            config.addProperty("selectedDecrementImage", displayName: "Selected", cellConfiguration: nil)
-        }
-        
+        coordinator.appendDynamic(keyPaths: [
+            "stepValue", "value", "minimumValue", "maximumValue"
+        ], forModel: self, in: .general)
     }
     
 }

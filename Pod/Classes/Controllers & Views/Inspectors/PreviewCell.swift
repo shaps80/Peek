@@ -20,7 +20,7 @@ internal final class PreviewCell: UITableViewCell {
         previewImageView.setContentHuggingPriority(.defaultLow, for: .horizontal)
         previewImageView.setContentHuggingPriority(.required, for: .vertical)
         previewImageView.setContentCompressionResistancePriority(.required, for: .vertical)
-        previewImageView.tintColor = .white
+        previewImageView.tintColor = .primaryTint
         
         super.init(style: .value1, reuseIdentifier: reuseIdentifier)
         

@@ -24,25 +24,20 @@ import UIKit
 
 extension UIImageView {
     
-    /**
-     Configures Peek's properties for this object
-     
-     - parameter context: The context to apply these properties to
-     */
-    public override func preparePeek(_ context: Context) {
-        super.preparePeek(context)
+    public override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
         
-        context.configure(.attributes, "Images") { (config) in
-            config.addProperties([ "highlightedImage", "image" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "highlightedImage", "image"
+        ], forModel: self, in: .appearance)
         
-        context.configure(.attributes, "State") { (config) in
-            config.addProperties([ "highlighted", "isAnimating" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "animationDuration", "animationRepeatCount"
+        ], forModel: self, in: .behaviour)
         
-        context.configure(.attributes, "Animation") { (config) in
-            config.addProperties([ "animationDuration", "animationRepeatCount" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "highlighted", "isAnimating"
+        ], forModel: self, in: .states)
     }
     
 }

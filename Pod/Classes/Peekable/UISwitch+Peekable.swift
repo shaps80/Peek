@@ -24,21 +24,19 @@ import UIKit
 
 extension UISwitch {
     
-    /**
-     Configures Peek's properties for this object
-     
-     - parameter context: The context to apply these properties to
-     */
-    public override func preparePeek(_ context: Context) {
-        super.preparePeek(context)
+    public override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
         
-        context.configure(.attributes, "Appearance") { (config) in
-            config.addProperties([ "onTintColor", "thumbTintColor", "onImage", "offImage" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "onTintColor",
+            "thumbTintColor",
+            "onImage",
+            "offImage"
+        ], forModel: self, in: .appearance)
         
-        context.configure(.attributes, "state") { (config) in
-            config.addProperties([ "on" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "on"
+        ], forModel: self, in: .states)
     }
     
 }

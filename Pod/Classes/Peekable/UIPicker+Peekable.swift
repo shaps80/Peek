@@ -24,46 +24,27 @@ import UIKit
 
 extension UIPickerView {
     
-    /**
-     Configures Peek's properties for this object
-     
-     - parameter context: The context to apply these properties to
-     */
-    public override func preparePeek(_ context: Context) {
-        super.preparePeek(context)
+    public override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
         
-        context.configure(.attributes, "Behaviour") { (config) in
-            config.addProperties([ "showsSelectionIndicator" ])
-        }
+        coordinator.appendDynamic(keyPaths: ["showsSelectionIndicator"], forModel: self, in: .behaviour)
     }
     
 }
 
 extension UIDatePicker {
     
-    /**
-     Configures Peek's properties for this object
-     
-     - parameter context: The context to apply these properties to
-     */
-    public override func preparePeek(_ context: Context) {
-        super.preparePeek(context)
+    public override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
         
-        context.configure(.attributes, "Date") { (config) in
-            config.addProperties([ "minimumDate", "maximumDate", "date" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "date", "minimumDate", "maximumDate", "countDownDuration", "minuteInterval"
+        ], forModel: self, in: .appearance)
         
-        context.configure(.attributes, "Timer") { (config) in
-            config.addProperties([ "countDownDuration", "minuteInterval" ])
-        }
-        
-        context.configure(.attributes, "Appearance") { (config) in
-            config.addProperty("datePickerMode", displayName: "Mode", cellConfiguration: { (cell, _, value) in
-                if let mode = UIDatePickerMode(rawValue: value as! Int) {
-                    cell.detailTextLabel?.text = mode.description
-                }
-            })
-        }
+        coordinator.appendTransformed(keyPaths: ["datePickerMode"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let mode = UIDatePickerMode(rawValue: rawValue) else { return nil }
+            return mode.description
+        }, forModel: self, in: .appearance)
     }
     
 }

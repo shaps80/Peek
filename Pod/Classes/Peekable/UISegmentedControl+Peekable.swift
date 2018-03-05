@@ -22,10 +22,10 @@
 
 import UIKit
 
-internal final class Segment: NSObject {
+internal final class Segment: NSObject, PeekableContainer {
     
     override var description: String {
-        return title ?? super.description
+        return title ?? ""
     }
     
     @objc var enabled: Bool = false
@@ -34,15 +34,24 @@ internal final class Segment: NSObject {
     @objc var image: UIImage?
     @objc var contentOffset: CGSize = CGSize.zero
     
-    /**
-     Configures Peek's properties for this object
-     
-     - parameter context: The context to apply these properties to
-     */
-    override func preparePeek(_ context: Context) {
-        context.configure(.attributes, "General") { (config) in
-            config.addProperties([ "enabled", "title", "width", "image", "contentOffset" ])
+    override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
+        
+        if let image = image {
+            coordinator.appendPreview(image: image, forModel: self)
         }
+        
+        coordinator.appendDynamic(keyPaths: [
+            "title", "image"
+        ], forModel: self, in: .appearance)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "contentOffset", "width"
+        ], forModel: self, in: .layout)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "enabled"
+        ], forModel: self, in: .states)
     }
     
 }
@@ -65,23 +74,24 @@ extension UISegmentedControl {
         return segments
     }
     
-    /**
-     Configures Peek's properties for this object
-     
-     - parameter context: The context to apply these properties to
-     */
-    public override func preparePeek(_ context: Context) {
-        super.preparePeek(context)
+    public override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
         
-        context.configure(.attributes, "Behaviour") { (config) in
-            config.addProperties([ "momentary" ])
-            config.addProperty("apportionsSegmentWidthsByContent", displayName: "Auto Size Width", cellConfiguration: nil)
+        for segment in (segments ?? []).reversed() {
+            coordinator.appendStatic(keyPath: "segments", title: "Segment", detail: segment.title, value: segment, in: .appearance)
         }
         
-        context.configure(.attributes, "General") { (config) in
-            config.addProperties([ "selectedSegmentIndex", "segments" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "selectedSegmentIndex"
+        ], forModel: self, in: .states)
         
+        coordinator.appendDynamic(keyPaths: [
+            "momentary"
+        ], forModel: self, in: .behaviour)
+        
+        coordinator.appendDynamic(keyPathToName: [
+            ["apportionsSegmentWidthsByContent": "Auto Sizes Width"]
+        ], forModel: self, in: .layout)
     }
     
 }

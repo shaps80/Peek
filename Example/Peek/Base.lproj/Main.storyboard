@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="weN-VB-SRi">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -36,7 +36,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="3Am-cC-9pB">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="164"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
                                 <color key="backgroundColor" red="0.99215686270000003" green="0.26274509800000001" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="jP9-7z-EMF">
                                     <size key="itemSize" width="75" height="50"/>
@@ -46,7 +46,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="tMP-WJ-t0X" customClass="WeekCell" customModule="Peek_Example" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="13" width="75" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="75" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="75" height="50"/>
@@ -112,10 +112,10 @@
                                 </connections>
                             </collectionView>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5N4-Qp-nzl">
-                                <rect key="frame" x="0.0" y="164" width="375" height="352"/>
+                                <rect key="frame" x="0.0" y="120" width="375" height="396"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tl4-Kv-cdW">
-                                        <rect key="frame" x="53.666666666666657" y="121" width="80" height="111"/>
+                                        <rect key="frame" x="53.666666666666657" y="143" width="80" height="111"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="chest" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fQN-2s-PUQ">
                                                 <rect key="frame" x="0.0" y="90" width="80" height="21"/>
@@ -164,7 +164,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fej-Km-hol">
-                                        <rect key="frame" x="147.66666666666666" y="121" width="80" height="111"/>
+                                        <rect key="frame" x="147.66666666666666" y="143" width="80" height="111"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="waist" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yT5-Xa-Y8a">
                                                 <rect key="frame" x="0.0" y="90" width="80" height="21"/>
@@ -213,7 +213,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hJU-tA-a7T">
-                                        <rect key="frame" x="235" y="121" width="80" height="111"/>
+                                        <rect key="frame" x="235" y="143" width="80" height="111"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hips" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ksy-Uy-tAw">
                                                 <rect key="frame" x="0.0" y="90" width="80" height="21"/>
@@ -261,11 +261,13 @@
                                             <constraint firstAttribute="trailing" secondItem="Ixo-b5-Sny" secondAttribute="trailing" id="zo3-H5-vKW"/>
                                         </constraints>
                                     </view>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="4mM-UI-Uqo">
-                                        <rect key="frame" x="235" y="66" width="20" height="20"/>
+                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" minimumValueImage="dot" translatesAutoresizingMaskIntoConstraints="NO" id="LIi-bV-Dq6">
+                                        <rect key="frame" x="109" y="91" width="118" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="color" red="1" green="0.0" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    </activityIndicatorView>
+                                        <color key="minimumTrackTintColor" red="1" green="0.0" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="maximumTrackTintColor" red="0.031372550870000002" green="0.65882354970000001" blue="0.92156863209999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="thumbTintColor" red="0.21960784310000001" green="0.21960784310000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </slider>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -300,7 +302,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WEEKS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lUd-se-ztF">
-                                <rect key="frame" x="168" y="88" width="39.333333333333343" height="16.666666666666671"/>
+                                <rect key="frame" x="168.33333333333334" y="44" width="39.333333333333343" height="16.666666666666671"/>
                                 <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="12"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -438,7 +440,6 @@
                 <splitViewController id="weN-VB-SRi" sceneMemberID="viewController">
                     <connections>
                         <segue destination="udq-w1-m6D" kind="relationship" relationship="masterViewController" id="HuK-YH-bay"/>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="detailViewController" id="emE-by-coC"/>
                     </connections>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N9k-5G-dh5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -447,6 +448,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="dot" width="9" height="9"/>
         <image name="photos" width="133" height="146"/>
         <image name="tick" width="10" height="8"/>
     </resources>

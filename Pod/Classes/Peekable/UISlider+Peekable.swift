@@ -24,30 +24,28 @@ import UIKit
 
 extension UISlider {
     
-    /**
-     Configures Peek's properties for this object
-     
-     - parameter context: The context to apply these properties to
-     */
-    public override func preparePeek(_ context: Context) {
-        super.preparePeek(context)
+    public override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
         
-        context.configure(.attributes, "Images") { (config) in
-            config.addProperties([ "currentThumbImage", "minimumValueImage", "maximumValueImage", "currentMinimumTrackImage", "currentMaximumTrackImage" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "minimumTrackTintColor",
+            "maximumTrackTintColor",
+            "currentThumbImage",
+            "currentMinimumTrackImage",
+            "currentMaximumTrackImage",
+            "minimumValueImage",
+            "maximumValueImage",
+        ], forModel: self, in: .appearance)
         
-        context.configure(.attributes, "Value") { (config) in
-            config.addProperties([ "minimumValue", "maximumValue" ])
-            config.addProperty("value", displayName: "Current Value", cellConfiguration: nil)
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "value",
+            "minimumValue",
+            "maximumValue"
+        ], forModel: self, in: .general)
         
-        context.configure(.attributes, "Color") { (config) in
-            config.addProperties([ "minimumTrackTintColor", "maximumTrackTintColor" ])
-        }
-        
-        context.configure(.attributes, "Behaviour") { (config) in
-            config.addProperties([ "continuous" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "continuous"
+        ], forModel: self, in: .behaviour)
     }
     
 }

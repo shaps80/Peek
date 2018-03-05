@@ -24,29 +24,22 @@ import UIKit
 
 extension UIControl {
     
-    /**
-     Configures Peek's properties for this object
-     
-     - parameter context: The context to apply these properties to
-     */
-    public override func preparePeek(_ context: Context) {
-        super.preparePeek(context)
+    public override func preparePeek(with coordinator: Coordinator) {
+        super.preparePeek(with: coordinator)
         
-        context.configure(.view, "State") { (config) in
-            config.addProperties([ "enabled", "selected", "highlighted" ])
-        }
+        coordinator.appendDynamic(keyPaths: [
+            "enabled", "selected", "highlighted"
+        ], forModel: self, in: .states)
         
-        context.configure(.layout, "Control") { (config) in
-            config.addProperty("contentVerticalAlignment", displayName: "Vertical Alignment", cellConfiguration: { (cell, _, value) in
-                let alignment = UIControlContentVerticalAlignment(rawValue: value as! Int)!
-                cell.detailTextLabel?.text = alignment.description
-            })
-            
-            config.addProperty("contentHorizontalAlignment", displayName: "Horizontal Alignment", cellConfiguration: { (cell, _, value) in
-                let alignment = UIControlContentHorizontalAlignment(rawValue: value as! Int)!
-                cell.detailTextLabel?.text = alignment.description
-            })
-        }
+        coordinator.appendTransformed(keyPaths: ["contentVerticalAlignment"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let alignment = UIControlContentVerticalAlignment(rawValue: rawValue) else { return nil }
+            return alignment.description
+        }, forModel: self, in: .appearance)
+        
+        coordinator.appendTransformed(keyPaths: ["contentHorizontalAlignment"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let alignment = UIControlContentVerticalAlignment(rawValue: rawValue) else { return nil }
+            return alignment.description
+        }, forModel: self, in: .appearance)
     }
     
 }
