@@ -1,13 +1,11 @@
 <a href="https://vimeo.com/162896152"><img src="shot.jpg" name="Peek on Vimeo"/></a>
 
-# Peek
-
 [![Version](https://img.shields.io/cocoapods/v/Peek.svg?style=flat)](http://cocoapods.org/pods/Peek)
 [![License](https://img.shields.io/cocoapods/l/Peek.svg?style=flat)](http://cocoapods.org/pods/Peek)
 [![Language](https://img.shields.io/badge/language-swift-ff69b4.svg)](http://cocoadocs.org/docsets/Peek)
 [![Platform](https://img.shields.io/cocoapods/p/Peek.svg?style=flat)](http://cocoapods.org/pods/Peek)
 
-Peek 4: All new design
+# Peek: All new design
 
 - Unified Inspectors:
 - Collapse/Expand Groups
