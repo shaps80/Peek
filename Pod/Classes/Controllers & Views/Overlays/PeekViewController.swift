@@ -112,14 +112,15 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     }
     
     private func setAttributesButton(hidden: Bool, animated: Bool) {
+        let transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         guard animated else {
-            attributesButton.transform = hidden ? CGAffineTransform(translationX: 0, y: (buttonSize * 2)) : .identity
+            attributesButton.transform = hidden ? transform : .identity
             attributesButton.alpha = hidden ? 0 : 1
             return
         }
         
-        UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .beginFromCurrentState, animations: {
-            self.attributesButton.transform = hidden ? CGAffineTransform(translationX: 0, y: (self.buttonSize * 2)) : .identity
+        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .beginFromCurrentState, animations: {
+            self.attributesButton.transform = hidden ? transform : .identity
             self.attributesButton.alpha = hidden ? 0 : 1
         }, completion: nil)
     }
