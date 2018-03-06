@@ -24,6 +24,9 @@ Views, images, colours and more can now provide snapshot previews to help you be
 ## Reporting
 An all new reporting system allows you to export screenshots, metadata and even suggested values using the iOS native share sheet. 
 
+## Dynamic Type
+Peek itself is now more accessible than ever, with support throughout Peek for Dynamic Type.
+
 ## Less Code
 Thanks to an all new architecture Peek is also now smaller. Providing more features with much less code, leaving a very small footprint on your application.
 
