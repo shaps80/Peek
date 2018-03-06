@@ -64,10 +64,8 @@ class OverlayView: UIView {
         }
     }
     
-    var selectedModels: [UIView]? {
-        didSet {
-            reload()
-        }
+    var selectedModels: [UIView] = [] {
+        didSet { reload() }
     }
     
     fileprivate lazy var superviewHighlightView: UIView = {
@@ -92,12 +90,11 @@ class OverlayView: UIView {
     }()
     
     func reload() {
-        if let model = selectedModels?.last {
+        if let model = selectedModels.last {
             updateHighlightView(highlightView: primaryView, withModel: model)
         }
         
-        if let model = selectedModels?.first, selectedModels?.count > 1 {
-            _ = model.frameInPeek(self)
+        if let model = selectedModels.first, selectedModels.count > 1 {
             updateHighlightView(highlightView: secondaryView, withModel: model)
         } else {
             secondaryView.removeFromSuperview()

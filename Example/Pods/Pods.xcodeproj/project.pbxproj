@@ -1089,11 +1089,11 @@
 		ACC489027F337F6F6AFB291CB5AC1955 /* Overlays */ = {
 			isa = PBXGroup;
 			children = (
+				2F0D002592EC39C2072514A72588E875 /* OverlayView.swift */,
 				FE91DAC7BA5FA9C0CAFCEBB6A72E7205 /* HighlightView.swift */,
 				79AFC297CE1F5C08833FDA63FDA39EA7 /* InspectorsPresentationController.swift */,
 				E8E6CA05FFD2BDA17854D3DCE8826E2A /* InspectorsTabController.swift */,
 				0980006297ECF4289952687B6F2582DB /* InspectorViewController.swift */,
-				2F0D002592EC39C2072514A72588E875 /* OverlayView.swift */,
 				67E8D5890D86BC3A9328F1E53236BF16 /* PeekSectionedViewController.swift */,
 				789548AF1D48F9F79CD54D2DBE04097C /* PeekViewController.swift */,
 				9FDF333CF9CCA995E518ECDD1807A86D /* CollapsibleSections.swift */,

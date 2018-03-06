@@ -138,16 +138,16 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
             let rect = model.frameInPeek(view)
             
             if rect.contains(location) {
-                if let models = overlayView.selectedModels {
-                    if !models.contains(model) {
-                        if isDragging {
-                            overlayView.selectedModels = [model]
+                let models = overlayView.selectedModels
+                
+                if !models.contains(model) {
+                    if isDragging {
+                        overlayView.selectedModels = [model]
+                    } else {
+                        if let previous = models.last {
+                            overlayView.selectedModels = [previous, model]
                         } else {
-                            if let previous = models.last {
-                                overlayView.selectedModels = [previous, model]
-                            } else {
-                                overlayView.selectedModels = [model]
-                            }
+                            overlayView.selectedModels = [model]
                         }
                     }
                 }
@@ -183,7 +183,7 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     }
     
     @objc private func showInspectors() {
-        if let model = overlayView.selectedModels?.last {
+        if let model = overlayView.selectedModels.last {
             presentInspectorsForModel(model)
         }
     }
@@ -215,13 +215,13 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
         if gesture.state == .ended {
             if gesture === doubleTapGesture {
-                if let model = overlayView.selectedModels?.last {
+                if let model = overlayView.selectedModels.last {
                     presentInspectorsForModel(model)
                 }
             } else {
                 updateSelectedModels(gesture)
                 
-                let hidden = overlayView.selectedModels?.count == 0
+                let hidden = overlayView.selectedModels.count == 0
                 setAttributesButton(hidden: hidden, animated: true)
             }
         }
@@ -233,14 +233,12 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
             updateBackgroundColor(alpha: 0.3)
             isDragging = true
             setAttributesButton(hidden: true, animated: true)
-            break
         case .changed:
             updateSelectedModels(gesture)
-            break
         default:
             isDragging = false
             updateBackgroundColor(alpha: 0.5)
-            let hidden = overlayView.selectedModels?.count == 0
+            let hidden = overlayView.selectedModels.count == 0
             setAttributesButton(hidden: hidden, animated: true)
         }
     }

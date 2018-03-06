@@ -126,7 +126,7 @@ extension PeekSectionedViewController {
         
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = .inspectorBackground
-        tableView.separatorColor = .separator
+        tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
         

@@ -43,7 +43,6 @@ internal final class CollapsibleSectionHeaderView: UITableViewHeaderFooterView {
     }
     
     internal let label: UILabel
-    internal let separator: UIView
     private lazy var gesture: UITapGestureRecognizer = {
         UITapGestureRecognizer(target: self, action: #selector(handleTap(gesture:)))
     }()
@@ -53,7 +52,6 @@ internal final class CollapsibleSectionHeaderView: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         label = UILabel(frame: .zero)
         imageView = UIImageView(image: nil) // collapsed/expanded indicator
-        separator = UIView(frame: .zero)
         imageView.isHidden = true
         
         super.init(reuseIdentifier: reuseIdentifier)
@@ -65,7 +63,6 @@ internal final class CollapsibleSectionHeaderView: UITableViewHeaderFooterView {
         contentView.backgroundColor = .inspectorBackground
         imageView.tintColor = .neutral
         label.numberOfLines = 0
-        separator.backgroundColor = .separator
         
         contentView.addSubview(imageView, constraints: [
             equal(\.centerYAnchor),
@@ -76,13 +73,6 @@ internal final class CollapsibleSectionHeaderView: UITableViewHeaderFooterView {
             equal(\.layoutMarginsGuide.leadingAnchor, \.leadingAnchor),
             equal(\.topAnchor, constant: -12),
             equal(\.bottomAnchor, constant: 12)
-        ])
-        
-        contentView.addSubview(separator, constraints: [
-            equal(\.layoutMarginsGuide.leadingAnchor, \.leadingAnchor),
-            equal(\.layoutMarginsGuide.trailingAnchor, \.trailingAnchor),
-            sized(\.heightAnchor, constant: 1 / UIScreen.main.scale),
-            equal(\.bottomAnchor)
         ])
         
         NSLayoutConstraint.activate([
