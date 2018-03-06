@@ -36,7 +36,7 @@ internal final class PeekCoordinator: Coordinator, CustomStringConvertible {
 
         peekGroup.attributes.insert(contentsOf: keyPaths.map {
             DynamicAttribute(title: String.capitalized($0), detail: nil, keyPath: $0, model: model, valueTransformer: valueTransformer)
-        }, at: 0)
+        }, at: peekGroup.attributes.count)
     }
     
     internal func appendDynamic(keyPaths: [String], forModel model: Model, in group: Group) {
@@ -49,7 +49,7 @@ internal final class PeekCoordinator: Coordinator, CustomStringConvertible {
         
         peekGroup.attributes.insert(contentsOf: mapping.map {
             DynamicAttribute(title: $0.values.first!, keyPath: $0.keys.first!, model: model)
-        }, at: 0)
+        }, at: peekGroup.attributes.count)
     }
     
     internal func appendStatic(keyPath: String, title: String, detail: String? = nil, value: Any?, in group: Group) {
@@ -57,7 +57,7 @@ internal final class PeekCoordinator: Coordinator, CustomStringConvertible {
         groupsMapping[group] = peekGroup
         
         let attribute = StaticAttribute(keyPath: keyPath, title: title, detail: detail, value: value)
-        peekGroup.attributes.insert(attribute, at: 0)
+        peekGroup.attributes.insert(attribute, at: peekGroup.attributes.count)
     }
     
     internal var description: String {

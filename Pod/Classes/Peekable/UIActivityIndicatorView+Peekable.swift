@@ -25,8 +25,6 @@ import UIKit
 extension UIActivityIndicatorView {
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
         coordinator.appendDynamic(keyPaths: ["hidesWhenStopped"], forModel: self, in: .behaviour)
         coordinator.appendDynamic(keyPaths: ["isAnimating"], forModel: self, in: .states)
         coordinator.appendDynamic(keyPaths: ["color"], forModel: self, in: .appearance)
@@ -35,6 +33,8 @@ extension UIActivityIndicatorView {
             guard let rawValue = value as? Int, let style = UIActivityIndicatorViewStyle(rawValue: rawValue) else { return nil }
             return style.description
         }, forModel: self, in: .appearance)
+        
+        super.preparePeek(with: coordinator)
     }
     
 }

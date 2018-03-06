@@ -52,8 +52,6 @@ extension UIColor: Model {
     }
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-
         if cgColor.pattern != nil || (self != .clear && values().a != 0) {
             let width = UIScreen.main.nativeBounds.width / UIScreen.main.nativeScale
             let image = ImageRenderer(size: CGSize(width: width, height: 88)).image { context in
@@ -85,6 +83,8 @@ extension UIColor: Model {
             ["peek_HSL": "HSL"],
             ["peek_alpha": "Alpha"],
         ], forModel: self, in: .general)
+        
+        super.preparePeek(with: coordinator)
     }
     
     public override func isExpandedByDefault(for group: Group) -> Bool {

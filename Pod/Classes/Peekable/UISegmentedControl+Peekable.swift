@@ -35,8 +35,6 @@ internal final class Segment: NSObject, PeekableContainer {
     @objc var contentOffset: CGSize = CGSize.zero
     
     override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
         if let image = image {
             coordinator.appendPreview(image: image, forModel: self)
         }
@@ -52,6 +50,8 @@ internal final class Segment: NSObject, PeekableContainer {
         coordinator.appendDynamic(keyPaths: [
             "enabled"
         ], forModel: self, in: .states)
+        
+        super.preparePeek(with: coordinator)
     }
     
 }
@@ -75,8 +75,6 @@ extension UISegmentedControl {
     }
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
         for segment in (segments ?? []).reversed() {
             coordinator.appendStatic(keyPath: "segments", title: "Segment", detail: segment.title, value: segment, in: .appearance)
         }
@@ -92,6 +90,8 @@ extension UISegmentedControl {
         coordinator.appendDynamic(keyPathToName: [
             ["apportionsSegmentWidthsByContent": "Auto Sizes Width"]
         ], forModel: self, in: .layout)
+        
+        super.preparePeek(with: coordinator)
     }
     
 }

@@ -25,8 +25,6 @@ import UIKit
 extension UIFont {
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
         coordinator.appendDynamic(keyPaths: [
             "familyName",
             "fontName",
@@ -40,6 +38,8 @@ extension UIFont {
             "lineHeight",
             "leading"
         ], forModel: self, in: .layout)
+        
+        super.preparePeek(with: coordinator)
     }
     
 }

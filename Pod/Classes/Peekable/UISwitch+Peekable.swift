@@ -25,8 +25,6 @@ import UIKit
 extension UISwitch {
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
         coordinator.appendDynamic(keyPaths: [
             "onTintColor",
             "thumbTintColor",
@@ -37,6 +35,8 @@ extension UISwitch {
         coordinator.appendDynamic(keyPaths: [
             "on"
         ], forModel: self, in: .states)
+        
+        super.preparePeek(with: coordinator)
     }
     
 }

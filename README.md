@@ -7,7 +7,7 @@
 
 # Peek: All new design
 
-Peek 4.1 with an all new design and all new features. 
+Peek 4.1 with an all new design and all new features. Whether you're a developer, designer or QA/tester, Peek can help you in
 
 ## Unified Inspectors
 All inspectors and attributes have now been unified into a single window, making inspection simpler and faster than ever before.

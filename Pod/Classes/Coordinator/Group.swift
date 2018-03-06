@@ -11,6 +11,7 @@ import Foundation
     case preview
     case accessibility
     case appearance
+    case typography
     case paragraph
     case behaviour
     case states
@@ -36,6 +37,7 @@ import Foundation
         switch self {
         case .preview: return "Preview"
         case .appearance: return "Appearance"
+        case .typography: return "Typography"
         case .accessibility: return "Accessibility"
         case .general: return "General"
         case .paragraph: return "Paragraph"
@@ -81,6 +83,7 @@ extension NSObject: Model {
         switch group {
         case .preview: return true
         case .appearance: return true
+        case .typography: return true
         case .accessibility: return false
         case .general: return false
         case .paragraph: return true

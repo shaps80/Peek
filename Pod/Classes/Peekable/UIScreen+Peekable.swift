@@ -25,8 +25,6 @@ import UIKit
 extension UIScreen {
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
         coordinator.appendDynamic(keyPaths: [
             "wantsSoftwareDimming",
             "brightness"
@@ -40,6 +38,8 @@ extension UIScreen {
             "nativeScale",
             "currentMode.pixelAspectRatio"
         ], forModel: self, in: .layout)
+        
+        super.preparePeek(with: coordinator)
     }
     
 }

@@ -73,8 +73,6 @@ extension UIButton {
     }
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
         coordinator.appendTransformed(keyPaths: ["buttonType"], valueTransformer: { value in
             guard let rawValue = value as? Int, let buttonType = UIButtonType(rawValue: rawValue) else { return nil }
             return buttonType.description
@@ -97,6 +95,8 @@ extension UIButton {
             "normalAttributedTitle", "selectedAttributedTitle", "highlightedAttributedTitle", "disabledAttributedTitle",
             "normalTitleColor", "selectedTitleColor", "highlightedTitleColor", "disabledTitleColor"
         ], forModel: self, in: .states)
+        
+        super.preparePeek(with: coordinator)
     }
     
 }

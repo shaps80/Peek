@@ -25,31 +25,33 @@ import UIKit
 extension UILabel {
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
-        coordinator.appendDynamic(keyPaths: [
-            "adjustsFontSizeToFitWidth",
-            "minimumScaleFactor",
-        ], forModel: self, in: .behaviour)
-        
-        coordinator.appendDynamic(keyPaths: ["preferredMaxLayoutWidth"], forModel: self, in: .layout)
-        
         coordinator.appendTransformed(keyPaths: ["lineBreakMode"], valueTransformer: { value in
             guard let rawValue = value as? Int, let lineBreakMode = NSLineBreakMode(rawValue: rawValue) else { return nil }
             return lineBreakMode.description
         }, forModel: self, in: .behaviour)
         
-        coordinator.appendTransformed(keyPaths: ["textAlignment"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let textAlignment = NSTextAlignment(rawValue: rawValue) else { return nil }
-            return textAlignment.description
-        }, forModel: self, in: .appearance)
+        coordinator.appendDynamic(keyPaths: ["adjustsFontSizeToFitWidth"], forModel: self, in: .behaviour)
         
         coordinator.appendDynamic(keyPaths: [
             "text",
             "attributedText",
+        ], forModel: self, in: .typography)
+        
+        coordinator.appendTransformed(keyPaths: ["textAlignment"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let textAlignment = NSTextAlignment(rawValue: rawValue) else { return nil }
+            return textAlignment.description
+        }, forModel: self, in: .typography)
+        
+        coordinator.appendDynamic(keyPaths: [
             "textColor",
             "highlightedTextColor",
             "font",
+            "minimumScaleFactor",
+        ], forModel: self, in: .typography)
+        
+        coordinator.appendDynamic(keyPaths: ["preferredMaxLayoutWidth"], forModel: self, in: .layout)
+        
+        coordinator.appendDynamic(keyPaths: [
             "numberOfLines"
         ], forModel: self, in: .appearance)
         
@@ -62,6 +64,8 @@ extension UILabel {
             "shadowColor",
             "shadowOffset"
         ], forModel: self, in: .shadow)
+        
+        super.preparePeek(with: coordinator)
     }
     
 }

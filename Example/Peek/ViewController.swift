@@ -221,8 +221,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         } else {
             cell.imageView.image = model.complete(week) ? UIImage(named: "tick") : nil
         }
-        
-        cell.separatorView.isHidden = true //indexPath.item == model.weeks.count - 1
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

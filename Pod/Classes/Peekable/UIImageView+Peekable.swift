@@ -25,10 +25,8 @@ import UIKit
 extension UIImageView {
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
         coordinator.appendDynamic(keyPaths: [
-            "highlightedImage", "image"
+            "image", "highlightedImage"
         ], forModel: self, in: .appearance)
         
         coordinator.appendDynamic(keyPaths: [
@@ -36,8 +34,10 @@ extension UIImageView {
         ], forModel: self, in: .behaviour)
         
         coordinator.appendDynamic(keyPaths: [
-            "highlighted", "isAnimating"
+            "isAnimating", "highlighted"
         ], forModel: self, in: .states)
+        
+        super.preparePeek(with: coordinator)
     }
     
 }

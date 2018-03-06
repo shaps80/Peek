@@ -25,8 +25,6 @@ import UIKit
 extension UIPageControl {
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
         coordinator.appendDynamic(keyPaths: [
             "pageIndicatorTintColor", "currentPageIndicatorTintColor"
         ], forModel: self, in: .appearance)
@@ -38,6 +36,8 @@ extension UIPageControl {
         coordinator.appendDynamic(keyPaths: [
             "hidesForSinglePage", "defersCurrentPageDisplay"
         ], forModel: self, in: .behaviour)
+        
+        super.preparePeek(with: coordinator)
     }
     
 }

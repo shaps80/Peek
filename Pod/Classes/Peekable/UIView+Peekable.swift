@@ -62,8 +62,6 @@ extension UIView {
     }
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
         if bounds.size != .zero {
             let image = ImageRenderer(size: bounds.size).image { [weak self] context in
                 let rect = context.format.bounds
@@ -83,11 +81,11 @@ extension UIView {
             current = next
         }
         
-        for `class` in classHierarchy.reversed() {
+        for `class` in classHierarchy {
             coordinator.appendStatic(keyPath: "classForCoder", title: String(describing: `class`), detail: nil, value: "", in: .classes)
         }
         
-        for view in subviews.reversed() {
+        for view in subviews {
             coordinator.appendStatic(keyPath: "classForCoder", title: String(describing: view.classForCoder), detail: "", value: view, in: .views)
         }
         
@@ -104,7 +102,14 @@ extension UIView {
             "userInteractionEnabled",
             "multipleTouchEnabled",
             "exclusiveTouch"
-            ], forModel: self, in: .general)
+        ], forModel: self, in: .general)
+        
+        coordinator.appendDynamic(keyPaths: ["tintColor"], forModel: self, in: .appearance)
+        
+        coordinator.appendTransformed(keyPaths: ["tintAdjustmentMode"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let adjustmodeMode = UIViewTintAdjustmentMode(rawValue: rawValue) else { return nil }
+            return adjustmodeMode.description
+        }, forModel: self, in: .appearance)
         
         coordinator.appendDynamic(keyPaths: [
             "backgroundColor",
@@ -115,13 +120,6 @@ extension UIView {
             "clipsToBounds",
             "layer.masksToBounds",
         ], forModel: self, in: .appearance)
-        
-        coordinator.appendTransformed(keyPaths: ["tintAdjustmentMode"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let adjustmodeMode = UIViewTintAdjustmentMode(rawValue: rawValue) else { return nil }
-            return adjustmodeMode.description
-        }, forModel: self, in: .appearance)
-        
-        coordinator.appendDynamic(keyPaths: ["tintColor"], forModel: self, in: .appearance)
         
         if #available(iOS 11.0, *) {
             coordinator.appendDynamic(keyPaths: [
@@ -148,17 +146,17 @@ extension UIView {
             return contentMode.description
         }, forModel: self, in: .layout)
         
-        if !translatesAutoresizingMaskIntoConstraints {
-            let constraints = Constraints(view: self)
-            let count = horizontalConstraints.count + verticalConstraints.count
-            coordinator.appendStatic(keyPath: "none", title: "Constraints", detail: "\(count)", value: constraints, in: .constraints)
-        }
-        
         coordinator.appendStatic(keyPath: "translatesAutoresizingMaskIntoConstraints",
                                  title: "Uses AutoLayout",
                                  detail: nil,
                                  value: !translatesAutoresizingMaskIntoConstraints,
                                  in: .constraints)
+        
+        if !translatesAutoresizingMaskIntoConstraints {
+            let constraints = Constraints(view: self)
+            let count = horizontalConstraints.count + verticalConstraints.count
+            coordinator.appendStatic(keyPath: "none", title: "Constraints", detail: "\(count)", value: constraints, in: .constraints)
+        }
         
         let screen = ValueTransformer().transformedValue(UIScreen.main.bounds.size) as? String
         coordinator.appendStatic(keyPath: "UIScreen.main", title: "Screen", detail: screen, value: UIScreen.main, in: .more)
@@ -170,6 +168,16 @@ extension UIView {
         ], forModel: self, in: .more)
         
         coordinator.appendStatic(keyPath: "layer", title: "Layer", detail: String(describing: layer.classForCoder), value: layer, in: .more)
+        
+        if #available(iOS 10.0, *) {
+            if let type = self as? UIContentSizeCategoryAdjusting {
+                coordinator.appendDynamic(keyPathToName: [
+                    ["adjustsFontForContentSizeCategory": "Dynamic Type"]
+                ], forModel: self, in: .typography)
+            }
+        }
+        
+        super.preparePeek(with: coordinator)
     }
     
 }
@@ -183,8 +191,6 @@ extension UIView {
     }
     
     override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
         guard let view = view else { return }
         
         coordinator.appendDynamic(keyPaths: ["hasAmbiguousLayout"], forModel: view, in: .constraints)
@@ -206,6 +212,8 @@ extension UIView {
         for constraint in view.verticalConstraints {
             coordinator.appendStatic(keyPath: "verticalConstraints", title: "\(constraint)", detail: "", value: constraint, in: .vertical)
         }
+        
+        super.preparePeek(with: coordinator)
     }
     
 }

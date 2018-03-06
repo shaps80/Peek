@@ -49,8 +49,6 @@ extension CALayer {
     }
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
         coordinator.appendDynamic(keyPaths: [
             "doubleSided",
             "allowsGroupOpacity",
@@ -93,6 +91,8 @@ extension CALayer {
         for layer in sublayers ?? [] {
             coordinator.appendStatic(keyPath: "layer.classForCoder", title: String(describing: layer.classForCoder), detail: "", value: layer, in: .layers)
         }
+        
+        super.preparePeek(with: coordinator)
     }
     
 }

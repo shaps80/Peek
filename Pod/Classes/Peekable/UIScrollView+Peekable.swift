@@ -25,8 +25,6 @@ import UIKit
 extension UIScrollView {
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
         coordinator.appendDynamic(keyPaths: [
             "showsHorizontalScrollIndicator",
             "showsVerticalScrollIndicator",
@@ -56,6 +54,8 @@ extension UIScrollView {
         coordinator.appendDynamic(keyPaths: [
             "scrollEnabled", "scrollsToTop", "pagingEnabled", "decelerationRate", "directionalLockEnabled"
         ], forModel: self, in: .behaviour)
+        
+        super.preparePeek(with: coordinator)
     }
     
 }

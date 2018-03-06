@@ -25,16 +25,10 @@ import UIKit
 extension UIImage {
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
         coordinator.appendPreview(image: self, forModel: self)
         
-        coordinator.appendDynamic(keyPaths: [
-            "scale", "size", "capInsets", "alignmentRectInsets"
-        ], forModel: self, in: .layout)
-        
-        coordinator.appendTransformed(keyPaths: ["imageOrientation"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let mode = UIImageOrientation(rawValue: rawValue) else { return nil }
+        coordinator.appendTransformed(keyPaths: ["renderingMode"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let mode = UIImageRenderingMode(rawValue: rawValue) else { return nil }
             return mode.description
         }, forModel: self, in: .appearance)
         
@@ -43,10 +37,16 @@ extension UIImage {
             return mode.description
         }, forModel: self, in: .appearance)
         
-        coordinator.appendTransformed(keyPaths: ["renderingMode"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let mode = UIImageRenderingMode(rawValue: rawValue) else { return nil }
+        coordinator.appendTransformed(keyPaths: ["imageOrientation"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let mode = UIImageOrientation(rawValue: rawValue) else { return nil }
             return mode.description
         }, forModel: self, in: .appearance)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "scale", "size", "capInsets", "alignmentRectInsets"
+        ], forModel: self, in: .layout)
+        
+        super.preparePeek(with: coordinator)
     }
     
 }

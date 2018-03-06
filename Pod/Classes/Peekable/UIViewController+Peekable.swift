@@ -25,8 +25,6 @@ import UIKit
 extension UIViewController {
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
         coordinator.appendTransformed(keyPaths: ["modalTransitionStyle"], valueTransformer: { value in
             guard let rawValue = value as? Int, let style = UIModalTransitionStyle(rawValue: rawValue) else { return nil }
             return style.description
@@ -158,6 +156,8 @@ extension UIViewController {
 //            cell.accessoryView = UIImageView(image: image)
 //            cell.detailTextLabel?.text = nil
 //        })
+        
+        super.preparePeek(with: coordinator)
     }
     
 }

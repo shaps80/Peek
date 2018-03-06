@@ -25,15 +25,8 @@ import UIKit
 extension UITextField {
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
         coordinator.appendTransformed(keyPaths: ["borderStyle"], valueTransformer: { value in
             guard let rawValue = value as? Int, let style = UITextBorderStyle(rawValue: rawValue) else { return nil }
-            return style.description
-        }, forModel: self, in: .appearance)
-        
-        coordinator.appendTransformed(keyPaths: ["textAlignment"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let style = NSTextAlignment(rawValue: rawValue) else { return nil }
             return style.description
         }, forModel: self, in: .appearance)
         
@@ -52,17 +45,6 @@ extension UITextField {
         }, forModel: self, in: .appearance)
         
         coordinator.appendDynamic(keyPaths: [
-            "placeholder",
-            "attributedPlaceholder",
-            "text",
-            "attributedText",
-            "textColor",
-            "font",
-            "minimumFontSize"
-        ], forModel: self, in: .appearance)
-        
-        coordinator.appendDynamic(keyPaths: [
-            "adjustsFontSizeToFitWidth",
             "allowsEditingTextAttributes",
             "clearsOnBeginEditing",
             "clearsOnInsertion"
@@ -71,6 +53,27 @@ extension UITextField {
         coordinator.appendDynamic(keyPaths: [
             "editing"
         ], forModel: self, in: .states)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "text",
+            "attributedText",
+            "placeholder",
+            "attributedPlaceholder",
+        ], forModel: self, in: .typography)
+        
+        coordinator.appendTransformed(keyPaths: ["textAlignment"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let style = NSTextAlignment(rawValue: rawValue) else { return nil }
+            return style.description
+        }, forModel: self, in: .typography)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "textColor",
+            "font",
+            "minimumFontSize",
+            "adjustsFontSizeToFitWidth",
+        ], forModel: self, in: .typography)
+        
+        super.preparePeek(with: coordinator)
     }
     
 }

@@ -25,8 +25,6 @@ import UIKit
 extension UISlider {
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
         coordinator.appendDynamic(keyPaths: [
             "minimumTrackTintColor",
             "maximumTrackTintColor",
@@ -46,6 +44,8 @@ extension UISlider {
         coordinator.appendDynamic(keyPaths: [
             "continuous"
         ], forModel: self, in: .behaviour)
+        
+        super.preparePeek(with: coordinator)
     }
     
 }

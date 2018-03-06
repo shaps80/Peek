@@ -25,8 +25,6 @@ import UIKit
 extension UIBarButtonItem {
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
         coordinator.appendDynamic(keyPaths: [
             "title",
             "image",
@@ -43,6 +41,8 @@ extension UIBarButtonItem {
         ], forModel: self, in: .layout)
         
         coordinator.appendDynamic(keyPaths: ["enabled"], forModel: self, in: .behaviour)
+        
+        super.preparePeek(with: coordinator)
     }
     
 }

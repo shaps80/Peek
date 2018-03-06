@@ -90,8 +90,6 @@ extension NSAttributedString {
     }
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
         coordinator.appendDynamic(keyPaths: [
             "attributes.fontName",
             "attributes.foregroundColor",
@@ -125,6 +123,8 @@ extension NSAttributedString {
             "attributes.shadow.shadowColor",
             "attributes.shadow.shadowBlurRadius"
         ], forModel: self, in: .shadow)
+        
+        super.preparePeek(with: coordinator)
     }
     
 }

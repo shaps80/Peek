@@ -10,8 +10,6 @@ import Foundation
 extension Bundle {
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-
 //        context.configure(.application, "Appearance") { (config) in
 //            let property = config.addProperty("bundle.supportedOrientations", displayName: nil, cellConfiguration: { (cell, _, value) in
 //                let mask = UIInterfaceOrientationMask(rawValue: value as! UInt)
@@ -20,6 +18,8 @@ extension Bundle {
 //                cell.detailTextLabel?.text = nil
 //            })
 //        }
+        
+        super.preparePeek(with: coordinator)
     }
     
     @objc var backgroundModes: [String]? {

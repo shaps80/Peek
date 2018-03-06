@@ -61,30 +61,11 @@
                                                         <constraint firstAttribute="height" constant="8" id="lfY-Mb-aOB"/>
                                                     </constraints>
                                                 </imageView>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rd5-Hv-deW" userLabel="Separator" customClass="Separator" customModule="Peek_Example" customModuleProvider="target">
-                                                    <rect key="frame" x="74" y="0.0" width="1" height="75"/>
-                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="1" id="CUB-FN-c2p"/>
-                                                    </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="startColor">
-                                                            <color key="value" red="1" green="1" blue="1" alpha="0.48960248161764708" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="endColor">
-                                                            <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="reverse" value="YES"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </view>
                                             </subviews>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="IFI-BE-J7u" firstAttribute="top" secondItem="YI8-ch-Ga0" secondAttribute="bottom" constant="5" id="2s3-bA-XzA"/>
-                                            <constraint firstAttribute="trailing" secondItem="Rd5-Hv-deW" secondAttribute="trailing" id="4ND-FI-Jhe"/>
-                                            <constraint firstAttribute="bottom" secondItem="Rd5-Hv-deW" secondAttribute="bottom" id="EGG-nu-fI2"/>
                                             <constraint firstAttribute="bottom" secondItem="YI8-ch-Ga0" secondAttribute="bottom" constant="5" id="NhH-mT-KgO"/>
-                                            <constraint firstItem="Rd5-Hv-deW" firstAttribute="top" secondItem="tMP-WJ-t0X" secondAttribute="top" id="cNU-nT-bqL"/>
                                             <constraint firstItem="IFI-BE-J7u" firstAttribute="centerX" secondItem="tMP-WJ-t0X" secondAttribute="centerX" id="huz-4N-Svv"/>
                                             <constraint firstItem="YI8-ch-Ga0" firstAttribute="centerX" secondItem="tMP-WJ-t0X" secondAttribute="centerX" id="iIp-yq-xxa"/>
                                             <constraint firstAttribute="bottom" secondItem="IFI-BE-J7u" secondAttribute="bottom" constant="14" id="r4i-PN-ddU"/>
@@ -96,7 +77,6 @@
                                         </variation>
                                         <connections>
                                             <outlet property="imageView" destination="IFI-BE-J7u" id="NU6-8S-dYq"/>
-                                            <outlet property="separatorView" destination="Rd5-Hv-deW" id="8o9-Hy-UQh"/>
                                             <outlet property="titleLabel" destination="YI8-ch-Ga0" id="QVk-IZ-vVf"/>
                                         </connections>
                                     </collectionViewCell>

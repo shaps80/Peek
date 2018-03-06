@@ -57,8 +57,6 @@ extension UIStepper {
     }
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
         coordinator.appendDynamic(keyPaths: [
             "autorepeat", "continuous", "wraps"
         ], forModel: self, in: .behaviour)
@@ -78,6 +76,8 @@ extension UIStepper {
         coordinator.appendDynamic(keyPaths: [
             "stepValue", "value", "minimumValue", "maximumValue"
         ], forModel: self, in: .general)
+        
+        super.preparePeek(with: coordinator)
     }
     
 }

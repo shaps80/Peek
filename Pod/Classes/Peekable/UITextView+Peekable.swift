@@ -25,17 +25,6 @@ import UIKit
 extension UITextView {
  
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
-        coordinator.appendTransformed(keyPaths: ["textAlignment"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let style = NSTextAlignment(rawValue: rawValue) else { return nil }
-            return style.description
-        }, forModel: self, in: .appearance)
-        
-        coordinator.appendDynamic(keyPaths: [
-            "text", "attributedText", "textColor", "font"
-        ], forModel: self, in: .appearance)
-        
         coordinator.appendDynamic(keyPaths: [
             "clearsOnInsertion", "allowsEditingTextAttributes"
         ], forModel: self, in: .behaviour)
@@ -43,6 +32,23 @@ extension UITextView {
         coordinator.appendDynamic(keyPaths: [
             "editing", "selectable"
         ], forModel: self, in: .states)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "text",
+            "attributedText",
+        ], forModel: self, in: .typography)
+        
+        coordinator.appendTransformed(keyPaths: ["textAlignment"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let style = NSTextAlignment(rawValue: rawValue) else { return nil }
+            return style.description
+        }, forModel: self, in: .typography)
+        
+        coordinator.appendDynamic(keyPaths: [
+            "textColor",
+            "font",
+        ], forModel: self, in: .typography)
+        
+        super.preparePeek(with: coordinator)
     }
     
 }

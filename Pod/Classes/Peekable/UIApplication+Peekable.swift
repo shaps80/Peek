@@ -25,8 +25,6 @@ import UIKit
 extension UIApplication {
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
         if let image = bundle.appIcon {
             coordinator.appendPreview(image: image, forModel: self)
         }
@@ -61,6 +59,8 @@ extension UIApplication {
             "bundle.supportsGameKit",
             "bundle.sharesDataViaBluetooth",
         ], forModel: self, in: .capabilities)
+        
+        super.preparePeek(with: coordinator)
     }
     
     @objc fileprivate var bundle: Bundle {

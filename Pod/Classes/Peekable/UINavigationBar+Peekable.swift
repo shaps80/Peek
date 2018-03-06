@@ -25,8 +25,6 @@ import UIKit
 extension UINavigationBar {
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
         coordinator.appendDynamic(keyPaths: [
             "barTintColor", "translucent", "shadowImage"
         ], forModel: self, in: .appearance)
@@ -35,6 +33,8 @@ extension UINavigationBar {
             guard let rawValue = value as? Int, let style = UIBarStyle(rawValue: rawValue) else { return nil }
             return style.description
         }, forModel: self, in: .appearance)
+        
+        super.preparePeek(with: coordinator)
     }
 
 }

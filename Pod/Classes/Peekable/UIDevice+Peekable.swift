@@ -25,8 +25,6 @@ import UIKit
 extension UIDevice {
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
         coordinator.appendDynamic(keyPaths: [
             "batteryMonitoringEnabled",
             "proximityMonitoringEnabled"
@@ -74,6 +72,8 @@ extension UIDevice {
             "model",
             "systemVersion"
         ], forModel: self, in: .general)
+        
+        super.preparePeek(with: coordinator)
     }
     
     @objc private var peek_usedStorage: Int64 {

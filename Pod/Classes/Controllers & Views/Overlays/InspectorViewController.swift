@@ -172,7 +172,7 @@ extension InspectorViewController: UIViewControllerPreviewingDelegate {
         
         let attribute = dataSource.attribute(at: indexPath)
         
-        if let value = attribute.value as? Model & PeekableContainer {
+        if !(attribute is PreviewAttribute), let value = attribute.value as? Model & PeekableContainer {
             return InspectorViewController(peek: peek, model: value)
         } else {
             return nil

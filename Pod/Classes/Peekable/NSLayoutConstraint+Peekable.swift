@@ -45,8 +45,6 @@ extension NSLayoutConstraint {
     }
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
         coordinator.appendDynamic(keyPaths: [
             "active",
             "shouldBeArchived"
@@ -74,6 +72,8 @@ extension NSLayoutConstraint {
             guard let rawValue = value as? Int, let relation = NSLayoutRelation(rawValue: rawValue) else { return nil }
             return relation.description
         }, forModel: self, in: .layout)
+        
+        super.preparePeek(with: coordinator)
     }
     
 }

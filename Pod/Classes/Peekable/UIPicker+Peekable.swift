@@ -25,9 +25,9 @@ import UIKit
 extension UIPickerView {
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
         coordinator.appendDynamic(keyPaths: ["showsSelectionIndicator"], forModel: self, in: .behaviour)
+        
+        super.preparePeek(with: coordinator)
     }
     
 }
@@ -35,8 +35,6 @@ extension UIPickerView {
 extension UIDatePicker {
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
         coordinator.appendDynamic(keyPaths: [
             "date", "minimumDate", "maximumDate", "countDownDuration", "minuteInterval"
         ], forModel: self, in: .appearance)
@@ -45,6 +43,8 @@ extension UIDatePicker {
             guard let rawValue = value as? Int, let mode = UIDatePickerMode(rawValue: rawValue) else { return nil }
             return mode.description
         }, forModel: self, in: .appearance)
+        
+        super.preparePeek(with: coordinator)
     }
     
 }

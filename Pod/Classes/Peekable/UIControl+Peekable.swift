@@ -25,8 +25,6 @@ import UIKit
 extension UIControl {
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
         coordinator.appendDynamic(keyPaths: [
             "enabled", "selected", "highlighted"
         ], forModel: self, in: .states)
@@ -40,6 +38,8 @@ extension UIControl {
             guard let rawValue = value as? Int, let alignment = UIControlContentVerticalAlignment(rawValue: rawValue) else { return nil }
             return alignment.description
         }, forModel: self, in: .appearance)
+        
+        super.preparePeek(with: coordinator)
     }
     
 }

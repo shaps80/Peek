@@ -28,7 +28,6 @@ class WeekCell: UICollectionViewCell {
     
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var imageView: UIImageView!
-    @IBOutlet var separatorView: UIView!
     
     var lightColor = UIColor(red: 0.961, green: 0.961, blue: 0.961, alpha: 1.00)
     var darkColor = UIColor(red: 0.118, green: 0.122, blue: 0.129, alpha: 1.00)

@@ -25,8 +25,6 @@ import UIKit
 extension UIProgressView {
     
     public override func preparePeek(with coordinator: Coordinator) {
-        super.preparePeek(with: coordinator)
-        
         coordinator.appendDynamic(keyPaths: [
             "trackTintColor", "progressTintColor",
             "trackImage", "progressImage"
@@ -35,6 +33,8 @@ extension UIProgressView {
         coordinator.appendDynamic(keyPaths: [
             "progress",
         ], forModel: self, in: .general)
+        
+        super.preparePeek(with: coordinator)
     }
     
 }
