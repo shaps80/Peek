@@ -27,16 +27,6 @@ An all new reporting system allows you to export screenshots, metadata and even 
 ## Less Code
 Thanks to an all new architecture Peek is also now smaller. Providing more features with much less code, leaving a very small footprint on your application.
 
-# What is Peek?
-
-Peek is an open source framework that provides runtime inspection of your application while its running on your device (or Simulator).
-
-- Developers can use Peek to inspect their user interfaces at runtime.
-- Designers can verify that the applications meets their design specifications.
-- Testers and QA can check accessibility identifiers, validate behaviour and report issues.
-
-Peek is a tool to aide you at all stages of your development process.
-
 # Ready to get started?
 
 ## Designers & Testers
@@ -89,6 +79,16 @@ override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
 ```
 
 Now you can press `CMD+CTRL+Z` (or use the Menu option) to show/hide Peek in your Simulator.
+
+# What is Peek?
+
+Peek is an open source framework that provides runtime inspection of your application while its running on your device (or Simulator).
+
+- Developers can use Peek to inspect their user interfaces at runtime.
+- Designers can verify that the applications meets their design specifications.
+- Testers and QA can check accessibility identifiers, validate behaviour and report issues.
+
+Peek is a tool to aide you at all stages of your development process.
 
 # How does Peek work?
 
