@@ -76,6 +76,8 @@ override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
 }
 ```
 
+Now you can press `CMD+CTRL+Z` (or use the Menu option) to show/hide Peek in your Simulator.
+
 # Demo
 
 If you're not ready to integrate Peek into your own project, You can simply download this repo and run the sample project included :)
@@ -103,28 +105,6 @@ window?.peek.enableWithOptions { options in
 Peek is designed to be as safe as possible. Peek will never retain objects from your application. It will never use a background thread. Peek won't even run unless you explicitly enable it!
 
 Go ahead, take a Peek at your app now :)
-
-# What about using Peek from the simulator?
-
-Since the volume keys are not available on the Simulator, we can use a shake gesture instead. Simply forward the motion events to Peek by adding the following code to your AppDelegate.swift:
-
-> Note: When targetting iOS 10+ you need to implement this in your rootViewController. For all other versions this needs to go in your AppDelegate.
-
-```swift
-override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent?) {
-  window?.peek.handleShake(motion)
-}
-```
-
-Now you can press `CMD+CTRL+Z` (or use the Menu option) to activate/deactivate Peek from your Simulator.
-
-# About Peek
-
-1. Peek only requires a single line of code to get started
-2. Peek is disabled by default, so just make sure to use `#if DEBUG` to prevent it from being included in your release binary
-3. No 3rd party code or libraries are used in Peek -- all code is my own!
-4. Peek never interferes with your apps normal behavior, gestures or layout -- and it NEVER retains an object from your application
-5. Peek supports all orientations and devices.
 
 # How does Peek work?
 
