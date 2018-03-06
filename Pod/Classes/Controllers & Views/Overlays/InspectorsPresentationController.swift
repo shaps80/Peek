@@ -319,7 +319,7 @@ internal final class InspectorsPresentationController: UIPresentationController,
         let transitionDuration = self.transitionDuration(using: transitionContext)
         
         UIView.animate(withDuration: transitionDuration, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 2, options: .beginFromCurrentState, animations: {
-            if isPresenting {r
+            if isPresenting {
                 toView?.transform = .identity
                 toView?.alpha = 1
             } else {
