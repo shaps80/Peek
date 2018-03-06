@@ -7,20 +7,34 @@
 
 # Peek: All new design
 
-- Unified Inspectors:
-- Collapse/Expand Groups
-- Nested Inspectors
-- Previews
-- Revamped Reporting
-- iOS 9.x (minimum target)
+In April 2016 I released the 2nd release of Peek for iOS. The subsequent 3.0 release was simply a Swift compatibility update, followed by Swift 4 support in Peek 4.0. ​
 
+​Today I’m excited to release Peek 4.1 with an all new design and some pretty exciting features. 
+
+## Unified Inspectors
+All inspectors and attributes have now been unified into a single window, making inspection simpler and faster than ever before.
+
+## Collapse/Expand Headers
+Feeling overwhelmed with all the information Peek has to offer? Simply tap the header to expand/collapse any section. Peek will even remember your choice across launches!
+
+## Nested Inspectors
+Peek now supports nested Inspectors. This powerful feature allows Peek to surface even more detail about your application. In fact Peek 4.1 more than doubles the number of attributes it can inspect. 
+
+## Previews
+Views, images, colours and more can now provide snapshot previews to help you better identify what you’re inspecting. 
+
+## Reporting
+An all new reporting system allows you to export screenshots, metadata and even suggested values using the iOS native share sheet. 
+
+## Less Code
+Thanks to an all new architecture Peek is also now smaller. Providing more features with much less code, leaving a very small footprint on your application.
 
 # What is Peek?
 
 Peek is an open source framework that provides runtime inspection of your application while its running on your device (or Simulator).
 
-- Developers can use Peek to inspect their user interfaces at runtime.  
-- Designers can verify that the applications meets their design specifications.  
+- Developers can use Peek to inspect their user interfaces at runtime.
+- Designers can verify that the applications meets their design specifications.
 - Testers and QA can check accessibility identifiers, validate behaviour and report issues.
 
 Peek is a tool to aide you at all stages of your development process.
@@ -77,6 +91,20 @@ override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
 ```
 
 Now you can press `CMD+CTRL+Z` (or use the Menu option) to show/hide Peek in your Simulator.
+
+# How does Peek work?
+
+Peek scans your entire user interface on the screen then provides overlays with layout information and attribute inspectors.
+
+Peek includes an intelligent filtering system to best determine which views you care about while ignoring those you are not likely to be interested in.
+
+For example, by default Peek will not show you many of Apple's system components unless they are subclassed.
+
+Peek presents itself in its own window that sits directly on top of your own app's user interface to ensure that it doesn't interfere with normal functionality.
+
+Peek also allows you to test all supported orientations on both iPhone and iPad.
+
+Most importantly Peek doesn’t interfere with your applications logic or user interface in anyway. It provides read-only inspection to guarantee you’re seeing live-values only!
 
 # Demo
 
