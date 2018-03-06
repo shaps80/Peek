@@ -310,21 +310,25 @@ internal final class InspectorsPresentationController: UIPresentationController,
             if presentedViewController.modalTransitionStyle == .crossDissolve {
                 toView?.alpha = 0
             } else {
-                toView?.transform = CGAffineTransform(translationX: 0, y: toView?.bounds.maxY ?? containerView.bounds.maxY)
+                toView?.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+                    //CGAffineTransform(translationX: 0, y: toView?.bounds.maxY ?? containerView.bounds.maxY).concatenating(CGAffineTransform(scaleX: 0.8, y: 0.8))
+                toView?.alpha = 0
             }
         }
         
         let transitionDuration = self.transitionDuration(using: transitionContext)
         
-        UIView.animate(withDuration: transitionDuration, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 2, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
-            if isPresenting {
+        UIView.animate(withDuration: transitionDuration, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 2, options: .beginFromCurrentState, animations: {
+            if isPresenting {r
                 toView?.transform = .identity
                 toView?.alpha = 1
             } else {
                 if self.presentedViewController.modalTransitionStyle == .crossDissolve {
                     fromView?.alpha = 0
                 } else {
-                    fromView?.transform = CGAffineTransform(translationX: 0, y: fromView?.bounds.maxY ?? containerView.bounds.maxY)
+                    fromView?.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+                        // CGAffineTransform(translationX: 0, y: fromView?.bounds.maxY ?? containerView.bounds.maxY).concatenating(CGAffineTransform(scaleX: 0.8, y: 0.8))
+                    fromView?.alpha = 0
                 }
             }
             
