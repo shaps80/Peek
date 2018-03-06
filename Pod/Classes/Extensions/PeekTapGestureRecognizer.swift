@@ -27,7 +27,7 @@ final class PeekTapGestureRecognizer: UITapGestureRecognizer {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event!)
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(0.3 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) { () -> Void in
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
             if self.state != .recognized {
                 self.state = .failed
             }

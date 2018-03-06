@@ -85,18 +85,18 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         stackContainerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ViewController.handleTap(_:))))
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ViewController.handleTap(_:))))
         
-        hipsButton.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "tick"))
+        collectionView.backgroundColor = UIColor(red: 22/255, green: 20/255, blue: 28/255, alpha: 1)
         collectionViewTopConstraint.constant = 0
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.previousWeekNumber = -1
             
             let animation = POPSpringAnimation(propertyNamed: kPOPLayoutConstraintConstant)
-            animation?.toValue = -100
+            animation?.toValue = -75
             animation?.springBounciness = 10
             animation?.springSpeed = 20
             
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(0.3 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) { () -> Void in
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
                 let index = self.model.weeks.index(of: self.model.currentWeek())!
                 let indexPath = IndexPath(item: index, section: 0)
                 self.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
@@ -222,7 +222,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             cell.imageView.image = model.complete(week) ? UIImage(named: "tick") : nil
         }
         
-        cell.separatorView.isHidden = indexPath.item == model.weeks.count - 1
+        cell.separatorView.isHidden = true //indexPath.item == model.weeks.count - 1
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -273,7 +273,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 let button = attributes.keys.first!
                 let value = attributes.values.first!
                 
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) { () -> Void in
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay) {
                     button.setValue(value, animated: true)
                     
                     let label = labels[i]

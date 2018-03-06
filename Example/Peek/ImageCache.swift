@@ -86,13 +86,13 @@ final class ImageCache {
             if let decompressedImage = image.decompressedImage() {
                 self.addImage(decompressedImage, week: week)
                 
-                DispatchQueue.main.async(execute: { () -> Void in
+                DispatchQueue.main.async {
                     completion(decompressedImage)
-                })
+                }
                 
-                DispatchQueue.main.async(execute: { () -> Void in
+                DispatchQueue.main.async {
                     completion(decompressedImage)
-                })
+                }
             }
         }
     }

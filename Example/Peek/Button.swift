@@ -31,6 +31,7 @@ protocol ButtonDelegate: class {
 class Button: UIControl, UITextFieldDelegate {
     
     weak var delegate: ButtonDelegate?
+    private var highlightedColor: UIColor?
     
     var tapGesture: UITapGestureRecognizer!
     @IBOutlet var textField: UITextField! {
@@ -42,12 +43,14 @@ class Button: UIControl, UITextFieldDelegate {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        highlightedColor = tintColor
+        backgroundColor = .clear
+        tintColor = .clear
+        
         textField.isEnabled = false
         
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(Button.handleTap(_:)))
         addGestureRecognizer(tapGesture)
-        
-        tintColor = UIColor.clear
     }
     
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
@@ -132,7 +135,8 @@ class Button: UIControl, UITextFieldDelegate {
             let animation = POPBasicAnimation(propertyNamed: kPOPViewTintColor)
             
             animation?.duration = animated ? 0.3 : 0
-            animation?.toValue = UIColor(red: 0.302, green: 0.922, blue: 0.169, alpha: 1.00)
+            animation?.toValue = highlightedColor
+            
             pop_add(animation, forKey: "color")
             
             textField.text = Button.formatter.string(from: NSNumber(value: value))
@@ -140,7 +144,8 @@ class Button: UIControl, UITextFieldDelegate {
             let animation = POPBasicAnimation(propertyNamed: kPOPViewTintColor)
             
             animation?.duration = animated ? 0.3 : 0
-            animation?.toValue = UIColor(red: 1.000, green: 0.224, blue: 0.624, alpha: 1.00)
+            animation?.toValue = UIColor(white: 1, alpha: 0.6)
+            
             pop_add(animation, forKey: "color")
             
             textField.text = nil
@@ -158,7 +163,7 @@ class Button: UIControl, UITextFieldDelegate {
         
         pop_add(animation, forKey: "pop")
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(0.2 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) { () -> Void in
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) {
             let animation = POPSpringAnimation(propertyNamed: kPOPViewScaleXY)
             
             animation?.springBounciness = 15

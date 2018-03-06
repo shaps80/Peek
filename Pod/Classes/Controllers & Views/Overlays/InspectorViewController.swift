@@ -188,7 +188,7 @@ extension InspectorViewController {
         reportingIndexPaths.removeAll()
         
         if tableView.isEditing {
-            let cancel = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(endReport))
+            let cancel = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelReport(_:)))
             navigationItem.setLeftBarButton(cancel, animated: animated)
             navigationItem.setHidesBackButton(true, animated: animated)
             
@@ -252,7 +252,11 @@ extension InspectorViewController {
         navigationController?.pushViewController(controller, animated: true)
     }
     
-    @objc private func endReport(animated: Bool) {
+    @objc private func cancelReport(_ sender: Any?) {
+        endReport(cancelled: true, animated: true)
+    }
+    
+    private func endReport(cancelled: Bool, animated: Bool) {
         func end(animated: Bool) {
             tableView.setEditing(false, animated: animated)
             prepareNavigationItems(animated: animated)
@@ -262,7 +266,7 @@ extension InspectorViewController {
             }
         }
         
-        if reportingIndexPaths.count > 0 {
+        if cancelled, reportingIndexPaths.count > 0 {
             let alert = UIAlertController(title: "Cancel Report", message: "Are you sure you want to cancel this report?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "Yes, Cancel", style: .destructive) { _ in
@@ -283,7 +287,7 @@ extension InspectorViewController {
 extension InspectorViewController: ReportViewControllerDelegate {
     
     func reportController(_ controller: ReportViewController, didSend report: Report) {
-        endReport(animated: false)
+        endReport(cancelled: false, animated: false)
         navigationController?.popViewController(animated: true)
     }
     

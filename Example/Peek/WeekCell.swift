@@ -42,20 +42,17 @@ class WeekCell: UICollectionViewCell {
     }
     
     fileprivate func update() {
-        if self.isSelected || self.isHighlighted {
-            self.titleLabel.textColor = self.darkColor
-            self.imageView.tintColor = self.darkColor
-        } else {
-            self.titleLabel.textColor = self.lightColor
-            self.imageView.tintColor = self.lightColor
-        }
+        self.titleLabel.textColor = .white
+        self.imageView.tintColor = .white
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        contentView.backgroundColor = .clear
+        
         let view = UIView()
-        view.backgroundColor = lightColor
+        view.backgroundColor = UIColor(red: 255/255, green: 0/255, blue: 126/255, alpha: 1)
         selectedBackgroundView = view
         
         let radius: CGFloat = 15
