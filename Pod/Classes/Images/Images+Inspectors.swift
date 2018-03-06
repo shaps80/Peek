@@ -23,8 +23,6 @@
 import UIKit
 import InkKit
 
-//swiftlint:disable type_body_length
-//swiftlint:disable file_length
 final class Images {
     
     static func disclosure(size: CGSize, thickness: CGFloat) -> UIImage {
@@ -65,278 +63,7 @@ final class Images {
         }
     }
     
-    static func backIndicatorImage() -> UIImage {
-        return Image.draw(width: 12, height: 22, attributes: nil, drawing: { (_, rect, _) in
-            let frame = rect.insetBy(dx: 1, dy: 1)
-            let color = UIColor.white
-            
-            let bezierPath = UIBezierPath()
-            bezierPath.move(to: CGPoint(x: frame.maxX, y: frame.minY))
-            bezierPath.addLine(to: CGPoint(x: frame.maxX - 10, y: frame.midY))
-            bezierPath.addLine(to: CGPoint(x: frame.maxX, y: frame.maxY))
-            
-            color.setStroke()
-            bezierPath.lineCapStyle = .round
-            bezierPath.lineJoinStyle = .round
-            bezierPath.lineWidth = 2
-            bezierPath.stroke()
-        })
-    }
-    
-    static func viewImage() -> UIImage {
-        return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (_, rect, _) in
-            
-            //// Rectangle Drawing
-            let rectanglePath = UIBezierPath(rect: CGRect(x: 2, y: 0, width: 12, height: 9))
-            UIColor.gray.setFill()
-            rectanglePath.fill()
-            
-            //// Rectangle 2 Drawing
-            let rectangle2Path = UIBezierPath(rect: CGRect(x: 16, y: 0, width: 12, height: 9))
-            UIColor.gray.setFill()
-            rectangle2Path.fill()
-            
-            //// Rectangle 3 Drawing
-            let rectangle3Path = UIBezierPath(rect: CGRect(x: 2, y: 11, width: 12, height: 9))
-            UIColor.gray.setFill()
-            rectangle3Path.fill()
-            
-            //// Rectangle 4 Drawing
-            let rectangle4Path = UIBezierPath(rect: CGRect(x: 16, y: 11, width: 12, height: 9))
-            UIColor.gray.setFill()
-            rectangle4Path.fill()
-            
-        })
-    }
-    
-    fileprivate static func applicationImage() -> UIImage {
-        return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (_, _, _) in
-            //// Color Declarations
-            let color = UIColor(red: 1.000, green: 0.973, blue: 0.973, alpha: 1.000)
-            let color2 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
-            
-            //// Rectangle Drawing
-            let rectanglePath = UIBezierPath(roundedRect: CGRect(x: 5.5, y: 0.5, width: 19, height: 19), cornerRadius: 2)
-            color.setStroke()
-            rectanglePath.lineWidth = 1
-            rectanglePath.stroke()
-            
-            //// Bezier Drawing
-            let bezierPath = UIBezierPath()
-            bezierPath.move(to: CGPoint(x: 7, y: 5.5))
-            bezierPath.addLine(to: CGPoint(x: 16, y: 5.5))
-            color2.setStroke()
-            bezierPath.lineWidth = 1
-            bezierPath.stroke()
-            
-            //// Bezier 2 Drawing
-            let bezier2Path = UIBezierPath()
-            bezier2Path.move(to: CGPoint(x: 7, y: 8.5))
-            bezier2Path.addLine(to: CGPoint(x: 19, y: 8.5))
-            color2.setStroke()
-            bezier2Path.lineWidth = 1
-            bezier2Path.stroke()
-            
-            //// Bezier 3 Drawing
-            let bezier3Path = UIBezierPath()
-            bezier3Path.move(to: CGPoint(x: 7, y: 11.5))
-            bezier3Path.addLine(to: CGPoint(x: 11, y: 11.5))
-            color2.setStroke()
-            bezier3Path.lineWidth = 1
-            bezier3Path.stroke()
-            
-            //// Bezier 4 Drawing
-            let bezier4Path = UIBezierPath()
-            bezier4Path.move(to: CGPoint(x: 23.54, y: 0.55))
-            bezier4Path.addCurve(to: CGPoint(x: 24.5, y: 1.69), controlPoint1: CGPoint(x: 24.22, y: 0.81), controlPoint2: CGPoint(x: 24.5, y: 1.22))
-            bezier4Path.addCurve(to: CGPoint(x: 24.5, y: 3), controlPoint1: CGPoint(x: 24.5, y: 1.75), controlPoint2: CGPoint(x: 24.5, y: 3))
-            bezier4Path.addLine(to: CGPoint(x: 5.5, y: 3))
-            bezier4Path.addLine(to: CGPoint(x: 5.5, y: 1.75))
-            bezier4Path.addCurve(to: CGPoint(x: 5.93, y: 0.78), controlPoint1: CGPoint(x: 5.5, y: 1.34), controlPoint2: CGPoint(x: 5.66, y: 1))
-            bezier4Path.addCurve(to: CGPoint(x: 6.27, y: 0.59), controlPoint1: CGPoint(x: 6.03, y: 0.7), controlPoint2: CGPoint(x: 6.14, y: 0.64))
-            bezier4Path.addCurve(to: CGPoint(x: 7.14, y: 0.5), controlPoint1: CGPoint(x: 6.51, y: 0.52), controlPoint2: CGPoint(x: 6.75, y: 0.5))
-            bezier4Path.addCurve(to: CGPoint(x: 7.39, y: 0.5), controlPoint1: CGPoint(x: 7.22, y: 0.5), controlPoint2: CGPoint(x: 7.3, y: 0.5))
-            bezier4Path.addLine(to: CGPoint(x: 21.44, y: 0.5))
-            bezier4Path.addCurve(to: CGPoint(x: 23.59, y: 0.56), controlPoint1: CGPoint(x: 22.95, y: 0.5), controlPoint2: CGPoint(x: 23.35, y: 0.5))
-            bezier4Path.addLine(to: CGPoint(x: 23.54, y: 0.55))
-            bezier4Path.close()
-            bezier4Path.move(to: CGPoint(x: 12.75, y: 1))
-            bezier4Path.addCurve(to: CGPoint(x: 12.05, y: 1.49), controlPoint1: CGPoint(x: 12.43, y: 1), controlPoint2: CGPoint(x: 12.15, y: 1.21))
-            bezier4Path.addCurve(to: CGPoint(x: 12, y: 1.75), controlPoint1: CGPoint(x: 12.02, y: 1.57), controlPoint2: CGPoint(x: 12, y: 1.66))
-            bezier4Path.addCurve(to: CGPoint(x: 12.75, y: 2.5), controlPoint1: CGPoint(x: 12, y: 2.16), controlPoint2: CGPoint(x: 12.34, y: 2.5))
-            bezier4Path.addCurve(to: CGPoint(x: 13.5, y: 1.75), controlPoint1: CGPoint(x: 13.16, y: 2.5), controlPoint2: CGPoint(x: 13.5, y: 2.16))
-            bezier4Path.addCurve(to: CGPoint(x: 12.75, y: 1), controlPoint1: CGPoint(x: 13.5, y: 1.34), controlPoint2: CGPoint(x: 13.16, y: 1))
-            bezier4Path.close()
-            bezier4Path.move(to: CGPoint(x: 10.25, y: 1))
-            bezier4Path.addCurve(to: CGPoint(x: 9.56, y: 1.45), controlPoint1: CGPoint(x: 9.94, y: 1), controlPoint2: CGPoint(x: 9.67, y: 1.19))
-            bezier4Path.addCurve(to: CGPoint(x: 9.5, y: 1.75), controlPoint1: CGPoint(x: 9.52, y: 1.55), controlPoint2: CGPoint(x: 9.5, y: 1.65))
-            bezier4Path.addCurve(to: CGPoint(x: 10.25, y: 2.5), controlPoint1: CGPoint(x: 9.5, y: 2.16), controlPoint2: CGPoint(x: 9.84, y: 2.5))
-            bezier4Path.addCurve(to: CGPoint(x: 11, y: 1.75), controlPoint1: CGPoint(x: 10.66, y: 2.5), controlPoint2: CGPoint(x: 11, y: 2.16))
-            bezier4Path.addCurve(to: CGPoint(x: 10.25, y: 1), controlPoint1: CGPoint(x: 11, y: 1.34), controlPoint2: CGPoint(x: 10.66, y: 1))
-            bezier4Path.close()
-            bezier4Path.move(to: CGPoint(x: 7.75, y: 1))
-            bezier4Path.addCurve(to: CGPoint(x: 7.09, y: 1.4), controlPoint1: CGPoint(x: 7.46, y: 1), controlPoint2: CGPoint(x: 7.22, y: 1.16))
-            bezier4Path.addCurve(to: CGPoint(x: 7, y: 1.75), controlPoint1: CGPoint(x: 7.03, y: 1.5), controlPoint2: CGPoint(x: 7, y: 1.62))
-            bezier4Path.addCurve(to: CGPoint(x: 7.75, y: 2.5), controlPoint1: CGPoint(x: 7, y: 2.16), controlPoint2: CGPoint(x: 7.34, y: 2.5))
-            bezier4Path.addCurve(to: CGPoint(x: 8.5, y: 1.75), controlPoint1: CGPoint(x: 8.16, y: 2.5), controlPoint2: CGPoint(x: 8.5, y: 2.16))
-            bezier4Path.addCurve(to: CGPoint(x: 7.75, y: 1), controlPoint1: CGPoint(x: 8.5, y: 1.34), controlPoint2: CGPoint(x: 8.16, y: 1))
-            bezier4Path.close()
-            UIColor.white.setFill()
-            bezier4Path.fill()
-        })
-    }
-    
-    fileprivate static func screenImage() -> UIImage {
-        return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (_, _, _) in
-            
-            //// Rectangle Drawing
-            let rectanglePath = UIBezierPath(roundedRect: CGRect(x: 4.5, y: 1, width: 22, height: 16.5), cornerRadius: 2)
-            UIColor.white.setStroke()
-            rectanglePath.lineWidth = 1
-            rectanglePath.stroke()
-            
-            //// Rectangle 2 Drawing
-            let rectangle2Path = UIBezierPath(roundedRect: CGRect(x: 9.5, y: 19.5, width: 11.5, height: 1), cornerRadius: 0.5)
-            UIColor.white.setStroke()
-            rectangle2Path.lineWidth = 1
-            rectangle2Path.stroke()
-        })
-    }
-    
-    fileprivate static func deviceImage() -> UIImage {
-        return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (_, _, _) in
-            //// Color Declarations
-            let color5 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
-            
-            //// Rectangle Drawing
-            let rectanglePath = UIBezierPath(roundedRect: CGRect(x: 9, y: 0.5, width: 12, height: 19), cornerRadius: 2)
-            UIColor.white.setStroke()
-            rectanglePath.lineWidth = 1
-            rectanglePath.stroke()
-            
-            //// Bezier Drawing
-            let bezierPath = UIBezierPath()
-            bezierPath.move(to: CGPoint(x: 20.5, y: 17))
-            bezierPath.addCurve(to: CGPoint(x: 20.5, y: 19), controlPoint1: CGPoint(x: 20.5, y: 17), controlPoint2: CGPoint(x: 20.5, y: 19))
-            bezierPath.addLine(to: CGPoint(x: 15, y: 19))
-            bezierPath.addCurve(to: CGPoint(x: 15.5, y: 18.5), controlPoint1: CGPoint(x: 15.28, y: 19), controlPoint2: CGPoint(x: 15.5, y: 18.78))
-            bezierPath.addCurve(to: CGPoint(x: 15.18, y: 18.03), controlPoint1: CGPoint(x: 15.5, y: 18.29), controlPoint2: CGPoint(x: 15.37, y: 18.11))
-            bezierPath.addCurve(to: CGPoint(x: 15, y: 18), controlPoint1: CGPoint(x: 15.13, y: 18.01), controlPoint2: CGPoint(x: 15.06, y: 18))
-            bezierPath.addCurve(to: CGPoint(x: 14.5, y: 18.5), controlPoint1: CGPoint(x: 14.72, y: 18), controlPoint2: CGPoint(x: 14.5, y: 18.22))
-            bezierPath.addCurve(to: CGPoint(x: 15, y: 19), controlPoint1: CGPoint(x: 14.5, y: 18.78), controlPoint2: CGPoint(x: 14.72, y: 19))
-            bezierPath.addLine(to: CGPoint(x: 9.5, y: 19))
-            bezierPath.addLine(to: CGPoint(x: 9.5, y: 17))
-            bezierPath.addLine(to: CGPoint(x: 20.5, y: 17))
-            bezierPath.addLine(to: CGPoint(x: 20.5, y: 17))
-            bezierPath.close()
-            color5.setFill()
-            bezierPath.fill()
-        })
-    }
-    
-    fileprivate static func controllerImage() -> UIImage {
-        return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (_, _, _) in
-            //// Color Declarations
-            let color = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
-            let color2 = UIColor(red: 0.647, green: 0.647, blue: 0.647, alpha: 0.300)
-            
-            //// Rectangle Drawing
-            let rectanglePath = UIBezierPath(roundedRect: CGRect(x: 5, y: 1, width: 20, height: 20), cornerRadius: 2)
-            color2.setFill()
-            rectanglePath.fill()
-            color.setStroke()
-            rectanglePath.lineWidth = 1
-            rectanglePath.stroke()
-        })
-    }
-    
-    fileprivate static func layerImage() -> UIImage {
-        return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (_, _, _) in
-            
-            //// Bezier 4 Drawing
-            let bezier4Path = UIBezierPath()
-            bezier4Path.move(to: CGPoint(x: 23.43, y: 8.25))
-            bezier4Path.addCurve(to: CGPoint(x: 27.5, y: 9.75), controlPoint1: CGPoint(x: 25.67, y: 9.08), controlPoint2: CGPoint(x: 27.5, y: 9.75))
-            bezier4Path.addLine(to: CGPoint(x: 15.3, y: 15.75))
-            bezier4Path.addLine(to: CGPoint(x: 2, y: 10.75))
-            bezier4Path.addCurve(to: CGPoint(x: 6.43, y: 8.92), controlPoint1: CGPoint(x: 2, y: 10.75), controlPoint2: CGPoint(x: 3.99, y: 9.93))
-            bezier4Path.addCurve(to: CGPoint(x: 15.3, y: 12.25), controlPoint1: CGPoint(x: 10.3, y: 10.37), controlPoint2: CGPoint(x: 15.3, y: 12.25))
-            bezier4Path.addCurve(to: CGPoint(x: 23.43, y: 8.25), controlPoint1: CGPoint(x: 15.3, y: 12.25), controlPoint2: CGPoint(x: 19.89, y: 10))
-            bezier4Path.close()
-            bezier4Path.move(to: CGPoint(x: 2, y: 5.5))
-            bezier4Path.addLine(to: CGPoint(x: 15.3, y: 0))
-            bezier4Path.addLine(to: CGPoint(x: 27.5, y: 4.5))
-            bezier4Path.addLine(to: CGPoint(x: 15.3, y: 10.5))
-            bezier4Path.addLine(to: CGPoint(x: 2, y: 5.5))
-            bezier4Path.close()
-            bezier4Path.move(to: CGPoint(x: 23.43, y: 13.5))
-            bezier4Path.addCurve(to: CGPoint(x: 27.5, y: 15), controlPoint1: CGPoint(x: 25.67, y: 14.33), controlPoint2: CGPoint(x: 27.5, y: 15))
-            bezier4Path.addLine(to: CGPoint(x: 15.3, y: 21))
-            bezier4Path.addLine(to: CGPoint(x: 2, y: 16))
-            bezier4Path.addCurve(to: CGPoint(x: 6.43, y: 14.17), controlPoint1: CGPoint(x: 2, y: 16), controlPoint2: CGPoint(x: 3.99, y: 15.18))
-            bezier4Path.addCurve(to: CGPoint(x: 15.3, y: 17.5), controlPoint1: CGPoint(x: 10.3, y: 15.62), controlPoint2: CGPoint(x: 15.3, y: 17.5))
-            bezier4Path.addCurve(to: CGPoint(x: 23.43, y: 13.5), controlPoint1: CGPoint(x: 15.3, y: 17.5), controlPoint2: CGPoint(x: 19.89, y: 15.25))
-            bezier4Path.close()
-            UIColor.white.setFill()
-            bezier4Path.fill()
-        })
-    }
-    
-    fileprivate static func layoutImage() -> UIImage {
-        return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (context, _, _) in
-            //// General Declarations
-            let context = UIGraphicsGetCurrentContext()
-            
-            //// Bezier Drawing
-            context?.saveGState()
-            context?.translateBy(x: 0, y: 13.56)
-            context?.rotate(by: -25 * CGFloat.pi / 180)
-            
-            let bezierPath = UIBezierPath()
-            bezierPath.move(to: CGPoint(x: 29, y: 0))
-            bezierPath.addCurve(to: CGPoint(x: 29, y: 6), controlPoint1: CGPoint(x: 29, y: 0), controlPoint2: CGPoint(x: 29, y: 6))
-            bezierPath.addLine(to: CGPoint(x: 0, y: 6))
-            bezierPath.addLine(to: CGPoint(x: 0, y: 0))
-            bezierPath.addLine(to: CGPoint(x: 2, y: 0))
-            bezierPath.addLine(to: CGPoint(x: 2, y: 3))
-            bezierPath.addLine(to: CGPoint(x: 3, y: 3))
-            bezierPath.addLine(to: CGPoint(x: 3, y: 0))
-            bezierPath.addLine(to: CGPoint(x: 6, y: 0))
-            bezierPath.addLine(to: CGPoint(x: 6, y: 3))
-            bezierPath.addLine(to: CGPoint(x: 7, y: 3))
-            bezierPath.addLine(to: CGPoint(x: 7, y: 0))
-            bezierPath.addLine(to: CGPoint(x: 10, y: 0))
-            bezierPath.addLine(to: CGPoint(x: 10, y: 3))
-            bezierPath.addLine(to: CGPoint(x: 11, y: 3))
-            bezierPath.addLine(to: CGPoint(x: 11, y: 0))
-            bezierPath.addLine(to: CGPoint(x: 14, y: 0))
-            bezierPath.addLine(to: CGPoint(x: 14, y: 3))
-            bezierPath.addLine(to: CGPoint(x: 15, y: 3))
-            bezierPath.addLine(to: CGPoint(x: 15, y: 0))
-            bezierPath.addLine(to: CGPoint(x: 18, y: 0))
-            bezierPath.addLine(to: CGPoint(x: 18, y: 3))
-            bezierPath.addLine(to: CGPoint(x: 19, y: 3))
-            bezierPath.addLine(to: CGPoint(x: 19, y: 0))
-            bezierPath.addLine(to: CGPoint(x: 22, y: 0))
-            bezierPath.addLine(to: CGPoint(x: 22, y: 3))
-            bezierPath.addLine(to: CGPoint(x: 23, y: 3))
-            bezierPath.addLine(to: CGPoint(x: 23, y: 0))
-            bezierPath.addLine(to: CGPoint(x: 26, y: 0))
-            bezierPath.addLine(to: CGPoint(x: 26, y: 3))
-            bezierPath.addLine(to: CGPoint(x: 27, y: 3))
-            bezierPath.addLine(to: CGPoint(x: 27, y: 0))
-            bezierPath.addLine(to: CGPoint(x: 29, y: 0))
-            bezierPath.addLine(to: CGPoint(x: 29, y: 0))
-            bezierPath.close()
-            UIColor.gray.setFill()
-            bezierPath.fill()
-            
-            context?.restoreGState()
-            
-        })
-    }
-    
-    fileprivate static func attributesImage() -> UIImage {
+    fileprivate static var attributes: UIImage {
         return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (_, _, _) in
             //// Color Declarations
             let color2 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
@@ -452,56 +179,52 @@ final class Images {
     }
     
     internal static var report: UIImage {
-        return Image.draw(width: 26, height: 22, attributes: nil) { _, rect, _ in
-            drawReportIcon(frame: rect)
+        return Image.draw(width: 26, height: 22, attributes: nil) { _, frame, _ in
+            //// Oval Drawing
+            let ovalPath = UIBezierPath(ovalIn: CGRect(x: frame.minX + 2.5, y: frame.minY + 3, width: 2, height: 2))
+            UIColor.gray.setFill()
+            ovalPath.fill()
+            UIColor.gray.setStroke()
+            ovalPath.lineWidth = 1
+            ovalPath.stroke()
+            
+            //// Oval 2 Drawing
+            let oval2Path = UIBezierPath()
+            oval2Path.move(to: CGPoint(x: frame.minX + 4.5, y: frame.minY + 11))
+            oval2Path.addCurve(to: CGPoint(x: frame.minX + 3.5, y: frame.minY + 12), controlPoint1: CGPoint(x: frame.minX + 4.5, y: frame.minY + 11.55), controlPoint2: CGPoint(x: frame.minX + 4.05, y: frame.minY + 12))
+            oval2Path.addCurve(to: CGPoint(x: frame.minX + 2.5, y: frame.minY + 11), controlPoint1: CGPoint(x: frame.minX + 2.95, y: frame.minY + 12), controlPoint2: CGPoint(x: frame.minX + 2.5, y: frame.minY + 11.55))
+            oval2Path.addCurve(to: CGPoint(x: frame.minX + 3.5, y: frame.minY + 10), controlPoint1: CGPoint(x: frame.minX + 2.5, y: frame.minY + 10.45), controlPoint2: CGPoint(x: frame.minX + 2.95, y: frame.minY + 10))
+            oval2Path.addCurve(to: CGPoint(x: frame.minX + 4.5, y: frame.minY + 11), controlPoint1: CGPoint(x: frame.minX + 4.05, y: frame.minY + 10), controlPoint2: CGPoint(x: frame.minX + 4.5, y: frame.minY + 10.45))
+            oval2Path.close()
+            UIColor.gray.setFill()
+            oval2Path.fill()
+            UIColor.gray.setStroke()
+            oval2Path.lineWidth = 1
+            oval2Path.stroke()
+            
+            //// Oval 3 Drawing
+            let oval3Path = UIBezierPath(ovalIn: CGRect(x: frame.minX + 2.5, y: frame.minY + 17, width: 2, height: 2))
+            UIColor.gray.setFill()
+            oval3Path.fill()
+            UIColor.gray.setStroke()
+            oval3Path.lineWidth = 1
+            oval3Path.stroke()
+            
+            //// Rectangle Drawing
+            let rectanglePath = UIBezierPath(roundedRect: CGRect(x: frame.minX + 7.5, y: frame.minY + 3, width: 15.5, height: 2), cornerRadius: 1)
+            UIColor.gray.setFill()
+            rectanglePath.fill()
+            
+            //// Rectangle 2 Drawing
+            let rectangle2Path = UIBezierPath(roundedRect: CGRect(x: frame.minX + 7.5, y: frame.minY + 10, width: 15.5, height: 2), cornerRadius: 1)
+            UIColor.gray.setFill()
+            rectangle2Path.fill()
+            
+            //// Rectangle 3 Drawing
+            let rectangle3Path = UIBezierPath(roundedRect: CGRect(x: frame.minX + 7.5, y: frame.minY + 17, width: 15.5, height: 2), cornerRadius: 1)
+            UIColor.gray.setFill()
+            rectangle3Path.fill()
         }.withRenderingMode(.alwaysTemplate)
-    }
-    
-    private static func drawReportIcon(frame: CGRect) {
-        //// Oval Drawing
-        let ovalPath = UIBezierPath(ovalIn: CGRect(x: frame.minX + 2.5, y: frame.minY + 3, width: 2, height: 2))
-        UIColor.gray.setFill()
-        ovalPath.fill()
-        UIColor.gray.setStroke()
-        ovalPath.lineWidth = 1
-        ovalPath.stroke()
-        
-        //// Oval 2 Drawing
-        let oval2Path = UIBezierPath()
-        oval2Path.move(to: CGPoint(x: frame.minX + 4.5, y: frame.minY + 11))
-        oval2Path.addCurve(to: CGPoint(x: frame.minX + 3.5, y: frame.minY + 12), controlPoint1: CGPoint(x: frame.minX + 4.5, y: frame.minY + 11.55), controlPoint2: CGPoint(x: frame.minX + 4.05, y: frame.minY + 12))
-        oval2Path.addCurve(to: CGPoint(x: frame.minX + 2.5, y: frame.minY + 11), controlPoint1: CGPoint(x: frame.minX + 2.95, y: frame.minY + 12), controlPoint2: CGPoint(x: frame.minX + 2.5, y: frame.minY + 11.55))
-        oval2Path.addCurve(to: CGPoint(x: frame.minX + 3.5, y: frame.minY + 10), controlPoint1: CGPoint(x: frame.minX + 2.5, y: frame.minY + 10.45), controlPoint2: CGPoint(x: frame.minX + 2.95, y: frame.minY + 10))
-        oval2Path.addCurve(to: CGPoint(x: frame.minX + 4.5, y: frame.minY + 11), controlPoint1: CGPoint(x: frame.minX + 4.05, y: frame.minY + 10), controlPoint2: CGPoint(x: frame.minX + 4.5, y: frame.minY + 10.45))
-        oval2Path.close()
-        UIColor.gray.setFill()
-        oval2Path.fill()
-        UIColor.gray.setStroke()
-        oval2Path.lineWidth = 1
-        oval2Path.stroke()
-        
-        //// Oval 3 Drawing
-        let oval3Path = UIBezierPath(ovalIn: CGRect(x: frame.minX + 2.5, y: frame.minY + 17, width: 2, height: 2))
-        UIColor.gray.setFill()
-        oval3Path.fill()
-        UIColor.gray.setStroke()
-        oval3Path.lineWidth = 1
-        oval3Path.stroke()
-        
-        //// Rectangle Drawing
-        let rectanglePath = UIBezierPath(roundedRect: CGRect(x: frame.minX + 7.5, y: frame.minY + 3, width: 15.5, height: 2), cornerRadius: 1)
-        UIColor.gray.setFill()
-        rectanglePath.fill()
-        
-        //// Rectangle 2 Drawing
-        let rectangle2Path = UIBezierPath(roundedRect: CGRect(x: frame.minX + 7.5, y: frame.minY + 10, width: 15.5, height: 2), cornerRadius: 1)
-        UIColor.gray.setFill()
-        rectangle2Path.fill()
-        
-        //// Rectangle 3 Drawing
-        let rectangle3Path = UIBezierPath(roundedRect: CGRect(x: frame.minX + 7.5, y: frame.minY + 17, width: 15.5, height: 2), cornerRadius: 1)
-        UIColor.gray.setFill()
-        rectangle3Path.fill()
     }
 
 }

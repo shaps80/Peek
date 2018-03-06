@@ -25,16 +25,16 @@ import Foundation
 /// Provides a data-source for representing properties in a Context -- used by InspectorViewController 
 internal final class ContextDataSource {
     
-    internal private(set) var sections: [Section]
+    internal private(set) var sections: [CollapsibleSection]
     
     internal init(coordinator: PeekCoordinator) {
         sections = Group.all.flatMap { group in
             guard let peekGroup = coordinator.groupsMapping[group] else { return nil }
 
             let items = peekGroup.attributes
-                .map { Item(title: $0.title, attribute: $0) }
+                .map { CollapsibleItem(title: $0.title, attribute: $0) }
         
-            return Section(group: peekGroup, items: items)
+            return CollapsibleSection(group: peekGroup, items: items)
         }
     }
     

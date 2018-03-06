@@ -60,7 +60,7 @@ internal class PeekSectionedViewController: UIViewController, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "InspectorHeader") as? SectionHeaderView else { fatalError() }
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "InspectorHeader") as? CollapsibleSectionHeaderView else { fatalError() }
         header.label.text = sectionTitle(for: section)
         header.label.font = UIFont.systemFont(ofSize: 15, weight: .black)
         header.label.textColor = .textLight
@@ -135,7 +135,7 @@ extension PeekSectionedViewController {
         
         tableView.register(InspectorCell.self, forCellReuseIdentifier: "InspectorCell")
         tableView.register(PreviewCell.self, forCellReuseIdentifier: "PreviewCell")
-        tableView.register(SectionHeaderView.self, forHeaderFooterViewReuseIdentifier: "InspectorHeader")
+        tableView.register(CollapsibleSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: "InspectorHeader")
         
         view.addSubview(tableView, constraints: [
             equal(\.leadingAnchor), equal(\.trailingAnchor),

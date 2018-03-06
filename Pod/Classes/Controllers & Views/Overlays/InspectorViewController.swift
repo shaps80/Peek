@@ -59,7 +59,7 @@ internal final class InspectorViewController: PeekSectionedViewController {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let header = super.tableView(tableView, viewForHeaderInSection: section) as? SectionHeaderView else { fatalError() }
+        guard let header = super.tableView(tableView, viewForHeaderInSection: section) as? CollapsibleSectionHeaderView else { fatalError() }
         header.prepareHeader(for: section, delegate: self)
         return header
     }
@@ -297,9 +297,9 @@ extension InspectorViewController: ReportViewControllerDelegate {
     
 }
 
-extension InspectorViewController: SectionHeaderViewDelegate {
+extension InspectorViewController: CollapsibleSectionHeaderViewDelegate {
     
-    func sectionHeader(_ view: SectionHeaderView, shouldToggleAt index: Int) {
+    func sectionHeader(_ view: CollapsibleSectionHeaderView, shouldToggleAt index: Int) {
         dataSource.toggleVisibility(forSection: index)
         let expanded = dataSource.sections[index].isExpanded
         

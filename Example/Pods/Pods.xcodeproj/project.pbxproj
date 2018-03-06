@@ -42,7 +42,7 @@
 		2DFBFEB3EC9C49AC3445D159A4A96CD9 /* UIBarButtonItem+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D056CEEB8CF0BA978FF5ED06796BA14 /* UIBarButtonItem+Peekable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		33645992FBD9C9742DD533E1DD424603 /* UIColor+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA481F27533B9138CC441BFCCB216B1 /* UIColor+Peekable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		346223BF44DC727698DD10A005358491 /* UIScrollView+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB02B05B09F5DAF661093D1315202DF /* UIScrollView+Peekable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		3643623A02E937DD52D3A80F96605915 /* Sections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDF333CF9CCA995E518ECDD1807A86D /* Sections.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		3643623A02E937DD52D3A80F96605915 /* CollapsibleSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDF333CF9CCA995E518ECDD1807A86D /* CollapsibleSections.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		38399FF653F8408E25C2AF77A9C527F6 /* POPPropertyAnimationInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F070A0224AAB252AE642032177553A8 /* POPPropertyAnimationInternal.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		38717D67CF9293624DAB9E84ECCA1283 /* UILabel+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1653568A393DE481BDCA92DDF5940F0 /* UILabel+Peekable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		39920495279993F15DD91AE89ABA66C7 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E66FDEF68D1F1D1B5C3D5F67AFC19AC /* CoreText.framework */; };
@@ -99,7 +99,6 @@
 		73C05FB1F019A08B05D76298F0CF476A /* POPBasicAnimation.mm in Sources */ = {isa = PBXBuildFile; fileRef = C90FF3391D29594BECEE0E9EC985CC7E /* POPBasicAnimation.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		7649C74B6729E02E3A12535FA483067D /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFD44FD29C6A80530EAC5E007C33A4F /* UIViewController+Extensions.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		76AE5B59CD458D4A3819DC5074363D42 /* PeekOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BC62BFED28BC396D86EC1E2ABD327D /* PeekOptions.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		7A2A27C7A9E994B6537796618D2D479B /* ReusableCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7349D39E7A2ECD1D884F8B9FC50D70 /* ReusableCells.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		7B8AC72A37966E741454870F23ADF784 /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052A0A6E7AFE1A9BD3303DC4A2EAC171 /* GridLayout.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		7D4E929A6FF012D50F4A4A37F246FE14 /* POPAnimationEvent.mm in Sources */ = {isa = PBXBuildFile; fileRef = D812AFF8FBB14694B806EE132DE9B8DA /* POPAnimationEvent.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		817F654A1B42D9CD1F7A8B31FAA14E4F /* OpenSans.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6B9C650FAD8ECE192A2477983647628E /* OpenSans.bundle */; };
@@ -169,7 +168,6 @@
 		C2CB42D76C39DD9C3ACB3D08A53B5462 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B096AF69153591496080611FB5DF9C1 /* Grid.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		C3BFF41623B9D15C86F6F9E642A9C7FC /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEB07A8B0380BCAF5C4347A75DAE14 /* Group.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		C51227D508AD2ACABA87E7D9F90F3791 /* UIViewController+Modal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F27C5D937F379C6266B1242B9F75EEF /* UIViewController+Modal.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		C72A821AF31BD07D169C7BEC81D434F4 /* TransitionAnimators.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFEE92FAF670E1EE7461243BE02CB12 /* TransitionAnimators.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		C75DF6180EF74B6EFBC2C81C66E7D8AB /* SPXMasking-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D4432803876EB95313CA0BF5BEA60A30 /* SPXMasking-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C9091B7905D04C4FEAAAE9F3F6C96C09 /* PeekTapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D67A49502C0A617ED9C05C265D650EA /* PeekTapGestureRecognizer.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		C94BC698FCF25FD2ECC66E8303C38170 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 930ABF553B30207C1FEC70F24CEF16D7 /* OpenSans-ExtraBold.ttf */; };
@@ -454,7 +452,7 @@
 		9D09E2F7C1BED26BAB3AF39C72F3F8CC /* Borders.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Borders.swift; path = Pod/Classes/Borders.swift; sourceTree = "<group>"; };
 		9F42D1632D657AC4BDF0D1A283B4BE56 /* UIScreen+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIScreen+Peekable.swift"; sourceTree = "<group>"; };
 		9FC54FA6DDDC1F075CB5E86088A276BF /* SwiftLayout.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SwiftLayout.modulemap; sourceTree = "<group>"; };
-		9FDF333CF9CCA995E518ECDD1807A86D /* Sections.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Sections.swift; sourceTree = "<group>"; };
+		9FDF333CF9CCA995E518ECDD1807A86D /* CollapsibleSections.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CollapsibleSections.swift; sourceTree = "<group>"; };
 		A0A2F47D226E9DAFD7340B7807B71101 /* TransformationMatrix.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TransformationMatrix.h; path = pop/WebCore/TransformationMatrix.h; sourceTree = "<group>"; };
 		A148EC0CE5D0F2A50C6A1248A0D7ED2D /* Images+Inspectors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Images+Inspectors.swift"; sourceTree = "<group>"; };
 		A1EFA95F61920768B6FE84693A6E849B /* Pods_Peek_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Peek_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -505,7 +503,6 @@
 		CA4C785261BCA6E9D1E18254606397A7 /* OpenSans-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OpenSans-umbrella.h"; sourceTree = "<group>"; };
 		CC8399B90B9319FD3D5BA5A463313DA5 /* UISwitch+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UISwitch+Peekable.swift"; sourceTree = "<group>"; };
 		CD3BDC599EF9FBA8E025E1152291E4DD /* SingleView+Size.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "SingleView+Size.swift"; path = "Pod/Classes/SingleView+Size.swift"; sourceTree = "<group>"; };
-		CD7349D39E7A2ECD1D884F8B9FC50D70 /* ReusableCells.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReusableCells.swift; path = Pod/Classes/ReusableCells.swift; sourceTree = "<group>"; };
 		CDA022E3330CEC325847C80F990A48DA /* UISegmentedControl+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+Peekable.swift"; sourceTree = "<group>"; };
 		D0623F30EB0B018767B4E46C047E6283 /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "OpenSans-SemiboldItalic.ttf"; path = "Fonts/OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
 		D0D6AF06CE18A4E477AAA7ABA4855F40 /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "OpenSans-ExtraBoldItalic.ttf"; path = "Fonts/OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
@@ -535,7 +532,6 @@
 		E9EAD1DB27855D93EA9671482B07250B /* SPXMasking-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SPXMasking-dummy.m"; sourceTree = "<group>"; };
 		EA6CF274BE7E49E3C34D1EFB8EA4DC4A /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "Fonts/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		EA924809BE122F8B5421349FC1E1DEA1 /* SwiftLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EAFEE92FAF670E1EE7461243BE02CB12 /* TransitionAnimators.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TransitionAnimators.swift; sourceTree = "<group>"; };
 		EC08DBDF9EBD0172C62B4CEFEC68CE23 /* ContextDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ContextDataSource.swift; sourceTree = "<group>"; };
 		EC60AED49A5800626C95A1C6B0990B53 /* POPSpringSolver.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPSpringSolver.h; path = pop/POPSpringSolver.h; sourceTree = "<group>"; };
 		EF2536BBA56FD0715D0EFDC870C304E1 /* Color+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
@@ -699,7 +695,6 @@
 				A31E4B2BA992662552621800FDBB11DC /* Constraints.swift */,
 				7DBCDE4197DDA4D876FA87424093AA6A /* Peek.swift */,
 				25BC62BFED28BC396D86EC1E2ABD327D /* PeekOptions.swift */,
-				CD7349D39E7A2ECD1D884F8B9FC50D70 /* ReusableCells.swift */,
 				F5B981D0A5AD3766ACD589C40A55F5A6 /* Accessory Views */,
 				4B80365E347B7BA63F12E3E1DE6F8F62 /* Controllers & Views */,
 				4786CC58F583A0062A157910E8B46028 /* Extensions */,
@@ -833,7 +828,6 @@
 		4B80365E347B7BA63F12E3E1DE6F8F62 /* Controllers & Views */ = {
 			isa = PBXGroup;
 			children = (
-				EAFEE92FAF670E1EE7461243BE02CB12 /* TransitionAnimators.swift */,
 				2842B8A46D3324252DCEAC9F2C837664 /* VolumeController.swift */,
 				5B09A573EA73E5DB5DE8EE7B789D05C4 /* Inspectors */,
 				ACC489027F337F6F6AFB291CB5AC1955 /* Overlays */,
@@ -1102,7 +1096,7 @@
 				2F0D002592EC39C2072514A72588E875 /* OverlayView.swift */,
 				67E8D5890D86BC3A9328F1E53236BF16 /* PeekSectionedViewController.swift */,
 				789548AF1D48F9F79CD54D2DBE04097C /* PeekViewController.swift */,
-				9FDF333CF9CCA995E518ECDD1807A86D /* Sections.swift */,
+				9FDF333CF9CCA995E518ECDD1807A86D /* CollapsibleSections.swift */,
 				5F27C5D937F379C6266B1242B9F75EEF /* UIViewController+Modal.swift */,
 			);
 			path = Overlays;
@@ -1670,10 +1664,8 @@
 				CBBD3894E43BA109A57D1C838FF34D52 /* PeekViewController.swift in Sources */,
 				EE37643E5B6061E9FFE9E5FB6396A5B3 /* PreviewCell.swift in Sources */,
 				95E3F212A6AE411D5AAA6D7CA7A03FDB /* ReportViewController.swift in Sources */,
-				7A2A27C7A9E994B6537796618D2D479B /* ReusableCells.swift in Sources */,
-				3643623A02E937DD52D3A80F96605915 /* Sections.swift in Sources */,
+				3643623A02E937DD52D3A80F96605915 /* CollapsibleSections.swift in Sources */,
 				9A4422F2E2A80707B82B976D46E7A05B /* String+Extensions.swift in Sources */,
-				C72A821AF31BD07D169C7BEC81D434F4 /* TransitionAnimators.swift in Sources */,
 				7084798D8198328011E78BB88E318156 /* UIActivityIndicatorView+Peekable.swift in Sources */,
 				5427DE8A204ECD1E0084BE5C /* ReportActivity.swift in Sources */,
 				88464A3C9B30556F93C6FCAF60DBA092 /* UIApplication+Peekable.swift in Sources */,

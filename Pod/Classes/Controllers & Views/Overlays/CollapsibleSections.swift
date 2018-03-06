@@ -9,33 +9,33 @@ import Foundation
 import InkKit
 import GraphicsRenderer
 
-internal struct Section {
+internal struct CollapsibleSection {
     internal let group: PeekGroup
-    internal let items: [Item]
+    internal let items: [CollapsibleItem]
     
     internal var isExpanded: Bool {
         get { return UserDefaults.standard.bool(forKey: group.title) }
         set { UserDefaults.standard.set(newValue, forKey: group.title) }
     }
     
-    internal init(group: PeekGroup, items: [Item]) {
+    internal init(group: PeekGroup, items: [CollapsibleItem]) {
         self.group = group
         self.items = items
     }
 }
 
-internal struct Item {
+internal struct CollapsibleItem {
     internal let title: String
     internal let attribute: Attribute
 }
 
-internal protocol SectionHeaderViewDelegate: class {
-    func sectionHeader(_ view: SectionHeaderView, shouldToggleAt index: Int)
+internal protocol CollapsibleSectionHeaderViewDelegate: class {
+    func sectionHeader(_ view: CollapsibleSectionHeaderView, shouldToggleAt index: Int)
 }
 
-internal final class SectionHeaderView: UITableViewHeaderFooterView {
+internal final class CollapsibleSectionHeaderView: UITableViewHeaderFooterView {
     
-    internal weak var delegate: SectionHeaderViewDelegate? {
+    internal weak var delegate: CollapsibleSectionHeaderViewDelegate? {
         didSet {
             imageView.isHidden = delegate == nil
             gesture.isEnabled = delegate != nil
@@ -106,7 +106,7 @@ internal final class SectionHeaderView: UITableViewHeaderFooterView {
         })
     }
     
-    func prepareHeader(for section: Int, delegate: SectionHeaderViewDelegate) {
+    func prepareHeader(for section: Int, delegate: CollapsibleSectionHeaderViewDelegate) {
         tag = section
         self.delegate = delegate
     }

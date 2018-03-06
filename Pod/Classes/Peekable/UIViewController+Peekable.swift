@@ -25,6 +25,9 @@ import UIKit
 extension UIViewController {
     
     public override func preparePeek(with coordinator: Coordinator) {
+        let orientations = Images.orientationMaskImage(supportedInterfaceOrientations)
+        coordinator.appendPreview(image: orientations, forModel: self)
+        
         coordinator.appendTransformed(keyPaths: ["modalTransitionStyle"], valueTransformer: { value in
             guard let rawValue = value as? Int, let style = UIModalTransitionStyle(rawValue: rawValue) else { return nil }
             return style.description
