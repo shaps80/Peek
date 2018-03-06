@@ -63,7 +63,7 @@ final class Images {
         }
     }
     
-    fileprivate static var attributes: UIImage {
+    internal static var attributes: UIImage {
         return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (_, _, _) in
             //// Color Declarations
             let color2 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)

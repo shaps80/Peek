@@ -64,6 +64,29 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
         return gesture
     }()
     
+    private let buttonSize: CGFloat = 80
+    
+    lazy var attributesButton: UIButton = {
+        let button = UIButton(type: .system)
+        let rect = CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize)
+        let path = UIBezierPath(roundedRect: rect, cornerRadius: buttonSize / 2)
+        
+        button.tintColor = .textDark
+        button.backgroundColor = .primaryTint
+        button.layer.cornerRadius = rect.size.width / 2
+        
+        button.layer.shadowPath = path.cgPath
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = CGSize(width: 0, height: 2)
+        button.layer.shadowRadius = 15
+        button.layer.shadowOpacity = 0.2
+        
+        button.setImage(Images.attributes, for: .normal)
+        button.addTarget(self, action: #selector(showInspectors), for: .touchUpInside)
+        
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -77,6 +100,28 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
         overlayView.addGestureRecognizer(tapGesture)
         overlayView.addGestureRecognizer(doubleTapGesture)
         tapGesture.require(toFail: doubleTapGesture)
+        
+        view.addSubview(attributesButton, constraints: [
+            equal(\.centerXAnchor),
+            sized(\.widthAnchor, constant: buttonSize),
+            sized(\.heightAnchor, constant: buttonSize)
+        ])
+        
+        bottomLayoutGuide.topAnchor.constraint(equalTo: attributesButton.bottomAnchor, constant: 20).isActive = true
+        setAttributesButton(hidden: true, animated: false)
+    }
+    
+    private func setAttributesButton(hidden: Bool, animated: Bool) {
+        guard animated else {
+            attributesButton.transform = hidden ? CGAffineTransform(translationX: 0, y: (buttonSize * 2)) : .identity
+            attributesButton.alpha = hidden ? 0 : 1
+            return
+        }
+        
+        UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .beginFromCurrentState, animations: {
+            self.attributesButton.transform = hidden ? CGAffineTransform(translationX: 0, y: (self.buttonSize * 2)) : .identity
+            self.attributesButton.alpha = hidden ? 0 : 1
+        }, completion: nil)
     }
     
     fileprivate func addModelForView(_ view: UIView) {
@@ -136,6 +181,12 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
         view.layer.add(animation, forKey: "fade")
     }
     
+    @objc private func showInspectors() {
+        if let model = overlayView.selectedModels?.last {
+            presentInspectorsForModel(model)
+        }
+    }
+    
     fileprivate func presentInspectorsForModel(_ model: Model) {
         let rect = peek.peekingWindow.bounds
 
@@ -168,6 +219,9 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
                 }
             } else {
                 updateSelectedModels(gesture)
+                
+                let hidden = overlayView.selectedModels?.count == 0
+                setAttributesButton(hidden: hidden, animated: true)
             }
         }
     }
@@ -177,13 +231,16 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
         case .began:
             updateBackgroundColor(alpha: 0.3)
             isDragging = true
+            setAttributesButton(hidden: true, animated: true)
             break
         case .changed:
             updateSelectedModels(gesture)
             break
         default:
-            updateBackgroundColor(alpha: 0.5)
             isDragging = false
+            updateBackgroundColor(alpha: 0.5)
+            let hidden = overlayView.selectedModels?.count == 0
+            setAttributesButton(hidden: hidden, animated: true)
         }
     }
     
