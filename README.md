@@ -7,9 +7,7 @@
 
 # Peek: All new design
 
-In April 2016 I released the 2nd release of Peek for iOS. The subsequent 3.0 release was simply a Swift compatibility update, followed by Swift 4 support in Peek 4.0. ​
-
-​Today I’m excited to release Peek 4.1 with an all new design and some pretty exciting features. 
+Peek 4.1 with an all new design and all new features. 
 
 ## Unified Inspectors
 All inspectors and attributes have now been unified into a single window, making inspection simpler and faster than ever before.
