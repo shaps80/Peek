@@ -11,7 +11,7 @@ import GraphicsRenderer
 
 internal final class InspectorViewController: PeekSectionedViewController {
     
-    private let model: Model
+    private let model: Model & Peekable
     private let coordinator: PeekCoordinator
     private let dataSource: ContextDataSource
     private var reportingIndexPaths: [IndexPath: Report.Item] = [:]
@@ -245,7 +245,7 @@ extension InspectorViewController {
             return Report.Section(title: title, items: items)
         }
         
-        let report = Report(sections: sections)
+        let report = Report(title: model.titleForPeekReport(), sections: sections)
         let controller = ReportViewController(peek: peek, report: report)
         
         controller.delegate = self

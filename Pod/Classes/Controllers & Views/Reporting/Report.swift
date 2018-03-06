@@ -14,9 +14,12 @@ import Foundation
 internal struct Report: Encodable {
     
     internal let sections: [Section]
+    internal let title: String
     
-    internal init(sections: [Section]) {
+    internal init(title: String, sections: [Section]) {
         self.sections = sections
+        self.title = title
+        
         UserDefaults.standard.register(defaults: [
             "includeScreenshot": true,
             "includeJSON": true,
@@ -44,11 +47,14 @@ internal struct Report: Encodable {
         <html><head><style>
             table { width: 100%; font-size: 14; }
             tr { vertical-align: top; }
-            tr td:first-child { width: 1%; white-space: nowrap; font-weight: bold; }
-            tr td:last-child { text-align: right; }
+            tr td:first-child { width: 50%; white-space: wrap; font-weight: bold; }
+            tr td:last-child { width: 50%; text-align: right; white-space: wrap; }
             td { padding: 5pt; background-color: #F4F4F4; }
         </style></head>
-        <body><table>_REPORT_</table></body></html>
+        <body>
+            <p><strong>_TITLE_</strong></p>
+            <table>_REPORT_</table>
+        </body></html>
         """
         var report = ""
         
@@ -63,7 +69,49 @@ internal struct Report: Encodable {
             }
         }
         
-        return html.replacingOccurrences(of: "_REPORT_", with: report)
+        return html
+            .replacingOccurrences(of: "_TITLE_", with: title)
+            .replacingOccurrences(of: "_REPORT_", with: report)
+    }
+    
+    internal var markdown: String {
+        var text = "**\(title)**\n```\n"
+        
+        for section in sections {
+            text += """
+            | \(section.title) | Suggested Value |
+            | ------------- | -------------:|
+            
+            """
+            
+            for item in section.items {
+                text += "| \(item.displayTitle) | \(item.reportersNote) |\n"
+            }
+            
+            text += "\n"
+        }
+        
+        return text + "```"
+    }
+    
+    internal var plainText: String {
+        var text = "\(title)\n\n"
+        
+        for section in sections {
+            text += """
+            \(section.title)
+            ---
+            
+            """
+            
+            for item in section.items {
+                text += "\(item.displayTitle): \(item.reportersNote)\n"
+            }
+            
+            text += "\n"
+        }
+        
+        return text
     }
     
 }

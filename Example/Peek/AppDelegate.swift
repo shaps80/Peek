@@ -40,10 +40,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             ]
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-            self?.window?.peek.present()
-        }
-        
         return true
     }
     

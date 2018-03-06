@@ -67,7 +67,7 @@ internal final class ReportViewController: PeekSectionedViewController {
             let jsonUrl = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent("report.json")
             try jsonData.write(to: jsonUrl, options: [.atomicWrite])
             
-            var items: [Any?] = [ report.html ]
+            var items: [Any?] = [ ReportActivity(report: report) ]
             
             if report.includeJSON {
                 items.append(jsonData)

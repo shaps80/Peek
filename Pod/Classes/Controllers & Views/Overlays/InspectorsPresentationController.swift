@@ -311,7 +311,6 @@ internal final class InspectorsPresentationController: UIPresentationController,
                 toView?.alpha = 0
             } else {
                 toView?.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
-                    //CGAffineTransform(translationX: 0, y: toView?.bounds.maxY ?? containerView.bounds.maxY).concatenating(CGAffineTransform(scaleX: 0.8, y: 0.8))
                 toView?.alpha = 0
             }
         }
@@ -327,7 +326,6 @@ internal final class InspectorsPresentationController: UIPresentationController,
                     fromView?.alpha = 0
                 } else {
                     fromView?.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
-                        // CGAffineTransform(translationX: 0, y: fromView?.bounds.maxY ?? containerView.bounds.maxY).concatenating(CGAffineTransform(scaleX: 0.8, y: 0.8))
                     fromView?.alpha = 0
                 }
             }

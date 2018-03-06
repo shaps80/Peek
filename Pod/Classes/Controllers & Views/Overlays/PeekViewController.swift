@@ -146,8 +146,8 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
         UserDefaults.standard.register(defaults: defaults)
         
         peek.screenshot = UIImage.draw(width: rect.width, height: rect.height, scale: 1 / UIScreen.main.scale, attributes: nil, drawing: { [unowned self] (_, rect, _) in
-            self.peek.peekingWindow.drawHierarchy(in: rect, afterScreenUpdates: false)
-            self.peek.window?.drawHierarchy(in: rect, afterScreenUpdates: false)
+            self.peek.peekingWindow.drawHierarchy(in: rect, afterScreenUpdates: true)
+            self.peek.window?.drawHierarchy(in: rect, afterScreenUpdates: true)
         })
         
         if let model = model as? UIView {

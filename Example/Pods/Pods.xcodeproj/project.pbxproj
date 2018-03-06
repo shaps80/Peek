@@ -70,6 +70,7 @@
 		50C617CDFF67400DC3E86293C75B6F31 /* Borders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D09E2F7C1BED26BAB3AF39C72F3F8CC /* Borders.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		519EDCB799E9BD1BC20FB3853BE55076 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D25B9D52D99689A2593E3A574CBF9C5B /* Foundation.framework */; };
 		53F47C3874EF5A51223FEAD82F09A128 /* PeekSectionedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E8D5890D86BC3A9328F1E53236BF16 /* PeekSectionedViewController.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		5427DE8A204ECD1E0084BE5C /* ReportActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5427DE89204ECD1E0084BE5C /* ReportActivity.swift */; };
 		545F76935BEF059D50A42F2927D862DC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D25B9D52D99689A2593E3A574CBF9C5B /* Foundation.framework */; };
 		54D9F2DB2044BDE40018315E /* Bundle+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D9F2DA2044BDE40018315E /* Bundle+Peekable.swift */; };
 		55FE7659E14E3A8996F1A168B7EEAAC4 /* BezierPath+Corners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D580DB8994C709B23566AD051484BA /* BezierPath+Corners.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -376,6 +377,7 @@
 		520BE31D2F91DA08A9CAE0373F9D8843 /* POPSpringAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPSpringAnimation.h; path = pop/POPSpringAnimation.h; sourceTree = "<group>"; };
 		526A863DC439DEE8F79A8303CA22E32C /* POPBasicAnimationInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPBasicAnimationInternal.h; path = pop/POPBasicAnimationInternal.h; sourceTree = "<group>"; };
 		5327D5C7726E4BB872894822C48AAB66 /* SingleView+Pin.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "SingleView+Pin.swift"; path = "Pod/Classes/SingleView+Pin.swift"; sourceTree = "<group>"; };
+		5427DE89204ECD1E0084BE5C /* ReportActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportActivity.swift; sourceTree = "<group>"; };
 		54D9F2DA2044BDE40018315E /* Bundle+Peekable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Peekable.swift"; sourceTree = "<group>"; };
 		54DB45D582B632CD5B138A8BDA3917E4 /* CALayer+SPXMasking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CALayer+SPXMasking.h"; sourceTree = "<group>"; };
 		55E98564EC210465374BC148ECAFCF1C /* NSNumber+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "NSNumber+Extensions.swift"; sourceTree = "<group>"; };
@@ -1040,6 +1042,7 @@
 			children = (
 				8D26C12537CA4CF54DD7F984092EFD6F /* Report.swift */,
 				13A1B8E9AAECF9A1C6601C61E17AD770 /* ReportViewController.swift */,
+				5427DE89204ECD1E0084BE5C /* ReportActivity.swift */,
 			);
 			path = Reporting;
 			sourceTree = "<group>";
@@ -1672,6 +1675,7 @@
 				9A4422F2E2A80707B82B976D46E7A05B /* String+Extensions.swift in Sources */,
 				C72A821AF31BD07D169C7BEC81D434F4 /* TransitionAnimators.swift in Sources */,
 				7084798D8198328011E78BB88E318156 /* UIActivityIndicatorView+Peekable.swift in Sources */,
+				5427DE8A204ECD1E0084BE5C /* ReportActivity.swift in Sources */,
 				88464A3C9B30556F93C6FCAF60DBA092 /* UIApplication+Peekable.swift in Sources */,
 				2DFBFEB3EC9C49AC3445D159A4A96CD9 /* UIBarButtonItem+Peekable.swift in Sources */,
 				7083F60EEE5E3CC2F554726308E86E05 /* UIButton+Peekable.swift in Sources */,
