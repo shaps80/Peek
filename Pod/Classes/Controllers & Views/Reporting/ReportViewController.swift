@@ -62,25 +62,24 @@ internal final class ReportViewController: PeekSectionedViewController {
     
     @objc private func sendReport(_ sender: UIBarButtonItem) {
         do {
-            let encoder = JSONEncoder()
-            let jsonData = try encoder.encode(report)
-            let json = try JSONSerialization.jsonObject(with: jsonData, options: [])
-            
-            let jsonUrl = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent("report.json")
-            try jsonData.write(to: jsonUrl, options: [.atomicWrite])
-            
             var items: [Any?] = [ ReportActivity(report: report) ]
             
             if report.includeJSON {
-                items.append(jsonData)
-                items.append(json)
+                let encoder = JSONEncoder()
+                let jsonData = try encoder.encode(report)
+                let json = try JSONSerialization.jsonObject(with: jsonData, options: [])
+                
+                let jsonUrl = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent("report.json")
+                try jsonData.write(to: jsonUrl, options: [.atomicWrite])
+                
                 items.append(jsonUrl)
             }
             
-            if let metadata = peek.options.metaData, report.includeJSON {
-                let data = try JSONSerialization.data(withJSONObject: metadata, options: .prettyPrinted)
+            if report.includeMetadata {
+                let data = try JSONSerialization.data(withJSONObject: peek.options.metadata, options: .prettyPrinted)
                 let url = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent("metadata.json")
                 try data.write(to: url, options: [.atomicWrite])
+                
                 items.append(url)
             }
             

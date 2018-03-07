@@ -30,12 +30,12 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window?.peek.enableWithOptions { options in
             options.activationMode = .auto
-            options.shouldIgnoreContainers = true
-            
+            options.ignoresContainerViews = false
+                        
             /*
              Configure the metadata asscociated with this app.
              */
-            options.metaData = [
+            options.metadata = [
                 "Environment": "UAT"
             ]
         }

@@ -11,15 +11,15 @@ import GraphicsRenderer
 
 internal final class InspectorViewController: PeekSectionedViewController {
     
-    private lazy var reportLabel: UILabel = {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 120, height: 26))
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        label.textColor = .white
-        label.backgroundColor = .counter
-        label.layer.cornerRadius = label.bounds.height / 2
-        label.layer.masksToBounds = true
-        return label
+    private lazy var reportButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.frame = CGRect(x: 0, y: 0, width: 100, height: 24)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .counter
+        button.layer.cornerRadius = button.bounds.height / 2
+        button.layer.masksToBounds = true
+        return button
     }()
     
     private let model: Model & Peekable
@@ -28,7 +28,8 @@ internal final class InspectorViewController: PeekSectionedViewController {
     private var reportingIndexPaths: [IndexPath: Report.Item] = [:] {
         didSet {
             let count = reportingIndexPaths.count
-            reportLabel.text = "\(count) issue\(count == 1 ? "" : "s")"
+            let title = "\(count) issue\(count == 1 ? "" : "s")"
+            reportButton.setTitle(title, for: .normal)
         }
     }
     
@@ -228,7 +229,7 @@ extension InspectorViewController {
             }
             
             tableView.tintColor = .editingTint
-            navigationItem.titleView = reportLabel
+            navigationItem.titleView = reportButton
         } else {
             let size = CGSize(width: 22, height: 12)
             let disclosure = Images.disclosure(size: size, thickness: 2)

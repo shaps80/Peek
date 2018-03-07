@@ -90,7 +90,7 @@ extension UIView {
      */
     public override func shouldIgnore(options: PeekOptions) -> Bool {
         let isContainer = isMember(of: UIView.self) && subviews.count > 0
-        if isContainer && options.shouldIgnoreContainers { return true }
+        if isContainer && options.ignoresContainerViews { return true }
         
         let isInvisible = isHidden || alpha == 0 || frame.equalTo(CGRect.zero)
         if isInvisible { return true }

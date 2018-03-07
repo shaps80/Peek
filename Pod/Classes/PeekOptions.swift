@@ -38,33 +38,40 @@ public enum PeekActivationMode {
 /// Defines various options to use when enabling Peek
 public final class PeekOptions: NSObject {
     
-    /// Defines how Peek is activated/de-activated. Default to auto
+    /// Defines how Peek is activated/de-activated. Defaults to auto
     public var activationMode: PeekActivationMode = .auto
     
-    /// Defines whether Peek should ignore pure containers (i.e. UIView's (NOT subclassed) where subviews.count > 0)
-    public var shouldIgnoreContainers = true
+    /// Defines whether views that behave as containers should be ignored (i.e. UIView's (NOT subclassed) where subviews.count > 0). Defaults to false
+    public var ignoresContainerViews = false
     
     /// You can provide meta data that will be attached to every report. This is useful for passing additional info about the app, e.g. Environment, etc...
-    public var metaData: [String: String]?
+    public var metadata: [String: String] = [:]
     
-    // Obsoletions
+    // MARK: Obsoletions
+    
+    @available(*, obsoleted: 4.0.1, renamed: "ignoresContainerViews")
+    public var shouldIgnoreContainers: Bool {
+        get { return ignoresContainerViews }
+        set { ignoresContainerViews = newValue }
+    }
+    
     @available(*, obsoleted: 4.0.1)
     public var includeScreenshot = true
-    @available(*, obsoleted: 4.0.1)
+    @available(*, obsoleted: 4.0.1, message: "Defaults to UIScreen.main.scale")
     public var screenshotScale = UIScreen.main.scale
-    @available(*, obsoleted: 4.0.1)
+    @available(*, obsoleted: 4.0.1, message: "Peek now uses the built in UIActivityViewController")
     public var slackUserName = "Peek"
-    @available(*, obsoleted: 4.0.1)
+    @available(*, obsoleted: 4.0.1, message: "Peek now uses the built in UIActivityViewController")
     public var slackRecipient: String?
-    @available(*, obsoleted: 4.0.1)
+    @available(*, obsoleted: 4.0.1, message: "Peek now uses the built in UIActivityViewController")
     public var slackWebHookURL: URL?
-    @available(*, obsoleted: 4.0.1)
+    @available(*, obsoleted: 4.0.1, message: "Peek now uses the built in UIActivityViewController")
     public var emailRecipients: [String]?
-    @available(*, obsoleted: 4.0.1)
+    @available(*, obsoleted: 4.0.1, message: "Peek now uses the built in UIActivityViewController")
     public var emailSubject: String?
-    @available(*, obsoleted: 4.0.1)
+    @available(*, obsoleted: 4.0.1, message: "Peek now uses the built in UIActivityViewController")
     public var slackImageUploader: ((URLSession, UIImage) -> URL?)?
-    @available(*, obsoleted: 4.0.1, renamed: "metaData")
+    @available(*, obsoleted: 4.0.1, renamed: "metadata")
     public var reportMetaData: [String: String]?
     
 }
