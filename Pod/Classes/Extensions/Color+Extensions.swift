@@ -77,7 +77,6 @@ extension UIColor {
     
     internal static var secondaryTint: UIColor {
         return primaryColor()
-//        return UIColor.colorWithRed(red: 255, green: 41, blue: 105, alpha: 1)
     }
     
     @available(*, deprecated)
