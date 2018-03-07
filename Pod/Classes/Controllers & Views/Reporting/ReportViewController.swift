@@ -33,6 +33,10 @@ internal final class ReportViewController: PeekSectionedViewController {
         
         title = "Report"
         
+        includeJSONSwitch.onTintColor = .editingTint
+        includeMetadataSwitch.onTintColor = .editingTint
+        includeScreenshotSwitch.onTintColor = .editingTint
+        
         includeScreenshotSwitch.addTarget(self, action: #selector(toggleScreenshot(_:)), for: .valueChanged)
         includeJSONSwitch.addTarget(self, action: #selector(toggleJSON(_:)), for: .valueChanged)
         includeMetadataSwitch.addTarget(self, action: #selector(toggleMetadata(_:)), for: .valueChanged)
