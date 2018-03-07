@@ -23,30 +23,6 @@
 import UIKit
 import SwiftLayout
 
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-private func < <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
-    switch (lhs, rhs) {
-    case let (l?, r?):
-        return l < r
-    case (nil, _?):
-        return true
-    default:
-        return false
-    }
-}
-
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-private func > <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
-    switch (lhs, rhs) {
-    case let (l?, r?):
-        return l > r
-    default:
-        return rhs < lhs
-    }
-}
-
 enum OverlayMode {
     case single
     case multiple
@@ -56,19 +32,13 @@ enum OverlayMode {
 class OverlayView: UIView {
     
     fileprivate weak var peek: Peek!
-    var isDragging = false {
-        didSet {
-            UIView.animate(withDuration: 0.3, animations: {
-                self.superviewHighlightView.alpha = self.isDragging ? 0 : 1
-            }) 
-        }
-    }
+    internal var isDragging = false
     
     var selectedModels: [UIView] = [] {
         didSet { reload() }
     }
     
-    fileprivate lazy var superviewHighlightView: UIView = {
+    fileprivate lazy var boundingView: UIView = {
         let view = UIView()
         
         view.layer.cornerRadius = 2
@@ -80,11 +50,11 @@ class OverlayView: UIView {
     }()
     
     fileprivate(set) lazy var primaryView: HighlightView = {
-        HighlightView(color: UIColor.primaryColor())
+        HighlightView(color: .primaryTint)
     }()
     
     fileprivate lazy var secondaryView: HighlightView = {
-        let view = HighlightView(color: UIColor.secondaryColor())
+        let view = HighlightView(color: .neutral)
         view.layer.zPosition = -1
         return view
     }()
@@ -92,12 +62,12 @@ class OverlayView: UIView {
     func reload() {
         if let model = selectedModels.last {
             updateHighlightView(highlightView: primaryView, withModel: model)
+        } else {
+            secondaryView.removeFromSuperview()
         }
         
         if let model = selectedModels.first, selectedModels.count > 1 {
             updateHighlightView(highlightView: secondaryView, withModel: model)
-        } else {
-            secondaryView.removeFromSuperview()
         }
     }
     
@@ -108,30 +78,33 @@ class OverlayView: UIView {
         
         let viewFrame = model.frameInPeek(self)
         let superviewFrame = superview.frameInPeek(self)
+        let initialFrame = selectedModels.first?.frameInPeek(self) ?? superviewFrame
+        
+        let boundingRect = selectedModels.count == 1
+            ? superviewFrame
+            : selectedModels.reduce(initialFrame) { $0.union($1.frameInPeek(self)) }
         
         if view.superview == nil {
             view.frame = viewFrame
-            superviewHighlightView.frame = superviewFrame
-            superviewHighlightView.alpha = 0
+            boundingView.frame = boundingRect
             
-            if view != secondaryView {
+            if view == primaryView {
                 view.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
             }
             
             addHighlightView(view)
         }
         
-        UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 1.1, options: .beginFromCurrentState, animations: { () -> Void in
-            self.superviewHighlightView.alpha = self.isDragging ? 0 : 1
-            view.transform = CGAffineTransform.identity
+        UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 1.1, options: .beginFromCurrentState, animations: {
+            view.transform = .identity
             view.frame = viewFrame
-            self.superviewHighlightView.frame = superviewFrame
-            view.setMetrics(Metrics(top: model.frame.origin.y, left: model.frame.origin.x, bottom: superview.bounds.maxY - model.frame.maxY, right: superview.bounds.maxX - model.frame.maxX))
+            self.boundingView.frame = boundingRect
+//            view.setMetrics(Metrics(top: model.frame.origin.y, left: model.frame.origin.x, bottom: superview.bounds.maxY - model.frame.maxY, right: superview.bounds.maxX - model.frame.maxX))
         }, completion: nil)
     }
     
     fileprivate func addHighlightView(_ view: HighlightView) {
-        addSubview(superviewHighlightView)
+        addSubview(boundingView)
         addSubview(view)
     }
     

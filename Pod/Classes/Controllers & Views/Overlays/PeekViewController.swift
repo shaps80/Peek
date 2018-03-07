@@ -39,9 +39,7 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     
     fileprivate var models = [UIView]()
     fileprivate var isDragging: Bool = false {
-        didSet {
-            self.overlayView.isDragging = isDragging
-        }
+        didSet { overlayView.isDragging = isDragging }
     }
     
     lazy var overlayView: OverlayView = {
@@ -131,7 +129,11 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
                 
                 if !models.contains(model) {
                     if isDragging {
-                        overlayView.selectedModels = [model]
+                        if let previous = models.last, overlayView.selectedModels.count > 1 {
+                            overlayView.selectedModels = [model, previous]
+                        } else {
+                            overlayView.selectedModels = [model]
+                        }
                     } else {
                         if let previous = models.last {
                             overlayView.selectedModels = [previous, model]
@@ -147,9 +149,11 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
                             haptic()?.impactOccurred()
                         }
                     }
+                } else {
+                    guard gesture == tapGesture else { return }
+                    overlayView.selectedModels.reverse()
                 }
                 
-                overlayView.selectedModels = [model]
                 break
             }
         }

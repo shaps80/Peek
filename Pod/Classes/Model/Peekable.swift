@@ -63,7 +63,7 @@ extension NSObject: Peekable {
         if let view = self as? UIView {
             return "\(String(describing: view.owningViewController()!.classForCoder)) > \(String(describing: classForCoder))"
         } else {
-            return "\(String(describing: self))"
+            return "\(String(describing: classForCoder))"
         }
     }
     

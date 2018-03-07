@@ -28,7 +28,7 @@ internal final class InspectorViewController: PeekSectionedViewController {
     private var reportingIndexPaths: [IndexPath: Report.Item] = [:] {
         didSet {
             let count = reportingIndexPaths.count
-            reportLabel.text = "\(count) attribute\(count == 1 ? "" : "s")"
+            reportLabel.text = "\(count) issue\(count == 1 ? "" : "s")"
         }
     }
     
@@ -415,6 +415,8 @@ extension InspectorViewController {
                         !value.isBool() {
                         field.keyboardType = .decimalPad
                     } else {
+                        field.spellCheckingType = .yes
+                        field.autocorrectionType = .yes
                         field.autocapitalizationType = .sentences
                     }
                     
