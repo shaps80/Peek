@@ -39,7 +39,6 @@ internal final class InspectorsTabController: UITabBarController {
         let inspector = InspectorViewController(peek: peek, model: model)
         let nav = UINavigationController(rootViewController: inspector)
         
-        inspector.title = "Peek"
         viewControllers = [nav]
     }
     

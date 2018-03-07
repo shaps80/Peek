@@ -205,18 +205,15 @@ final class Images {
             bezierPath.lineWidth = 1.5
             bezierPath.stroke()
             
-            
-            //// Rectangle Drawing
+                        //// Rectangle Drawing
             let rectanglePath = UIBezierPath(rect: CGRect(x: frame.minX + 7, y: frame.minY + 4, width: 10, height: 1.5))
             color4.setFill()
             rectanglePath.fill()
-            
             
             //// Rectangle 2 Drawing
             let rectangle2Path = UIBezierPath(rect: CGRect(x: frame.minX + 7, y: frame.minY + 7, width: 10, height: 1.5))
             color4.setFill()
             rectangle2Path.fill()
-            
             
             //// Rectangle 3 Drawing
             let rectangle3Path = UIBezierPath(rect: CGRect(x: frame.minX + 7, y: frame.minY + 10, width: 6, height: 1.5))

@@ -11,10 +11,26 @@ import GraphicsRenderer
 
 internal final class InspectorViewController: PeekSectionedViewController {
     
+    private lazy var reportLabel: UILabel = {
+        let label = UILabel()
+        label.text = "99 items"
+        label.sizeToFit()
+        label.text = ""
+        label.textColor = .white
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        return label
+    }()
+    
     private let model: Model & Peekable
     private let coordinator: PeekCoordinator
     private let dataSource: ContextDataSource
-    private var reportingIndexPaths: [IndexPath: Report.Item] = [:]
+    private var reportingIndexPaths: [IndexPath: Report.Item] = [:] {
+        didSet {
+            let count = reportingIndexPaths.count
+            reportLabel.text = "\(count) item\(count == 1 ? "" : "s")"
+        }
+    }
     
     private var feedbackGenerator: Any?
     
@@ -25,7 +41,6 @@ internal final class InspectorViewController: PeekSectionedViewController {
     
     internal init(peek: Peek, model: Model & Peekable) {
         self.model = model
-        
         self.coordinator = PeekCoordinator(model: model)
         model.preparePeek(with: coordinator)
         
@@ -37,8 +52,12 @@ internal final class InspectorViewController: PeekSectionedViewController {
     internal override func viewDidLoad() {
         super.viewDidLoad()
         
+        if title == nil {
+            title = "Peek"
+        }
+        
         if navigationController?.viewControllers.count == 1 {
-            navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
+            navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         }
         
         prepareNavigationItems(animated: false)
@@ -209,6 +228,7 @@ extension InspectorViewController {
             }
             
             tableView.tintColor = .editingTint
+            navigationItem.titleView = reportLabel
         } else {
             let size = CGSize(width: 22, height: 12)
             let disclosure = Images.disclosure(size: size, thickness: 2)
@@ -236,6 +256,7 @@ extension InspectorViewController {
             }
             
             tableView.tintColor = .primaryTint
+            navigationItem.titleView = nil
         }
     }
     
@@ -346,6 +367,7 @@ extension InspectorViewController {
         
         if !tableView.isEditing, let value = attribute.value as? Model & PeekableContainer {
             let controller = InspectorViewController(peek: peek, model: value)
+            controller.title = attribute.title
             navigationController?.pushViewController(controller, animated: true)
             
             return
@@ -366,18 +388,21 @@ extension InspectorViewController {
                     let item = Report.Item(model: self?.model, keyPath: attribute.keyPath, displayTitle: attribute.title, displayValue: cell?.detailTextLabel?.text ?? "", reportersNote: note)
                     self?.reportingIndexPaths[indexPath] = item
                     self?.invalidateSendButton()
+                    self?.indicateSection(for: indexPath)
                 }))
             } else if attribute.value == nil {
                 controller.addAction(UIAlertAction(title: "Missing Value", style: .destructive, handler: { [weak self] _ -> Void in
                     let item = Report.Item(model: self?.model, keyPath: attribute.keyPath, displayTitle: attribute.title, displayValue: cell?.detailTextLabel?.text ?? "", reportersNote: "Missing Value")
                     self?.reportingIndexPaths[indexPath] = item
                     self?.invalidateSendButton()
+                    self?.indicateSection(for: indexPath)
                 }))
             } else {
                 controller.addAction(UIAlertAction(title: "Wrong Value", style: .destructive, handler: { [weak self] _ -> Void in
                     let item = Report.Item(model: self?.model, keyPath: attribute.keyPath, displayTitle: attribute.title, displayValue: cell?.detailTextLabel?.text ?? "", reportersNote: "Wrong Value")
                     self?.reportingIndexPaths[indexPath] = item
                     self?.invalidateSendButton()
+                    self?.indicateSection(for: indexPath)
                 }))
             }
             
@@ -405,6 +430,7 @@ extension InspectorViewController {
                     let item = Report.Item(model: self?.model, keyPath: attribute.keyPath, displayTitle: attribute.title, displayValue: cell?.detailTextLabel?.text ?? "", reportersNote: note ?? "")
                     self?.reportingIndexPaths[indexPath] = item
                     self?.invalidateSendButton()
+                    self?.indicateSection(for: indexPath)
                 })
                 
                 self?.present(alert, animated: true, completion: nil)
@@ -431,6 +457,22 @@ extension InspectorViewController {
     
     private func invalidateSendButton() {
         navigationItem.rightBarButtonItem?.isEnabled = reportingIndexPaths.count > 0
+    }
+    
+    private func indicateSection(for indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath),
+            let render = cell.snapshotView(afterScreenUpdates: true) {
+            render.frame = cell.frameInPeek(view)
+            view.addSubview(render)
+            
+            UIView.animate(withDuration: 0.35, delay: 0, options: [.curveEaseOut, .allowUserInteraction], animations: {
+                render.transform = CGAffineTransform(translationX: 0, y: -render.frame.minY)
+                    .concatenating(CGAffineTransform(scaleX: 0.8, y: 0.8))
+                render.alpha = 0
+            }, completion: { _ in
+                render.removeFromSuperview()
+            })
+        }
     }
     
 }

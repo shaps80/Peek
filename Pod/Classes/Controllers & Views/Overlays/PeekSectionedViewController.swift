@@ -94,7 +94,8 @@ extension PeekSectionedViewController {
         navigationController?.navigationBar.backgroundColor = .inspectorBackground
         navigationController?.navigationBar.tintColor = .primaryTint
         navigationController?.navigationBar.titleTextAttributes = [
-            .foregroundColor: UIColor.clear,
+            .foregroundColor: UIColor.white,
+            .font: UIFont.systemFont(ofSize: 17, weight: .regular)
         ]
         
         if #available(iOS 11.0, *) {

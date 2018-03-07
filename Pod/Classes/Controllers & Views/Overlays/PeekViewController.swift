@@ -88,12 +88,12 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
             equal(\.centerXAnchor)
         ])
         
-        bottomLayoutGuide.topAnchor.constraint(equalTo: attributesButton.bottomAnchor, constant: 0).isActive = true
+        bottomLayoutGuide.bottomAnchor.constraint(equalTo: attributesButton.bottomAnchor, constant: 30).isActive = true
         setAttributesButton(hidden: true, animated: false)
     }
     
     private func setAttributesButton(hidden: Bool, animated: Bool) {
-        let transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        let transform = CGAffineTransform(translationX: 0, y: 100) // CGAffineTransform(scaleX: 0.5, y: 0.5)
         
         guard animated else {
             attributesButton.transform = hidden ? transform : .identity
@@ -141,7 +141,11 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
                     }
                     
                     if #available(iOS 10.0, *) {
-                        haptic()?.impactOccurred()
+                        if feedbackGenerator == nil {
+                            UIImpactFeedbackGenerator().impactOccurred()
+                        } else {
+                            haptic()?.impactOccurred()
+                        }
                     }
                 }
                 

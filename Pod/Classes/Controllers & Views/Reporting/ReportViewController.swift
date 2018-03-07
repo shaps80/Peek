@@ -49,8 +49,6 @@ internal final class ReportViewController: PeekSectionedViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Report"
-        
         navigationController?.navigationBar.backgroundColor = .editingTint
         navigationController?.navigationBar.tintColor = .white
         

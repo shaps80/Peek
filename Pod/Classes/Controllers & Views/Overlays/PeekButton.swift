@@ -35,7 +35,6 @@ internal final class PeekButton: UIControl {
         
         addGestureRecognizer(tapGesture)
         backgroundColor = .clear
-        layer.anchorPoint = CGPoint(x: 0.5, y: 1)
     }
     
     required init?(coder aDecoder: NSCoder) {

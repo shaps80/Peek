@@ -266,7 +266,7 @@ internal final class InspectorsPresentationController: UIPresentationController,
     
     //| ----------------------------------------------------------------------------
     @objc func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return transitionContext?.isAnimated ?? false ? 0.6 : 0
+        return transitionContext?.isAnimated ?? false ? 0.5 : 0
     }
     
     //| ----------------------------------------------------------------------------
@@ -310,14 +310,13 @@ internal final class InspectorsPresentationController: UIPresentationController,
             if presentedViewController.modalTransitionStyle == .crossDissolve {
                 toView?.alpha = 0
             } else {
-                toView?.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
-                toView?.alpha = 0
+                toView?.transform = CGAffineTransform(translationX: 0, y: toView?.bounds.maxY ?? containerView.bounds.maxY)
             }
         }
         
         let transitionDuration = self.transitionDuration(using: transitionContext)
         
-        UIView.animate(withDuration: transitionDuration, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 2, options: .beginFromCurrentState, animations: {
+        UIView.animate(withDuration: transitionDuration, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 2, options: .beginFromCurrentState, animations: {
             if isPresenting {
                 toView?.transform = .identity
                 toView?.alpha = 1
@@ -325,8 +324,7 @@ internal final class InspectorsPresentationController: UIPresentationController,
                 if self.presentedViewController.modalTransitionStyle == .crossDissolve {
                     fromView?.alpha = 0
                 } else {
-                    fromView?.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
-                    fromView?.alpha = 0
+                    fromView?.transform = CGAffineTransform(translationX: 0, y: fromView?.bounds.maxY ?? containerView.bounds.maxY)
                 }
             }
             
