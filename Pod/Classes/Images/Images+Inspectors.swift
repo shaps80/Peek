@@ -180,49 +180,47 @@ final class Images {
     
     internal static var report: UIImage {
         return Image.draw(width: 26, height: 22, attributes: nil) { _, frame, _ in
-            //// Oval Drawing
-            let ovalPath = UIBezierPath(ovalIn: CGRect(x: frame.minX + 2.5, y: frame.minY + 3, width: 2, height: 2))
-            UIColor.gray.setFill()
-            ovalPath.fill()
-            UIColor.gray.setStroke()
-            ovalPath.lineWidth = 1
-            ovalPath.stroke()
+            //// Color Declarations
+            let color3 = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
+            var color3HueComponent: CGFloat = 1
+            var color3SaturationComponent: CGFloat = 1
+            var color3BrightnessComponent: CGFloat = 1
+            color3.getHue(&color3HueComponent, saturation: &color3SaturationComponent, brightness: &color3BrightnessComponent, alpha: nil)
             
-            //// Oval 2 Drawing
-            let oval2Path = UIBezierPath()
-            oval2Path.move(to: CGPoint(x: frame.minX + 4.5, y: frame.minY + 11))
-            oval2Path.addCurve(to: CGPoint(x: frame.minX + 3.5, y: frame.minY + 12), controlPoint1: CGPoint(x: frame.minX + 4.5, y: frame.minY + 11.55), controlPoint2: CGPoint(x: frame.minX + 4.05, y: frame.minY + 12))
-            oval2Path.addCurve(to: CGPoint(x: frame.minX + 2.5, y: frame.minY + 11), controlPoint1: CGPoint(x: frame.minX + 2.95, y: frame.minY + 12), controlPoint2: CGPoint(x: frame.minX + 2.5, y: frame.minY + 11.55))
-            oval2Path.addCurve(to: CGPoint(x: frame.minX + 3.5, y: frame.minY + 10), controlPoint1: CGPoint(x: frame.minX + 2.5, y: frame.minY + 10.45), controlPoint2: CGPoint(x: frame.minX + 2.95, y: frame.minY + 10))
-            oval2Path.addCurve(to: CGPoint(x: frame.minX + 4.5, y: frame.minY + 11), controlPoint1: CGPoint(x: frame.minX + 4.05, y: frame.minY + 10), controlPoint2: CGPoint(x: frame.minX + 4.5, y: frame.minY + 10.45))
-            oval2Path.close()
-            UIColor.gray.setFill()
-            oval2Path.fill()
-            UIColor.gray.setStroke()
-            oval2Path.lineWidth = 1
-            oval2Path.stroke()
+            let color2 = UIColor(hue: color3HueComponent, saturation: color3SaturationComponent, brightness: 0.567, alpha: color3.cgColor.alpha)
+            let color4 = UIColor(red: 0.527, green: 0.527, blue: 0.527, alpha: 1.000)
             
-            //// Oval 3 Drawing
-            let oval3Path = UIBezierPath(ovalIn: CGRect(x: frame.minX + 2.5, y: frame.minY + 17, width: 2, height: 2))
-            UIColor.gray.setFill()
-            oval3Path.fill()
-            UIColor.gray.setStroke()
-            oval3Path.lineWidth = 1
-            oval3Path.stroke()
+            //// Bezier Drawing
+            let bezierPath = UIBezierPath()
+            bezierPath.move(to: CGPoint(x: frame.minX + 4, y: frame.minY + 1))
+            bezierPath.addLine(to: CGPoint(x: frame.minX + 4, y: frame.minY + 20))
+            bezierPath.addLine(to: CGPoint(x: frame.minX + 9.4, y: frame.minY + 17))
+            bezierPath.addLine(to: CGPoint(x: frame.minX + 13.9, y: frame.minY + 20))
+            bezierPath.addLine(to: CGPoint(x: frame.minX + 17.5, y: frame.minY + 17))
+            bezierPath.addLine(to: CGPoint(x: frame.minX + 22, y: frame.minY + 20))
+            bezierPath.addLine(to: CGPoint(x: frame.minX + 22, y: frame.minY + 1))
+            bezierPath.addLine(to: CGPoint(x: frame.minX + 4, y: frame.minY + 1))
+            bezierPath.close()
+            color2.setStroke()
+            bezierPath.lineWidth = 1.5
+            bezierPath.stroke()
+            
             
             //// Rectangle Drawing
-            let rectanglePath = UIBezierPath(roundedRect: CGRect(x: frame.minX + 7.5, y: frame.minY + 3, width: 15.5, height: 2), cornerRadius: 1)
-            UIColor.gray.setFill()
+            let rectanglePath = UIBezierPath(rect: CGRect(x: frame.minX + 7, y: frame.minY + 4, width: 10, height: 1.5))
+            color4.setFill()
             rectanglePath.fill()
             
+            
             //// Rectangle 2 Drawing
-            let rectangle2Path = UIBezierPath(roundedRect: CGRect(x: frame.minX + 7.5, y: frame.minY + 10, width: 15.5, height: 2), cornerRadius: 1)
-            UIColor.gray.setFill()
+            let rectangle2Path = UIBezierPath(rect: CGRect(x: frame.minX + 7, y: frame.minY + 7, width: 10, height: 1.5))
+            color4.setFill()
             rectangle2Path.fill()
             
+            
             //// Rectangle 3 Drawing
-            let rectangle3Path = UIBezierPath(roundedRect: CGRect(x: frame.minX + 7.5, y: frame.minY + 17, width: 15.5, height: 2), cornerRadius: 1)
-            UIColor.gray.setFill()
+            let rectangle3Path = UIBezierPath(rect: CGRect(x: frame.minX + 7, y: frame.minY + 10, width: 6, height: 1.5))
+            color4.setFill()
             rectangle3Path.fill()
         }.withRenderingMode(.alwaysTemplate)
     }
