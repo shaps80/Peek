@@ -67,6 +67,10 @@ extension UIColor {
         //  Color(hex: "AA0000")!.uiColor // red
     }
     
+    internal static var counter: UIColor {
+        return Color(hex: "3EB454")!.uiColor
+    }
+    
     internal static var neutral: UIColor {
         return UIColor(white: 1, alpha: 0.6)
     }

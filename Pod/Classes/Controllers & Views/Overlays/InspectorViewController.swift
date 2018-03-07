@@ -12,13 +12,13 @@ import GraphicsRenderer
 internal final class InspectorViewController: PeekSectionedViewController {
     
     private lazy var reportLabel: UILabel = {
-        let label = UILabel()
-        label.text = "99 items"
-        label.sizeToFit()
-        label.text = ""
-        label.textColor = .white
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 120, height: 26))
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        label.textColor = .white
+        label.backgroundColor = .counter
+        label.layer.cornerRadius = label.bounds.height / 2
+        label.layer.masksToBounds = true
         return label
     }()
     
@@ -28,7 +28,7 @@ internal final class InspectorViewController: PeekSectionedViewController {
     private var reportingIndexPaths: [IndexPath: Report.Item] = [:] {
         didSet {
             let count = reportingIndexPaths.count
-            reportLabel.text = "\(count) item\(count == 1 ? "" : "s")"
+            reportLabel.text = "\(count) attribute\(count == 1 ? "" : "s")"
         }
     }
     
@@ -465,9 +465,9 @@ extension InspectorViewController {
             render.frame = cell.frameInPeek(view)
             view.addSubview(render)
             
-            UIView.animate(withDuration: 0.35, delay: 0, options: [.curveEaseOut, .allowUserInteraction], animations: {
+            UIView.animate(withDuration: 0.35, delay: 0, options: [.curveEaseIn, .allowUserInteraction], animations: {
                 render.transform = CGAffineTransform(translationX: 0, y: -render.frame.minY)
-                    .concatenating(CGAffineTransform(scaleX: 0.8, y: 0.8))
+                    .concatenating(CGAffineTransform(scaleX: 0.9, y: 0.9))
                 render.alpha = 0
             }, completion: { _ in
                 render.removeFromSuperview()
