@@ -16,6 +16,13 @@ internal final class InspectorViewController: PeekSectionedViewController {
     private let dataSource: ContextDataSource
     private var reportingIndexPaths: [IndexPath: Report.Item] = [:]
     
+    private var feedbackGenerator: Any?
+    
+    @available(iOS 10.0, *)
+    private func haptic() -> UISelectionFeedbackGenerator? {
+        return feedbackGenerator as? UISelectionFeedbackGenerator
+    }
+    
     internal init(peek: Peek, model: Model & Peekable) {
         self.model = model
         
@@ -235,6 +242,10 @@ extension InspectorViewController {
     @objc private func beginReport() {
         tableView.setEditing(true, animated: true)
         prepareNavigationItems(animated: true)
+        
+        if #available(iOS 10.0, *) {
+            feedbackGenerator = UISelectionFeedbackGenerator()
+        }
     }
     
     @objc private func showReport() {
@@ -276,6 +287,8 @@ extension InspectorViewController {
         } else {
             end(animated: true)
         }
+        
+        feedbackGenerator = nil
     }
     
     @objc private func showSettings() {
@@ -302,6 +315,10 @@ extension InspectorViewController: CollapsibleSectionHeaderViewDelegate {
     func sectionHeader(_ view: CollapsibleSectionHeaderView, shouldToggleAt index: Int) {
         dataSource.toggleVisibility(forSection: index)
         let expanded = dataSource.sections[index].isExpanded
+        
+        if #available(iOS 10.0, *) {
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        }
         
         view.setExpanded(expanded) { [weak self] in
             let section = IndexSet(integer: index)
@@ -393,6 +410,10 @@ extension InspectorViewController {
                 self?.present(alert, animated: true, completion: nil)
             }))
             
+            if #available(iOS 10.0, *) {
+                haptic()?.selectionChanged()
+            }
+            
             present(controller, animated: true, completion: nil)
         } else {
             tableView.deselectRow(at: indexPath, animated: true)
@@ -402,6 +423,10 @@ extension InspectorViewController {
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         reportingIndexPaths[indexPath] = nil
         invalidateSendButton()
+        
+        if #available(iOS 10.0, *) {
+            haptic()?.selectionChanged()
+        }
     }
     
     private func invalidateSendButton() {

@@ -25,7 +25,8 @@ import UIKit
 extension UIImage {
     
     public override func preparePeek(with coordinator: Coordinator) {
-        coordinator.appendPreview(image: self, forModel: self)
+        let preview = renderingMode != .alwaysOriginal ? withRenderingMode(.alwaysTemplate) : self
+        coordinator.appendPreview(image: preview, forModel: self)
         
         coordinator.appendTransformed(keyPaths: ["renderingMode"], valueTransformer: { value in
             guard let rawValue = value as? Int, let mode = UIImageRenderingMode(rawValue: rawValue) else { return nil }

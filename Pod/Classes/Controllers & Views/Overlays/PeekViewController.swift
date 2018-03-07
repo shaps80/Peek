@@ -64,26 +64,9 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
         return gesture
     }()
     
-    private let buttonSize: CGFloat = 80
-    
-    lazy var attributesButton: UIButton = {
-        let button = UIButton(type: .system)
-        let rect = CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize)
-        let path = UIBezierPath(roundedRect: rect, cornerRadius: buttonSize / 2)
-        
-        button.tintColor = .textDark
-        button.backgroundColor = .primaryTint
-        button.layer.cornerRadius = rect.size.width / 2
-        
-        button.layer.shadowPath = path.cgPath
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOffset = CGSize(width: 0, height: 2)
-        button.layer.shadowRadius = 15
-        button.layer.shadowOpacity = 0.2
-        
-        button.setImage(Images.attributes, for: .normal)
+    lazy var attributesButton: PeekButton = {
+        let button = PeekButton(frame: .zero)
         button.addTarget(self, action: #selector(showInspectors), for: .touchUpInside)
-        
         return button
     }()
     
@@ -102,17 +85,16 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
         tapGesture.require(toFail: doubleTapGesture)
         
         view.addSubview(attributesButton, constraints: [
-            equal(\.centerXAnchor),
-            sized(\.widthAnchor, constant: buttonSize),
-            sized(\.heightAnchor, constant: buttonSize)
+            equal(\.centerXAnchor)
         ])
         
-        bottomLayoutGuide.topAnchor.constraint(equalTo: attributesButton.bottomAnchor, constant: 20).isActive = true
+        bottomLayoutGuide.topAnchor.constraint(equalTo: attributesButton.bottomAnchor, constant: 0).isActive = true
         setAttributesButton(hidden: true, animated: false)
     }
     
     private func setAttributesButton(hidden: Bool, animated: Bool) {
         let transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        
         guard animated else {
             attributesButton.transform = hidden ? transform : .identity
             attributesButton.alpha = hidden ? 0 : 1
@@ -131,13 +113,20 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
         }
     }
     
+    private var feedbackGenerator: Any?
+    
+    @available(iOS 10.0, *)
+    private func haptic() -> UIImpactFeedbackGenerator? {
+        return feedbackGenerator as? UIImpactFeedbackGenerator
+    }
+    
     func updateSelectedModels(_ gesture: UIGestureRecognizer) {
         let location = gesture.location(in: gesture.view)
         
-        for model in models {
-            let rect = model.frameInPeek(view)
+        for model in models.reversed() {
+            let modelRect = model.frameInPeek(view)
             
-            if rect.contains(location) {
+            if modelRect.contains(location) {
                 let models = overlayView.selectedModels
                 
                 if !models.contains(model) {
@@ -150,9 +139,14 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
                             overlayView.selectedModels = [model]
                         }
                     }
+                    
+                    if #available(iOS 10.0, *) {
+                        haptic()?.impactOccurred()
+                    }
                 }
                 
                 overlayView.selectedModels = [model]
+                break
             }
         }
     }
@@ -230,6 +224,11 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
         switch gesture.state {
         case .began:
+            if #available(iOS 10.0, *) {
+                feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+                haptic()?.prepare()
+            }
+            
             updateBackgroundColor(alpha: 0.3)
             isDragging = true
             setAttributesButton(hidden: true, animated: true)
@@ -240,6 +239,8 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
             updateBackgroundColor(alpha: 0.5)
             let hidden = overlayView.selectedModels.count == 0
             setAttributesButton(hidden: hidden, animated: true)
+            
+            feedbackGenerator = nil
         }
     }
     

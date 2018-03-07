@@ -45,20 +45,25 @@ internal struct Report: Encodable {
     internal var html: String {
         let html = """
         <html><head><style>
-            table { width: 100%; font-size: 14; }
+            body { font-family: sans-serif; font-size: 14; }
+            table { width: 100%; }
             tr { vertical-align: top; }
             tr td:first-child { width: 50%; white-space: wrap; font-weight: bold; }
             tr td:last-child { width: 50%; text-align: right; white-space: wrap; }
             td { padding: 5pt; background-color: #F4F4F4; }
+            tr.header td { text-align: left; background-color: #ffffff; padding-top: 1.2em; }
         </style></head>
         <body>
-            <p><strong>_TITLE_</strong></p>
             <table>_REPORT_</table>
         </body></html>
         """
-        var report = ""
+        var report = "<tr class=\"header\"><td colspan=\"2\">\(title)</td></tr>"
         
         for section in sections {
+            report += """
+            <tr class="header"><td colspan="2">\(section.title)</td></tr>
+            """
+            
             for item in section.items {
                 report += """
                 <tr>
@@ -69,9 +74,7 @@ internal struct Report: Encodable {
             }
         }
         
-        return html
-            .replacingOccurrences(of: "_TITLE_", with: title)
-            .replacingOccurrences(of: "_REPORT_", with: report)
+        return html.replacingOccurrences(of: "_REPORT_", with: report)
     }
     
     internal var markdown: String {
