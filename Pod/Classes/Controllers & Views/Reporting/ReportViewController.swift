@@ -18,7 +18,6 @@ internal final class ReportViewController: PeekSectionedViewController {
     
     private let includeScreenshotSwitch: UISwitch
     private let includeJSONSwitch: UISwitch
-    private let includeMetadataSwitch: UISwitch
     
     private var report: Report
     
@@ -27,19 +26,16 @@ internal final class ReportViewController: PeekSectionedViewController {
         
         includeScreenshotSwitch = UISwitch()
         includeJSONSwitch = UISwitch()
-        includeMetadataSwitch = UISwitch()
         
         super.init(peek: peek)
         
         title = "Report"
         
         includeJSONSwitch.onTintColor = .editingTint
-        includeMetadataSwitch.onTintColor = .editingTint
         includeScreenshotSwitch.onTintColor = .editingTint
         
         includeScreenshotSwitch.addTarget(self, action: #selector(toggleScreenshot(_:)), for: .valueChanged)
         includeJSONSwitch.addTarget(self, action: #selector(toggleJSON(_:)), for: .valueChanged)
-        includeMetadataSwitch.addTarget(self, action: #selector(toggleMetadata(_:)), for: .valueChanged)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -64,23 +60,12 @@ internal final class ReportViewController: PeekSectionedViewController {
         do {
             var items: [Any?] = [ ReportActivity(report: report) ]
             
-            if report.includeJSON {
+            if report.includeJSONReport {
                 let encoder = JSONEncoder()
                 let jsonData = try encoder.encode(report)
-                let json = try JSONSerialization.jsonObject(with: jsonData, options: [])
-                
                 let jsonUrl = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent("report.json")
                 try jsonData.write(to: jsonUrl, options: [.atomicWrite])
-                
                 items.append(jsonUrl)
-            }
-            
-            if report.includeMetadata {
-                let data = try JSONSerialization.data(withJSONObject: peek.options.metadata, options: .prettyPrinted)
-                let url = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent("metadata.json")
-                try data.write(to: url, options: [.atomicWrite])
-                
-                items.append(url)
             }
             
             if report.includeScreenshot {
@@ -106,16 +91,12 @@ internal final class ReportViewController: PeekSectionedViewController {
         }
     }
     
-    @objc private func toggleMetadata(_ toggle: UISwitch) {
-        report.includeMetadata = toggle.isOn
-    }
-    
     @objc private func toggleScreenshot(_ toggle: UISwitch) {
         report.includeScreenshot = toggle.isOn
     }
     
     @objc private func toggleJSON(_ toggle: UISwitch) {
-        report.includeJSON = toggle.isOn
+        report.includeJSONReport = toggle.isOn
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -124,7 +105,7 @@ internal final class ReportViewController: PeekSectionedViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let mappedSection = section - 1
-        return section == 0 ? 3 : report.sections[mappedSection].items.count
+        return section == 0 ? 2 : report.sections[mappedSection].items.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -133,18 +114,15 @@ internal final class ReportViewController: PeekSectionedViewController {
         if indexPath.section == 0 {
             switch indexPath.item {
             case 0:
-                cell.textLabel?.text = "Include Screenshot"
+                cell.textLabel?.text = "Screenshot"
                 cell.accessoryView = includeScreenshotSwitch
                 includeScreenshotSwitch.isOn = report.includeScreenshot
             case 1:
-                cell.textLabel?.text = "Include Detailed Report"
+                cell.textLabel?.text = "JSON Report"
                 cell.accessoryView = includeJSONSwitch
-                includeJSONSwitch.isOn = report.includeJSON
-            case 2:
-                cell.textLabel?.text = "Include Metadata"
-                cell.accessoryView = includeMetadataSwitch
-                includeMetadataSwitch.isOn = report.includeMetadata
-            default: break
+                includeJSONSwitch.isOn = report.includeJSONReport
+            default:
+                break
             }
         } else {
             let mappedSection = indexPath.section - 1

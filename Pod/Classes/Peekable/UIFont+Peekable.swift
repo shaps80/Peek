@@ -28,9 +28,11 @@ extension UIFont {
         coordinator.appendDynamic(keyPaths: [
             "familyName",
             "fontName",
-            "pointSize"
+            "pointSize",
         ], forModel: self, in: .general)
         
+        coordinator.appendStatic(keyPath: "fontDescriptor", title: "Font Descriptor", detail: fontDescriptor.postscriptName, value: fontDescriptor, in: .general)
+                
         coordinator.appendDynamic(keyPaths: [
             "descender",
             "capHeight",
@@ -38,6 +40,40 @@ extension UIFont {
             "lineHeight",
             "leading"
         ], forModel: self, in: .layout)
+        
+        super.preparePeek(with: coordinator)
+    }
+    
+    @objc internal var peek_textStyle: String? {
+        return (fontDescriptor.fontAttributes[.textStyle] as? UIFontTextStyle)?.rawValue
+    }
+    
+}
+
+extension UIFontDescriptor {
+    
+    public override func preparePeek(with coordinator: Coordinator) {
+        if let value = fontAttributes[.textStyle] as? UIFontTextStyle {
+            coordinator.appendStatic(keyPath: "textStyle", title: "Text Style", detail: value.rawValue, value: nil, in: .general)
+        }
+        
+        if let value = fontAttributes[.family] as? String {
+            coordinator.appendStatic(keyPath: "family", title: "Family", detail: value, value: nil, in: .general)
+        }
+        
+        coordinator.appendDynamic(keyPaths: ["postscriptName"], forModel: self, in: .general)
+        
+        if let value = fontAttributes[.name] as? String {
+            coordinator.appendStatic(keyPath: " name", title: "Name", detail: value, value: nil, in: .general)
+        }
+        
+        if let value = fontAttributes[.face] as? String {
+            coordinator.appendStatic(keyPath: "face", title: "Face", detail: value, value: nil, in: .general)
+        }
+        
+        if let value = fontAttributes[.visibleName] as? String {
+            coordinator.appendStatic(keyPath: "visibleName", title: "Visible Name", detail: value, value: nil, in: .general)
+        }
         
         super.preparePeek(with: coordinator)
     }

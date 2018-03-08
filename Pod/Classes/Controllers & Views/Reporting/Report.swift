@@ -13,12 +13,34 @@ import Foundation
  */
 internal struct Report: Encodable {
     
+    enum CodingKeys: String, CodingKey {
+        case sections = "categories"
+        case deviceInfo = "device"
+        case metadata = "metadata"
+        case title = "title"
+    }
+    
     internal let sections: [Section]
     internal let title: String
+    internal let metadata: [String: String]
+    private let deviceInfo: [String: String]
     
-    internal init(title: String, sections: [Section]) {
+    internal init(title: String, sections: [Section], metadata: [String: String]) {
+        self.metadata = metadata
         self.sections = sections
         self.title = title
+        
+        deviceInfo = [
+            "App Name": Bundle.main.appName,
+            "Version": Bundle.main.version,
+            "Build": Bundle.main.build,
+            "Bundle Identifier": Bundle.main.bundleIdentifier ?? "Unknown",
+            "Hostname": ProcessInfo().hostName,
+            "iOS Version": UIDevice.current.systemVersion,
+            "Device Type": UIDevice.current.model,
+            "Device Name": UIDevice.current.name,
+            "Device Model": UIDevice.current.model,
+        ]
         
         UserDefaults.standard.register(defaults: [
             "includeScreenshot": true,
@@ -32,14 +54,9 @@ internal struct Report: Encodable {
         set { UserDefaults.standard.set(newValue, forKey: "includeScreenshot") }
     }
     
-    internal var includeJSON: Bool {
+    internal var includeJSONReport: Bool {
         get { return UserDefaults.standard.bool(forKey: "includeJSON") }
         set { UserDefaults.standard.set(newValue, forKey: "includeJSON") }
-    }
-    
-    internal var includeMetadata: Bool {
-        get { return UserDefaults.standard.bool(forKey: "includeMetadata") }
-        set { UserDefaults.standard.set(newValue, forKey: "includeMetadata") }
     }
     
     internal var html: String {
@@ -48,7 +65,7 @@ internal struct Report: Encodable {
             body { font-family: sans-serif; font-size: 14; }
             table { width: 100%; }
             tr { vertical-align: top; }
-            tr td:first-child { width: 50%; white-space: wrap; font-weight: bold; }
+            tr td:first-child { width: 50%; white-space: wrap; }
             tr td:last-child { width: 50%; text-align: right; white-space: wrap; }
             td { padding: 5pt; background-color: #F4F4F4; }
             tr.header td { text-align: left; background-color: #ffffff; padding-top: 1.2em; }
@@ -77,26 +94,6 @@ internal struct Report: Encodable {
         return html.replacingOccurrences(of: "_REPORT_", with: report)
     }
     
-    internal var markdown: String {
-        var text = "**\(title)**\n```\n"
-        
-        for section in sections {
-            text += """
-            | \(section.title) | Suggested Value |
-            | ------------- | -------------:|
-            
-            """
-            
-            for item in section.items {
-                text += "| \(item.displayTitle) | \(item.reportersNote) |\n"
-            }
-            
-            text += "\n"
-        }
-        
-        return text + "```"
-    }
-    
     internal var plainText: String {
         var text = "\(title)\n\n"
         
@@ -123,6 +120,11 @@ extension Report {
     
     internal struct Section: Encodable {
         
+        enum Section: String, CodingKey {
+            case title = "title"
+            case items = "issues"
+        }
+        
         let title: String
         let items: [Item]
         
@@ -142,8 +144,6 @@ extension Report {
             case reportersNote
         }
         
-        private(set) var model: Model? = nil
-        
         let keyPath: String
         let displayTitle: String
         let displayValue: String
@@ -154,7 +154,7 @@ extension Report {
             try container.encode(keyPath, forKey: .keyPath)
             try container.encode(displayTitle, forKey: .displayTitle)
             try container.encode(displayValue, forKey: .displayValue)
-            try container.encode("Suggested Value: \(reportersNote)", forKey: .reportersNote)
+            try container.encode(reportersNote, forKey: .reportersNote)
         }
         
     }

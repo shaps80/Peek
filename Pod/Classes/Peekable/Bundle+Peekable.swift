@@ -9,19 +9,6 @@ import Foundation
 
 extension Bundle {
     
-    public override func preparePeek(with coordinator: Coordinator) {
-//        context.configure(.application, "Appearance") { (config) in
-//            let property = config.addProperty("bundle.supportedOrientations", displayName: nil, cellConfiguration: { (cell, _, value) in
-//                let mask = UIInterfaceOrientationMask(rawValue: value as! UInt)
-//                let image = Images.orientationMaskImage(mask)
-//                cell.accessoryView = UIImageView(image: image)
-//                cell.detailTextLabel?.text = nil
-//            })
-//        }
-        
-        super.preparePeek(with: coordinator)
-    }
-    
     @objc var backgroundModes: [String]? {
         return infoDictionary?["UIBackgroundModes"] as? [String]
     }

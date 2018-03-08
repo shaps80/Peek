@@ -62,4 +62,16 @@ final class InspectorCell: UITableViewCell {
         accessoryView?.backgroundColor = color
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        textLabel?.text = nil
+        detailTextLabel?.text = nil
+        imageView?.image = nil
+        accessoryView = nil
+        accessoryType = .none
+        editingAccessoryView = nil
+        editingAccessoryType = .none
+    }
+    
 }

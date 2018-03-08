@@ -92,8 +92,8 @@ internal final class InspectorViewController: PeekSectionedViewController {
     }
     
     override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        let attribute = dataSource.attribute(at: indexPath)
-        return !(attribute is PreviewAttribute)
+        guard tableView.isEditing else { return !(dataSource.attribute(at: indexPath) is PreviewAttribute) }
+        return self.tableView(tableView, canEditRowAt: indexPath)
     }
     
     override func sectionTitle(for section: Int) -> String {
@@ -236,8 +236,11 @@ extension InspectorViewController {
             let close = UIBarButtonItem(image: disclosure, style: .plain, target: self, action: #selector(dismissController))
             navigationItem.setRightBarButton(close, animated: animated)
             
-            let report = UIBarButtonItem(image: Images.report, style: .plain, target: self, action: #selector(beginReport))
-            navigationItem.setLeftBarButton(report, animated: animated)
+            if !(model is UIDevice || model is UIScreen) {
+                let report = UIBarButtonItem(image: Images.report, style: .plain, target: self, action: #selector(beginReport))
+                navigationItem.setLeftBarButton(report, animated: animated)
+            }
+            
             navigationItem.leftItemsSupplementBackButton = true
             navigationItem.setHidesBackButton(false, animated: animated)
             
@@ -272,13 +275,14 @@ extension InspectorViewController {
     
     @objc private func showReport() {
         let sectionIndexes = Set(reportingIndexPaths.map { $0.key.section }).sorted()
+        
         let sections: [Report.Section] = sectionIndexes.map { index in
             let title = dataSource.sections[index].group.title
             let items = reportingIndexPaths.filter { $0.key.section == index }.flatMap { $0.value }
             return Report.Section(title: title, items: items)
         }
         
-        let report = Report(title: model.titleForPeekReport(), sections: sections)
+        let report = Report(title: model.titleForPeekReport(), sections: sections, metadata: peek.options.metadata)
         let controller = ReportViewController(peek: peek, report: report)
         
         controller.delegate = self
@@ -357,12 +361,21 @@ extension InspectorViewController: CollapsibleSectionHeaderViewDelegate {
 extension InspectorViewController {
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        let attribute = dataSource.attribute(at: indexPath)
-        if attribute.value is UIColor { return true }
-        return !(attribute is PreviewAttribute)
+        if model is UIDevice || model is UIScreen {
+            return false
+        }
+        
+        switch dataSource.sections[indexPath.section].group.group {
+        case .more, .views, .classes, .preview: return false
+        default:
+            return !(dataSource.attribute(at: indexPath).value is Constraints)
+                && !(dataSource.attribute(at: indexPath) is PreviewAttribute)
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView.isEditing && !self.tableView(tableView, canEditRowAt: indexPath) { return }
+        
         let attribute = self.dataSource.attribute(at: indexPath)
         let cell = tableView.cellForRow(at: indexPath)
         
@@ -386,21 +399,21 @@ extension InspectorViewController {
             if let value = attribute.value as? NSNumber, value.isBool() {
                 let note = "Expected \(value.boolValue ? "false" : "true")"
                 controller.addAction(UIAlertAction(title: note, style: .destructive, handler: { [weak self] _ -> Void in
-                    let item = Report.Item(model: self?.model, keyPath: attribute.keyPath, displayTitle: attribute.title, displayValue: cell?.detailTextLabel?.text ?? "", reportersNote: note)
+                    let item = Report.Item(keyPath: attribute.keyPath, displayTitle: attribute.title, displayValue: cell?.detailTextLabel?.text ?? "", reportersNote: note)
                     self?.reportingIndexPaths[indexPath] = item
                     self?.invalidateSendButton()
                     self?.indicateSection(for: indexPath)
                 }))
             } else if attribute.value == nil {
                 controller.addAction(UIAlertAction(title: "Missing Value", style: .destructive, handler: { [weak self] _ -> Void in
-                    let item = Report.Item(model: self?.model, keyPath: attribute.keyPath, displayTitle: attribute.title, displayValue: cell?.detailTextLabel?.text ?? "", reportersNote: "Missing Value")
+                    let item = Report.Item(keyPath: attribute.keyPath, displayTitle: attribute.title, displayValue: cell?.detailTextLabel?.text ?? "", reportersNote: "Missing Value")
                     self?.reportingIndexPaths[indexPath] = item
                     self?.invalidateSendButton()
                     self?.indicateSection(for: indexPath)
                 }))
             } else {
-                controller.addAction(UIAlertAction(title: "Wrong Value", style: .destructive, handler: { [weak self] _ -> Void in
-                    let item = Report.Item(model: self?.model, keyPath: attribute.keyPath, displayTitle: attribute.title, displayValue: cell?.detailTextLabel?.text ?? "", reportersNote: "Wrong Value")
+                controller.addAction(UIAlertAction(title: "Incorrect Value", style: .destructive, handler: { [weak self] _ -> Void in
+                    let item = Report.Item(keyPath: attribute.keyPath, displayTitle: attribute.title, displayValue: cell?.detailTextLabel?.text ?? "", reportersNote: "Incorrect Value")
                     self?.reportingIndexPaths[indexPath] = item
                     self?.invalidateSendButton()
                     self?.indicateSection(for: indexPath)
@@ -430,7 +443,7 @@ extension InspectorViewController {
                 
                 alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
                     let note = alert.textFields?.first?.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-                    let item = Report.Item(model: self?.model, keyPath: attribute.keyPath, displayTitle: attribute.title, displayValue: cell?.detailTextLabel?.text ?? "", reportersNote: note ?? "")
+                    let item = Report.Item(keyPath: attribute.keyPath, displayTitle: attribute.title, displayValue: cell?.detailTextLabel?.text ?? "", reportersNote: note ?? "")
                     self?.reportingIndexPaths[indexPath] = item
                     self?.invalidateSendButton()
                     self?.indicateSection(for: indexPath)
@@ -450,6 +463,8 @@ extension InspectorViewController {
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if tableView.isEditing && !self.tableView(tableView, canEditRowAt: indexPath) { return }
+        
         reportingIndexPaths[indexPath] = nil
         invalidateSendButton()
         

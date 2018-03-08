@@ -158,16 +158,23 @@ extension UIView {
             coordinator.appendStatic(keyPath: "none", title: "Constraints", detail: "\(count)", value: constraints, in: .constraints)
         }
         
-        let screen = ValueTransformer().transformedValue(UIScreen.main.bounds.size) as? String
-        coordinator.appendStatic(keyPath: "UIScreen.main", title: "Screen", detail: screen, value: UIScreen.main, in: .more)
-        coordinator.appendStatic(keyPath: "UIDevice.current", title: "Device", detail: UIDevice.current.name, value: UIDevice.current, in: .more)
-        coordinator.appendStatic(keyPath: "UIApplication.shared", title: "Application", detail: Bundle.main.appName, value: UIApplication.shared, in: .more)
+        coordinator.appendStatic(keyPath: "layer", title: "Layer", detail: String(describing: layer.classForCoder), value: layer, in: .more)
         
         coordinator.appendDynamic(keyPathToName: [
             ["owningViewController": "View Controller"]
-        ], forModel: self, in: .more)
+            ], forModel: self, in: .more)
+
+        coordinator.appendStatic(keyPath: "UIApplication.shared", title: "Application", detail: Bundle.main.appName, value: UIApplication.shared, in: .more)
+        coordinator.appendStatic(keyPath: "UIDevice.current", title: "Device", detail: UIDevice.current.name, value: UIDevice.current, in: .more)
         
-        coordinator.appendStatic(keyPath: "layer", title: "Layer", detail: String(describing: layer.classForCoder), value: layer, in: .more)
+        let screen = ValueTransformer().transformedValue(UIScreen.main.bounds.size) as? String
+        coordinator.appendStatic(keyPath: "UIScreen.main", title: "Screen", detail: screen, value: UIScreen.main, in: .more)
+        
+        if self is UILabel || self is UITextField || self is UITextView {
+            if let value = value(forKeyPath: "font.peek_textStyle") as? String {
+                coordinator.appendStatic(keyPath: "font.peek_textStyle", title: "Text Style", detail: value, value: value, in: .typography)
+            }
+        }
         
         if #available(iOS 10.0, *) {
             if let type = self as? UIContentSizeCategoryAdjusting {
