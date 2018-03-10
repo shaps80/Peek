@@ -128,16 +128,10 @@ extension UIView {
             "layer.masksToBounds",
         ], forModel: self, in: .appearance)
         
-        if #available(iOS 11.0, *) {
-            coordinator.appendDynamic(keyPaths: [
-                "safeAreaInsets"
-            ], forModel: self, in: .layout)
-            
-            coordinator.appendDynamic(keyPaths: [
-                "preservesSuperviewLayoutMargins",
-                "insetsLayoutMarginsFromSafeArea"
-            ], forModel: self, in: .behaviour)
-        }
+        coordinator.appendTransformed(keyPaths: ["contentMode"], valueTransformer: { value in
+            guard let rawValue = value as? Int, let contentMode = UIViewContentMode(rawValue: rawValue) else { return nil }
+            return contentMode.description
+        }, forModel: self, in: .layout)
         
         coordinator.appendDynamic(keyPaths: [
             "frame",
@@ -148,10 +142,16 @@ extension UIView {
             "layoutMargins",
         ], forModel: self, in: .layout)
         
-        coordinator.appendTransformed(keyPaths: ["contentMode"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let contentMode = UIViewContentMode(rawValue: rawValue) else { return nil }
-            return contentMode.description
-        }, forModel: self, in: .layout)
+        if #available(iOS 11.0, *) {
+            coordinator.appendDynamic(keyPaths: [
+                "safeAreaInsets"
+                ], forModel: self, in: .layout)
+            
+            coordinator.appendDynamic(keyPaths: [
+                "preservesSuperviewLayoutMargins",
+                "insetsLayoutMarginsFromSafeArea"
+                ], forModel: self, in: .layout)
+        }
         
         coordinator.appendStatic(keyPath: "translatesAutoresizingMaskIntoConstraints",
                                  title: "Uses AutoLayout",

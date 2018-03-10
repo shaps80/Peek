@@ -10,8 +10,8 @@ import Foundation
 @objc public enum Group: Int {
     case preview
     case accessibility
-    case appearance
     case typography
+    case appearance
     case paragraph
     case behaviour
     case states
@@ -36,8 +36,8 @@ import Foundation
     internal var title: String {
         switch self {
         case .preview: return "Preview"
-        case .appearance: return "Appearance"
         case .typography: return "Typography"
+        case .appearance: return "Appearance"
         case .accessibility: return "Accessibility"
         case .general: return "General"
         case .paragraph: return "Paragraph"
@@ -82,8 +82,8 @@ extension NSObject: Model {
     public func isExpandedByDefault(for group: Group) -> Bool {
         switch group {
         case .preview: return true
-        case .appearance: return true
         case .typography: return true
+        case .appearance: return true
         case .accessibility: return false
         case .general: return false
         case .paragraph: return true
