@@ -24,7 +24,7 @@ import UIKit
 
 extension UITextField {
     
-    public override func preparePeek(with coordinator: Coordinator) {
+    open override func preparePeek(with coordinator: Coordinator) {
         coordinator.appendTransformed(keyPaths: ["borderStyle"], valueTransformer: { value in
             guard let rawValue = value as? Int, let style = UITextBorderStyle(rawValue: rawValue) else { return nil }
             return style.description

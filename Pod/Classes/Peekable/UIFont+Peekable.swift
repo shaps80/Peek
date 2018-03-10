@@ -24,7 +24,7 @@ import UIKit
 
 extension UIFont {
     
-    public override func preparePeek(with coordinator: Coordinator) {
+    open override func preparePeek(with coordinator: Coordinator) {
         coordinator.appendDynamic(keyPaths: [
             "familyName",
             "fontName",
@@ -52,7 +52,7 @@ extension UIFont {
 
 extension UIFontDescriptor {
     
-    public override func preparePeek(with coordinator: Coordinator) {
+    open override func preparePeek(with coordinator: Coordinator) {
         if let value = fontAttributes[.textStyle] as? UIFontTextStyle {
             coordinator.appendStatic(keyPath: "textStyle", title: "Text Style", detail: value.rawValue, value: nil, in: .general)
         }

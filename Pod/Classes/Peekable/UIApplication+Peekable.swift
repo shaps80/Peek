@@ -24,7 +24,7 @@ import UIKit
 
 extension UIApplication {
     
-    public override func preparePeek(with coordinator: Coordinator) {
+    open override func preparePeek(with coordinator: Coordinator) {
         if let image = bundle.appIcon {
             coordinator.appendPreview(image: image, forModel: self)
         }

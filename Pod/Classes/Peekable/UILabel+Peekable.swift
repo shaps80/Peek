@@ -24,7 +24,7 @@ import UIKit
 
 extension UILabel {
     
-    public override func preparePeek(with coordinator: Coordinator) {
+    open override func preparePeek(with coordinator: Coordinator) {
         coordinator.appendTransformed(keyPaths: ["lineBreakMode"], valueTransformer: { value in
             guard let rawValue = value as? Int, let lineBreakMode = NSLineBreakMode(rawValue: rawValue) else { return nil }
             return lineBreakMode.description

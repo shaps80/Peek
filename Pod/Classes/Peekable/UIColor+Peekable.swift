@@ -51,7 +51,7 @@ extension UIColor: Model {
         return (cgColor.colorSpace?.name as? String) ?? "Unknown"
     }
     
-    public override func preparePeek(with coordinator: Coordinator) {
+    open override func preparePeek(with coordinator: Coordinator) {
         if cgColor.pattern != nil || (self != .clear && values().a != 0) {
             let width = UIScreen.main.nativeBounds.width / UIScreen.main.nativeScale
             let image = ImageRenderer(size: CGSize(width: width, height: 88)).image { context in

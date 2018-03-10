@@ -48,7 +48,7 @@ extension CALayer {
         return nil
     }
     
-    public override func preparePeek(with coordinator: Coordinator) {
+    open override func preparePeek(with coordinator: Coordinator) {
         coordinator.appendDynamic(keyPaths: [
             "doubleSided",
             "allowsGroupOpacity",

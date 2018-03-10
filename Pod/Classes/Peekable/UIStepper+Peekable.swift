@@ -56,7 +56,7 @@ extension UIStepper {
         return decrementImage(for: .selected)
     }
     
-    public override func preparePeek(with coordinator: Coordinator) {
+    open override func preparePeek(with coordinator: Coordinator) {
         coordinator.appendDynamic(keyPaths: [
             "autorepeat", "continuous", "wraps"
         ], forModel: self, in: .behaviour)

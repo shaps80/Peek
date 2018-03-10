@@ -24,7 +24,7 @@ import UIKit
 
 extension UIActivityIndicatorView {
     
-    public override func preparePeek(with coordinator: Coordinator) {
+    open override func preparePeek(with coordinator: Coordinator) {
         coordinator.appendDynamic(keyPaths: ["hidesWhenStopped"], forModel: self, in: .behaviour)
         coordinator.appendDynamic(keyPaths: ["isAnimating"], forModel: self, in: .states)
         coordinator.appendDynamic(keyPaths: ["color"], forModel: self, in: .appearance)

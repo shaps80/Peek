@@ -24,7 +24,7 @@ import UIKit
 
 extension UIImageView {
     
-    public override func preparePeek(with coordinator: Coordinator) {
+    open override func preparePeek(with coordinator: Coordinator) {
         coordinator.appendDynamic(keyPaths: [
             "image", "highlightedImage"
         ], forModel: self, in: .appearance)

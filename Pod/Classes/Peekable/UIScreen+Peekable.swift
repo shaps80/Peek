@@ -24,7 +24,7 @@ import UIKit
 
 extension UIScreen {
     
-    public override func preparePeek(with coordinator: Coordinator) {
+    open override func preparePeek(with coordinator: Coordinator) {
         coordinator.appendDynamic(keyPaths: [
             "wantsSoftwareDimming",
             "brightness"

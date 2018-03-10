@@ -72,7 +72,7 @@ extension UIButton {
         return titleColor(for: .disabled)
     }
     
-    public override func preparePeek(with coordinator: Coordinator) {
+    open override func preparePeek(with coordinator: Coordinator) {
         coordinator.appendTransformed(keyPaths: ["buttonType"], valueTransformer: { value in
             guard let rawValue = value as? Int, let buttonType = UIButtonType(rawValue: rawValue) else { return nil }
             return buttonType.description

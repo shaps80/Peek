@@ -24,7 +24,7 @@ import UIKit
 
 extension UIToolbar {
     
-    public override func preparePeek(with coordinator: Coordinator) {
+    open override func preparePeek(with coordinator: Coordinator) {
         coordinator.appendDynamic(keyPaths: [
             "barTintColor", "translucent"
         ], forModel: self, in: .appearance)

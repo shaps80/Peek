@@ -24,7 +24,7 @@ import UIKit
 
 extension UIImage {
     
-    public override func preparePeek(with coordinator: Coordinator) {
+    open override func preparePeek(with coordinator: Coordinator) {
         let preview = renderingMode != .alwaysOriginal ? withRenderingMode(.alwaysTemplate) : self
         coordinator.appendPreview(image: preview, forModel: self)
         

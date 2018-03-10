@@ -24,7 +24,7 @@ import UIKit
 
 extension UIViewController {
     
-    public override func preparePeek(with coordinator: Coordinator) {
+    open override func preparePeek(with coordinator: Coordinator) {
         let orientations = Images.orientationMaskImage(supportedInterfaceOrientations)
         coordinator.appendPreview(image: orientations, forModel: self)
         

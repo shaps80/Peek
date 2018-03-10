@@ -44,7 +44,7 @@ extension NSLayoutConstraint {
         return "\(item.classForCoder!)"
     }
     
-    public override func preparePeek(with coordinator: Coordinator) {
+    open override func preparePeek(with coordinator: Coordinator) {
         coordinator.appendDynamic(keyPaths: [
             "active",
             "shouldBeArchived"

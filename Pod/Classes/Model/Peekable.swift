@@ -58,7 +58,7 @@ extension NSObject: Peekable {
      
      - parameter coordinator: The coordinator to prepare
      */
-    @objc public func preparePeek(with coordinator: Coordinator) { }
+    @objc open func preparePeek(with coordinator: Coordinator) { }
     
     @objc public func titleForPeekReport() -> String {
         if let view = self as? UIView {

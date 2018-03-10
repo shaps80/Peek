@@ -1,9 +1,9 @@
 <a href="https://vimeo.com/162896152"><img src="shot.jpg" name="Peek on Vimeo"/></a>
 
-[![Version](https://img.shields.io/cocoapods/v/Peek.svg?style=flat)](http://cocoapods.org/pods/Peek)
-[![License](https://img.shields.io/cocoapods/l/Peek.svg?style=flat)](http://cocoapods.org/pods/Peek)
-[![Language](https://img.shields.io/badge/language-swift-ff69b4.svg)](http://cocoadocs.org/docsets/Peek)
-[![Platform](https://img.shields.io/cocoapods/p/Peek.svg?style=flat)](http://cocoapods.org/pods/Peek)
+[![Version][image-1]][1]
+[![License][image-2]][2]
+[![Language][image-3]][3]
+[![Platform][image-4]][4]
 
 # Peek: All new design
 
@@ -79,7 +79,7 @@ override var canBecomeFirstResponder: Bool {
     
 override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
     // iOS 10 now requires device motion handlers to be on a UIViewController
-    view.window?.peek.handleShake(motion)
+    UIApplication.shared.keyWindow?.peek.handleShake(motion)
 }
 ```
 
@@ -136,18 +136,6 @@ window?.peek.enableWithOptions { options in
 Peek is designed to be as safe as possible. Peek will never retain objects from your application. It will never use a background thread. Peek won't even run unless you explicitly enable it!
 
 Go ahead, take a Peek at your app now :)
-
-# How does Peek work?
-
-Peek scans all the views in your entire view hierarchy that is currently on the screen then overlays these views with layout information.
-
-Peek then uses its filtering system to best determine which views you care about and those that you are not likely to be interested in.
-
-For example, by default Peek will not show you many of Apple's system components unless they are subclassed. A label however is a perfect exception to this, where you might not want to see all labels in a tab-bar but you do want to see the labels inside a cell.
-
-Peek presents itself in its own window that sits directly on top of your own app's user interface to ensure that it doesn't interfere with normal functionality.
-
-Peek also allows you to test all supported orientations on both iPhone and iPad.
 
 # Supported Platforms and Versions
 
@@ -232,7 +220,18 @@ Please use the Swift 4 version instead.
 
 # Attribution
 
-Original concept, code and app design by [@shaps][shaps]<br />
+Original concept, code and app design by [@shaps][5]<br />
 
-[github]: https://github.com/shaps80/Peek
-[shaps]: http://twitter.com/shaps "Shaps on Twitter"
+Icons in the demo app found on [The Noun Project](www.thenounproject.com).
+Artwork by [Vitaliy Gorbachev](https://thenounproject.com/vitalikexpert)
+
+[1]:	http://cocoapods.org/pods/Peek
+[2]:	http://cocoapods.org/pods/Peek
+[3]:	http://cocoadocs.org/docsets/Peek
+[4]:	http://cocoapods.org/pods/Peek
+[5]:	http://twitter.com/shaps "Shaps on Twitter"
+
+[image-1]:	https://img.shields.io/cocoapods/v/Peek.svg?style=flat
+[image-2]:	https://img.shields.io/cocoapods/l/Peek.svg?style=flat
+[image-3]:	https://img.shields.io/badge/language-swift-ff69b4.svg
+[image-4]:	https://img.shields.io/cocoapods/p/Peek.svg?style=flat

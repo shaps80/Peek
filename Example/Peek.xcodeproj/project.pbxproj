@@ -7,102 +7,77 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		542E83611CBADC9100598A9F /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 542E83561CBADC9100598A9F /* OpenSans-Bold.ttf */; };
-		542E83621CBADC9100598A9F /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 542E83571CBADC9100598A9F /* OpenSans-BoldItalic.ttf */; };
-		542E83631CBADC9100598A9F /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 542E83581CBADC9100598A9F /* OpenSans-ExtraBold.ttf */; };
-		542E83641CBADC9100598A9F /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 542E83591CBADC9100598A9F /* OpenSans-ExtraBoldItalic.ttf */; };
-		542E83651CBADC9100598A9F /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 542E835A1CBADC9100598A9F /* OpenSans-Italic.ttf */; };
-		542E83661CBADC9100598A9F /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 542E835B1CBADC9100598A9F /* OpenSans-Light.ttf */; };
-		542E83671CBADC9100598A9F /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 542E835C1CBADC9100598A9F /* OpenSans-LightItalic.ttf */; };
-		542E83681CBADC9100598A9F /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 542E835D1CBADC9100598A9F /* OpenSans-Regular.ttf */; };
-		542E83691CBADC9100598A9F /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 542E835E1CBADC9100598A9F /* OpenSans-Semibold.ttf */; };
-		542E836A1CBADC9100598A9F /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 542E835F1CBADC9100598A9F /* OpenSans-SemiboldItalic.ttf */; };
-		542E83721CBADCD700598A9F /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542E836B1CBADCD700598A9F /* Button.swift */; };
-		542E83731CBADCD700598A9F /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542E836C1CBADCD700598A9F /* ImageCache.swift */; };
-		542E83741CBADCD700598A9F /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542E836D1CBADCD700598A9F /* ImageView.swift */; };
-		542E83751CBADCD700598A9F /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542E836E1CBADCD700598A9F /* Model.swift */; };
-		542E83761CBADCD700598A9F /* Separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542E836F1CBADCD700598A9F /* Separator.swift */; };
-		542E83771CBADCD700598A9F /* Week.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542E83701CBADCD700598A9F /* Week.swift */; };
-		542E83781CBADCD700598A9F /* WeekCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542E83711CBADCD700598A9F /* WeekCell.swift */; };
-		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
-		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
-		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
-		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
-		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
-		D74F7C857F75322FB0051DE7 /* Pods_Peek_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32232655F65620A924B51CD3 /* Pods_Peek_Example.framework */; };
+		349ED0B85DC03C3C5A91EC30 /* Pods_NotTwitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA956D8C8CB1CAAF37CD5A2C /* Pods_NotTwitter.framework */; };
+		540B99E22053FCAF0086FF61 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540B99E12053FCAF0086FF61 /* AppDelegate.swift */; };
+		540B99E42053FCAF0086FF61 /* TimlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540B99E32053FCAF0086FF61 /* TimlineViewController.swift */; };
+		540B99E72053FCAF0086FF61 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 540B99E52053FCAF0086FF61 /* Main.storyboard */; };
+		540B99E92053FCAF0086FF61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 540B99E82053FCAF0086FF61 /* Assets.xcassets */; };
+		540B99EC2053FCAF0086FF61 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 540B99EA2053FCAF0086FF61 /* LaunchScreen.storyboard */; };
+		542668DA2054064500F6B016 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542668D92054064500F6B016 /* TextView.swift */; };
+		54E8B9A2205407E700CEEFA3 /* EmbedContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E8B9A1205407E700CEEFA3 /* EmbedContainerView.swift */; };
+		54E8B9A42054085000CEEFA3 /* Theming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E8B9A32054085000CEEFA3 /* Theming.swift */; };
+		54E8B9A620540A0C00CEEFA3 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E8B9A520540A0C00CEEFA3 /* Cell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2294D63777F3A53CCD6C4977 /* Peek.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Peek.podspec; path = ../Peek.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		25235662A734B5CC098E5A5F /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		32232655F65620A924B51CD3 /* Pods_Peek_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Peek_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		542E83561CBADC9100598A9F /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Bold.ttf"; path = "Fonts/OpenSans-Bold.ttf"; sourceTree = "<group>"; };
-		542E83571CBADC9100598A9F /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-BoldItalic.ttf"; path = "Fonts/OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
-		542E83581CBADC9100598A9F /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-ExtraBold.ttf"; path = "Fonts/OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
-		542E83591CBADC9100598A9F /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-ExtraBoldItalic.ttf"; path = "Fonts/OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
-		542E835A1CBADC9100598A9F /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Italic.ttf"; path = "Fonts/OpenSans-Italic.ttf"; sourceTree = "<group>"; };
-		542E835B1CBADC9100598A9F /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Light.ttf"; path = "Fonts/OpenSans-Light.ttf"; sourceTree = "<group>"; };
-		542E835C1CBADC9100598A9F /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-LightItalic.ttf"; path = "Fonts/OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
-		542E835D1CBADC9100598A9F /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "Fonts/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
-		542E835E1CBADC9100598A9F /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Semibold.ttf"; path = "Fonts/OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
-		542E835F1CBADC9100598A9F /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-SemiboldItalic.ttf"; path = "Fonts/OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
-		542E836B1CBADCD700598A9F /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
-		542E836C1CBADCD700598A9F /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
-		542E836D1CBADCD700598A9F /* ImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
-		542E836E1CBADCD700598A9F /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		542E836F1CBADCD700598A9F /* Separator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
-		542E83701CBADCD700598A9F /* Week.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Week.swift; sourceTree = "<group>"; };
-		542E83711CBADCD700598A9F /* WeekCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekCell.swift; sourceTree = "<group>"; };
+		540B99DF2053FCAF0086FF61 /* NotTwitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotTwitter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		540B99E12053FCAF0086FF61 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		540B99E32053FCAF0086FF61 /* TimlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimlineViewController.swift; sourceTree = "<group>"; };
+		540B99E62053FCAF0086FF61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		540B99E82053FCAF0086FF61 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		540B99EB2053FCAF0086FF61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		540B99ED2053FCAF0086FF61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		542668D92054064500F6B016 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		54533DEB1C66D1DB00527626 /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
 		54533DED1C66D1DB00527626 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
-		54C2B8311D8C9D0400463298 /* Peek-Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Peek-Example-Bridging-Header.h"; sourceTree = "<group>"; };
+		54E8B9A1205407E700CEEFA3 /* EmbedContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbedContainerView.swift; sourceTree = "<group>"; };
+		54E8B9A32054085000CEEFA3 /* Theming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theming.swift; sourceTree = "<group>"; };
+		54E8B9A520540A0C00CEEFA3 /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		5E32D5C7A6B93061AA6F2E4E /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		607FACD01AFB9204008FA782 /* Peek-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Peek-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		607FACD71AFB9204008FA782 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		607FACDA1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		73CC2C48BDC639F2E4A2A5CE /* Pods-Peek-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Peek-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Peek-Example/Pods-Peek-Example.release.xcconfig"; sourceTree = "<group>"; };
+		7BA087941E8C3BC97D77612F /* Pods-NotTwitter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotTwitter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NotTwitter/Pods-NotTwitter.debug.xcconfig"; sourceTree = "<group>"; };
 		849E1DC4F32E49D4C263B9DD /* Pods-Peek-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Peek-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Peek-Example/Pods-Peek-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		97CF41E9D825DEAA39984224 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		BA956D8C8CB1CAAF37CD5A2C /* Pods_NotTwitter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotTwitter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D67CCB04A7FA85002677E534 /* Pods-NotTwitter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotTwitter.release.xcconfig"; path = "Pods/Target Support Files/Pods-NotTwitter/Pods-NotTwitter.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		607FACCD1AFB9204008FA782 /* Frameworks */ = {
+		540B99DC2053FCAF0086FF61 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D74F7C857F75322FB0051DE7 /* Pods_Peek_Example.framework in Frameworks */,
+				349ED0B85DC03C3C5A91EC30 /* Pods_NotTwitter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		542E83601CBADC9100598A9F /* Resources */ = {
+		540B99E02053FCAF0086FF61 /* NotTwitter */ = {
 			isa = PBXGroup;
 			children = (
-				542E83561CBADC9100598A9F /* OpenSans-Bold.ttf */,
-				542E83571CBADC9100598A9F /* OpenSans-BoldItalic.ttf */,
-				542E83581CBADC9100598A9F /* OpenSans-ExtraBold.ttf */,
-				542E83591CBADC9100598A9F /* OpenSans-ExtraBoldItalic.ttf */,
-				542E835A1CBADC9100598A9F /* OpenSans-Italic.ttf */,
-				542E835B1CBADC9100598A9F /* OpenSans-Light.ttf */,
-				542E835C1CBADC9100598A9F /* OpenSans-LightItalic.ttf */,
-				542E835D1CBADC9100598A9F /* OpenSans-Regular.ttf */,
-				542E835E1CBADC9100598A9F /* OpenSans-Semibold.ttf */,
-				542E835F1CBADC9100598A9F /* OpenSans-SemiboldItalic.ttf */,
+				54E8B9A32054085000CEEFA3 /* Theming.swift */,
+				540B99E12053FCAF0086FF61 /* AppDelegate.swift */,
+				540B99E32053FCAF0086FF61 /* TimlineViewController.swift */,
+				542668D92054064500F6B016 /* TextView.swift */,
+				54E8B9A1205407E700CEEFA3 /* EmbedContainerView.swift */,
+				54E8B9A520540A0C00CEEFA3 /* Cell.swift */,
+				540B99E52053FCAF0086FF61 /* Main.storyboard */,
+				540B99E82053FCAF0086FF61 /* Assets.xcassets */,
+				540B99EA2053FCAF0086FF61 /* LaunchScreen.storyboard */,
+				540B99ED2053FCAF0086FF61 /* Info.plist */,
 			);
-			name = Resources;
-			path = ../Pods/OpenSans;
+			path = NotTwitter;
 			sourceTree = "<group>";
 		};
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
-				607FACD21AFB9204008FA782 /* Example for Peek */,
+				540B99E02053FCAF0086FF61 /* NotTwitter */,
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACD11AFB9204008FA782 /* Products */,
 				E2E8F8A85E45DCC5960CA27A /* Frameworks */,
@@ -115,40 +90,9 @@
 		607FACD11AFB9204008FA782 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				607FACD01AFB9204008FA782 /* Peek-Example.app */,
+				540B99DF2053FCAF0086FF61 /* NotTwitter.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		607FACD21AFB9204008FA782 /* Example for Peek */ = {
-			isa = PBXGroup;
-			children = (
-				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
-				607FACD71AFB9204008FA782 /* ViewController.swift */,
-				542E836B1CBADCD700598A9F /* Button.swift */,
-				542E836C1CBADCD700598A9F /* ImageCache.swift */,
-				542E836D1CBADCD700598A9F /* ImageView.swift */,
-				542E836E1CBADCD700598A9F /* Model.swift */,
-				542E836F1CBADCD700598A9F /* Separator.swift */,
-				542E83701CBADCD700598A9F /* Week.swift */,
-				542E83711CBADCD700598A9F /* WeekCell.swift */,
-				607FACD91AFB9204008FA782 /* Main.storyboard */,
-				607FACDC1AFB9204008FA782 /* Images.xcassets */,
-				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
-				542E83601CBADC9100598A9F /* Resources */,
-				607FACD31AFB9204008FA782 /* Supporting Files */,
-				54C2B8311D8C9D0400463298 /* Peek-Example-Bridging-Header.h */,
-			);
-			name = "Example for Peek";
-			path = Peek;
-			sourceTree = "<group>";
-		};
-		607FACD31AFB9204008FA782 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				607FACD41AFB9204008FA782 /* Info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
@@ -166,6 +110,8 @@
 			children = (
 				849E1DC4F32E49D4C263B9DD /* Pods-Peek-Example.debug.xcconfig */,
 				73CC2C48BDC639F2E4A2A5CE /* Pods-Peek-Example.release.xcconfig */,
+				7BA087941E8C3BC97D77612F /* Pods-NotTwitter.debug.xcconfig */,
+				D67CCB04A7FA85002677E534 /* Pods-NotTwitter.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -177,6 +123,7 @@
 				54533DED1C66D1DB00527626 /* Photos.framework */,
 				5E32D5C7A6B93061AA6F2E4E /* Pods.framework */,
 				32232655F65620A924B51CD3 /* Pods_Peek_Example.framework */,
+				BA956D8C8CB1CAAF37CD5A2C /* Pods_NotTwitter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -184,26 +131,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		607FACCF1AFB9204008FA782 /* Peek-Example */ = {
+		540B99DE2053FCAF0086FF61 /* NotTwitter */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "Peek-Example" */;
+			buildConfigurationList = 540B99F02053FCAF0086FF61 /* Build configuration list for PBXNativeTarget "NotTwitter" */;
 			buildPhases = (
-				A2E7D4C574D7296B44291E3F /* [CP] Check Pods Manifest.lock */,
-				5467FD88203D98940017ADF9 /* Swift Lint */,
-				607FACCC1AFB9204008FA782 /* Sources */,
-				607FACCD1AFB9204008FA782 /* Frameworks */,
-				607FACCE1AFB9204008FA782 /* Resources */,
-				99B3EE99300777C5E9049E45 /* [CP] Embed Pods Frameworks */,
-				66638CA98B00FB5B974BC064 /* [CP] Copy Pods Resources */,
-				5467FD89203D989E0017ADF9 /* TODOs & FIXMEs */,
+				C4BBA1B46B62DA32426FF4CD /* [CP] Check Pods Manifest.lock */,
+				540B99DB2053FCAF0086FF61 /* Sources */,
+				540B99DC2053FCAF0086FF61 /* Frameworks */,
+				540B99DD2053FCAF0086FF61 /* Resources */,
+				6CBCCBF6898DF591D950F350 /* [CP] Embed Pods Frameworks */,
+				B16B9AF1513D4F128789DA88 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "Peek-Example";
-			productName = Peek;
-			productReference = 607FACD01AFB9204008FA782 /* Peek-Example.app */;
+			name = NotTwitter;
+			productName = NotTwitter;
+			productReference = 540B99DF2053FCAF0086FF61 /* NotTwitter.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -212,14 +157,14 @@
 		607FACC81AFB9204008FA782 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0730;
+				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = Snippex;
 				TargetAttributes = {
-					607FACCF1AFB9204008FA782 = {
-						CreatedOnToolsVersion = 6.3.1;
+					540B99DE2053FCAF0086FF61 = {
+						CreatedOnToolsVersion = 9.2;
 						DevelopmentTeam = V2CWYL9AN8;
-						LastSwiftMigration = 0830;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -236,64 +181,50 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				607FACCF1AFB9204008FA782 /* Peek-Example */,
+				540B99DE2053FCAF0086FF61 /* NotTwitter */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		607FACCE1AFB9204008FA782 /* Resources */ = {
+		540B99DD2053FCAF0086FF61 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				542E83691CBADC9100598A9F /* OpenSans-Semibold.ttf in Resources */,
-				542E836A1CBADC9100598A9F /* OpenSans-SemiboldItalic.ttf in Resources */,
-				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
-				542E83681CBADC9100598A9F /* OpenSans-Regular.ttf in Resources */,
-				542E83651CBADC9100598A9F /* OpenSans-Italic.ttf in Resources */,
-				542E83641CBADC9100598A9F /* OpenSans-ExtraBoldItalic.ttf in Resources */,
-				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
-				542E83671CBADC9100598A9F /* OpenSans-LightItalic.ttf in Resources */,
-				542E83611CBADC9100598A9F /* OpenSans-Bold.ttf in Resources */,
-				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
-				542E83661CBADC9100598A9F /* OpenSans-Light.ttf in Resources */,
-				542E83621CBADC9100598A9F /* OpenSans-BoldItalic.ttf in Resources */,
-				542E83631CBADC9100598A9F /* OpenSans-ExtraBold.ttf in Resources */,
+				540B99EC2053FCAF0086FF61 /* LaunchScreen.storyboard in Resources */,
+				540B99E92053FCAF0086FF61 /* Assets.xcassets in Resources */,
+				540B99E72053FCAF0086FF61 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5467FD88203D98940017ADF9 /* Swift Lint */ = {
+		6CBCCBF6898DF591D950F350 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-NotTwitter/Pods-NotTwitter-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GraphicsRenderer/GraphicsRenderer.framework",
+				"${BUILT_PRODUCTS_DIR}/InkKit/InkKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Peek/Peek.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftLayout/SwiftLayout.framework",
 			);
-			name = "Swift Lint";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GraphicsRenderer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/InkKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Peek.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftLayout.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NotTwitter/Pods-NotTwitter-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
-		5467FD89203D989E0017ADF9 /* TODOs & FIXMEs */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "TODOs & FIXMEs";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-			shellPath = /bin/sh;
-			shellScript = "TAGS=\"TODO:|FIXME:|FEATURE:\"\nfind \"../${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"\n";
-		};
-		66638CA98B00FB5B974BC064 /* [CP] Copy Pods Resources */ = {
+		B16B9AF1513D4F128789DA88 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -305,40 +236,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Peek-Example/Pods-Peek-Example-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NotTwitter/Pods-NotTwitter-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		99B3EE99300777C5E9049E45 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Peek-Example/Pods-Peek-Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/GraphicsRenderer/GraphicsRenderer.framework",
-				"${BUILT_PRODUCTS_DIR}/InkKit/InkKit.framework",
-				"${BUILT_PRODUCTS_DIR}/OpenSans/OpenSans.framework",
-				"${BUILT_PRODUCTS_DIR}/Peek/Peek.framework",
-				"${BUILT_PRODUCTS_DIR}/SPXMasking/SPXMasking.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftLayout/SwiftLayout.framework",
-				"${BUILT_PRODUCTS_DIR}/pop/pop.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GraphicsRenderer.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/InkKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSans.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Peek.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SPXMasking.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftLayout.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/pop.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Peek-Example/Pods-Peek-Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A2E7D4C574D7296B44291E3F /* [CP] Check Pods Manifest.lock */ = {
+		C4BBA1B46B62DA32426FF4CD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -349,7 +250,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Peek-Example-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-NotTwitter-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -359,44 +260,90 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		607FACCC1AFB9204008FA782 /* Sources */ = {
+		540B99DB2053FCAF0086FF61 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				542E83741CBADCD700598A9F /* ImageView.swift in Sources */,
-				542E83771CBADCD700598A9F /* Week.swift in Sources */,
-				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
-				542E83721CBADCD700598A9F /* Button.swift in Sources */,
-				542E83781CBADCD700598A9F /* WeekCell.swift in Sources */,
-				542E83761CBADCD700598A9F /* Separator.swift in Sources */,
-				542E83751CBADCD700598A9F /* Model.swift in Sources */,
-				542E83731CBADCD700598A9F /* ImageCache.swift in Sources */,
-				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				542668DA2054064500F6B016 /* TextView.swift in Sources */,
+				540B99E42053FCAF0086FF61 /* TimlineViewController.swift in Sources */,
+				54E8B9A42054085000CEEFA3 /* Theming.swift in Sources */,
+				54E8B9A2205407E700CEEFA3 /* EmbedContainerView.swift in Sources */,
+				540B99E22053FCAF0086FF61 /* AppDelegate.swift in Sources */,
+				54E8B9A620540A0C00CEEFA3 /* Cell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		607FACD91AFB9204008FA782 /* Main.storyboard */ = {
+		540B99E52053FCAF0086FF61 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				607FACDA1AFB9204008FA782 /* Base */,
+				540B99E62053FCAF0086FF61 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		607FACDE1AFB9204008FA782 /* LaunchScreen.xib */ = {
+		540B99EA2053FCAF0086FF61 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				607FACDF1AFB9204008FA782 /* Base */,
+				540B99EB2053FCAF0086FF61 /* Base */,
 			);
-			name = LaunchScreen.xib;
+			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		540B99EE2053FCAF0086FF61 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7BA087941E8C3BC97D77612F /* Pods-NotTwitter.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = V2CWYL9AN8;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = NotTwitter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.152percent.NotTwitter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		540B99EF2053FCAF0086FF61 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D67CCB04A7FA85002677E534 /* Pods-NotTwitter.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = V2CWYL9AN8;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = NotTwitter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.152percent.NotTwitter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		607FACED1AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -501,67 +448,23 @@
 			};
 			name = Release;
 		};
-		607FACF01AFB9204008FA782 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 849E1DC4F32E49D4C263B9DD /* Pods-Peek-Example.debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = NO;
-				DEVELOPMENT_TEAM = V2CWYL9AN8;
-				INFOPLIST_FILE = Peek/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MODULE_NAME = ExampleApp;
-				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = com.152percent.Peek;
-				PRODUCT_NAME = "Peek-Example";
-				SWIFT_OBJC_BRIDGING_HEADER = "Peek/Peek-Example-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		607FACF11AFB9204008FA782 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 73CC2C48BDC639F2E4A2A5CE /* Pods-Peek-Example.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = NO;
-				DEVELOPMENT_TEAM = V2CWYL9AN8;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				INFOPLIST_FILE = Peek/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = com.152percent.Peek;
-				PRODUCT_NAME = "Peek-Example";
-				SWIFT_OBJC_BRIDGING_HEADER = "Peek/Peek-Example-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		540B99F02053FCAF0086FF61 /* Build configuration list for PBXNativeTarget "NotTwitter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				540B99EE2053FCAF0086FF61 /* Debug */,
+				540B99EF2053FCAF0086FF61 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "Peek" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				607FACED1AFB9204008FA782 /* Debug */,
 				607FACEE1AFB9204008FA782 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "Peek-Example" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				607FACF01AFB9204008FA782 /* Debug */,
-				607FACF11AFB9204008FA782 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

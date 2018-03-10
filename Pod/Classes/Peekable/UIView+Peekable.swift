@@ -61,7 +61,7 @@ extension UIView {
         return UIDevice.current
     }
     
-    public override func preparePeek(with coordinator: Coordinator) {
+    open override func preparePeek(with coordinator: Coordinator) {
         if bounds.size != .zero {
             let image = ImageRenderer(size: bounds.size).image { [weak self] context in
                 let rect = context.format.bounds
@@ -90,6 +90,7 @@ extension UIView {
         }
         
         coordinator.appendDynamic(keyPathToName: [
+            ["isAccessibilityElement": "enabled"],
             ["accessibilityIdentifier": "Identifier"],
             ["accessibilityLabel": "Label"],
             ["accessibilityValue": "Value"],

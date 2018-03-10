@@ -24,7 +24,7 @@ import UIKit
 
 extension UINavigationBar {
     
-    public override func preparePeek(with coordinator: Coordinator) {
+    open override func preparePeek(with coordinator: Coordinator) {
         coordinator.appendDynamic(keyPaths: [
             "barTintColor", "translucent", "shadowImage"
         ], forModel: self, in: .appearance)

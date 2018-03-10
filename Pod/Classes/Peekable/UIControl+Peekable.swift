@@ -24,7 +24,7 @@ import UIKit
 
 extension UIControl {
     
-    public override func preparePeek(with coordinator: Coordinator) {
+    open override func preparePeek(with coordinator: Coordinator) {
         coordinator.appendDynamic(keyPaths: [
             "enabled", "selected", "highlighted"
         ], forModel: self, in: .states)

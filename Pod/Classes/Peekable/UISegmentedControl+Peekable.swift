@@ -74,7 +74,7 @@ extension UISegmentedControl {
         return segments
     }
     
-    public override func preparePeek(with coordinator: Coordinator) {
+    open override func preparePeek(with coordinator: Coordinator) {
         for segment in (segments ?? []).reversed() {
             coordinator.appendStatic(keyPath: "segments", title: "Segment", detail: segment.title, value: segment, in: .appearance)
         }

@@ -2,11 +2,8 @@ source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 inhibit_all_warnings!
 
-target 'Peek-Example' do
+target 'NotTwitter' do
     platform :ios, '9.0'
     
     pod 'Peek', :path => '../', :configurations => ['Debug']
-    pod 'OpenSans'
-    pod 'pop'
-    pod 'SPXMasking', '1.1.0'
 end
