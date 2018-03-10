@@ -49,7 +49,7 @@ import Foundation
         case .horizontal: return "Horizontal"
         case .vertical: return "Vertical"
         case .layout: return "Layout"
-        case .classes: return "Class Hierarchy"
+        case .classes: return "Class Inheritance"
         case .views: return "View Hierarchy"
         case .layers: return "Layers"
         case .shadow: return "Shadow"
