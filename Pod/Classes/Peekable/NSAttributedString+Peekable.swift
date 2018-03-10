@@ -90,6 +90,8 @@ extension NSAttributedString {
     }
     
     open override func preparePeek(with coordinator: Coordinator) {
+//        coordinator.appendPreview(image: string.peek_preview, forModel: self)
+        
         coordinator.appendDynamic(keyPaths: [
             "attributes.fontName",
             "attributes.foregroundColor",

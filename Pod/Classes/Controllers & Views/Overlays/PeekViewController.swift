@@ -26,6 +26,11 @@ import InkKit
 
 final class PeekViewController: UIViewController, UIViewControllerTransitioningDelegate {
     
+    deinit {
+        NotificationCenter.default.removeObserver(observer)
+    }
+    
+    private var observer: Any?
     unowned var peek: Peek
     
     init(peek: Peek) {
@@ -88,6 +93,13 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
         
         bottomLayoutGuide.bottomAnchor.constraint(equalTo: attributesButton.bottomAnchor, constant: 30).isActive = true
         setAttributesButton(hidden: true, animated: false)
+        
+        observer = NotificationCenter.default.addObserver(forName: .UIContentSizeCategoryDidChange, object: nil, queue: .main) { [weak self] _ in
+            // we have to add a delay to allow the app to finish updating its layout.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self?.overlayView.reload()
+            }
+        }
     }
     
     private func setAttributesButton(hidden: Bool, animated: Bool) {

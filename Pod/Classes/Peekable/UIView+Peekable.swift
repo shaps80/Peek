@@ -85,12 +85,18 @@ extension UIView {
             coordinator.appendStatic(keyPath: "classForCoder", title: String(describing: `class`), detail: nil, value: "", in: .classes)
         }
         
+        if let superview = superview {
+            coordinator.appendStatic(keyPath: "superview", title: String(describing: superview.classForCoder), detail: "", value: superview, in: .views)
+        }
+        
+        coordinator.appendStatic(keyPath: "self", title: String(describing: classForCoder), detail: "", value: self, in: .views)
+        
         for view in subviews {
             coordinator.appendStatic(keyPath: "classForCoder", title: String(describing: view.classForCoder), detail: "", value: view, in: .views)
         }
         
         coordinator.appendDynamic(keyPathToName: [
-            ["isAccessibilityElement": "enabled"],
+            ["isAccessibilityElement": "Enabled"],
             ["accessibilityIdentifier": "Identifier"],
             ["accessibilityLabel": "Label"],
             ["accessibilityValue": "Value"],

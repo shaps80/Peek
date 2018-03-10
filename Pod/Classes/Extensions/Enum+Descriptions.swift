@@ -22,6 +22,46 @@
 
 import UIKit
 
+extension UILayoutConstraintAxis: CustomStringConvertible {
+    
+    public var description: String {
+        switch self {
+        case .horizontal: return "Horizontal"
+        case .vertical: return "Vertical"
+        }
+    }
+    
+}
+
+extension UIStackViewDistribution: CustomStringConvertible {
+    
+    public var description: String {
+        switch self {
+        case .equalCentering: return "Equal Centering"
+        case .equalSpacing: return "Equal Spacing"
+        case .fill: return "Fill"
+        case .fillEqually: return "Fill Equally"
+        case .fillProportionally: return "Fill Proportionally"
+        }
+    }
+    
+}
+
+extension UIStackViewAlignment: CustomStringConvertible {
+    
+    public var description: String {
+        switch self {
+        case .center: return "Center"
+        case .fill: return "Fill"
+        case .firstBaseline: return "First Baseline"
+        case .lastBaseline: return "Last Baseline"
+        case .leading: return "Leading"
+        case .trailing: return "Trailing"
+        }
+    }
+    
+}
+
 extension UISplitViewControllerDisplayMode: CustomStringConvertible {
     
     public var description: String {

@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -31,7 +30,7 @@
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Shaps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVQ-Nd-eKN">
                                             <rect key="frame" x="72" y="19" width="326" height="20.333333333333329"/>
-                                            <accessibility key="accessibilityConfiguration" identifier="com.152percent.notTwitter.author" label="Author">
+                                            <accessibility key="accessibilityConfiguration" identifier="message.author" label="Author">
                                                 <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
                                             </accessibility>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
@@ -40,7 +39,7 @@
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-large" translatesAutoresizingMaskIntoConstraints="NO" id="I7L-0p-Jzu">
                                             <rect key="frame" x="20" y="19" width="44" height="44"/>
-                                            <accessibility key="accessibilityConfiguration" identifier="com.152percent.notTwitter.profileImage" label="Profile Image">
+                                            <accessibility key="accessibilityConfiguration" identifier="message.profileImage" label="Profile Image">
                                                 <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                             </accessibility>
                                             <constraints>
@@ -53,8 +52,8 @@
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" image="promo" translatesAutoresizingMaskIntoConstraints="NO" id="Dnp-5Q-VJT">
                                                     <rect key="frame" x="0.0" y="0.0" width="326" height="183.33333333333334"/>
-                                                    <accessibility key="accessibilityConfiguration" identifier="com.152percent.notTwitter.embed" label="Peek Promo">
-                                                        <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
+                                                    <accessibility key="accessibilityConfiguration" hint="Shows webpage in Safari" identifier="message.embed" label="Peek Promo">
+                                                        <accessibilityTraits key="traits" image="YES" notEnabled="YES" startsMediaSession="YES"/>
                                                     </accessibility>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="Dnp-5Q-VJT" secondAttribute="height" multiplier="16:9" id="ahU-tE-1Jn"/>
@@ -71,7 +70,7 @@
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" scrollEnabled="NO" editable="NO" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MdY-5G-bal" customClass="TextView" customModule="NotTwitter" customModuleProvider="target">
                                             <rect key="frame" x="72" y="47.333333333333343" width="326" height="184"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <accessibility key="accessibilityConfiguration" identifier="com.152percent.notTwitter.message" label="Message">
+                                            <accessibility key="accessibilityConfiguration" identifier="message.text" label="Message">
                                                 <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
                                             </accessibility>
                                             <string key="text">NSNotification Scheduling Service in Swift
@@ -91,19 +90,19 @@ Handles past dates immediately
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KoE-s9-cDi">
                                                     <rect key="frame" x="0.0" y="0.0" width="108.66666666666667" height="20"/>
-                                                    <accessibility key="accessibilityConfiguration" identifier="com.152percent.notTwitter.reply" label="Reply"/>
+                                                    <accessibility key="accessibilityConfiguration" identifier="message.reply" label="Reply"/>
                                                     <color key="tintColor" red="0.40784313725490196" green="0.46274509803921571" blue="0.51764705882352935" alpha="1" colorSpace="deviceRGB"/>
                                                     <state key="normal" title=" 43" image="reply"/>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WO7-3H-9fU">
                                                     <rect key="frame" x="108.66666666666666" y="0.0" width="108.66666666666666" height="20"/>
-                                                    <accessibility key="accessibilityConfiguration" identifier="com.152percent.notTwitter.favourite" label="Favourite"/>
+                                                    <accessibility key="accessibilityConfiguration" identifier="message.favourite" label="Favourite"/>
                                                     <color key="tintColor" red="0.40784313725490196" green="0.46274509803921571" blue="0.51764705882352935" alpha="1" colorSpace="deviceRGB"/>
                                                     <state key="normal" title=" 102" image="star"/>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N1M-PV-Sb2">
                                                     <rect key="frame" x="217.33333333333329" y="0.0" width="108.66666666666666" height="20"/>
-                                                    <accessibility key="accessibilityConfiguration" identifier="com.152percent.notTwitter.share" label="Share"/>
+                                                    <accessibility key="accessibilityConfiguration" identifier="message.share" label="Share"/>
                                                     <color key="tintColor" red="0.40784313725490196" green="0.46274509803921571" blue="0.51764705882352935" alpha="1" colorSpace="deviceRGB"/>
                                                     <state key="normal" image="share"/>
                                                 </button>
@@ -151,7 +150,7 @@ Handles past dates immediately
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Psx-as-h4S">
                                 <rect key="frame" x="20" y="2" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <accessibility key="accessibilityConfiguration" hint="Shows Profile" identifier="profile" label="Profile"/>
+                                <accessibility key="accessibilityConfiguration" hint="Shows Profile" identifier="navigation.profile" label="Profile"/>
                                 <state key="normal" image="profile-small"/>
                             </button>
                         </barButtonItem>

@@ -15,7 +15,7 @@ public final class TimelineViewController: UITableViewController {
         super.viewDidLoad()
         
         navigationItem.rightBarButtonItem?.accessibilityHint = "New Message"
-        navigationItem.rightBarButtonItem?.accessibilityIdentifier = "com.152percent.notTwitter.newMessage"
+        navigationItem.rightBarButtonItem?.accessibilityIdentifier = "navigation.newMessage"
     }
 
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

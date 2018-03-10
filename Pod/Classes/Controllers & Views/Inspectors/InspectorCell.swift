@@ -33,8 +33,9 @@ final class InspectorCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .value1, reuseIdentifier: reuseIdentifier)
         
+        indentationWidth = 17
         textLabel?.numberOfLines = 0
-        detailTextLabel?.numberOfLines = 0
+        detailTextLabel?.numberOfLines = 4
         
         backgroundColor = .inspectorBackground
         contentView.backgroundColor = .inspectorBackground

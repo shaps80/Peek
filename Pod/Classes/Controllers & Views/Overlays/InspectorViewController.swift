@@ -11,6 +11,10 @@ import GraphicsRenderer
 
 internal final class InspectorViewController: PeekSectionedViewController {
     
+    deinit {
+        NotificationCenter.default.removeObserver(observer)
+    }
+    
     private lazy var reportButton: UIButton = {
         let button = UIButton(type: .system)
         button.frame = CGRect(x: 0, y: 0, width: 100, height: 24)
@@ -33,6 +37,7 @@ internal final class InspectorViewController: PeekSectionedViewController {
         }
     }
     
+    private var observer: Any?
     private var feedbackGenerator: Any?
     
     @available(iOS 10.0, *)
@@ -65,6 +70,13 @@ internal final class InspectorViewController: PeekSectionedViewController {
     
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: tableView)
+        }
+        
+        observer = NotificationCenter.default.addObserver(forName: .UIContentSizeCategoryDidChange, object: nil, queue: .main) { [weak self] _ in
+            // we have to add a delay to allow the app to finish updating its layout.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self?.tableView.reloadData()
+            }
         }
     }
     
@@ -122,7 +134,25 @@ internal final class InspectorViewController: PeekSectionedViewController {
         }
         
         guard let cell = super.tableView(tableView, cellForRowAt: indexPath) as? InspectorCell else { fatalError() }
-        cell.textLabel?.text = attribute.title
+        
+        if let modelAsView = model as? UIView,
+            let attributeAsView = attribute.value as? UIView,
+            dataSource.sections[indexPath.section].group.group == .views {
+            
+            if attributeAsView == modelAsView {
+                cell.indentationLevel = 1
+                cell.textLabel?.text = "◦ \(attribute.title)"
+            } else if attributeAsView.superview == modelAsView {
+                cell.indentationLevel = 2
+                cell.textLabel?.text = "▹ \(attribute.title)"
+            } else {
+                cell.indentationLevel = 0
+                cell.textLabel?.text = "▿ \(attribute.title)"
+            }
+        } else {
+            cell.indentationLevel = 0
+            cell.textLabel?.text = attribute.title
+        }
         
         let value = attribute.valueTransformer?(attribute.value) ?? attribute.value
         if let value = value as? NSObjectProtocol {
@@ -174,10 +204,15 @@ internal final class InspectorViewController: PeekSectionedViewController {
             
             if let value = value as? PeekableContainer {
                 cell.accessoryType = tableView.isEditing ? .none : .disclosureIndicator
+            } else {
+                cell.accessoryView = accessoryView
+                cell.editingAccessoryView = accessoryView
             }
             
-            cell.accessoryView = accessoryView
-            cell.editingAccessoryView = accessoryView
+            if let value = value as? UIView, value === model {
+                cell.accessoryType = .checkmark
+            }
+            
             cell.detailTextLabel?.text = attribute.detail ?? text
         } else {
             cell.detailTextLabel?.text = "none"
@@ -379,7 +414,7 @@ extension InspectorViewController {
         let attribute = self.dataSource.attribute(at: indexPath)
         let cell = tableView.cellForRow(at: indexPath)
         
-        if !tableView.isEditing, let value = attribute.value as? Model & PeekableContainer {
+        if !tableView.isEditing, let value = attribute.value as? Model & PeekableContainer, value !== model {
             let controller = InspectorViewController(peek: peek, model: value)
             controller.title = attribute.title
             navigationController?.pushViewController(controller, animated: true)

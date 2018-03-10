@@ -50,6 +50,7 @@ extension UIDevice: PeekableContainer { }
 extension UIApplication: PeekableContainer { }
 extension Bundle: PeekableContainer { }
 extension NSShadow: PeekableContainer { }
+extension NSString: PeekContainer { }
 
 extension NSObject: Peekable {
     

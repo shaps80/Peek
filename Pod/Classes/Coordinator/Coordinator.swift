@@ -25,6 +25,8 @@ internal final class PeekCoordinator: Coordinator, CustomStringConvertible {
     }
     
     internal func appendPreview(image: UIImage, forModel model: Model) {
+        guard image.size.width > 0 && image.size.height > 0 else { return }
+        
         let peekGroup = groupsMapping[.preview] ?? Group.preview.peekGroup()
         groupsMapping[.preview] = peekGroup
         peekGroup.attributes.insert(PreviewAttribute(image: image), at: 0)

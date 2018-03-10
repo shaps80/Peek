@@ -23,8 +23,6 @@ public final class Cell: UITableViewCell {
         
         selectedBackgroundView = UIView()
         selectedBackgroundView?.backgroundColor = .selection
-        
-        usernameLabel.accessibilityValue = usernameLabel.text
     }
     
 }
