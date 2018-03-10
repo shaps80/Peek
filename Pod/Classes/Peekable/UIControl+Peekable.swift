@@ -35,7 +35,7 @@ extension UIControl {
         }, forModel: self, in: .appearance)
         
         coordinator.appendTransformed(keyPaths: ["contentHorizontalAlignment"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let alignment = UIControlContentVerticalAlignment(rawValue: rawValue) else { return nil }
+            guard let rawValue = value as? Int, let alignment = UIControlContentHorizontalAlignment(rawValue: rawValue) else { return nil }
             return alignment.description
         }, forModel: self, in: .appearance)
         

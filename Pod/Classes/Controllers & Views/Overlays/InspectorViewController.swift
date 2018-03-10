@@ -204,13 +204,13 @@ internal final class InspectorViewController: PeekSectionedViewController {
             
             if let value = value as? PeekableContainer {
                 cell.accessoryType = tableView.isEditing ? .none : .disclosureIndicator
+            }
+            
+            if value === model {
+                cell.accessoryType = .checkmark
             } else {
                 cell.accessoryView = accessoryView
                 cell.editingAccessoryView = accessoryView
-            }
-            
-            if let value = value as? UIView, value === model {
-                cell.accessoryType = .checkmark
             }
             
             cell.detailTextLabel?.text = attribute.detail ?? text
