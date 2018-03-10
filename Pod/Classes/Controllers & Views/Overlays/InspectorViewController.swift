@@ -141,7 +141,7 @@ internal final class InspectorViewController: PeekSectionedViewController {
             
             if attributeAsView == modelAsView {
                 cell.indentationLevel = 1
-                cell.textLabel?.text = "◦ \(attribute.title)"
+                cell.textLabel?.text = "⊙ \(attribute.title)"
             } else if attributeAsView.superview == modelAsView {
                 cell.indentationLevel = 2
                 cell.textLabel?.text = "▹ \(attribute.title)"
