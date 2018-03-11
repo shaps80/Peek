@@ -148,12 +148,11 @@ Peek is officially supported (and tested) with the following configurations:
 
 **Swift 4.x**
 
-This is the current release.
+Currently supported by version Peek v4.0 – v5.0
 
 **Swift 3.x**
 
-Swift 3.x unfortunately broke some of the compatilibity issues I required to work with the runtime.
-Please use the Swift 4 version instead.
+Not officially supported. Its recommended you update to Swift 4 and Peek 5.0
 
 **Swift 2.3**
 
@@ -180,6 +179,9 @@ If you need Swift 2.2 support, update your Podfile as such:
 - Nested Inspectors
 - Previews
 - Revamped Reporting
+- Accessibilty, StackViews & More
+- Removed InkKit & SwiftLayout dependencies
+- and more
 
 > Note: Dropped support for iOS 8.x.
 
