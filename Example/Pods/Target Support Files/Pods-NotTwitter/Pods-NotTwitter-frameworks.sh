@@ -137,12 +137,10 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/GraphicsRenderer/GraphicsRenderer.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/InkKit/InkKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Peek/Peek.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/SwiftLayout/SwiftLayout.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/GraphicsRenderer/GraphicsRenderer.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/InkKit/InkKit.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/SwiftLayout/SwiftLayout.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

@@ -19,9 +19,6 @@
   "requires_arc": true,
   "source_files": "Pod/Classes/**/*.{swift,h,m}",
   "dependencies": {
-    "SwiftLayout": [
-      "4.0.0"
-    ],
     "InkKit": [
       "4.0.1"
     ]

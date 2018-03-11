@@ -1,6 +1,0 @@
-framework module pop {
-  umbrella header "pop-umbrella.h"
-
-  export *
-  module * { export * }
-}

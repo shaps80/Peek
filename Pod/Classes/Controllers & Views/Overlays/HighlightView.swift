@@ -145,8 +145,10 @@ final class MetricView: UIVisualEffectView {
         label.setContentHuggingPriority(.required, for: .vertical)
         
         super.init(effect: UIBlurEffect(style: .extraLight))
+        
         layer.cornerRadius = 3
         layer.masksToBounds = true
+        layer.zPosition = 100
         
         contentView.addSubview(label, constraints: [
             equal(\.leadingAnchor, constant: -2), equal(\.trailingAnchor, constant: 2),

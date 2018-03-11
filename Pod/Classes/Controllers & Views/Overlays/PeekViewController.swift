@@ -76,8 +76,10 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(overlayView)
-        overlayView.pin(edges: .all, to: view)
+        view.addSubview(overlayView, constraints: [
+            equal(\.leadingAnchor), equal(\.trailingAnchor),
+            equal(\.topAnchor), equal(\.bottomAnchor)
+        ])
         
         parseView(peek.peekingWindow)
         updateBackgroundColor(alpha: 0.5)

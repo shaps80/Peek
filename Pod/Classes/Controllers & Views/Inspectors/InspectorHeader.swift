@@ -22,7 +22,6 @@
 
 import UIKit
 import InkKit
-import SwiftLayout
 
 /// Some properties can provide an optional header for better representing an object. E.g. image, color, etc...
 final class InspectorHeader: UIView {
@@ -54,21 +53,27 @@ final class InspectorHeader: UIView {
         backgroundColor = UIColor.clear
         clipsToBounds = true
         
-        addSubview(imageView)
-        imageView.size(width: imageView.bounds.width, height: imageView.bounds.height)
-        imageView.align(axis: .vertical, to: self)
-        imageView.align(axis: .horizontal, to: self)
+        addSubview(imageView, constraints: [
+            sized(\.widthAnchor, constant: imageView.bounds.width),
+            sized(\.heightAnchor, constant: imageView.bounds.height),
+            equal(\.centerXAnchor), equal(\.centerYAnchor)
+        ])
         
         if showBorder {
             let borderView = DashedBorderView(frame: rect)
             borderView.clipsToBounds = true
             borderView.backgroundColor = UIColor.clear
-            addSubview(borderView)
             
-            borderView.pin(edges: .all, to: self)
+            addSubview(borderView, constraints: [
+                equal(\.leadingAnchor), equal(\.trailingAnchor),
+                equal(\.topAnchor), equal(\.bottomAnchor)
+            ])
         }
         
-        self.size(width: rect.width, height: rect.height)
+        NSLayoutConstraint.activate([
+            widthAnchor.constraint(equalToConstant: rect.width),
+            heightAnchor.constraint(equalToConstant: rect.height)
+        ])
     }
     
     required init?(coder aDecoder: NSCoder) {

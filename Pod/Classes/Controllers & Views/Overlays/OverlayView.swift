@@ -21,12 +21,6 @@
  */
 
 import UIKit
-import SwiftLayout
-
-enum OverlayMode {
-    case single
-    case multiple
-}
 
 /// An overlay view is used to show layout information in Peek
 class OverlayView: UIView {
@@ -44,18 +38,20 @@ class OverlayView: UIView {
         view.layer.cornerRadius = 2
         view.layer.borderColor = UIColor(white: 1, alpha: 0.3).cgColor
         view.layer.borderWidth = 1
-        view.layer.zPosition = -100
+        view.layer.zPosition = 0
         
         return view
     }()
     
     fileprivate(set) lazy var primaryView: HighlightView = {
-        HighlightView(color: .primaryTint)
+        let view = HighlightView(color: .primaryTint)
+        view.layer.zPosition = 20
+        return view
     }()
     
     fileprivate lazy var secondaryView: HighlightView = {
         let view = HighlightView(color: .neutral)
-        view.layer.zPosition = -1
+        view.layer.zPosition = 10
         return view
     }()
     
@@ -72,9 +68,7 @@ class OverlayView: UIView {
     }
     
     fileprivate func updateHighlightView(highlightView view: HighlightView, withModel model: UIView) {
-        guard let superview = model.superview else {
-            return
-        }
+        guard let superview = model.superview else { return }
         
         let viewFrame = model.frameInPeek(self)
         let superviewFrame = superview.frameInPeek(self)
@@ -99,7 +93,28 @@ class OverlayView: UIView {
             view.transform = .identity
             view.frame = viewFrame
             self.boundingView.frame = boundingRect
-            view.setMetrics(Metrics(top: model.frame.origin.y, left: model.frame.origin.x, bottom: superview.bounds.maxY - model.frame.maxY, right: superview.bounds.maxX - model.frame.maxX))
+         
+            guard view == self.secondaryView else { return }
+            
+            let alternate = self.selectedModels.count > 0 ? self.selectedModels.last ?? self.boundingView : self.boundingView
+            let first = model.frameInPeek(self)
+            let second = alternate.frameInPeek(self)
+            
+            let top: CGFloat, bottom: CGFloat, left: CGFloat, right: CGFloat
+            
+            if first.maxY < second.minY {
+                top = 0
+                bottom = second.minY - first.maxY
+            } else {
+                top = second.minY - first.minY
+                bottom = second.maxY - first.maxY
+            }
+            
+            left = 0
+            right = 0
+            
+            let metrics = Metrics(top: top, left: left, bottom: bottom, right: right)
+            view.setMetrics(metrics)
         }, completion: nil)
     }
     
