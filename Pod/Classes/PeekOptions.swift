@@ -35,8 +35,25 @@ public enum PeekActivationMode {
     case shake
 }
 
+public enum PeekTheme {
+    case dark
+    case black
+    // TODO
+    // case light
+    
+    internal var backgroundColor: UIColor {
+        switch self {
+        case .dark: return .inspectorDark
+        case .black: return .inspectorBlack
+        }
+    }
+}
+
 /// Defines various options to use when enabling Peek
 public final class PeekOptions: NSObject {
+    
+    /// Defines how peek looks (.black mode is optimised for OLED displays). Defaults to .dark
+    public var theme: PeekTheme = .dark
     
     /// Defines how Peek is activated/de-activated. Defaults to auto
     public var activationMode: PeekActivationMode = .auto

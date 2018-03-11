@@ -31,8 +31,6 @@ internal final class PreviewCell: UITableViewCell {
             equal(\.bottomAnchor, constant: 16)
         ])
         
-        backgroundColor = .inspectorBackground
-        contentView.backgroundColor = .inspectorBackground
         clipsToBounds = true
         contentView.clipsToBounds = true
     }

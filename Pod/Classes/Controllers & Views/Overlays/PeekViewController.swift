@@ -107,13 +107,11 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
         
         guard animated else {
             attributesButton.transform = hidden ? transform : .identity
-            attributesButton.alpha = hidden ? 0 : 1
             return
         }
         
         UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .beginFromCurrentState, animations: {
             self.attributesButton.transform = hidden ? transform : .identity
-            self.attributesButton.alpha = hidden ? 0 : 1
         }, completion: nil)
     }
     

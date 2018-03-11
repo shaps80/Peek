@@ -28,7 +28,7 @@ internal final class InspectorsTabController: UITabBarController {
         
         tabBar.shadowImage = UIImage()
         tabBar.backgroundImage = UIImage()
-        tabBar.backgroundColor = .inspectorBackground
+        tabBar.backgroundColor = peek.options.theme.backgroundColor
         tabBar.tintColor = .primaryTint
         tabBar.isHidden = true
         

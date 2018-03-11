@@ -13,8 +13,17 @@ internal final class PeekButton: UIControl {
         return UITapGestureRecognizer(target: self, action: #selector(handleTap(gesture:)))
     }()
     
+    private lazy var vibrancyView: UIVisualEffectView = {
+        return UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: UIBlurEffect(style: .extraLight)))
+    }()
+    
     private lazy var visualEffectView: UIVisualEffectView = {
-        return UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+        let blur = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
+        blur.contentView.addSubview(vibrancyView, constraints: [
+            equal(\.leadingAnchor), equal(\.trailingAnchor),
+            equal(\.topAnchor), equal(\.bottomAnchor)
+        ])
+        return blur
     }()
     
     private lazy var imageView: UIImageView = {
@@ -24,13 +33,13 @@ internal final class PeekButton: UIControl {
     internal override init(frame: CGRect) {
         super.init(frame: frame)
         
+        vibrancyView.contentView.addSubview(imageView, constraints: [
+            equal(\.centerXAnchor), equal(\.centerYAnchor)
+        ])
+        
         addSubview(visualEffectView, constraints: [
             equal(\.leadingAnchor), equal(\.trailingAnchor),
             equal(\.topAnchor), equal(\.bottomAnchor)
-        ])
-        
-        visualEffectView.contentView.addSubview(imageView, constraints: [
-            equal(\.centerXAnchor), equal(\.centerYAnchor)
         ])
         
         addGestureRecognizer(tapGesture)
@@ -47,22 +56,25 @@ internal final class PeekButton: UIControl {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        setAlpha(0.8)
+        
+        UIView.animate(withDuration: 0.15) {
+            self.visualEffectView.backgroundColor = .primaryTint
+        }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        setAlpha(1)
+        
+        UIView.animate(withDuration: 0.15) {
+            self.visualEffectView.backgroundColor = nil
+        }
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
-        setAlpha(1)
-    }
-    
-    private func setAlpha(_ alpha: CGFloat) {
-        UIView.animate(withDuration: 0.2) {
-            self.alpha = alpha
+        
+        UIView.animate(withDuration: 0.15) {
+            self.visualEffectView.backgroundColor = nil
         }
     }
     

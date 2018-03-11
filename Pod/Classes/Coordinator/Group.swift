@@ -96,7 +96,7 @@ extension NSObject: Model {
         case .vertical: return true
         case .layout: return false
         case .classes: return false
-        case .views: return false
+        case .views: return true
         case .layers: return false
         case .shadow: return true
         case .border: return true

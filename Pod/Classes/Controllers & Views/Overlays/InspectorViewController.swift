@@ -100,6 +100,7 @@ internal final class InspectorViewController: PeekSectionedViewController {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = super.tableView(tableView, viewForHeaderInSection: section) as? CollapsibleSectionHeaderView else { fatalError() }
         header.prepareHeader(for: section, delegate: self)
+        header.contentView.backgroundColor = peek.options.theme.backgroundColor
         return header
     }
     
@@ -130,10 +131,12 @@ internal final class InspectorViewController: PeekSectionedViewController {
         if let preview = attribute as? PreviewAttribute,
             let cell = tableView.dequeueReusableCell(withIdentifier: "PreviewCell", for: indexPath) as? PreviewCell {
             cell.previewImageView.image = preview.image
+            cell.contentView.backgroundColor = peek.options.theme.backgroundColor
             return cell
         }
         
         guard let cell = super.tableView(tableView, cellForRowAt: indexPath) as? InspectorCell else { fatalError() }
+        cell.backgroundColor = peek.options.theme.backgroundColor
         
         if let modelAsView = model as? UIView,
             let attributeAsView = attribute.value as? UIView,
@@ -235,7 +238,9 @@ extension InspectorViewController: UIViewControllerPreviewingDelegate {
         let attribute = dataSource.attribute(at: indexPath)
         
         if !(attribute is PreviewAttribute), let value = attribute.value as? Model & PeekableContainer {
-            return InspectorViewController(peek: peek, model: value)
+            let controller = InspectorViewController(peek: peek, model: value)
+            controller.title = attribute.title
+            return controller
         } else {
             return nil
         }
@@ -290,7 +295,7 @@ extension InspectorViewController {
             }
             
             UIView.animate(withDuration: animated ? 0.25 : 0) {
-                self.navigationController?.navigationBar.backgroundColor = .inspectorBackground
+                self.navigationController?.navigationBar.backgroundColor = self.peek.options.theme.backgroundColor
                 self.navigationController?.navigationBar.tintColor = .primaryTint
             }
             

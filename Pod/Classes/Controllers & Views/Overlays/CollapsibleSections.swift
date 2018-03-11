@@ -60,7 +60,6 @@ internal final class CollapsibleSectionHeaderView: UITableViewHeaderFooterView {
         let size = CGSize(width: 13 + thickness, height: 8 + thickness)
         imageView.image = Images.disclosure(size: size, thickness: thickness)
         
-        contentView.backgroundColor = .inspectorBackground
         imageView.tintColor = .neutral
         label.numberOfLines = 0
         

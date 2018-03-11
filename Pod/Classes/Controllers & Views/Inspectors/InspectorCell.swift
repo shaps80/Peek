@@ -37,8 +37,6 @@ final class InspectorCell: UITableViewCell {
         textLabel?.numberOfLines = 0
         detailTextLabel?.numberOfLines = 4
         
-        backgroundColor = .inspectorBackground
-        contentView.backgroundColor = .inspectorBackground
         clipsToBounds = true
         contentView.clipsToBounds = true
         

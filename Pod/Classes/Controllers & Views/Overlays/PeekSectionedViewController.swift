@@ -91,7 +91,7 @@ extension PeekSectionedViewController {
     private func prepareNavigationBar() {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.backgroundColor = .inspectorBackground
+        navigationController?.navigationBar.backgroundColor = peek.options.theme.backgroundColor
         navigationController?.navigationBar.tintColor = .primaryTint
         navigationController?.navigationBar.titleTextAttributes = [
             .foregroundColor: UIColor.white,
@@ -126,7 +126,7 @@ extension PeekSectionedViewController {
         tableView.keyboardDismissMode = .interactive
         
         tableView.tableFooterView = UIView()
-        tableView.backgroundColor = .inspectorBackground
+        tableView.backgroundColor = peek.options.theme.backgroundColor
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self

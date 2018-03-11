@@ -50,7 +50,11 @@ extension UIColor {
         return UIColor(white: 1, alpha: 0.1)
     }
     
-    internal static var inspectorBackground: UIColor {
+    internal static var inspectorBlack: UIColor {
+        return .black
+    }
+    
+    internal static var inspectorDark: UIColor {
         return Color(hex: "1c1c1c")!.uiColor
     }
     
