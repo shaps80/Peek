@@ -7,7 +7,7 @@
 
 # Peek: All new design
 
-Peek 4.1 with an all new design and all new features. Whether you're a developer, designer or QA/tester, Peek can help you at all stages of your development process.
+Peek 5.0 with an all new design and all new features. Whether you're a developer, designer or QA/tester, Peek can help you at all stages of your development process.
 
 ## Unified Inspectors
 All inspectors and attributes have now been unified into a single window, making inspection simpler and faster than ever before.
@@ -24,13 +24,14 @@ Views, images, colours and more can now provide snapshot previews to help you be
 ## Reporting
 An all new reporting system allows you to export screenshots, metadata and even suggested values using the iOS native share sheet. 
 
-## Less Code
-Thanks to an all new architecture Peek is also now smaller. Providing more features with much less code, leaving a very small footprint on your application.
+## Accessibility
+Peek itself is now more accessibly with Dynamic Type, but Peek now also surfaces accessibility values from your application.
 
 ## More
 
-- Dynamic Type
-- Haptic Feedback (on supported devices)
+- Dynamic Type – more accessible than ever
+- Haptic Feedback – on supported devices
+- Less code – an all new architecture, leaving a very small footprint on your application.
 
 # Ready to get started?
 
@@ -121,13 +122,14 @@ Peek allows many options to be configured, allowing you more control over how Pe
 
 ```swift
 window?.peek.enableWithOptions { options in
-  options.activationMode = .Auto
-  options.shouldIgnoreContainers = true
+    options.theme = .black
+    options.activationMode = .Auto
+    options.shouldIgnoreContainers = true
   
-  /*
-    Sometimes it can also be useful to include additional metadata with each report.
-   */
-  options.metaData = [ "Environment": "UAT" ]
+    /*
+      Sometimes it can also be useful to include additional metadata with each report.
+     */
+    options.metaData = [ "Environment": "UAT" ]
 }
 ```
 
@@ -170,7 +172,7 @@ If you need Swift 2.2 support, update your Podfile as such:
 
 # Changelog
 
-4.1
+5.0 (Major Release)
 -
 
 - All new design
@@ -209,7 +211,7 @@ Please use the Swift 4 version instead.
 * Force shake gesture on device
 * Allow container selection
 
-2.0
+2.0 (Major Release)
 -
 
 * Absolute layout overlay
