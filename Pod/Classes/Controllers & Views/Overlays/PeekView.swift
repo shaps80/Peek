@@ -26,6 +26,7 @@ internal final class PeekView: UIView {
     
     private var isDragging: Bool = false
     private var feedbackGenerator: Any?
+    private var observer: Any?
     
     @available(iOS 10.0, *)
     private func haptic() -> UIImpactFeedbackGenerator? {
@@ -53,6 +54,13 @@ internal final class PeekView: UIView {
         addGestureRecognizer(tapGesture)
         addGestureRecognizer(doubleTapGesture)
         tapGesture.require(toFail: doubleTapGesture)
+        
+        observer = NotificationCenter.default.addObserver(forName: .UIContentSizeCategoryDidChange, object: nil, queue: .main) { [weak self] _ in
+            // we have to add a delay to allow the app to finish updating its layout.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self?.refresh()
+            }
+        }
     }
     
     internal func refresh() {
