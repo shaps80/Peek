@@ -1,6 +1,0 @@
-framework module InkKit {
-  umbrella header "InkKit-umbrella.h"
-
-  export *
-  module * { export * }
-}

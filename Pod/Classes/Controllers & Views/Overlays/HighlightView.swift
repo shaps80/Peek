@@ -48,51 +48,55 @@ final class HighlightView: UIView {
         super.init(coder: aDecoder)
     }
     
-    init(color: UIColor) {
+    init(color: UIColor?) {
         super.init(frame: CGRect.zero)
         
         backgroundColor = UIColor.clear
-        layer.borderColor = color.cgColor
+        layer.borderColor = color?.cgColor
         layer.cornerRadius = 3 
         layer.borderWidth = 1.5
     }
     
     fileprivate(set) lazy var leftMetricView: MetricView = {
         let view = MetricView()
-        self.addSubview(view)
         
-        view.align(axis: .vertical, to: self)
-        view.pin(edge: .right, to: .left, of: self, margin: 2)
+        addSubview(view, constraints: [
+            equal(\.centerYAnchor),
+            equal(\.trailingAnchor, \.leadingAnchor, constant: 2)
+        ])
         
         return view
     }()
     
     fileprivate(set) lazy var topMetricView: MetricView = {
         let view = MetricView()
-        self.addSubview(view)
         
-        view.align(axis: .horizontal, to: self)
-        view.pin(edge: .bottom, to: .top, of: self, margin: 2)
+        addSubview(view, constraints: [
+            equal(\.centerXAnchor),
+            equal(\.bottomAnchor, \.topAnchor, constant: 2)
+        ])
         
         return view
     }()
     
     fileprivate(set) lazy var rightMetricView: MetricView = {
         let view = MetricView()
-        self.addSubview(view)
         
-        view.align(axis: .vertical, to: self)
-        view.pin(edge: .left, to: .right, of: self, margin: 2)
+        addSubview(view, constraints: [
+            equal(\.centerYAnchor),
+            equal(\.leadingAnchor, \.trailingAnchor, constant: 2)
+        ])
         
         return view
     }()
     
     fileprivate(set) lazy var bottomMetricView: MetricView = {
         let view = MetricView()
-        self.addSubview(view)
         
-        view.align(axis: .horizontal, to: self)
-        view.pin(edge: .top, to: .bottom, of: self, margin: 2)
+        addSubview(view, constraints: [
+            equal(\.centerXAnchor),
+            equal(\.topAnchor, \.bottomAnchor, constant: 2)
+        ])
         
         return view
     }()

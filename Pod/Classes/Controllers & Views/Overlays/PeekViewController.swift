@@ -21,8 +21,7 @@
  */
 
 import UIKit
-import UIKit.UIGestureRecognizerSubclass
-import InkKit
+import GraphicsRenderer
 
 final class PeekViewController: UIViewController, UIViewControllerTransitioningDelegate {
     
@@ -188,7 +187,7 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     }
     
     fileprivate func updateBackgroundColor(alpha: CGFloat) {
-        view.backgroundColor = UIColor.overlayColor().withAlphaComponent(alpha)
+        view.backgroundColor = UIColor.overlay?.withAlphaComponent(alpha)
         
         let animation = CATransition()
         animation.type = kCATransitionFade
@@ -211,10 +210,11 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
         }
         UserDefaults.standard.register(defaults: defaults)
         
-        peek.screenshot = UIImage.draw(width: rect.width, height: rect.height, scale: 1 / UIScreen.main.scale, attributes: nil, drawing: { [unowned self] (_, rect, _) in
+        peek.screenshot = ImageRenderer(size: CGSize(width: rect.width, height: rect.height)).image { context in
+            let rect = context.format.bounds
             self.peek.peekingWindow.drawHierarchy(in: rect, afterScreenUpdates: true)
             self.peek.window?.drawHierarchy(in: rect, afterScreenUpdates: true)
-        })
+        }
         
         if let model = model as? UIView {
             let controller = InspectorsTabController(peek: peek, model: model)

@@ -205,13 +205,11 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-NotTwitter/Pods-NotTwitter-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GraphicsRenderer/GraphicsRenderer.framework",
-				"${BUILT_PRODUCTS_DIR}/InkKit/InkKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Peek/Peek.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GraphicsRenderer.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/InkKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Peek.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

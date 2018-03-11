@@ -61,6 +61,7 @@ internal class PeekSectionedViewController: UIViewController, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "InspectorHeader") as? CollapsibleSectionHeaderView else { fatalError() }
+        header.contentView.backgroundColor = peek.options.theme.backgroundColor
         header.label.text = sectionTitle(for: section)
         header.label.font = UIFont.systemFont(ofSize: 15, weight: .black)
         header.label.textColor = .textLight

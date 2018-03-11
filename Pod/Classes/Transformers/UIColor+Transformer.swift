@@ -26,24 +26,24 @@ import UIKit
 final class ColorTransformer: Foundation.ValueTransformer {
     
     override func transformedValue(_ value: Any?) -> Any? {
-        if let value = value as? UIColor {
-            if value == .clear {
+        if let value = value as? UIColor, let color = Color(systemColor: value) {
+            if color == .clear {
                 return "Clear"
             }
             
-            if value.cgColor.pattern != nil {
+            if color.cgColor.pattern != nil {
                 return "Pattern"
             }
             
-            return value.values().a == 0
+            return color.rgba.alpha == 0
                 ? "Transparent"
                 : value.peek_HEX
         }
         
         if CFGetTypeID(value as CFTypeRef) == CGColor.typeID {
             // swiftlint:disable force_cast
-            let color = UIColor(cgColor: value as! CGColor)
-            return color.values().a == 0 ? "Clear" : color.peek_HEX
+            let color = Color(cgColor: value as! CGColor)
+            return color?.rgba.alpha == 0 ? "Clear" : color?.systemColor.peek_HEX
         }
         
         return "none"

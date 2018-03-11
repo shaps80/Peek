@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "853175640CA4A638CB23288795092C6C"
+               BlueprintIdentifier = "8DED42B9D17135C5A8D0A436D0BA0F1A"
                BlueprintName = "Peek"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "Peek.framework">

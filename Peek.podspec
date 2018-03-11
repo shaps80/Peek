@@ -11,5 +11,5 @@ Pod::Spec.new do |s|
   s.platform         = :ios, '9.0'
   s.requires_arc     = true
   s.source_files     = 'Pod/Classes/**/*.{swift,h,m}'
-  s.dependency         'InkKit', '4.0.1'
+  s.dependency         'GraphicsRenderer', '1.2.0'
 end

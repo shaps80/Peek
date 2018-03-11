@@ -21,7 +21,6 @@
  */
 
 import UIKit
-import InkKit
 
 /// Defines an inspector's cell used to represent a Peek property
 final class InspectorCell: UITableViewCell {

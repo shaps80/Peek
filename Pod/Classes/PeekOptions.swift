@@ -41,7 +41,7 @@ public enum PeekTheme {
     // TODO
     // case light
     
-    internal var backgroundColor: UIColor {
+    internal var backgroundColor: UIColor? {
         switch self {
         case .dark: return .inspectorDark
         case .black: return .inspectorBlack

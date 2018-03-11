@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import InkKit
 
 internal final class InspectorsPresentationController: UIPresentationController, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning {
     
@@ -412,7 +411,7 @@ extension UIView {
             layer.shadowColor = (shadow.shadowColor as? UIColor)?.cgColor
             layer.shadowOffset = .zero
             let color = shadow.shadowColor as? UIColor ?? .black
-            layer.shadowOpacity = Color(color: color)?.rgba.alpha ?? 0.5
+            layer.shadowOpacity = Color(systemColor: color)?.rgba.alpha ?? 0.5
         }
     }
     

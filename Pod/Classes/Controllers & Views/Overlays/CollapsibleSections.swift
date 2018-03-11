@@ -6,8 +6,11 @@
 //
 
 import Foundation
-import InkKit
 import GraphicsRenderer
+
+private func radians(fromDegrees degrees: CGFloat) -> CGFloat {
+    return degrees * CGFloat(Double.pi) / 180
+}
 
 internal struct CollapsibleSection {
     internal let group: PeekGroup
@@ -88,7 +91,7 @@ internal final class CollapsibleSectionHeaderView: UITableViewHeaderFooterView {
     
     func setExpanded(_ expanded: Bool, completion: (() -> Void)? = nil) {
         UIView.animate(withDuration: 0.25, animations: {
-            let angle = radians(from: -90)
+            let angle = radians(fromDegrees: -90)
             self.imageView.transform = expanded ? .identity : CGAffineTransform(rotationAngle: angle)
         }, completion: { _ in
             completion?()

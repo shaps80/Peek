@@ -21,12 +21,14 @@
  */
 
 import UIKit
-import InkKit
+import GraphicsRenderer
 
 extension Images {
     
     static func orientationMaskImage(_ mask: UIInterfaceOrientationMask) -> UIImage {
-        return Image.draw(width: 60, height: 50, attributes: nil) { _, frame, _ in
+        return ImageRenderer(size: CGSize(width: 60, height: 50)).image { context in
+            let frame = context.format.bounds
+        
             //// General Declarations
             let context = UIGraphicsGetCurrentContext()
             

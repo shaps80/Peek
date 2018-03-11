@@ -21,97 +21,96 @@
  */
 
 import UIKit
-import InkKit
 
 extension UIColor {
     
-    func colorWithDelta(_ delta: CGFloat = 0.1) -> UIColor {
-        let d = max(min(delta, 1), -1)
-        let (r, g, b, a) = rgbComponents
-        return UIColor(red: r + d, green: g + d, blue: b + d, alpha: a)
-    }
+//    func colorWithDelta(_ delta: CGFloat = 0.1) -> UIColor {
+//        let d = max(min(delta, 1), -1)
+//        let (r, g, b, a) = rgbComponents
+//        return UIColor(red: r + d, green: g + d, blue: b + d, alpha: a)
+//    }
     
-    @available(*, deprecated)
-    class func neutralColor() -> UIColor {
-        return UIColor(white: 0.6, alpha: 1)
-    }
+//    @available(*, deprecated)
+//    class func neutralColor() -> UIColor {
+//        return UIColor(white: 0.6, alpha: 1)
+//    }
     
-    @available(*, deprecated)
-    class func primaryColor() -> UIColor {
-//        return Color(hex: "2be13c")!.uiColor
-        return UIColor.colorWithRed(red: 135, green: 252, blue: 112, alpha: 1)
-    }
+//    @available(*, deprecated)
+//    class func primaryColor() -> UIColor {
+////        return Color(hex: "2be13c")!.uiColor
+//        return UIColor.colorWithRed(red: 135, green: 252, blue: 112, alpha: 1)
+//    }
     
-    class func overlayColor() -> UIColor {
-        return UIColor.black
-    }
-    
-    internal static var separator: UIColor {
-        return UIColor(white: 1, alpha: 0.1)
-    }
-    
-    internal static var inspectorBlack: UIColor {
+    internal static var overlay: UIColor? {
         return .black
     }
     
-    internal static var inspectorDark: UIColor {
-        return Color(hex: "1c1c1c")!.uiColor
+    internal static var separator: UIColor? {
+        return UIColor(white: 1, alpha: 0.1)
     }
     
-    internal static var textDark: UIColor {
-        return Color(hex: "1c1c1c")!.uiColor
+    internal static var inspectorBlack: UIColor? {
+        return .black
     }
     
-    internal static var textLight: UIColor {
+    internal static var inspectorDark: UIColor? {
+        return Color(hex: "1c1c1c")!.systemColor
+    }
+    
+    internal static var textDark: UIColor? {
+        return Color(hex: "1c1c1c")!.systemColor
+    }
+    
+    internal static var textLight: UIColor? {
         return UIColor.white
     }
     
-    internal static var editingTint: UIColor {
-        return Color(hex: "4CD863")!.uiColor 
+    internal static var editingTint: UIColor? {
+        return Color(hex: "4CD863")!.systemColor
     }
     
-    internal static var counter: UIColor {
-        return Color(hex: "3EB454")!.uiColor
+    internal static var counter: UIColor? {
+        return Color(hex: "3EB454")!.systemColor
     }
     
-    internal static var neutral: UIColor {
+    internal static var neutral: UIColor? {
         return UIColor(white: 1, alpha: 0.6)
     }
     
-    internal static var primaryTint: UIColor {
-        return primaryColor()
+    internal static var primaryTint: UIColor? {
+        return Color(literalRed: 135, green: 252, blue: 112).systemColor
     }
     
-    internal static var secondaryTint: UIColor {
-        return primaryColor()
-    }
+//    internal static var secondaryTint: UIColor {
+//        return UIColor.colorWithRed(red: 135, green: 252, blue: 112, alpha: 1)
+//    }
     
-    @available(*, deprecated)
-    class func secondaryColor() -> UIColor {
-        return UIColor.colorWithRed(red: 255, green: 41, blue: 105, alpha: 1)
-    }
+//    @available(*, deprecated)
+//    class func secondaryColor() -> UIColor {
+//        return UIColor.colorWithRed(red: 255, green: 41, blue: 105, alpha: 1)
+//    }
     
-    func values() -> (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) {
-        var r: CGFloat = 0
-        var g: CGFloat = 0
-        var b: CGFloat = 0
-        var a: CGFloat = 0
-        
-        getRed(&r, green: &g, blue: &b, alpha: &a)
-        return (r, g, b, a)
-    }
-    
-    fileprivate class func colorWithRed(red: UInt, green: UInt, blue: UInt, alpha: CGFloat) -> UIColor {
-        return UIColor(red: CGFloat(red) / 255, green: CGFloat(green) / 255, blue: CGFloat(blue) / 255, alpha: alpha)
-    }
-    
-    var hslComponents:(hue: CGFloat, saturation: CGFloat, brightness: CGFloat, alpha: CGFloat) {
+//    func values() -> (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) {
+//        var r: CGFloat = 0
+//        var g: CGFloat = 0
+//        var b: CGFloat = 0
+//        var a: CGFloat = 0
+//
+//        getRed(&r, green: &g, blue: &b, alpha: &a)
+//        return (r, g, b, a)
+//    }
+//
+//    fileprivate class func colorWithRed(red: UInt, green: UInt, blue: UInt, alpha: CGFloat) -> UIColor {
+//        return UIColor(red: CGFloat(red) / 255, green: CGFloat(green) / 255, blue: CGFloat(blue) / 255, alpha: alpha)
+//    }
+//
+    internal var hslComponents:(hue: CGFloat, saturation: CGFloat, brightness: CGFloat, alpha: CGFloat) {
         var h: CGFloat = 0, s: CGFloat = 0, l: CGFloat = 0, a: CGFloat = 0
         getHue(&h, saturation: &s, brightness: &l, alpha: &a)
         return (h, s, l, a)
     }
-    
-    var rgbComponents:(red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
+
+    internal var rgbComponents:(red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
         var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
         getRed(&r, green: &g, blue: &b, alpha: &a)
         return (r, g, b, a)

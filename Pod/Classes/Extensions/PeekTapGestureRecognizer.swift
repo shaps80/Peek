@@ -21,6 +21,7 @@
  */
 
 import UIKit
+import UIKit.UIGestureRecognizerSubclass
 
 final class PeekTapGestureRecognizer: UITapGestureRecognizer {
     

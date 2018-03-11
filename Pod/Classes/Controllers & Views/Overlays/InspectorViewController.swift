@@ -100,7 +100,6 @@ internal final class InspectorViewController: PeekSectionedViewController {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = super.tableView(tableView, viewForHeaderInSection: section) as? CollapsibleSectionHeaderView else { fatalError() }
         header.prepareHeader(for: section, delegate: self)
-        header.contentView.backgroundColor = peek.options.theme.backgroundColor
         return header
     }
     
@@ -132,10 +131,12 @@ internal final class InspectorViewController: PeekSectionedViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PreviewCell", for: indexPath) as? PreviewCell {
             cell.previewImageView.image = preview.image
             cell.contentView.backgroundColor = peek.options.theme.backgroundColor
+            cell.backgroundColor = peek.options.theme.backgroundColor
             return cell
         }
         
         guard let cell = super.tableView(tableView, cellForRowAt: indexPath) as? InspectorCell else { fatalError() }
+        cell.contentView.backgroundColor = peek.options.theme.backgroundColor
         cell.backgroundColor = peek.options.theme.backgroundColor
         
         if let modelAsView = model as? UIView,

@@ -21,14 +21,15 @@
  */
 
 import Foundation
-import InkKit
+import GraphicsRenderer
 
 extension Images {
     
     static func orientationImage(_ orientation: UIInterfaceOrientation) -> UIImage {
-        return Image.draw(width: 25, height: 25, attributes: nil, drawing: { (_, rect, _) in
+        return ImageRenderer(size: CGSize(width: 25, height: 25)).image { context in
+            let rect = context.format.bounds
             drawOrientation(frame: rect, portraitVisible: orientation == .portrait, portraitUpsideDownVisible: orientation == .portraitUpsideDown, lanscapeLeftVisible: orientation == .landscapeLeft, landscapeRightVisible: orientation == .landscapeRight)
-        })
+        }
     }
     
     static func drawOrientation(frame: CGRect = CGRect(x: 0, y: 0, width: 25, height: 25), portraitVisible: Bool = true, portraitUpsideDownVisible: Bool = false, lanscapeLeftVisible: Bool = false, landscapeRightVisible: Bool = false) {

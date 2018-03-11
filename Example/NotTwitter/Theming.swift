@@ -7,12 +7,11 @@
 //
 
 import UIKit
-import InkKit
 
 extension UIColor {
     
     public static var separator: UIColor {
-        return Color(hex: "bdc6cd")!.uiColor
+        return UIColor(red: 189/255, green: 198/255, blue: 205/255, alpha: 1)
     }
     
     public static var background: UIColor {
@@ -32,7 +31,7 @@ public struct Theme {
         
         bar.barTintColor = .background
         bar.titleTextAttributes = [
-            .foregroundColor: Color(hex: "15171a")!.uiColor,
+            .foregroundColor: UIColor(red: 21/255, green: 23/255, blue: 26/255, alpha: 1),
             .font: UIFont.systemFont(ofSize: 16, weight: .black)
         ]
         

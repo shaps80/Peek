@@ -22,16 +22,15 @@
 
 import UIKit
 import GraphicsRenderer
-import InkKit
 
 extension UIColor: Model {
     
     @objc var peek_alpha: CGFloat {
-        return rgbComponents.alpha
+        return CGFloat(Color(systemColor: self)?.rgba.alpha ?? 0)
     }
     
     @objc var peek_HEX: String {
-        if let hex = Color(color: self)?.toHex(withAlpha: false) {
+        if let hex = Color(systemColor: self)?.toHex(withAlpha: false) {
             return "#\(hex)"
         } else {
             return "Unknown"
@@ -52,7 +51,7 @@ extension UIColor: Model {
     }
     
     open override func preparePeek(with coordinator: Coordinator) {
-        if cgColor.pattern != nil || (self != .clear && values().a != 0) {
+        if cgColor.pattern != nil || (self != .clear && rgbComponents.alpha != 0) {
             let width = UIScreen.main.nativeBounds.width / UIScreen.main.nativeScale
             let image = ImageRenderer(size: CGSize(width: width, height: 88)).image { context in
                 let rect = context.format.bounds

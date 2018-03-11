@@ -43,10 +43,10 @@ final class BoolAccessoryView: UIView {
         
         let rect = rect.insetBy(dx: 1, dy: 1)
         
-        var bgColor: UIColor
+        var bgColor: UIColor?
         let bgPath = UIBezierPath(roundedRect: rect, cornerRadius: rect.height / 2)
         
-        var fgColor: UIColor
+        var fgColor: UIColor?
         var fgPath: UIBezierPath
         
         if value {
@@ -59,10 +59,10 @@ final class BoolAccessoryView: UIView {
             fgPath = UIBezierPath(ovalIn: CGRect(x: rect.minX, y: rect.minY, width: rect.height, height: rect.height))
         }
         
-        bgColor.setFill()
+        bgColor?.setFill()
         bgPath.fill()
         
-        fgColor.setFill()
+        fgColor?.setFill()
         fgPath.fill()
     }
     

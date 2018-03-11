@@ -21,13 +21,13 @@
  */
 
 import UIKit
-import InkKit
+import GraphicsRenderer
 
 final class Images {
     
     static func disclosure(size: CGSize, thickness: CGFloat) -> UIImage {
-        return Image.draw(size: size, attributes: nil) { _, rect, _ in
-            let rect = rect.insetBy(dx: thickness, dy: thickness)
+        return ImageRenderer(size: size).image { context in
+            let rect = context.format.bounds.insetBy(dx: thickness, dy: thickness)
             let path = UIBezierPath()
             
             path.move(to: rect.origin)
@@ -44,10 +44,10 @@ final class Images {
     }
     
     static var close: UIImage {
-        return Image.draw(width: 18, height: 18, attributes: nil) { _, rect, _ in
+        return ImageRenderer(size: CGSize(width: 18, height: 18)).image { context in
             let color = UIColor.neutral
             let thickness: CGFloat = 2
-            let rect = rect.insetBy(dx: thickness, dy: thickness)
+            let rect = context.format.bounds.insetBy(dx: thickness, dy: thickness)
             
             let path = UIBezierPath()
             path.move(to: CGPoint(x: rect.minX, y: rect.minY))
@@ -55,7 +55,7 @@ final class Images {
             path.move(to: CGPoint(x: rect.maxX, y: rect.minY))
             path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
             
-            color.setStroke()
+            color?.setStroke()
             path.lineCapStyle = .round
             path.lineJoinStyle = .round
             path.lineWidth = thickness
@@ -64,7 +64,7 @@ final class Images {
     }
     
     internal static var attributes: UIImage {
-        return Image.draw(width: 30, height: 25, attributes: nil, drawing: { (_, _, _) in
+        return ImageRenderer(size: CGSize(width: 30, height: 25)).image { context in
             //// Color Declarations
             let color2 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
             
@@ -175,11 +175,12 @@ final class Images {
             let oval3Path = UIBezierPath(ovalIn: CGRect(x: 23, y: 6.5, width: 3, height: 3))
             color2.setFill()
             oval3Path.fill()
-        })
+        }
     }
     
     internal static var report: UIImage {
-        return Image.draw(width: 26, height: 22, attributes: nil) { _, frame, _ in
+        return ImageRenderer(size: CGSize(width: 26, height: 22)).image { context in
+            let frame = context.format.bounds
             //// Color Declarations
             let color3 = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
             var color3HueComponent: CGFloat = 1

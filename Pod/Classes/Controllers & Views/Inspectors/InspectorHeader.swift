@@ -21,7 +21,6 @@
  */
 
 import UIKit
-import InkKit
 
 /// Some properties can provide an optional header for better representing an object. E.g. image, color, etc...
 final class InspectorHeader: UIView {

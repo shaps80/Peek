@@ -1,5 +1,5 @@
 /*
- Copyright © 01/10/2016 Shaps
+ Copyright © 11/03/2018 Shaps
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -25,7 +25,7 @@ import CoreGraphics
 /**
  *  Represents a color value type
  */
-public struct Color: CustomStringConvertible {
+public struct Color {
     
     /// Represents the underlying RGBA values
     public var rgba: RGBA
@@ -59,12 +59,6 @@ public struct Color: CustomStringConvertible {
      */
     public func with(alpha: Float) -> Color {
         return Color(red: rgba.red, green: rgba.green, blue: rgba.blue, alpha: alpha)
-    }
-    
-    /// Returns a debug friendly description of this color. The string contains both a relative and literal representation as well as the associated hexValue
-    public var description: String {
-        let color = literalRGBA()
-        return "(\(color.red), \(color.green), \(color.blue), \(rgba.alpha)) \(toHex(withAlpha: true))"
     }
 }
 
@@ -104,7 +98,7 @@ extension Color {
      - parameter alpha: An optional alpha value. Defaults to 1.0
      */
     public init?(hex: Int, alpha: Float? = nil) {
-        self.init(hex: String(format:"%2X", hex), alpha: alpha)
+        self.init(hex: String(format: "%2X", hex), alpha: alpha)
     }
     
     /**
@@ -127,10 +121,10 @@ extension Color {
         guard let normalizedHex = Int(hexValue, radix: 16) else { return nil }
         
         self.init(
-            red:   Float((normalizedHex >> 16) & 0xFF) / 255,
+            red: Float((normalizedHex >> 16) & 0xFF) / 255,
             green: Float((normalizedHex >> 8) & 0xFF) / 255,
-            blue:  Float((normalizedHex)  & 0xFF) / 255,
-            alpha: 1.0)
+            blue: Float((normalizedHex)  & 0xFF) / 255,
+            alpha: 1)
     }
     
     /**
@@ -233,7 +227,18 @@ extension Color {
     
 }
 
+extension Color: CustomStringConvertible {
+    
+    /// Returns a debug friendly description of this color. The string contains both a relative and literal representation as well as the associated hexValue
+    public var description: String {
+        let color = literalRGBA()
+        return "(\(color.red), \(color.green), \(color.blue), \(rgba.alpha)) \(toHex(withAlpha: true))"
+    }
+    
+}
+
 extension Color: ExpressibleByStringLiteral {
+    
     public init(extendedGraphemeClusterLiteral value: String) {
         self.init(hex: value)!
     }
@@ -245,21 +250,37 @@ extension Color: ExpressibleByStringLiteral {
     public init(stringLiteral value: String) {
         self.init(hex: value)!
     }
+    
 }
 
-extension Color {
+extension Color: Codable {
     
-    public func set() {
-        setFill()
-        setStroke()
+    public init(from decoder: Decoder) throws {
+        var container = try decoder.unkeyedContainer()
+        let red = try container.decode(Float.self)
+        let green = try container.decode(Float.self)
+        let blue = try container.decode(Float.self)
+        let alpha = try container.decode(Float.self)
+        rgba = RGBA(red: red, green: green, blue: blue, alpha: alpha)
     }
     
-    public func setFill() {
-        CGContext.current?.setFillColor(cgColor)
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.unkeyedContainer()
+        try container.encode(rgba.red)
+        try container.encode(rgba.green)
+        try container.encode(rgba.blue)
+        try container.encode(rgba.alpha)
     }
     
-    public func setStroke() {
-        CGContext.current?.setStrokeColor(cgColor)
+}
+
+extension Color: Equatable {
+    
+    public static func ==(lhs: Color, rhs: Color) -> Bool {
+        return lhs.rgba.red == rhs.rgba.red
+            && lhs.rgba.green == rhs.rgba.green
+            && lhs.rgba.blue == rhs.rgba.blue
+            && lhs.rgba.alpha == rhs.rgba.alpha
     }
     
 }
@@ -267,11 +288,12 @@ extension Color {
 #if os(iOS)
     import UIKit
     extension Color {
-        public init?(color: UIColor) {
-            self.init(cgColor: color.cgColor)
+        public init?(systemColor: UIColor?) {
+            guard let systemColor = systemColor else { return nil }
+            self.init(cgColor: systemColor.cgColor)
         }
         
-        public var uiColor: UIColor {
+        public var systemColor: UIColor {
             return UIColor(cgColor: cgColor)
         }
     }
@@ -280,12 +302,14 @@ extension Color {
 #if os(OSX)
     import AppKit
     extension Color {
-        public init?(color: NSColor) {
+        public init?(systemColor: NSColor?) {
+            guard let systemColor = systemColor else { return nil }
             self.init(cgColor: color.cgColor)
         }
         
-        public var nsColor: NSColor {
+        public var systemColor: NSColor {
             return NSColor(cgColor: cgColor)!
         }
     }
 #endif
+

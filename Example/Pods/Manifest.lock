@@ -1,9 +1,7 @@
 PODS:
   - GraphicsRenderer (1.2.0)
-  - InkKit (4.0.1):
-    - GraphicsRenderer
   - Peek (4.0.1):
-    - InkKit (= 4.0.1)
+    - GraphicsRenderer (= 1.2.0)
 
 DEPENDENCIES:
   - Peek (from `../`)
@@ -14,8 +12,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   GraphicsRenderer: fec3014926360221359205a64060414273d625e5
-  InkKit: dfe49d96f903b3672afc67d8b849f419b41537d1
-  Peek: 7f0823a8dceda7e56da05f547ed8ad92f7cda43e
+  Peek: 1c771b3be93f6fcc5647b04b74855319aceef22c
 
 PODFILE CHECKSUM: 06fa110334f649d2cdcbeea715786f0b15d27b3e
 
