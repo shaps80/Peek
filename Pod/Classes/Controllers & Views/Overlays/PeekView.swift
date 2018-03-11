@@ -14,15 +14,17 @@ internal final class PeekSelectionView: UIView {
 internal protocol ViewModel: Peekable, Model { }
 
 internal protocol PeekViewDelegate: class {
-    func viewModels(in peekView: PeekView) -> ViewModel
+    func viewModels(in peekView: PeekView) -> [ViewModel]
     func didSelect(viewModel: ViewModel, in peekView: PeekView)
+    func didBeginDragging(in peekView: PeekView)
+    func didEndDragging(in peekView: PeekView)
 }
 
 internal final class PeekView: UIView {
     
     internal weak var delegate: PeekViewDelegate?
     internal var allowsMultipleSelection: Bool = false
-    internal private(set) var indexesForSelectedItems: IndexSet?
+    internal private(set) var indexesForSelectedItems = IndexSet()
     
     private var isDragging: Bool = false
     private var feedbackGenerator: Any?
@@ -54,6 +56,8 @@ internal final class PeekView: UIView {
         addGestureRecognizer(tapGesture)
         addGestureRecognizer(doubleTapGesture)
         tapGesture.require(toFail: doubleTapGesture)
+        
+        updateBackgroundColor(alpha: 0.5)
         
         observer = NotificationCenter.default.addObserver(forName: .UIContentSizeCategoryDidChange, object: nil, queue: .main) { [weak self] _ in
             // we have to add a delay to allow the app to finish updating its layout.
@@ -87,15 +91,17 @@ internal final class PeekView: UIView {
                 haptic()?.prepare()
             }
             
-//            updateBackgroundColor(alpha: 0.3)
+            updateBackgroundColor(alpha: 0.3)
             isDragging = true
-//            setAttributesButton(hidden: true, animated: true)
+            delegate?.didBeginDragging(in: self)
         case .changed:
             break
+//            selectItem(at: <#T##Int#>, animated: <#T##Bool#>)
 //            updateSelectedModels(gesture)
         default:
             isDragging = false
-//            updateBackgroundColor(alpha: 0.5)
+            delegate?.didEndDragging(in: self)
+            updateBackgroundColor(alpha: 0.5)
 //            let hidden = overlayView.selectedModels.count == 0
 //            setAttributesButton(hidden: hidden, animated: true)
 
@@ -116,6 +122,15 @@ internal final class PeekView: UIView {
 //                setAttributesButton(hidden: hidden, animated: true)
             }
         }
+    }
+    
+    private func updateBackgroundColor(alpha: CGFloat) {
+        backgroundColor = UIColor.overlay?.withAlphaComponent(alpha)
+        
+        let animation = CATransition()
+        animation.type = kCATransitionFade
+        animation.duration = 0.1
+        layer.add(animation, forKey: "fade")
     }
     
     internal required init?(coder aDecoder: NSCoder) {

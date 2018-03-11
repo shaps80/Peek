@@ -52,6 +52,12 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
         return view
     }()
     
+    internal lazy var peekView: PeekView = {
+        let view = PeekView()
+        view.delegate = self
+        return view
+    }()
+    
     lazy var panGesture: UIPanGestureRecognizer = {
         return UIPanGestureRecognizer(target: self, action: #selector(PeekViewController.handlePan(_:)))
     }()
@@ -75,18 +81,24 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(overlayView, constraints: [
+//        view.addSubview(overlayView, constraints: [
+//            equal(\.leadingAnchor), equal(\.trailingAnchor),
+//            equal(\.topAnchor), equal(\.bottomAnchor)
+//        ])
+        
+        view.addSubview(peekView, constraints: [
             equal(\.leadingAnchor), equal(\.trailingAnchor),
             equal(\.topAnchor), equal(\.bottomAnchor)
-        ])
+            ])
         
         parseView(peek.peekingWindow)
-        updateBackgroundColor(alpha: 0.5)
+        view.backgroundColor = .clear
+//        updateBackgroundColor(alpha: 0.5)
         
-        overlayView.addGestureRecognizer(panGesture)
-        overlayView.addGestureRecognizer(tapGesture)
-        overlayView.addGestureRecognizer(doubleTapGesture)
-        tapGesture.require(toFail: doubleTapGesture)
+//        overlayView.addGestureRecognizer(panGesture)
+//        overlayView.addGestureRecognizer(tapGesture)
+//        overlayView.addGestureRecognizer(doubleTapGesture)
+//        tapGesture.require(toFail: doubleTapGesture)
         
         view.addSubview(attributesButton, constraints: [
             equal(\.centerXAnchor)
@@ -104,7 +116,7 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     }
     
     private func setAttributesButton(hidden: Bool, animated: Bool) {
-        let transform = CGAffineTransform(translationX: 0, y: 100) // CGAffineTransform(scaleX: 0.5, y: 0.5)
+        let transform = CGAffineTransform(translationX: 0, y: 120)
         
         guard animated else {
             attributesButton.transform = hidden ? transform : .identity
@@ -279,6 +291,27 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
         // iOS 10 now requires device motion handlers to be on a UIViewController
         peek.handleShake(motion)
+    }
+    
+}
+
+extension PeekViewController: PeekViewDelegate {
+    
+    func viewModels(in peekView: PeekView) -> [ViewModel] {
+        return models as? [ViewModel] ?? []
+    }
+    
+    func didSelect(viewModel: ViewModel, in peekView: PeekView) {
+        presentInspectorsForModel(viewModel)
+    }
+    
+    func didBeginDragging(in peekView: PeekView) {
+        setAttributesButton(hidden: true, animated: true)
+    }
+    
+    func didEndDragging(in peekView: PeekView) {
+        let hidden = peekView.indexesForSelectedItems.count == 0
+        setAttributesButton(hidden: hidden, animated: true)
     }
     
 }
