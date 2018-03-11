@@ -16,7 +16,7 @@ All inspectors and attributes have now been unified into a single window, making
 Feeling overwhelmed with all the information Peek has to offer? Simply tap the header to expand/collapse any section. Peek will even remember your choice across launches!
 
 ## Nested Inspectors
-Peek now supports nested Inspectors. This powerful feature allows Peek to surface even more detail about your application. In fact Peek 4.1 more than doubles the number of attributes it can inspect. 
+Peek now supports nested Inspectors. This powerful feature allows Peek to surface even more detail about your application. In fact Peek 5.0 more than doubles the number of attributes it can inspect.
 
 ## Previews
 Views, images, colours and more can now provide snapshot previews to help you better identify what you’re inspecting. 
@@ -25,13 +25,12 @@ Views, images, colours and more can now provide snapshot previews to help you be
 An all new reporting system allows you to export screenshots, metadata and even suggested values using the iOS native share sheet. 
 
 ## Accessibility
-Peek itself is now more accessibly with Dynamic Type, but Peek now also surfaces accessibility values from your application.
+Peek itself is now more accessible with Dynamic Type, but Peek can also surface accessibility details from your application.
 
-## More
+## Less Code & Dependencies
 
-- Dynamic Type – more accessible than ever
-- Haptic Feedback – on supported devices
-- Less code – an all new architecture, leaving a very small footprint on your application.
+Thanks to an all new architecture Peek is also now smaller. Providing more features with much less code, leaving a very small footprint on your application.
+
 
 # Ready to get started?
 
