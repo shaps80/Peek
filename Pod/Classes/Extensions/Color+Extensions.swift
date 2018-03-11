@@ -67,8 +67,7 @@ extension UIColor {
     }
     
     internal static var editingTint: UIColor {
-        return Color(hex: "4CD863")!.uiColor // green
-        //  Color(hex: "AA0000")!.uiColor // red
+        return Color(hex: "4CD863")!.uiColor 
     }
     
     internal static var counter: UIColor {

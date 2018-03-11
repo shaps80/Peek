@@ -99,7 +99,7 @@ class OverlayView: UIView {
             view.transform = .identity
             view.frame = viewFrame
             self.boundingView.frame = boundingRect
-//            view.setMetrics(Metrics(top: model.frame.origin.y, left: model.frame.origin.x, bottom: superview.bounds.maxY - model.frame.maxY, right: superview.bounds.maxX - model.frame.maxX))
+            view.setMetrics(Metrics(top: model.frame.origin.y, left: model.frame.origin.x, bottom: superview.bounds.maxY - model.frame.maxY, right: superview.bounds.maxX - model.frame.maxX))
         }, completion: nil)
     }
     

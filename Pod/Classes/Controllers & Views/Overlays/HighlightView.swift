@@ -53,8 +53,8 @@ final class HighlightView: UIView {
         
         backgroundColor = UIColor.clear
         layer.borderColor = color.cgColor
-        layer.cornerRadius = 2
-        layer.borderWidth = 1
+        layer.cornerRadius = 3 
+        layer.borderWidth = 1.5
     }
     
     fileprivate(set) lazy var leftMetricView: MetricView = {
@@ -134,7 +134,7 @@ final class MetricView: UIVisualEffectView {
     
     init() {
         label = UILabel(frame: .zero)
-        label.font = UIFont.systemFont(ofSize: 10, weight: .semibold)
+        label.font = UIFont.systemFont(ofSize: 11, weight: .semibold)
         label.textColor = .textDark
         label.textAlignment = .center
         

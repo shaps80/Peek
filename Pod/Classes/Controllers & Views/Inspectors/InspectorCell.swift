@@ -35,7 +35,7 @@ final class InspectorCell: UITableViewCell {
         
         indentationWidth = 17
         textLabel?.numberOfLines = 0
-        detailTextLabel?.numberOfLines = 4
+        detailTextLabel?.numberOfLines = 1
         
         clipsToBounds = true
         contentView.clipsToBounds = true
