@@ -131,24 +131,24 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     func updateSelectedModels(_ gesture: UIGestureRecognizer) {
         let location = gesture.location(in: gesture.view)
         
-        for model in models.reversed() {
-            let modelRect = model.frameInPeek(view)
+        for next in models.reversed() {
+            let modelRect = next.frameInPeek(view)
             
             if modelRect.contains(location) {
                 let models = overlayView.selectedModels
                 
-                if !models.contains(model) {
+                if !models.contains(next) {
                     if isDragging {
-                        if let previous = models.last, overlayView.selectedModels.count > 1 {
-                            overlayView.selectedModels = [model, previous]
+                        if let previous = models.first, overlayView.selectedModels.count > 1 {
+                            overlayView.selectedModels = [previous, next]
                         } else {
-                            overlayView.selectedModels = [model]
+                            overlayView.selectedModels = [next]
                         }
                     } else {
                         if let previous = models.last {
-                            overlayView.selectedModels = [previous, model]
+                            overlayView.selectedModels = [previous, next]
                         } else {
-                            overlayView.selectedModels = [model]
+                            overlayView.selectedModels = [next]
                         }
                     }
                     

@@ -62,15 +62,13 @@ extension UIView {
     }
     
     open override func preparePeek(with coordinator: Coordinator) {
-        if bounds.size != .zero {
+        if bounds.size != .zero, alpha > 0, !isHidden {
             let image = ImageRenderer(size: bounds.size).image { [weak self] context in
                 let rect = context.format.bounds
                 self?.drawHierarchy(in: rect, afterScreenUpdates: true)
             }
             
-            if image.size != .zero {
-                coordinator.appendPreview(image: image, forModel: self)
-            }
+            coordinator.appendPreview(image: image, forModel: self)
         }
         
         var current = classForCoder
@@ -103,7 +101,7 @@ extension UIView {
             ["accessibilityHint": "Hint"],
             ["accessibilityPath": "Path"],
             ["accessibilityFrame": "Frame"],
-            ], forModel: self, in: .accessibility)
+        ], forModel: self, in: .accessibility)
         
         coordinator.appendDynamic(keyPaths: [
             "userInteractionEnabled",

@@ -21,6 +21,18 @@ public final class Cell: UITableViewCell {
     public override func awakeFromNib() {
         super.awakeFromNib()
         
+        replyButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
+        favouriteButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
+        shareButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
+        
+        replyButton.titleLabel?.adjustsFontForContentSizeCategory = true
+        favouriteButton.titleLabel?.adjustsFontForContentSizeCategory = true
+        shareButton.titleLabel?.adjustsFontForContentSizeCategory = true
+        
+        replyButton.adjustsImageSizeForAccessibilityContentSizeCategory = true
+        favouriteButton.adjustsImageSizeForAccessibilityContentSizeCategory = true
+        shareButton.adjustsImageSizeForAccessibilityContentSizeCategory = true
+        
         selectedBackgroundView = UIView()
         selectedBackgroundView?.backgroundColor = .selection
     }

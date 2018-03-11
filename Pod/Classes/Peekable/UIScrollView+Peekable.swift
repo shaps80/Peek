@@ -26,8 +26,6 @@ extension UIScrollView {
     
     open override func preparePeek(with coordinator: Coordinator) {
         coordinator.appendDynamic(keyPaths: [
-            "showsHorizontalScrollIndicator",
-            "showsVerticalScrollIndicator",
             "zoomScale",
             "minimumZoomScale",
             "maximumZoomScale",
@@ -52,7 +50,13 @@ extension UIScrollView {
         }, forModel: self, in: .behaviour)
         
         coordinator.appendDynamic(keyPaths: [
-            "scrollEnabled", "scrollsToTop", "pagingEnabled", "decelerationRate", "directionalLockEnabled"
+            "showsHorizontalScrollIndicator",
+            "showsVerticalScrollIndicator",
+            "scrollEnabled",
+            "scrollsToTop",
+            "pagingEnabled",
+            "decelerationRate",
+            "directionalLockEnabled"
         ], forModel: self, in: .behaviour)
         
         super.preparePeek(with: coordinator)
