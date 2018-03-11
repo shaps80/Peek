@@ -1,6 +1,6 @@
 PODS:
   - GraphicsRenderer (1.2.0)
-  - Peek (4.0.1):
+  - Peek (5.0.0):
     - GraphicsRenderer (= 1.2.0)
 
 DEPENDENCIES:
@@ -12,7 +12,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   GraphicsRenderer: fec3014926360221359205a64060414273d625e5
-  Peek: 1c771b3be93f6fcc5647b04b74855319aceef22c
+  Peek: 8462aa56a650dd4b5684f7603ab70fe289486bf5
 
 PODFILE CHECKSUM: 06fa110334f649d2cdcbeea715786f0b15d27b3e
 

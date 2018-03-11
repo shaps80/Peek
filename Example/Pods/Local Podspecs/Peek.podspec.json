@@ -1,6 +1,6 @@
 {
   "name": "Peek",
-  "version": "4.0.1",
+  "version": "5.0.0",
   "summary": "Take a Peek at your application. App inspection at runtime.",
   "homepage": "https://152percent.com/blog/2016/4/14/introducing-peek-20",
   "screenshots": "https://github.com/shaps80/Peek/raw/swift4/shot.jpg",
@@ -10,7 +10,7 @@
   },
   "source": {
     "git": "https://github.com/shaps80/Peek.git",
-    "tag": "4.0.1"
+    "tag": "5.0.0"
   },
   "social_media_url": "https://twitter.com/shaps",
   "platforms": {
