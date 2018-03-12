@@ -42,34 +42,11 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     }
     
     fileprivate var models = [UIView]()
-    fileprivate var isDragging: Bool = false {
-        didSet { overlayView.isDragging = isDragging }
-    }
-    
-    lazy var overlayView: OverlayView = {
-        let view = OverlayView(peek: self.peek)
-        view.backgroundColor = UIColor.clear
-        return view
-    }()
     
     internal lazy var peekView: PeekView = {
         let view = PeekView()
         view.delegate = self
         return view
-    }()
-    
-    lazy var panGesture: UIPanGestureRecognizer = {
-        return UIPanGestureRecognizer(target: self, action: #selector(PeekViewController.handlePan(_:)))
-    }()
-    
-    lazy var tapGesture: UITapGestureRecognizer = {
-        return UITapGestureRecognizer(target: self, action: #selector(PeekViewController.handleTap(_:)))
-    }()
-    
-    lazy var doubleTapGesture: PeekTapGestureRecognizer = {
-        let gesture = PeekTapGestureRecognizer(target: self, action: #selector(PeekViewController.handleTap(_:)))
-        gesture.numberOfTapsRequired = 2
-        return gesture
     }()
     
     lazy var attributesButton: PeekButton = {
@@ -81,24 +58,15 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        view.addSubview(overlayView, constraints: [
-//            equal(\.leadingAnchor), equal(\.trailingAnchor),
-//            equal(\.topAnchor), equal(\.bottomAnchor)
-//        ])
-        
         view.addSubview(peekView, constraints: [
             equal(\.leadingAnchor), equal(\.trailingAnchor),
             equal(\.topAnchor), equal(\.bottomAnchor)
-            ])
+        ])
         
         parseView(peek.peekingWindow)
-        view.backgroundColor = .clear
-//        updateBackgroundColor(alpha: 0.5)
+        models.reverse()
         
-//        overlayView.addGestureRecognizer(panGesture)
-//        overlayView.addGestureRecognizer(tapGesture)
-//        overlayView.addGestureRecognizer(doubleTapGesture)
-//        tapGesture.require(toFail: doubleTapGesture)
+        view.backgroundColor = .clear
         
         view.addSubview(attributesButton, constraints: [
             equal(\.centerXAnchor)
@@ -107,12 +75,7 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
         bottomLayoutGuide.bottomAnchor.constraint(equalTo: attributesButton.bottomAnchor, constant: 30).isActive = true
         setAttributesButton(hidden: true, animated: false)
         
-        observer = NotificationCenter.default.addObserver(forName: .UIContentSizeCategoryDidChange, object: nil, queue: .main) { [weak self] _ in
-            // we have to add a delay to allow the app to finish updating its layout.
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self?.overlayView.reload()
-            }
-        }
+        peekView.refresh()
     }
     
     private func setAttributesButton(hidden: Bool, animated: Bool) {
@@ -128,12 +91,6 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
         }, completion: nil)
     }
     
-    fileprivate func addModelForView(_ view: UIView) {
-        if !view.shouldIgnore(options: peek.options) {
-            models.append(view)
-        }
-    }
-    
     private var feedbackGenerator: Any?
     
     @available(iOS 10.0, *)
@@ -141,56 +98,58 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
         return feedbackGenerator as? UIImpactFeedbackGenerator
     }
     
-    func updateSelectedModels(_ gesture: UIGestureRecognizer) {
-        let location = gesture.location(in: gesture.view)
-        
-        for next in models.reversed() {
-            let modelRect = next.frameInPeek(view)
-            
-            if modelRect.contains(location) {
-                let models = overlayView.selectedModels
-                
-                if !models.contains(next) {
-                    if isDragging {
-                        if let previous = models.first, overlayView.selectedModels.count > 1 {
-                            overlayView.selectedModels = [previous, next]
-                        } else {
-                            overlayView.selectedModels = [next]
-                        }
-                    } else {
-                        if let previous = models.last {
-                            overlayView.selectedModels = [previous, next]
-                        } else {
-                            overlayView.selectedModels = [next]
-                        }
-                    }
-                    
-                    if #available(iOS 10.0, *) {
-                        if feedbackGenerator == nil {
-                            UIImpactFeedbackGenerator().impactOccurred()
-                        } else {
-                            haptic()?.impactOccurred()
-                        }
-                    }
-                } else {
-                    guard gesture == tapGesture else { return }
-                    overlayView.selectedModels.reverse()
-                }
-                
-                break
-            }
-        }
-    }
+//    func updateSelectedModels(_ gesture: UIGestureRecognizer) {
+//        let location = gesture.location(in: gesture.view)
+//
+//        for next in models.reversed() {
+//            let modelRect = next.frameInPeek(view)
+//
+//            if modelRect.contains(location) {
+//                let models = overlayView.selectedModels
+//
+//                if !models.contains(next) {
+//                    if isDragging {
+//                        if let previous = models.first, overlayView.selectedModels.count > 1 {
+//                            overlayView.selectedModels = [previous, next]
+//                        } else {
+//                            overlayView.selectedModels = [next]
+//                        }
+//                    } else {
+//                        if let previous = models.last {
+//                            overlayView.selectedModels = [previous, next]
+//                        } else {
+//                            overlayView.selectedModels = [next]
+//                        }
+//                    }
+//
+//                    if #available(iOS 10.0, *) {
+//                        if feedbackGenerator == nil {
+//                            UIImpactFeedbackGenerator().impactOccurred()
+//                        } else {
+//                            haptic()?.impactOccurred()
+//                        }
+//                    }
+//                } else {
+//                    guard gesture == tapGesture else { return }
+//                    overlayView.selectedModels.reverse()
+//                }
+//
+//                break
+//            }
+//        }
+//    }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        coordinator.animateAlongsideTransition(in: view, animation: { (_) -> Void in
-            self.overlayView.reload()
+        coordinator.animateAlongsideTransition(in: view, animation: { _ in
+            self.peekView.refresh()
         }, completion: nil)
     }
     
-    fileprivate func parseView(_ view: UIView) {
+    private func parseView(_ view: UIView) {
         for view in view.subviews {
-            addModelForView(view)
+            if !view.shouldIgnore(options: peek.options) {
+                models.append(view)
+            }
             
             if view.subviews.count > 0 {
                 parseView(view)
@@ -208,9 +167,8 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     }
     
     @objc private func showInspectors() {
-        if let model = overlayView.selectedModels.last {
-            presentInspectorsForModel(model)
-        }
+        guard let index = peekView.indexesForSelectedItems.last, let model = models[index] as? UIView else { return }
+        presentInspectorsForModel(model)
     }
     
     fileprivate func presentInspectorsForModel(_ model: Model) {
@@ -234,45 +192,7 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
             definesPresentationContext = true
             controller.view.frame = view.bounds
             
-            presentModal(controller, from: overlayView.primaryView, animated: true, completion: nil)
-        }
-    }
-    
-    @objc func handleTap(_ gesture: UITapGestureRecognizer) {
-        if gesture.state == .ended {
-            if gesture === doubleTapGesture {
-                if let model = overlayView.selectedModels.last {
-                    presentInspectorsForModel(model)
-                }
-            } else {
-                updateSelectedModels(gesture)
-                
-                let hidden = overlayView.selectedModels.count == 0
-                setAttributesButton(hidden: hidden, animated: true)
-            }
-        }
-    }
-    
-    @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
-        switch gesture.state {
-        case .began:
-            if #available(iOS 10.0, *) {
-                feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
-                haptic()?.prepare()
-            }
-            
-            updateBackgroundColor(alpha: 0.3)
-            isDragging = true
-            setAttributesButton(hidden: true, animated: true)
-        case .changed:
-            updateSelectedModels(gesture)
-        default:
-            isDragging = false
-            updateBackgroundColor(alpha: 0.5)
-            let hidden = overlayView.selectedModels.count == 0
-            setAttributesButton(hidden: hidden, animated: true)
-            
-            feedbackGenerator = nil
+            presentModal(controller, from: model, animated: true, completion: nil)
         }
     }
     
@@ -297,12 +217,16 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
 
 extension PeekViewController: PeekViewDelegate {
     
-    func viewModels(in peekView: PeekView) -> [ViewModel] {
-        return models as? [ViewModel] ?? []
+    func viewModels(in peekView: PeekView) -> [UIView] {
+        return models
     }
     
-    func didSelect(viewModel: ViewModel, in peekView: PeekView) {
+    func showInsectorFor(viewModel: UIView, in peekView: PeekView) {
         presentInspectorsForModel(viewModel)
+    }
+    
+    func didSelect(viewModel: UIView, in peekView: PeekView) {
+        
     }
     
     func didBeginDragging(in peekView: PeekView) {
