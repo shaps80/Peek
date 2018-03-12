@@ -29,8 +29,8 @@ internal protocol PeekViewDelegate: class {
     func viewModels(in peekView: PeekView) -> [UIView]
     func didSelect(viewModel: UIView, in peekView: PeekView)
     func showInsectorFor(viewModel: UIView, in peekView: PeekView)
-    func didBeginDragging(in peekView: PeekView)
-    func didEndDragging(in peekView: PeekView)
+    func didBegin(in peekView: PeekView)
+    func didEnd(in peekView: PeekView)
 }
 
 internal final class PeekView: UIView {
@@ -39,7 +39,7 @@ internal final class PeekView: UIView {
     internal var allowsMultipleSelection: Bool = false
     
     private var viewModels: [UIView] = []
-    internal private(set) var indexesForSelectedItems = IndexSet()
+    internal private(set) var indexesForSelectedItems: [Int] = []
     
     private var isDragging: Bool = false
     private var feedbackGenerator: Any?
@@ -106,12 +106,12 @@ internal final class PeekView: UIView {
             
             updateBackgroundColor(alpha: 0.3)
             isDragging = true
-            delegate?.didBeginDragging(in: self)
+            delegate?.didBegin(in: self)
         case .changed:
             hitTest(at: gesture.location(in: gesture.view))
         default:
             isDragging = false
-            delegate?.didEndDragging(in: self)
+            delegate?.didEnd(in: self)
             updateBackgroundColor(alpha: 0.5)
             feedbackGenerator = nil
         }
@@ -124,6 +124,7 @@ internal final class PeekView: UIView {
                 delegate?.showInsectorFor(viewModel: viewModels[index], in: self)
             } else {
                 hitTest(at: gesture.location(in: gesture.view))
+                delegate?.didEnd(in: self)
             }
         }
     }
@@ -132,30 +133,44 @@ internal final class PeekView: UIView {
         for (index, model) in zip(viewModels.indices, viewModels) {
             let frame = model.frameInPeek(self)
             
-            if !indexesForSelectedItems.contains(index), frame.contains(point) {
-                selectViewModel(at: index, animated: true)
-                delegate?.didSelect(viewModel: model, in: self)
+            if frame.contains(point) {
+                if !indexesForSelectedItems.contains(index) {
+                    selectViewModel(at: index, animated: true)
+                    delegate?.didSelect(viewModel: model, in: self)
+                }
+                
                 break
             }
         }
     }
     
     private func selectViewModel(at index: Int, animated: Bool) {
-        /**
-         When isDragging, replace the last index only
-         Otherwise, move the last index into the first, then replace the last index
-         */
+        if indexesForSelectedItems.count > 0 {
+            if isDragging {
+                indexesForSelectedItems.removeLast()
+            } else {
+                indexesForSelectedItems.removeFirst()
+            }
+        }
         
-        indexesForSelectedItems.removeAll()
-        indexesForSelectedItems.insert(index)
+        indexesForSelectedItems.append(index)
+
         let frame = viewModels[index].frameInPeek(self)
         
         if animated {
-            UIView.animate(withDuration: 0.25) {
+            UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 1.1, options: .beginFromCurrentState, animations: {
                 self.primarySelectionView.frame = frame
-            }
+            }, completion: nil)
         } else {
             primarySelectionView.frame = frame
+        }
+        
+        if #available(iOS 10.0, *) {
+            if feedbackGenerator == nil {
+                UIImpactFeedbackGenerator().impactOccurred()
+            } else {
+                haptic()?.impactOccurred()
+            }
         }
     }
     

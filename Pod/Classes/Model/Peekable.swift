@@ -106,13 +106,12 @@ extension UIView {
         let isFullScreen = frame.equalTo(window?.bounds ?? UIScreen.main.bounds)
         if isFullScreen { return true }
         
-        if let superview = self.superview, String(describing: superview.classForCoder).hasPrefix("_") {
-            return true
-        }
+        if String(describing: classForCoder).hasPrefix("_UIModern") { return false }
         
-        let blacklist = [ "UINavigationItemView", "UIPickerTableView", "UIPickerColumnView", "UITableViewCellContentView" ]
-        let isInternalClass = String(describing: classForCoder).hasPrefix("_") || blacklist.contains(String(describing: classForCoder))
-        if isInternalClass {
+        let blacklist = [ "UIPickerTableView", "UIPickerColumnView", "UITableViewCellContentView" ]
+        let className = String(describing: classForCoder)
+        
+        if className.hasPrefix("_") || blacklist.contains(className) {
             return true
         }
         

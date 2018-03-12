@@ -229,11 +229,11 @@ extension PeekViewController: PeekViewDelegate {
         
     }
     
-    func didBeginDragging(in peekView: PeekView) {
+    func didBegin(in peekView: PeekView) {
         setAttributesButton(hidden: true, animated: true)
     }
     
-    func didEndDragging(in peekView: PeekView) {
+    func didEnd(in peekView: PeekView) {
         let hidden = peekView.indexesForSelectedItems.count == 0
         setAttributesButton(hidden: hidden, animated: true)
     }
