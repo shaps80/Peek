@@ -8,19 +8,51 @@
 import UIKit
 
 internal final class PeekSelectionView: UIView {
+    
+    private let borderWidth: CGFloat
+    private let borderColor: UIColor
+    private let dashed: Bool
  
-    internal init(color: UIColor?, borderWidth: CGFloat) {
+    internal init(borderColor: UIColor?, borderWidth: CGFloat, dashed: Bool = false) {
+        self.borderColor = borderColor ?? .white
+        self.borderWidth = borderWidth
+        self.dashed = dashed
+        
         super.init(frame: .zero)
         
-        layer.cornerRadius = borderWidth * 2
-        layer.borderColor = color?.cgColor
-        layer.borderWidth = borderWidth
-        layer.zPosition = 20
         backgroundColor = .clear
+        layer.zPosition = 20
+        
+        guard !dashed else { return }
+        
+        layer.borderWidth = borderWidth
+        layer.borderColor = self.borderColor.cgColor
+        layer.cornerRadius = borderWidth * 2
     }
     
     internal required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        guard dashed else { return }
+        setNeedsDisplay()
+    }
+    
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        guard dashed else { return }
+        
+        let inset = borderWidth / 2
+        let path = UIBezierPath(roundedRect: rect.insetBy(dx: inset, dy: inset), cornerRadius: borderWidth * 2)
+        
+        if dashed {
+            path.setLineDash([4, 4], count: 2, phase: 0)
+        }
+        
+        borderColor.setStroke()
+        path.stroke()
     }
     
 }
@@ -33,15 +65,15 @@ internal protocol PeekViewDelegate: class {
     func didEnd(in peekView: PeekView)
 }
 
-internal final class PeekView: UIView {
+internal class PeekView: UIView {
     
     internal weak var delegate: PeekViewDelegate?
-    internal var allowsMultipleSelection: Bool = true
+    internal var allowsMultipleSelection: Bool = false
     
-    private var viewModels: [UIView] = []
+    internal private(set) var viewModels: [UIView] = []
     internal private(set) var indexesForSelectedItems: [Int] = []
     
-    private var isDragging: Bool = false
+    internal private(set) var isDragging: Bool = false
     private var feedbackGenerator: Any?
     private var observer: Any?
     
@@ -65,20 +97,13 @@ internal final class PeekView: UIView {
     }()
     
     private lazy var primarySelectionView: PeekSelectionView = {
-        let view = PeekSelectionView(color: .primaryTint, borderWidth: 1.5)
+        let view = PeekSelectionView(borderColor: .primaryTint, borderWidth: 1.5)
         addSubview(view)
         return view
     }()
     
     private lazy var secondarySelectionView: PeekSelectionView = {
-        let view = PeekSelectionView(color: .white, borderWidth: 1.5)
-        addSubview(view)
-        return view
-    }()
-    
-    private lazy var boundingView: PeekSelectionView = {
-        let view = PeekSelectionView(color: UIColor(white: 1, alpha: 0.3), borderWidth: 1)
-        view.layer.zPosition = 0
+        let view = PeekSelectionView(borderColor: .white, borderWidth: 1.5)
         addSubview(view)
         return view
     }()
@@ -185,7 +210,7 @@ internal final class PeekView: UIView {
         }
     }
     
-    private func updateHighlights(animated: Bool) {
+    internal func updateHighlights(animated: Bool) {
         guard let primary = indexesForSelectedItems.last else { return }
         let primaryFrame = viewModels[primary].frameInPeek(self)
         var secondaryFrame = CGRect.zero

@@ -44,7 +44,7 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     fileprivate var models = [UIView]()
     
     internal lazy var peekView: PeekView = {
-        let view = PeekView()
+        let view = PeekLayoutView()
         view.delegate = self
         return view
     }()
