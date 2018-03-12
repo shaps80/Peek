@@ -194,7 +194,7 @@ extension UIView {
     
 }
 
-@objc internal final class Constraints: NSObject, PeekableContainer {
+@objc internal final class Constraints: NSObject, PeekInspectorNestable {
     
     internal weak var view: UIView?
     

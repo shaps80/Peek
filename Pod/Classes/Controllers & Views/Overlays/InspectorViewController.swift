@@ -206,7 +206,7 @@ internal final class InspectorViewController: PeekSectionedViewController {
                 accessoryView = ColorAccessoryView(color: UIColor(cgColor: value as! CGColor))
             }
             
-            if let value = value as? PeekableContainer {
+            if let value = value as? PeekInspectorNestable {
                 cell.accessoryType = tableView.isEditing ? .none : .disclosureIndicator
             }
             
@@ -238,7 +238,7 @@ extension InspectorViewController: UIViewControllerPreviewingDelegate {
         
         let attribute = dataSource.attribute(at: indexPath)
         
-        if !(attribute is PreviewAttribute), let value = attribute.value as? Model & PeekableContainer {
+        if !(attribute is PreviewAttribute), let value = attribute.value as? PeekInspectorNestable {
             let controller = InspectorViewController(peek: peek, model: value)
             controller.title = attribute.title
             return controller
@@ -420,7 +420,7 @@ extension InspectorViewController {
         let attribute = self.dataSource.attribute(at: indexPath)
         let cell = tableView.cellForRow(at: indexPath)
         
-        if !tableView.isEditing, let value = attribute.value as? Model & PeekableContainer, value !== model {
+        if !tableView.isEditing, let value = attribute.value as? PeekInspectorNestable, value !== model {
             let controller = InspectorViewController(peek: peek, model: value)
             controller.title = attribute.title
             navigationController?.pushViewController(controller, animated: true)

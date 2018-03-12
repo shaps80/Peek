@@ -176,7 +176,7 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
 
         var defaults: [String: Bool] = [:]
         Group.all.forEach {
-            defaults[$0.title] = model.isExpandedByDefault(for: $0)
+            defaults[$0.title] = $0.isExpandedByDefault
         }
         UserDefaults.standard.register(defaults: defaults)
         

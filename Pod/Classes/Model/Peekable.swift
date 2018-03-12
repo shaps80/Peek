@@ -33,24 +33,24 @@ import UIKit
     func titleForPeekReport() -> String
 }
 
-@objc public protocol PeekableContainer: Peekable { }
+@objc public protocol PeekInspectorNestable: Peekable, Model { }
 
-extension CALayer: PeekableContainer { }
-extension UIView: PeekableContainer { }
-extension UIColor: PeekableContainer { }
-extension UIImage: PeekableContainer { }
-extension UIFont: PeekableContainer { }
-extension UIFontDescriptor: PeekableContainer { }
-extension UIBarButtonItem: PeekableContainer { }
-extension NSLayoutConstraint: PeekableContainer { }
-extension NSAttributedString: PeekableContainer { }
-extension UIViewController: PeekableContainer { }
-extension UIScreen: PeekableContainer { }
-extension UIDevice: PeekableContainer { }
-extension UIApplication: PeekableContainer { }
-extension Bundle: PeekableContainer { }
-extension NSShadow: PeekableContainer { }
-extension NSString: PeekContainer { }
+extension CALayer: PeekInspectorNestable { }
+extension UIView: PeekInspectorNestable { }
+extension UIColor: PeekInspectorNestable { }
+extension UIImage: PeekInspectorNestable { }
+extension UIFont: PeekInspectorNestable { }
+extension UIFontDescriptor: PeekInspectorNestable { }
+extension UIBarButtonItem: PeekInspectorNestable { }
+extension NSLayoutConstraint: PeekInspectorNestable { }
+extension NSAttributedString: PeekInspectorNestable { }
+extension UIViewController: PeekInspectorNestable { }
+extension UIScreen: PeekInspectorNestable { }
+extension UIDevice: PeekInspectorNestable { }
+extension UIApplication: PeekInspectorNestable { }
+extension Bundle: PeekInspectorNestable { }
+extension NSShadow: PeekInspectorNestable { }
+extension NSString: PeekIgnoresSubViews { }
 
 extension NSObject: Peekable {
     
@@ -120,7 +120,7 @@ extension UIView {
         var superview = self.superview
         
         while superview != nil {
-            if superview is PeekContainer {
+            if superview is PeekIgnoresSubViews {
                 return true
             }
             
@@ -142,16 +142,16 @@ extension UIView {
 }
 
 // This is a BAD name. What we really want to articulate here is that the scanner should stop at these views and not recurse deeper. Effectively treating these views as a leaf
-public protocol PeekContainer { }
+public protocol PeekIgnoresSubViews { }
 
-extension UISwitch: PeekContainer { }
-extension UISlider: PeekContainer { }
-extension UIButton: PeekContainer { }
-extension UIStepper: PeekContainer { }
-extension UITextField: PeekContainer { }
-extension UITextView: PeekContainer { }
-extension UIPageControl: PeekContainer { }
-extension UIProgressView: PeekContainer { }
-extension UIActivityIndicatorView: PeekContainer { }
-extension UISegmentedControl: PeekContainer { }
-extension UIDatePicker: PeekContainer { }
+extension UISwitch: PeekIgnoresSubViews { }
+extension UISlider: PeekIgnoresSubViews { }
+extension UIButton: PeekIgnoresSubViews { }
+extension UIStepper: PeekIgnoresSubViews { }
+extension UITextField: PeekIgnoresSubViews { }
+extension UITextView: PeekIgnoresSubViews { }
+extension UIPageControl: PeekIgnoresSubViews { }
+extension UIProgressView: PeekIgnoresSubViews { }
+extension UIActivityIndicatorView: PeekIgnoresSubViews { }
+extension UISegmentedControl: PeekIgnoresSubViews { }
+extension UIDatePicker: PeekIgnoresSubViews { }

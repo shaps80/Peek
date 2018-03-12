@@ -22,7 +22,7 @@
 
 import UIKit
 
-internal final class Segment: NSObject, PeekableContainer {
+internal final class Segment: NSObject, PeekInspectorNestable {
     
     override var description: String {
         return title ?? ""

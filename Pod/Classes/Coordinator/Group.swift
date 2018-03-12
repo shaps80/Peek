@@ -76,11 +76,10 @@ import Foundation
     }
 }
 
-// MARK: - Adds Model support to all NSObject types
-extension NSObject: Model {
+extension Group {
     
-    public func isExpandedByDefault(for group: Group) -> Bool {
-        switch group {
+    public var isExpandedByDefault: Bool {
+        switch self {
         case .preview: return true
         case .typography: return true
         case .appearance: return true
