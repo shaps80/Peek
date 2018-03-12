@@ -36,7 +36,7 @@ internal protocol PeekViewDelegate: class {
 internal final class PeekView: UIView {
     
     internal weak var delegate: PeekViewDelegate?
-    internal var allowsMultipleSelection: Bool = false
+    internal var allowsMultipleSelection: Bool = true
     
     private var viewModels: [UIView] = []
     internal private(set) var indexesForSelectedItems: [Int] = []
@@ -167,6 +167,10 @@ internal final class PeekView: UIView {
                     indexesForSelectedItems.removeFirst()
                 }
             }
+        }
+        
+        if !allowsMultipleSelection {
+            indexesForSelectedItems.removeAll()
         }
         
         indexesForSelectedItems.append(index)
