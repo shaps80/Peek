@@ -128,13 +128,9 @@ internal final class InspectorsPresentationController: UIPresentationController,
     }
     
     @objc private func dismiss() {
-        if let tab = presentedViewController as? InspectorsTabController,
-            let nav = tab.selectedViewController as? UINavigationController {
-            let inspectors = nav.viewControllers.flatMap { $0 as? InspectorViewController }
-            
-            if (inspectors.filter { $0.tableView.isEditing }).count > 0 {
-                return
-            }
+        if let nav = presentedViewController as? UINavigationController {
+            let inspectors = nav.viewControllers.flatMap { $0 as? PeekInspectorViewController }
+            if (inspectors.filter { $0.tableView.isEditing }).count > 0 { return }
         }
         
         presentedViewController.dismiss(animated: true, completion: nil)

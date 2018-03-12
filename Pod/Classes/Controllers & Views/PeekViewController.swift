@@ -43,8 +43,8 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     
     fileprivate var models = [UIView]()
     
-    internal lazy var peekView: PeekView = {
-        let view = PeekLayoutView()
+    internal lazy var peekView: PeekOverlayView = {
+        let view = PeekLayoutOverlayView()
         view.delegate = self
         return view
     }()
@@ -146,12 +146,13 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
         }
         
         if let model = model as? UIView {
-            let controller = InspectorsTabController(peek: peek, model: model)
+            let inspector = PeekInspectorViewController(peek: peek, model: model)
+            let nav = UINavigationController(rootViewController: inspector)
             
             definesPresentationContext = true
-            controller.view.frame = view.bounds
+            nav.view.frame = view.bounds
             
-            presentModal(controller, from: model, animated: true, completion: nil)
+            presentModal(nav, from: model, animated: true, completion: nil)
         }
     }
     
@@ -174,25 +175,25 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     
 }
 
-extension PeekViewController: PeekViewDelegate {
+extension PeekViewController: PeekOverlayViewDelegate {
     
-    func viewModels(in peekView: PeekView) -> [UIView] {
+    func viewModels(in overlayView: PeekOverlayView) -> [UIView] {
         return models
     }
     
-    func showInsectorFor(viewModel: UIView, in peekView: PeekView) {
+    func showInsectorFor(viewModel: UIView, in overlayView: PeekOverlayView) {
         presentInspectorsForModel(viewModel)
     }
     
-    func didSelect(viewModel: UIView, in peekView: PeekView) {
+    func didSelect(viewModel: UIView, in overlayView: PeekOverlayView) {
         
     }
     
-    func didBegin(in peekView: PeekView) {
+    func didBegin(in overlayView: PeekOverlayView) {
         setAttributesButton(hidden: true, animated: true)
     }
     
-    func didEnd(in peekView: PeekView) {
+    func didEnd(in overlayView: PeekOverlayView) {
         let hidden = peekView.indexesForSelectedItems.count == 0
         setAttributesButton(hidden: hidden, animated: true)
     }

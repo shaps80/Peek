@@ -9,7 +9,7 @@
 import UIKit
 import GraphicsRenderer
 
-internal final class InspectorViewController: PeekSectionedViewController {
+internal final class PeekInspectorViewController: PeekSectionedViewController {
     
     deinit {
         NotificationCenter.default.removeObserver(observer)
@@ -227,7 +227,7 @@ internal final class InspectorViewController: PeekSectionedViewController {
     
 }
 
-extension InspectorViewController: UIViewControllerPreviewingDelegate {
+extension PeekInspectorViewController: UIViewControllerPreviewingDelegate {
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         navigationController?.pushViewController(viewControllerToCommit, animated: false)
@@ -239,7 +239,7 @@ extension InspectorViewController: UIViewControllerPreviewingDelegate {
         let attribute = dataSource.attribute(at: indexPath)
         
         if !(attribute is PreviewAttribute), let value = attribute.value as? PeekInspectorNestable {
-            let controller = InspectorViewController(peek: peek, model: value)
+            let controller = PeekInspectorViewController(peek: peek, model: value)
             controller.title = attribute.title
             return controller
         } else {
@@ -250,7 +250,7 @@ extension InspectorViewController: UIViewControllerPreviewingDelegate {
 }
 
 // MARK: - Reporting
-extension InspectorViewController {
+extension PeekInspectorViewController {
     
     private func prepareNavigationItems(animated: Bool) {
         reportingIndexPaths.removeAll()
@@ -364,7 +364,7 @@ extension InspectorViewController {
     
 }
 
-extension InspectorViewController: ReportViewControllerDelegate {
+extension PeekInspectorViewController: ReportViewControllerDelegate {
     
     func reportController(_ controller: ReportViewController, didSend report: Report) {
         endReport(cancelled: false, animated: false)
@@ -377,7 +377,7 @@ extension InspectorViewController: ReportViewControllerDelegate {
     
 }
 
-extension InspectorViewController: CollapsibleSectionHeaderViewDelegate {
+extension PeekInspectorViewController: CollapsibleSectionHeaderViewDelegate {
     
     func sectionHeader(_ view: CollapsibleSectionHeaderView, shouldToggleAt index: Int) {
         dataSource.toggleVisibility(forSection: index)
@@ -399,7 +399,7 @@ extension InspectorViewController: CollapsibleSectionHeaderViewDelegate {
     
 }
 
-extension InspectorViewController {
+extension PeekInspectorViewController {
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if model is UIDevice || model is UIScreen {
@@ -421,7 +421,7 @@ extension InspectorViewController {
         let cell = tableView.cellForRow(at: indexPath)
         
         if !tableView.isEditing, let value = attribute.value as? PeekInspectorNestable, value !== model {
-            let controller = InspectorViewController(peek: peek, model: value)
+            let controller = PeekInspectorViewController(peek: peek, model: value)
             controller.title = attribute.title
             navigationController?.pushViewController(controller, animated: true)
             

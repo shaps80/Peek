@@ -138,12 +138,11 @@ public final class Peek: NSObject {
     }
     
     private func handleActivation() {
-        if let tab = window?.rootViewController?.presentedViewController as? InspectorsTabController,
-            let nav = tab.selectedViewController as? UINavigationController {
-            let inspectors = nav.viewControllers.flatMap { $0 as? InspectorViewController }
+        if let nav = window?.rootViewController?.presentedViewController as? UINavigationController {
+            let inspectors = nav.viewControllers.flatMap { $0 as? PeekInspectorViewController }
             
             if (inspectors.filter { $0.tableView.isEditing }).count == 0 {
-                tab.dismiss(animated: true, completion: nil)
+                nav.dismiss(animated: true, completion: nil)
             }
             
             return

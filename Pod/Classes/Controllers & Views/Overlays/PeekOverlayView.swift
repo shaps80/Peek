@@ -7,67 +7,17 @@
 
 import UIKit
 
-internal final class PeekSelectionView: UIView {
-    
-    private let borderWidth: CGFloat
-    private let borderColor: UIColor
-    private let dashed: Bool
- 
-    internal init(borderColor: UIColor?, borderWidth: CGFloat, dashed: Bool = false) {
-        self.borderColor = borderColor ?? .white
-        self.borderWidth = borderWidth
-        self.dashed = dashed
-        
-        super.init(frame: .zero)
-        
-        backgroundColor = .clear
-        layer.zPosition = 20
-        
-        guard !dashed else { return }
-        
-        layer.borderWidth = borderWidth
-        layer.borderColor = self.borderColor.cgColor
-        layer.cornerRadius = borderWidth * 2
-    }
-    
-    internal required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        guard dashed else { return }
-        setNeedsDisplay()
-    }
-    
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        guard dashed else { return }
-        
-        let inset = borderWidth / 2
-        let path = UIBezierPath(roundedRect: rect.insetBy(dx: inset, dy: inset), cornerRadius: borderWidth * 2)
-        
-        if dashed {
-            path.setLineDash([4, 4], count: 2, phase: 0)
-        }
-        
-        borderColor.setStroke()
-        path.stroke()
-    }
-    
+internal protocol PeekOverlayViewDelegate: class {
+    func viewModels(in overlayView: PeekOverlayView) -> [UIView]
+    func didSelect(viewModel: UIView, in overlayView: PeekOverlayView)
+    func showInsectorFor(viewModel: UIView, in overlayView: PeekOverlayView)
+    func didBegin(in overlayView: PeekOverlayView)
+    func didEnd(in overlayView: PeekOverlayView)
 }
 
-internal protocol PeekViewDelegate: class {
-    func viewModels(in peekView: PeekView) -> [UIView]
-    func didSelect(viewModel: UIView, in peekView: PeekView)
-    func showInsectorFor(viewModel: UIView, in peekView: PeekView)
-    func didBegin(in peekView: PeekView)
-    func didEnd(in peekView: PeekView)
-}
-
-internal class PeekView: UIView {
+internal class PeekOverlayView: UIView {
     
-    internal weak var delegate: PeekViewDelegate?
+    internal weak var delegate: PeekOverlayViewDelegate?
     internal var allowsMultipleSelection: Bool = false
     
     internal private(set) var viewModels: [UIView] = []
