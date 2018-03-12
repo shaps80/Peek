@@ -9,12 +9,12 @@ import UIKit
 
 internal final class PeekSelectionView: UIView {
  
-    internal override init(frame: CGRect){
-        super.init(frame: frame)
+    internal init(color: UIColor?, borderWidth: CGFloat) {
+        super.init(frame: .zero)
         
-        layer.cornerRadius = 3
-        layer.borderColor = UIColor.primaryTint?.cgColor
-        layer.borderWidth = 1.5
+        layer.cornerRadius = borderWidth * 2
+        layer.borderColor = color?.cgColor
+        layer.borderWidth = borderWidth
         layer.zPosition = 20
         backgroundColor = .clear
     }
@@ -65,7 +65,20 @@ internal final class PeekView: UIView {
     }()
     
     private lazy var primarySelectionView: PeekSelectionView = {
-        let view = PeekSelectionView(frame: .zero)
+        let view = PeekSelectionView(color: .primaryTint, borderWidth: 1.5)
+        addSubview(view)
+        return view
+    }()
+    
+    private lazy var secondarySelectionView: PeekSelectionView = {
+        let view = PeekSelectionView(color: .white, borderWidth: 1.5)
+        addSubview(view)
+        return view
+    }()
+    
+    private lazy var boundingView: PeekSelectionView = {
+        let view = PeekSelectionView(color: UIColor(white: 1, alpha: 0.3), borderWidth: 1)
+        view.layer.zPosition = 0
         addSubview(view)
         return view
     }()
@@ -76,7 +89,6 @@ internal final class PeekView: UIView {
         addGestureRecognizer(panGesture)
         addGestureRecognizer(tapGesture)
         addGestureRecognizer(doubleTapGesture)
-        tapGesture.require(toFail: doubleTapGesture)
         
         updateBackgroundColor(alpha: 0.5)
         
@@ -90,10 +102,7 @@ internal final class PeekView: UIView {
     
     internal func refresh() {
         viewModels = delegate?.viewModels(in: self) ?? []
-        
-        if let index = indexesForSelectedItems.last {
-            selectViewModel(at: index, animated: false)
-        }
+        updateHighlights(animated: false)
     }
     
     @objc private func handlePan(gesture: UIPanGestureRecognizer) {
@@ -137,6 +146,11 @@ internal final class PeekView: UIView {
                 if !indexesForSelectedItems.contains(index) {
                     selectViewModel(at: index, animated: true)
                     delegate?.didSelect(viewModel: model, in: self)
+                } else {
+                    if !isDragging {
+                        indexesForSelectedItems.reverse()
+                        updateHighlights(animated: true)
+                    }
                 }
                 
                 break
@@ -145,32 +159,45 @@ internal final class PeekView: UIView {
     }
     
     private func selectViewModel(at index: Int, animated: Bool) {
-        if indexesForSelectedItems.count > 0 {
+        if !indexesForSelectedItems.isEmpty {
             if isDragging {
                 indexesForSelectedItems.removeLast()
             } else {
-                indexesForSelectedItems.removeFirst()
+                if indexesForSelectedItems.count > 1 {
+                    indexesForSelectedItems.removeFirst()
+                }
             }
         }
         
         indexesForSelectedItems.append(index)
+        updateHighlights(animated: animated)
 
-        let frame = viewModels[index].frameInPeek(self)
-        
-        if animated {
-            UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 1.1, options: .beginFromCurrentState, animations: {
-                self.primarySelectionView.frame = frame
-            }, completion: nil)
-        } else {
-            primarySelectionView.frame = frame
-        }
-        
         if #available(iOS 10.0, *) {
             if feedbackGenerator == nil {
                 UIImpactFeedbackGenerator().impactOccurred()
             } else {
                 haptic()?.impactOccurred()
             }
+        }
+    }
+    
+    private func updateHighlights(animated: Bool) {
+        guard let primary = indexesForSelectedItems.last else { return }
+        let primaryFrame = viewModels[primary].frameInPeek(self)
+        var secondaryFrame = CGRect.zero
+        
+        if indexesForSelectedItems.count > 1, let secondary = indexesForSelectedItems.first {
+            secondaryFrame = viewModels[secondary].frameInPeek(self)
+        }
+        
+        if animated {
+            UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 1.1, options: .beginFromCurrentState, animations: {
+                self.primarySelectionView.frame = primaryFrame
+                self.secondarySelectionView.frame = secondaryFrame
+            }, completion: nil)
+        } else {
+            primarySelectionView.frame = primaryFrame
+            secondarySelectionView.frame = secondaryFrame
         }
     }
     

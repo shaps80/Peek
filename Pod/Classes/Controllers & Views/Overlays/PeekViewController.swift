@@ -98,47 +98,6 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
         return feedbackGenerator as? UIImpactFeedbackGenerator
     }
     
-//    func updateSelectedModels(_ gesture: UIGestureRecognizer) {
-//        let location = gesture.location(in: gesture.view)
-//
-//        for next in models.reversed() {
-//            let modelRect = next.frameInPeek(view)
-//
-//            if modelRect.contains(location) {
-//                let models = overlayView.selectedModels
-//
-//                if !models.contains(next) {
-//                    if isDragging {
-//                        if let previous = models.first, overlayView.selectedModels.count > 1 {
-//                            overlayView.selectedModels = [previous, next]
-//                        } else {
-//                            overlayView.selectedModels = [next]
-//                        }
-//                    } else {
-//                        if let previous = models.last {
-//                            overlayView.selectedModels = [previous, next]
-//                        } else {
-//                            overlayView.selectedModels = [next]
-//                        }
-//                    }
-//
-//                    if #available(iOS 10.0, *) {
-//                        if feedbackGenerator == nil {
-//                            UIImpactFeedbackGenerator().impactOccurred()
-//                        } else {
-//                            haptic()?.impactOccurred()
-//                        }
-//                    }
-//                } else {
-//                    guard gesture == tapGesture else { return }
-//                    overlayView.selectedModels.reverse()
-//                }
-//
-//                break
-//            }
-//        }
-//    }
-    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         coordinator.animateAlongsideTransition(in: view, animation: { _ in
             self.peekView.refresh()
