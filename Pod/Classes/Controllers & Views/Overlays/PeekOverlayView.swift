@@ -7,10 +7,16 @@
 
 import UIKit
 
+internal protocol ViewModel: Peekable, Model {
+    func frameInPeek(_ view: UIView) -> CGRect
+}
+
+extension UIView: ViewModel { }
+
 internal protocol PeekOverlayViewDelegate: class {
-    func viewModels(in overlayView: PeekOverlayView) -> [UIView]
-    func didSelect(viewModel: UIView, in overlayView: PeekOverlayView)
-    func showInsectorFor(viewModel: UIView, in overlayView: PeekOverlayView)
+    func viewModels(in overlayView: PeekOverlayView) -> [ViewModel]
+    func didSelect(viewModel: ViewModel, in overlayView: PeekOverlayView)
+    func showInsectorFor(viewModel: ViewModel, in overlayView: PeekOverlayView)
     func didBegin(in overlayView: PeekOverlayView)
     func didEnd(in overlayView: PeekOverlayView)
 }
@@ -20,7 +26,7 @@ internal class PeekOverlayView: UIView {
     internal weak var delegate: PeekOverlayViewDelegate?
     internal var allowsMultipleSelection: Bool = false
     
-    internal private(set) var viewModels: [UIView] = []
+    internal private(set) var viewModels: [ViewModel] = []
     internal private(set) var indexesForSelectedItems: [Int] = []
     
     internal private(set) var isDragging: Bool = false
@@ -64,6 +70,7 @@ internal class PeekOverlayView: UIView {
         addGestureRecognizer(panGesture)
         addGestureRecognizer(tapGesture)
         addGestureRecognizer(doubleTapGesture)
+        tapGesture.require(toFail: doubleTapGesture)
         
         updateBackgroundColor(alpha: 0.5)
         
@@ -160,14 +167,20 @@ internal class PeekOverlayView: UIView {
         }
     }
     
+    private func rectForPrimaryView() -> CGRect {
+        guard let primary = indexesForSelectedItems.last else { return .zero }
+        return viewModels[primary].frameInPeek(self)
+    }
+    
+    private func rectForSecondaryView() -> CGRect {
+        guard indexesForSelectedItems.count > 1,
+            let secondary = indexesForSelectedItems.first else { return .zero }
+        return viewModels[secondary].frameInPeek(self)
+    }
+    
     internal func updateHighlights(animated: Bool) {
-        guard let primary = indexesForSelectedItems.last else { return }
-        let primaryFrame = viewModels[primary].frameInPeek(self)
-        var secondaryFrame = CGRect.zero
-        
-        if indexesForSelectedItems.count > 1, let secondary = indexesForSelectedItems.first {
-            secondaryFrame = viewModels[secondary].frameInPeek(self)
-        }
+        let primaryFrame = rectForPrimaryView()
+        var secondaryFrame = rectForSecondaryView()
         
         if animated {
             UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 1.1, options: .beginFromCurrentState, animations: {

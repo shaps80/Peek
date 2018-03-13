@@ -177,15 +177,15 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
 
 extension PeekViewController: PeekOverlayViewDelegate {
     
-    func viewModels(in overlayView: PeekOverlayView) -> [UIView] {
-        return models
+    func viewModels(in overlayView: PeekOverlayView) -> [ViewModel] {
+        return models as [ViewModel]
     }
     
-    func showInsectorFor(viewModel: UIView, in overlayView: PeekOverlayView) {
+    func showInsectorFor(viewModel: ViewModel, in overlayView: PeekOverlayView) {
         presentInspectorsForModel(viewModel)
     }
     
-    func didSelect(viewModel: UIView, in overlayView: PeekOverlayView) {
+    func didSelect(viewModel: ViewModel, in overlayView: PeekOverlayView) {
         
     }
     
