@@ -7,7 +7,7 @@
 
 import UIKit
 
-internal final class PeekSelectionView: UIView {
+internal class PeekSelectionView: UIView {
     
     private let borderWidth: CGFloat
     private let borderColor: UIColor

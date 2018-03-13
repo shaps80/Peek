@@ -44,6 +44,7 @@
 		54235E8AFE9094600F621CC8098B94CE /* UIPageControl+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8645C5023B68C7A22D43A11A3464AC /* UIPageControl+Peekable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		54324B7820573DF60015C341 /* PeekLayoutOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54324B7720573DF60015C341 /* PeekLayoutOverlayView.swift */; };
 		5498945F2055E44C004FAB75 /* PeekOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5498945E2055E44C004FAB75 /* PeekOverlayView.swift */; };
+		54A723A22057473E00CF9282 /* PeekLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A723A12057473E00CF9282 /* PeekLayoutView.swift */; };
 		56D8A22C5DFC685C422116BC81ED91B5 /* PeekSectionedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE74E7BE27FDF666044A92515D95185 /* PeekSectionedViewController.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		59DD1B6FB0ED3D22EF2B2498613081B5 /* CALayer+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A8D1037255721170EDECED7069DDDC /* CALayer+Peekable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		5B7E6380533E2C31B9973F49A33BC265 /* GraphicsRenderer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74656B0BDB06F0A9648804A48F59784C /* GraphicsRenderer.framework */; };
@@ -169,6 +170,7 @@
 		541F1E5D2057437B004B5591 /* PeekSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeekSelectionView.swift; sourceTree = "<group>"; };
 		54324B7720573DF60015C341 /* PeekLayoutOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeekLayoutOverlayView.swift; sourceTree = "<group>"; };
 		5498945E2055E44C004FAB75 /* PeekOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeekOverlayView.swift; sourceTree = "<group>"; };
+		54A723A12057473E00CF9282 /* PeekLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeekLayoutView.swift; sourceTree = "<group>"; };
 		589F4652E86138D1D1096850F13A47B6 /* UIActivityIndicatorView+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIActivityIndicatorView+Peekable.swift"; sourceTree = "<group>"; };
 		5B8071E7B3014C11B3E05F551D42C1F2 /* UIView+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		61266B168B2976D8AE0DC41DEF8997FF /* UISwitch+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UISwitch+Peekable.swift"; sourceTree = "<group>"; };
@@ -353,10 +355,9 @@
 			isa = PBXGroup;
 			children = (
 				67DA80F1B8F7B6415A69117FCB6442FA /* PeekButton.swift */,
-				DBA7FE6DC792F8F1ED5C715DF5541952 /* PeekMetricView.swift */,
 				5498945E2055E44C004FAB75 /* PeekOverlayView.swift */,
-				54324B7720573DF60015C341 /* PeekLayoutOverlayView.swift */,
 				541F1E5D2057437B004B5591 /* PeekSelectionView.swift */,
+				54A723A32057474800CF9282 /* Layout */,
 			);
 			path = Overlays;
 			sourceTree = "<group>";
@@ -368,6 +369,16 @@
 				95C95C67585F2F27EA199E468406363A /* iOS */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		54A723A32057474800CF9282 /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				DBA7FE6DC792F8F1ED5C715DF5541952 /* PeekMetricView.swift */,
+				54324B7720573DF60015C341 /* PeekLayoutOverlayView.swift */,
+				54A723A12057473E00CF9282 /* PeekLayoutView.swift */,
+			);
+			path = Layout;
 			sourceTree = "<group>";
 		};
 		64010A72965283898D7ED4A6640EF58A /* Reporting */ = {
@@ -776,6 +787,7 @@
 				E8BC9728FE767DFD07C13B68006A4A6D /* UIView+Extensions.swift in Sources */,
 				CF150B54E19B0AD73DF2EFF03CFB15E3 /* UIView+Peekable.swift in Sources */,
 				79EDC5C4D6041F6B026A2A6766EF46ED /* UIViewController+Extensions.swift in Sources */,
+				54A723A22057473E00CF9282 /* PeekLayoutView.swift in Sources */,
 				0BFEFE868D44843BAB9883A7710F7026 /* UIViewController+Modal.swift in Sources */,
 				14D01A3CD903CDA62D041C9D94490A58 /* UIViewController+Peekable.swift in Sources */,
 				16BDFA1C508C5CF111BBC4F154322FA7 /* UIWindow+Extensions.swift in Sources */,

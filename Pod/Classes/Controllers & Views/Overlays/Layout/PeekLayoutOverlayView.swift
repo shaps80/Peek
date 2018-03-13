@@ -9,8 +9,8 @@ import UIKit
 
 internal final class PeekLayoutOverlayView: PeekOverlayView {
     
-    private lazy var layoutView: PeekSelectionView = {
-        let view = PeekSelectionView(borderColor: UIColor(white: 1, alpha: 0.5), borderWidth: 1, dashed: true)
+    private lazy var layoutView: PeekLayoutView = {
+        let view = PeekLayoutView(borderColor: UIColor(white: 1, alpha: 0.5), borderWidth: 1, dashed: true)
         view.layer.zPosition = 0
         addSubview(view)
         return view
@@ -36,7 +36,11 @@ internal final class PeekLayoutOverlayView: PeekOverlayView {
         
         let primary = viewModels[first]
         let secondary = viewModels[second]
+        
         layoutView.frame = primary.frameInPeek(self).union(secondary.frameInPeek(self))
+        layoutView.primaryFrame = primary.frameInPeek(layoutView)
+        layoutView.secondaryFrame = secondary.frameInPeek(layoutView)
+        layoutView.setNeedsDisplay()
     }
     
 }
