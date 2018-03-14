@@ -85,6 +85,9 @@ internal class PeekOverlayView: UIView {
     internal func refresh() {
         viewModels = delegate?.viewModels(in: self) ?? []
         updateHighlights(animated: false)
+        
+        primarySelectionView.setNeedsDisplay()
+        secondarySelectionView.setNeedsDisplay()
     }
     
     @objc private func handlePan(gesture: UIPanGestureRecognizer) {

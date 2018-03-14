@@ -10,7 +10,7 @@ import UIKit
 internal final class PeekLayoutOverlayView: PeekOverlayView {
     
     private lazy var layoutView: PeekLayoutView = {
-        let view = PeekLayoutView(borderColor: UIColor(white: 1, alpha: 0.5), borderWidth: 1, dashed: true)
+        let view = PeekLayoutView(overlayView: self, borderColor: UIColor(white: 1, alpha: 0.5), borderWidth: 1, dashed: true)
         view.layer.zPosition = 0
         addSubview(view)
         return view
@@ -23,6 +23,11 @@ internal final class PeekLayoutOverlayView: PeekOverlayView {
     
     internal required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func refresh() {
+        super.refresh()
+        layoutView.setNeedsDisplay()
     }
     
     override func updateHighlights(animated: Bool) {
@@ -38,8 +43,8 @@ internal final class PeekLayoutOverlayView: PeekOverlayView {
         let secondary = viewModels[second]
         
         layoutView.frame = primary.frameInPeek(self).union(secondary.frameInPeek(self))
-        layoutView.primaryFrame = primary.frameInPeek(layoutView)
-        layoutView.secondaryFrame = secondary.frameInPeek(layoutView)
+        layoutView.primaryView = primary
+        layoutView.secondaryView = secondary
         layoutView.setNeedsDisplay()
     }
     

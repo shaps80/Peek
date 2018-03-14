@@ -78,4 +78,9 @@ internal final class PeekMetricView: UIVisualEffectView {
         ])
     }
     
+    internal func apply(value: CGFloat) {
+        label.text = PeekMetricView.formatter.string(from: NSNumber(value: Float(value)))
+        label.sizeToFit()
+    }
+    
 }

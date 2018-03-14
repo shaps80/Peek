@@ -8,49 +8,72 @@
 import UIKit
 
 extension CGRect {
-    internal static func distance(from: CGRect, to: CGRect) -> Metrics {
-        let leading =  from.minX <= to.minX ? from : to
-        let trailing = to.minX <= from.minX ? from : to
-        let upper = from.minY <= to.minY ? from : to
-        let lower = to.minY <= from.minY ? from : to
-        
+    internal static func distance(from: CGRect, to: CGRect, in bounds: CGRect) -> Metrics {
         let left: CGFloat, right: CGFloat
-        
-        if leading.maxX < trailing.minX {
-            left = trailing.minX - leading.maxX
-        } else if leading.minX > trailing.minX {
-            left = leading.minX - trailing.minX
-        } else if trailing.minX > leading.minX {
-            left = trailing.minX - leading.minX
-        } else {
-            left = 0
-        }
-        
         let top: CGFloat, bottom: CGFloat
         
-        if upper.maxY < lower.minY {
-            top = lower.minY - upper.maxY
-        } else if upper.minY > lower.minY {
-            top = upper.minY - lower.minY
-        } else if lower.minY > upper.minY {
-            top = lower.minY - upper.minY
+        let hSpacing = bounds.width - (from.width + to.width)
+        let vSpacing = bounds.height - (from.height + to.height)
+        
+        if to.minX == from.minX && to.maxX == from.maxX {
+            right = 0
+            left = 0
+        } else if from.minX >= to.minX && from.maxX <= to.maxX {
+            left = from.minX - to.minX
+            right = to.maxX - from.maxX
+        } else if to.minX >= from.minX && to.maxX <= from.maxX {
+            left = to.minX - from.minX
+            right = from.maxX - to.maxX
+        } else if to.minX < from.minX {
+            right = hSpacing
+            left = 0
         } else {
-            top = 0
+            left = hSpacing
+            right = 0
         }
         
-        right = 0
-        bottom = 0
+        if to.minY == from.minY && to.maxY == from.maxY {
+            top = 0
+            bottom = 0
+        } else if from.minY >= to.minY && from.maxY <= to.maxY {
+            top = from.minY - to.minY
+            bottom = to.maxY - from.maxY
+        } else if to.minY >= from.minY && to.maxY <= from.maxY {
+            top = to.minY - from.minY
+            bottom = from.maxY - to.maxY
+        } else if to.minY < from.minY {
+            bottom = vSpacing
+            top = 0
+        } else {
+            top = vSpacing
+            bottom = 0
+        }
         
-        return Metrics(top: top, left: left, bottom: 0, right: right)
+        return Metrics(top: top, left: left, bottom: bottom, right: right)
     }
 }
 
 internal final class PeekLayoutView: PeekSelectionView {
     
-    internal var primaryFrame: CGRect = .zero
-    internal var secondaryFrame: CGRect = .zero
+//    internal var primaryFrame: CGRect = .zero
+//    internal var secondaryFrame: CGRect = .zero
+    internal weak var primaryView: ViewModel?
+    internal weak var secondaryView: ViewModel?
+    internal weak var overlayView: PeekOverlayView!
     
-    override init(borderColor: UIColor?, borderWidth: CGFloat, dashed: Bool) {
+    internal let leftMetric: PeekMetricView
+    internal let topMetric: PeekMetricView
+    internal let rightMetric: PeekMetricView
+    internal let bottomMetric: PeekMetricView
+    
+    init(overlayView: PeekOverlayView, borderColor: UIColor?, borderWidth: CGFloat, dashed: Bool) {
+        self.overlayView = overlayView
+        
+        leftMetric = PeekMetricView()
+        topMetric = PeekMetricView()
+        rightMetric = PeekMetricView()
+        bottomMetric = PeekMetricView()
+        
         super.init(borderColor: borderColor, borderWidth: borderWidth, dashed: dashed)
         clipsToBounds = false
     }
@@ -62,9 +85,54 @@ internal final class PeekLayoutView: PeekSelectionView {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
+        guard let primary = primaryView, let secondary = secondaryView else { return }
+        
+        let primaryFrame = primaryView?.frameInPeek(overlayView) ?? .zero
+        let secondaryFrame = secondaryView?.frameInPeek(overlayView) ?? .zero
         let path = UIBezierPath()
         
-        let distance = CGRect.distance(from: secondaryFrame, to: primaryFrame)
+        let distance = CGRect.distance(from: primaryFrame, to: secondaryFrame, in: rect)
+        
+        if distance.left == 0 {
+            leftMetric.removeFromSuperview()
+        } else {
+            leftMetric.apply(value: distance.left)
+            overlayView.addSubview(leftMetric, constraints: [
+                equal(\.trailingAnchor, \.leadingAnchor, constant: primaryFrame.minX),
+                equal(\.centerYAnchor)
+            ])
+        }
+        
+        if distance.top == 0 {
+            topMetric.removeFromSuperview()
+        } else {
+            topMetric.apply(value: distance.top)
+            overlayView.addSubview(topMetric, constraints: [
+                equal(\.bottomAnchor, \.topAnchor, constant: 2),
+                equal(\.centerXAnchor)
+            ])
+        }
+        
+        if distance.right == 0 {
+            rightMetric.removeFromSuperview()
+        } else {
+            rightMetric.apply(value: distance.right)
+            overlayView.addSubview(rightMetric, constraints: [
+                equal(\.leadingAnchor, \.trailingAnchor, constant: 2),
+                equal(\.centerYAnchor)
+            ])
+        }
+        
+        if distance.bottom == 0 {
+            bottomMetric.removeFromSuperview()
+        } else {
+            bottomMetric.apply(value: distance.bottom)
+            overlayView.addSubview(bottomMetric, constraints: [
+                equal(\.topAnchor, \.bottomAnchor, constant: 2),
+                equal(\.centerXAnchor)
+            ])
+        }
+        
         print(distance)
         
         UIColor(white: 1, alpha: 0.5).setStroke()
