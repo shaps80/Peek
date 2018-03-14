@@ -52,13 +52,13 @@ internal class PeekOverlayView: UIView {
         return gesture
     }()
     
-    private lazy var primarySelectionView: PeekSelectionView = {
+    internal private(set) lazy var primarySelectionView: PeekSelectionView = {
         let view = PeekSelectionView(borderColor: .primaryTint, borderWidth: 1.5)
         addSubview(view)
         return view
     }()
     
-    private lazy var secondarySelectionView: PeekSelectionView = {
+    internal private(set) lazy var secondarySelectionView: PeekSelectionView = {
         let view = PeekSelectionView(borderColor: .white, borderWidth: 1.5)
         addSubview(view)
         return view

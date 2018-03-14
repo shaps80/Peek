@@ -43,9 +43,18 @@ internal final class PeekLayoutOverlayView: PeekOverlayView {
         let secondary = viewModels[second]
         
         layoutView.frame = primary.frameInPeek(self).union(secondary.frameInPeek(self))
-        layoutView.primaryView = primary
-        layoutView.secondaryView = secondary
-        layoutView.setNeedsDisplay()
+        layoutView.primaryView = primary as? UIView
+        layoutView.secondaryView = secondary as? UIView
+        layoutView.primarySelectionView = primarySelectionView
+        layoutView.secondarySelectionView = secondarySelectionView
+        
+        if animated {
+            UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 1.1, options: .beginFromCurrentState, animations: {
+                self.layoutView.refresh()
+            }, completion: nil)
+        } else {
+            layoutView.refresh()
+        }
     }
     
 }

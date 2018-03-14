@@ -25,8 +25,8 @@ extension CGRect {
             left = to.minX - from.minX
             right = from.maxX - to.maxX
         } else if to.minX < from.minX {
-            right = hSpacing
             left = 0
+            right = hSpacing
         } else {
             left = hSpacing
             right = 0
@@ -42,8 +42,8 @@ extension CGRect {
             top = to.minY - from.minY
             bottom = from.maxY - to.maxY
         } else if to.minY < from.minY {
-            bottom = vSpacing
             top = 0
+            bottom = vSpacing
         } else {
             top = vSpacing
             bottom = 0
@@ -55,10 +55,10 @@ extension CGRect {
 
 internal final class PeekLayoutView: PeekSelectionView {
     
-//    internal var primaryFrame: CGRect = .zero
-//    internal var secondaryFrame: CGRect = .zero
-    internal weak var primaryView: ViewModel?
-    internal weak var secondaryView: ViewModel?
+    internal weak var primaryView: UIView?
+    internal weak var secondaryView: UIView?
+    internal weak var primarySelectionView: PeekSelectionView?
+    internal weak var secondarySelectionView: PeekSelectionView?
     internal weak var overlayView: PeekOverlayView!
     
     internal let leftMetric: PeekMetricView
@@ -74,6 +74,10 @@ internal final class PeekLayoutView: PeekSelectionView {
         rightMetric = PeekMetricView()
         bottomMetric = PeekMetricView()
         
+        rightMetric.translatesAutoresizingMaskIntoConstraints = false
+        topMetric.translatesAutoresizingMaskIntoConstraints = false
+        bottomMetric.translatesAutoresizingMaskIntoConstraints = false
+        
         super.init(borderColor: borderColor, borderWidth: borderWidth, dashed: dashed)
         clipsToBounds = false
     }
@@ -82,34 +86,40 @@ internal final class PeekLayoutView: PeekSelectionView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
+    public func refresh() {
+        setNeedsDisplay()
         
-        guard let primary = primaryView, let secondary = secondaryView else { return }
+        guard let primary = primarySelectionView, let secondary = secondarySelectionView else { return }
         
         let primaryFrame = primaryView?.frameInPeek(overlayView) ?? .zero
         let secondaryFrame = secondaryView?.frameInPeek(overlayView) ?? .zero
-        let path = UIBezierPath()
-        
-        let distance = CGRect.distance(from: primaryFrame, to: secondaryFrame, in: rect)
+        let distance = CGRect.distance(from: primaryFrame, to: secondaryFrame, in: bounds)
         
         if distance.left == 0 {
             leftMetric.removeFromSuperview()
         } else {
             leftMetric.apply(value: distance.left)
-            overlayView.addSubview(leftMetric, constraints: [
-                equal(\.trailingAnchor, \.leadingAnchor, constant: primaryFrame.minX),
-                equal(\.centerYAnchor)
-            ])
+            
+            overlayView.addSubview(leftMetric)
+            leftMetric.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                leftMetric.trailingAnchor.constraint(equalTo: primary.leadingAnchor, constant: -2),
+                leftMetric.centerYAnchor.constraint(equalTo: primary.centerYAnchor)
+                ])
         }
         
         if distance.top == 0 {
             topMetric.removeFromSuperview()
         } else {
             topMetric.apply(value: distance.top)
-            overlayView.addSubview(topMetric, constraints: [
-                equal(\.bottomAnchor, \.topAnchor, constant: 2),
-                equal(\.centerXAnchor)
+            
+            overlayView.addSubview(topMetric)
+            topMetric.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                topMetric.bottomAnchor.constraint(equalTo: primary.topAnchor, constant: -2),
+                topMetric.centerXAnchor.constraint(equalTo: primary.centerXAnchor)
             ])
         }
         
@@ -117,24 +127,35 @@ internal final class PeekLayoutView: PeekSelectionView {
             rightMetric.removeFromSuperview()
         } else {
             rightMetric.apply(value: distance.right)
-            overlayView.addSubview(rightMetric, constraints: [
-                equal(\.leadingAnchor, \.trailingAnchor, constant: 2),
-                equal(\.centerYAnchor)
-            ])
+            
+            overlayView.addSubview(rightMetric)
+            rightMetric.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                rightMetric.leadingAnchor.constraint(equalTo: primary.trailingAnchor, constant: 2),
+                rightMetric.centerYAnchor.constraint(equalTo: primary.centerYAnchor)
+                ])
         }
         
         if distance.bottom == 0 {
             bottomMetric.removeFromSuperview()
         } else {
             bottomMetric.apply(value: distance.bottom)
-            overlayView.addSubview(bottomMetric, constraints: [
-                equal(\.topAnchor, \.bottomAnchor, constant: 2),
-                equal(\.centerXAnchor)
-            ])
+            
+            overlayView.addSubview(bottomMetric)
+            bottomMetric.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                bottomMetric.topAnchor.constraint(equalTo: primary.bottomAnchor, constant: 2),
+                bottomMetric.centerXAnchor.constraint(equalTo: primary.centerXAnchor)
+                ])
         }
+    }
+    
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
         
-        print(distance)
-        
+        let path = UIBezierPath()
         UIColor(white: 1, alpha: 0.5).setStroke()
         path.setLineDash([1, 2], count: 2, phase: 0)
         path.stroke()
