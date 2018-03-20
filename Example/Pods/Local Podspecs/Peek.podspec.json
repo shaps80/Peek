@@ -1,7 +1,7 @@
 {
   "name": "Peek",
   "version": "5.0.0",
-  "summary": "Take a Peek at your application. App inspection at runtime.",
+  "summary": "All new design. Inspect your iOS application at runtime.",
   "homepage": "https://152percent.com/blog/2016/4/14/introducing-peek-20",
   "screenshots": "https://github.com/shaps80/Peek/raw/swift4/shot.jpg",
   "license": "MIT",
