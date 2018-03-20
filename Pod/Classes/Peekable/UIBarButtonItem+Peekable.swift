@@ -25,6 +25,20 @@ import UIKit
 extension UIBarButtonItem {
     
     open override func preparePeek(with coordinator: Coordinator) {
+        var detail = ""
+        
+        if let model = target as? Peekable {
+            detail = String(describing: model.classForCoder)
+        }
+        
+        var title = ""
+        
+        if let action = action {
+            title = String(describing: action)
+        }
+        
+        coordinator.appendStatic(keyPath: title, title: title, detail: detail, value: target, in: .actions)
+        
         coordinator.appendDynamic(keyPaths: [
             "title",
             "image",

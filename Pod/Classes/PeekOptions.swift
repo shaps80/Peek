@@ -58,7 +58,7 @@ public final class PeekOptions: NSObject {
     /// Defines how Peek is activated/de-activated. Defaults to auto
     public var activationMode: PeekActivationMode = .auto
     
-    /// Defines whether views that behave as containers should be ignored (i.e. UIView's (NOT subclassed) where subviews.count > 0). Defaults to false
+    /// When this is true, views that are not subclassed but contain subviews, will be ignored. Defaults to false
     public var ignoresContainerViews = false
     
     /// You can provide meta data that will be attached to every report. This is useful for passing additional info about the app, e.g. Environment, etc...

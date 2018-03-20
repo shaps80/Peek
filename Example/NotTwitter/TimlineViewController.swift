@@ -33,6 +33,14 @@ public final class TimelineViewController: UITableViewController {
 
 }
 
+extension TimelineViewController {
+    
+    @IBAction private func newMessage() { print("New message") }
+    @IBAction private func toggleFavourite() { print("Favourite toggled") }
+    @IBAction private func reshare() { print("Re-shared") }
+    
+}
+
 // MARK: Peek
 extension TimelineViewController {
     

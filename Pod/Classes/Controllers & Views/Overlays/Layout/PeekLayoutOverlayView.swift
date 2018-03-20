@@ -18,7 +18,8 @@ internal final class PeekLayoutOverlayView: PeekOverlayView {
     
     internal override init() {
         super.init()
-        allowsMultipleSelection = true
+        // TODO: Needs to be true once its implemented
+        allowsMultipleSelection = false
     }
     
     internal required init?(coder aDecoder: NSCoder) {

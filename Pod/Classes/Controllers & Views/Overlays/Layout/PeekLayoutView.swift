@@ -99,14 +99,14 @@ internal final class PeekLayoutView: PeekSelectionView {
             leftMetric.removeFromSuperview()
         } else {
             leftMetric.apply(value: distance.left)
-            
+
             overlayView.addSubview(leftMetric)
             leftMetric.translatesAutoresizingMaskIntoConstraints = false
             
             NSLayoutConstraint.activate([
-                leftMetric.trailingAnchor.constraint(equalTo: primary.leadingAnchor, constant: -2),
-                leftMetric.centerYAnchor.constraint(equalTo: primary.centerYAnchor)
-                ])
+                leftMetric.trailingAnchor.constraint(equalTo: secondary.leadingAnchor, constant: -2),
+                leftMetric.centerYAnchor.constraint(equalTo: secondary.centerYAnchor)
+            ])
         }
         
         if distance.top == 0 {
@@ -114,15 +114,42 @@ internal final class PeekLayoutView: PeekSelectionView {
         } else {
             topMetric.apply(value: distance.top)
             
+            let guide = UILayoutGuide()
+            overlayView.addLayoutGuide(guide)
             overlayView.addSubview(topMetric)
+            
             topMetric.translatesAutoresizingMaskIntoConstraints = false
             
+            if secondaryFrame.maxY > primaryFrame.minY {
+                NSLayoutConstraint.activate([
+                    guide.topAnchor.constraint(equalTo: secondary.topAnchor),
+                    guide.bottomAnchor.constraint(equalTo: primary.topAnchor),
+                ])
+            } else {
+                NSLayoutConstraint.activate([
+                    guide.topAnchor.constraint(equalTo: secondary.bottomAnchor),
+                    guide.bottomAnchor.constraint(equalTo: primary.topAnchor),
+                ])
+            }
+            
+            if secondaryFrame.maxX > primaryFrame.minX {
+                NSLayoutConstraint.activate([
+                    guide.leadingAnchor.constraint(equalTo: secondary.leadingAnchor),
+                    guide.trailingAnchor.constraint(equalTo: primary.leadingAnchor),
+                ])
+            } else {
+                NSLayoutConstraint.activate([
+                    guide.leadingAnchor.constraint(equalTo: secondary.trailingAnchor),
+                    guide.trailingAnchor.constraint(equalTo: primary.leadingAnchor),
+                ])
+            }
+            
             NSLayoutConstraint.activate([
-                topMetric.bottomAnchor.constraint(equalTo: primary.topAnchor, constant: -2),
-                topMetric.centerXAnchor.constraint(equalTo: primary.centerXAnchor)
+                topMetric.centerXAnchor.constraint(equalTo: guide.centerXAnchor),
+                topMetric.centerYAnchor.constraint(equalTo: guide.centerYAnchor)
             ])
         }
-        
+                
         if distance.right == 0 {
             rightMetric.removeFromSuperview()
         } else {
@@ -132,9 +159,9 @@ internal final class PeekLayoutView: PeekSelectionView {
             rightMetric.translatesAutoresizingMaskIntoConstraints = false
             
             NSLayoutConstraint.activate([
-                rightMetric.leadingAnchor.constraint(equalTo: primary.trailingAnchor, constant: 2),
-                rightMetric.centerYAnchor.constraint(equalTo: primary.centerYAnchor)
-                ])
+                rightMetric.leadingAnchor.constraint(equalTo: secondary.trailingAnchor, constant: 2),
+                rightMetric.centerYAnchor.constraint(equalTo: secondary.centerYAnchor)
+            ])
         }
         
         if distance.bottom == 0 {
@@ -146,9 +173,9 @@ internal final class PeekLayoutView: PeekSelectionView {
             bottomMetric.translatesAutoresizingMaskIntoConstraints = false
             
             NSLayoutConstraint.activate([
-                bottomMetric.topAnchor.constraint(equalTo: primary.bottomAnchor, constant: 2),
-                bottomMetric.centerXAnchor.constraint(equalTo: primary.centerXAnchor)
-                ])
+                bottomMetric.topAnchor.constraint(equalTo: secondary.bottomAnchor, constant: 2),
+                bottomMetric.centerXAnchor.constraint(equalTo: secondary.centerXAnchor)
+            ])
         }
     }
     

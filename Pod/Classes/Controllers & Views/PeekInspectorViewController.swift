@@ -139,6 +139,7 @@ internal final class PeekInspectorViewController: PeekSectionedViewController {
         cell.contentView.backgroundColor = peek.options.theme.backgroundColor
         cell.backgroundColor = peek.options.theme.backgroundColor
         
+        // TODO: Bit of repitition here for showing hierarchy, but its temporary for this release.
         if let modelAsView = model as? UIView,
             let attributeAsView = attribute.value as? UIView,
             dataSource.sections[indexPath.section].group.group == .views {
@@ -147,6 +148,20 @@ internal final class PeekInspectorViewController: PeekSectionedViewController {
                 cell.indentationLevel = 1
                 cell.textLabel?.text = "⊙ \(attribute.title)"
             } else if attributeAsView.superview == modelAsView {
+                cell.indentationLevel = 2
+                cell.textLabel?.text = "▹ \(attribute.title)"
+            } else {
+                cell.indentationLevel = 0
+                cell.textLabel?.text = "▿ \(attribute.title)"
+            }
+        } else if let modelAsController = model as? UIViewController,
+            let attributeAsController = attribute.value as? UIViewController,
+            dataSource.sections[indexPath.section].group.group == .controllers {
+            
+            if attributeAsController == modelAsController {
+                cell.indentationLevel = modelAsController.parent == nil ? 0 : 1
+                cell.textLabel?.text = "⊙ \(attribute.title)"
+            } else if attributeAsController.parent == modelAsController {
                 cell.indentationLevel = 2
                 cell.textLabel?.text = "▹ \(attribute.title)"
             } else {

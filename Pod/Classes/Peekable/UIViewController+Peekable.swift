@@ -70,6 +70,8 @@ extension UIViewController {
             coordinator.appendDynamic(keyPaths: ["tabBarController"], forModel: self, in: .more)
         }
         
+        coordinator.appendStatic(keyPath: "view", title: "View", detail: String(describing: view.classForCoder), value: view, in: .views)
+        
         if navigationController != nil {
             coordinator.appendStatic(keyPath: "navigationItem.backBarButtonItem", title: "Back Navigation Item", detail: navigationItem.backBarButtonItem?.title, value: navigationItem.backBarButtonItem, in: .views)
             coordinator.appendStatic(keyPath: "navigationItem.rightBarButtonItem", title: "Right Navigation Item", detail: navigationItem.rightBarButtonItem?.title, value: navigationItem.rightBarButtonItem, in: .views)
@@ -146,19 +148,15 @@ extension UIViewController {
             ], forModel: self, in: .more)
         }
         
-//        config.addProperty("interfaceOrientation", displayName: "Current Orientation", cellConfiguration: { (cell, _, value) in
-//            let orientation = UIInterfaceOrientation(rawValue: value as! Int)!
-//            let image = Images.orientationImage(orientation)
-//            cell.accessoryView = UIImageView(image: image)
-//            cell.detailTextLabel?.text = "\(orientation.description)  "
-//        })
-//
-//        let property = config.addProperty("supportedInterfaceOrientations", displayName: "Supported Orientations", cellConfiguration: { (cell, _, value) in
-//            let mask = UIInterfaceOrientationMask(rawValue: value as! UInt)
-//            let image = Images.orientationMaskImage(mask)
-//            cell.accessoryView = UIImageView(image: image)
-//            cell.detailTextLabel?.text = nil
-//        })
+        if let parent = parent {
+            coordinator.appendStatic(keyPath: "parent", title: String(describing: parent.classForCoder), detail: "", value: parent, in: .controllers)
+        }
+        
+        coordinator.appendStatic(keyPath: "self", title: String(describing: classForCoder), detail: "", value: self, in: .controllers)
+        
+        for controller in childViewControllers.reversed() {
+            coordinator.appendStatic(keyPath: "classForCoder", title: String(describing: controller.classForCoder), detail: "", value: controller, in: .controllers)
+        }
         
         super.preparePeek(with: coordinator)
     }
