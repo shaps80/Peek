@@ -110,6 +110,7 @@ internal final class PeekInspectorViewController: PeekSectionedViewController, U
     
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: tableView)
+            registerForPreviewing(with: self, sourceView: searchController.view)
         }
         
         observer = NotificationCenter.default.addObserver(forName: .UIContentSizeCategoryDidChange, object: nil, queue: .main) { [weak self] _ in
