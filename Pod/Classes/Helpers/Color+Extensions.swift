@@ -24,23 +24,6 @@ import UIKit
 
 extension UIColor {
     
-//    func colorWithDelta(_ delta: CGFloat = 0.1) -> UIColor {
-//        let d = max(min(delta, 1), -1)
-//        let (r, g, b, a) = rgbComponents
-//        return UIColor(red: r + d, green: g + d, blue: b + d, alpha: a)
-//    }
-    
-//    @available(*, deprecated)
-//    class func neutralColor() -> UIColor {
-//        return UIColor(white: 0.6, alpha: 1)
-//    }
-    
-//    @available(*, deprecated)
-//    class func primaryColor() -> UIColor {
-////        return Color(hex: "2be13c")!.uiColor
-//        return UIColor.colorWithRed(red: 135, green: 252, blue: 112, alpha: 1)
-//    }
-    
     internal static var overlay: UIColor? {
         return .black
     }

@@ -18,14 +18,25 @@ internal final class PeekInspectorViewController: PeekSectionedViewController {
     internal lazy var searchController: UISearchController = {
         let controller = UISearchController(searchResultsController: nil)
         controller.dimsBackgroundDuringPresentation = false
-//        controller.obscuresBackgroundDuringPresentation = false
         controller.hidesNavigationBarDuringPresentation = false
+        controller.searchBar.barStyle = .black
         controller.searchBar.barTintColor = navigationController?.navigationBar.barTintColor
         controller.searchBar.tintColor = navigationController?.navigationBar.tintColor
+        controller.searchBar.backgroundColor = peek.options.theme == .black ? .inspectorBlack : .inspectorDark
+        controller.searchBar.isTranslucent = false
         controller.searchBar.autocorrectionType = .yes
         controller.searchBar.autocapitalizationType = .none
         controller.searchBar.enablesReturnKeyAutomatically = true
         controller.searchResultsUpdater = self
+        
+        // Required for iOS 9/10
+        let image = ImageRenderer(size: CGSize(width: 1, height: 1)).image { context in
+            controller.searchBar.backgroundColor?.setFill()
+            UIRectFill(context.format.bounds)
+        }
+        
+        controller.searchBar.setBackgroundImage(image, for: .any, barMetrics: .default)
+        
         return controller
     }()
     
@@ -285,6 +296,13 @@ extension PeekInspectorViewController {
         reportingIndexPaths.removeAll()
         
         if tableView.isEditing {
+            if #available(iOS 11.0, *) {
+                navigationItem.searchController = nil
+            } else {
+                searchController.dismiss(animated: false, completion: nil)
+                tableView.tableHeaderView = nil
+            }
+            
             let cancel = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelReport(_:)))
             navigationItem.setLeftBarButton(cancel, animated: animated)
             navigationItem.setHidesBackButton(true, animated: animated)
@@ -301,6 +319,13 @@ extension PeekInspectorViewController {
             tableView.tintColor = .editingTint
             navigationItem.titleView = reportButton
         } else {
+            if #available(iOS 11.0, *) {
+                searchController.obscuresBackgroundDuringPresentation = false
+                navigationItem.searchController = searchController
+            } else {
+                tableView.tableHeaderView = searchController.searchBar
+            }
+            
             let size = CGSize(width: 22, height: 12)
             let disclosure = Images.disclosure(size: size, thickness: 2)
             let close = UIBarButtonItem(image: disclosure, style: .plain, target: self, action: #selector(dismissController))
