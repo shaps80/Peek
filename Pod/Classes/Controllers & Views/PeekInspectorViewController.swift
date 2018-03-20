@@ -9,7 +9,7 @@
 import UIKit
 import GraphicsRenderer
 
-internal final class PeekInspectorViewController: PeekSectionedViewController {
+internal final class PeekInspectorViewController: PeekSectionedViewController, UISearchResultsUpdating {
     
     deinit {
         NotificationCenter.default.removeObserver(observer)
@@ -20,6 +20,7 @@ internal final class PeekInspectorViewController: PeekSectionedViewController {
         controller.dimsBackgroundDuringPresentation = false
         controller.hidesNavigationBarDuringPresentation = false
         controller.searchBar.barStyle = .black
+        controller.searchBar.searchBarStyle = .minimal
         controller.searchBar.barTintColor = navigationController?.navigationBar.barTintColor
         controller.searchBar.tintColor = navigationController?.navigationBar.tintColor
         controller.searchBar.backgroundColor = peek.options.theme == .black ? .inspectorBlack : .inspectorDark
@@ -53,7 +54,18 @@ internal final class PeekInspectorViewController: PeekSectionedViewController {
     
     private let model: Model & Peekable
     private let coordinator: PeekCoordinator
-    private let dataSource: ContextDataSource
+    private var dataSource: ContextDataSource {
+        didSet { tableView.reloadData() }
+    }
+    
+    private var searchDataSource: ContextDataSource? {
+        didSet { tableView.reloadData() }
+    }
+    
+    internal var activeDataSource: ContextDataSource {
+        return isSearching ? searchDataSource ?? dataSource : dataSource
+    }
+    
     private var reportingIndexPaths: [IndexPath: Report.Item] = [:] {
         didSet {
             let count = reportingIndexPaths.count
@@ -90,6 +102,9 @@ internal final class PeekInspectorViewController: PeekSectionedViewController {
         if navigationController?.viewControllers.count == 1 {
             navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         }
+        
+        let backgroundColor: UIColor? = peek.options.theme == .dark ? .inspectorDark : .inspectorBlack
+        tableView.backgroundColor = backgroundColor
         
         prepareNavigationItems(animated: false)
     
@@ -129,28 +144,29 @@ internal final class PeekInspectorViewController: PeekSectionedViewController {
     }
     
     override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        guard tableView.isEditing else { return !(dataSource.attribute(at: indexPath) is PreviewAttribute) }
+        guard tableView.isEditing else { return !(activeDataSource.attribute(at: indexPath) is PreviewAttribute) }
         return self.tableView(tableView, canEditRowAt: indexPath)
     }
     
     override func sectionTitle(for section: Int) -> String {
-        return dataSource.sections[section].group.title
+        return activeDataSource.sections[section].group.title
     }
     
     override func sectionIsExpanded(for section: Int) -> Bool {
-        return dataSource.sections[section].isExpanded
+        guard activeDataSource === dataSource else { return true }
+        return activeDataSource.sections[section].isExpanded
     }
     
     internal func numberOfSections(in tableView: UITableView) -> Int {
-        return dataSource.sections.count
+        return activeDataSource.sections.count
     }
     
     internal override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.sections[section].items.count
+        return activeDataSource.sections[section].items.count
     }
     
     internal override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let attribute = dataSource.attribute(at: indexPath)
+        let attribute = activeDataSource.attribute(at: indexPath)
         
         if let preview = attribute as? PreviewAttribute,
             let cell = tableView.dequeueReusableCell(withIdentifier: "PreviewCell", for: indexPath) as? PreviewCell {
@@ -167,7 +183,7 @@ internal final class PeekInspectorViewController: PeekSectionedViewController {
         // TODO: Bit of repitition here for showing hierarchy, but its temporary for this release.
         if let modelAsView = model as? UIView,
             let attributeAsView = attribute.value as? UIView,
-            dataSource.sections[indexPath.section].group.group == .views {
+            activeDataSource.sections[indexPath.section].group.group == .views {
             
             if attributeAsView == modelAsView {
                 cell.indentationLevel = 1
@@ -181,7 +197,7 @@ internal final class PeekInspectorViewController: PeekSectionedViewController {
             }
         } else if let modelAsController = model as? UIViewController,
             let attributeAsController = attribute.value as? UIViewController,
-            dataSource.sections[indexPath.section].group.group == .controllers {
+            activeDataSource.sections[indexPath.section].group.group == .controllers {
             
             if attributeAsController == modelAsController {
                 cell.indentationLevel = modelAsController.parent == nil ? 0 : 1
@@ -265,6 +281,15 @@ internal final class PeekInspectorViewController: PeekSectionedViewController {
         return cell
     }
     
+    private var isSearching: Bool {
+        return searchController.isActive
+            && searchController.searchBar.text?.isEmpty == false
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        searchDataSource = dataSource.filtered(by: searchController.searchBar.text)
+    }
+    
 }
 
 extension PeekInspectorViewController: UIViewControllerPreviewingDelegate {
@@ -276,7 +301,7 @@ extension PeekInspectorViewController: UIViewControllerPreviewingDelegate {
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard !tableView.isEditing, let indexPath = tableView.indexPathForRow(at: location) else { return nil }
         
-        let attribute = dataSource.attribute(at: indexPath)
+        let attribute = activeDataSource.attribute(at: indexPath)
         
         if !(attribute is PreviewAttribute), let value = attribute.value as? PeekInspectorNestable {
             let controller = PeekInspectorViewController(peek: peek, model: value)
@@ -296,6 +321,9 @@ extension PeekInspectorViewController {
         reportingIndexPaths.removeAll()
         
         if tableView.isEditing {
+            searchController.searchBar.resignFirstResponder()
+            searchController.searchBar.text = nil
+            
             if #available(iOS 11.0, *) {
                 navigationItem.searchController = nil
             } else {
@@ -372,7 +400,7 @@ extension PeekInspectorViewController {
         let sectionIndexes = Set(reportingIndexPaths.map { $0.key.section }).sorted()
         
         let sections: [Report.Section] = sectionIndexes.map { index in
-            let title = dataSource.sections[index].group.title
+            let title = activeDataSource.sections[index].group.title
             let items = reportingIndexPaths.filter { $0.key.section == index }.flatMap { $0.value }
             return Report.Section(title: title, items: items)
         }
@@ -434,8 +462,10 @@ extension PeekInspectorViewController: ReportViewControllerDelegate {
 extension PeekInspectorViewController: CollapsibleSectionHeaderViewDelegate {
     
     func sectionHeader(_ view: CollapsibleSectionHeaderView, shouldToggleAt index: Int) {
-        dataSource.toggleVisibility(forSection: index)
-        let expanded = dataSource.sections[index].isExpanded
+        guard activeDataSource === dataSource else { return }
+        
+        activeDataSource.toggleVisibility(forSection: index)
+        let expanded = activeDataSource.sections[index].isExpanded
         
         if #available(iOS 10.0, *) {
             UIImpactFeedbackGenerator(style: .light).impactOccurred()
@@ -460,18 +490,18 @@ extension PeekInspectorViewController {
             return false
         }
         
-        switch dataSource.sections[indexPath.section].group.group {
-        case .more, .views, .classes, .preview: return false
+        switch activeDataSource.sections[indexPath.section].group.group {
+        case .more, .views, .classes, .preview, .controllers: return false
         default:
-            return !(dataSource.attribute(at: indexPath).value is Constraints)
-                && !(dataSource.attribute(at: indexPath) is PreviewAttribute)
+            return !(activeDataSource.attribute(at: indexPath).value is Constraints)
+                && !(activeDataSource.attribute(at: indexPath) is PreviewAttribute)
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView.isEditing && !self.tableView(tableView, canEditRowAt: indexPath) { return }
         
-        let attribute = self.dataSource.attribute(at: indexPath)
+        let attribute = self.activeDataSource.attribute(at: indexPath)
         let cell = tableView.cellForRow(at: indexPath)
         
         if !tableView.isEditing, let value = attribute.value as? PeekInspectorNestable, value !== model {

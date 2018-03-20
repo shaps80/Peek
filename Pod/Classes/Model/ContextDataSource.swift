@@ -27,6 +27,10 @@ internal final class ContextDataSource {
     
     internal private(set) var sections: [CollapsibleSection]
     
+    private init(sections: [CollapsibleSection]) {
+        self.sections = sections
+    }
+    
     internal init(coordinator: PeekCoordinator) {
         sections = Group.all.flatMap { group in
             guard let peekGroup = coordinator.groupsMapping[group] else { return nil }
@@ -36,6 +40,24 @@ internal final class ContextDataSource {
         
             return CollapsibleSection(group: peekGroup, items: items)
         }
+    }
+    
+    internal func filtered(by searchTerm: String?) -> ContextDataSource {
+        guard let searchText = searchTerm?.trimmingCharacters(in: .whitespaces),
+            !searchText.isEmpty else {
+                return self
+        }
+        
+        let sections: [CollapsibleSection] = self.sections.flatMap {
+            let items = $0.items.filter {
+                $0.title.localizedCaseInsensitiveContains(searchText)
+            }
+            
+            guard !items.isEmpty else { return nil }
+            return CollapsibleSection(group: $0.group, items: items)
+        }
+        
+        return ContextDataSource(sections: sections)
     }
     
     internal func attribute(at indexPath: IndexPath) -> Attribute {

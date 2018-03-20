@@ -27,6 +27,9 @@ An all new reporting system allows you to export screenshots, metadata and even 
 ## Accessibility
 Peek itself is now more accessible with Dynamic Type, but Peek can also surface accessibility details from your application.
 
+## Search
+You can now search within Peek, making it easier than ever to inspect your apps.
+
 ## Less Code & Dependencies
 
 Thanks to an all new architecture Peek is also now smaller. Providing more features with much less code, leaving a very small footprint on your application.
