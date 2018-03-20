@@ -39,6 +39,7 @@
 		496C7C2B791FE1AAD6D5576C07DAEE75 /* GraphicsRenderer-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9672CC46509CAF842A8B636F918B94 /* GraphicsRenderer-dummy.m */; };
 		519EDCB799E9BD1BC20FB3853BE55076 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A49541F091518C02E00E9C7C0008C126 /* Foundation.framework */; };
 		5330AD434858356C5976BEFBBDA7DDE7 /* Pods-NotTwitter-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C23D7639072EE47EB80B8321C7D50813 /* Pods-NotTwitter-dummy.m */; };
+		540FB6DE20611D4700BC1D9B /* PeekInspectorViewController+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540FB6DD20611D4700BC1D9B /* PeekInspectorViewController+Search.swift */; };
 		541F1E5E2057437B004B5591 /* PeekSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541F1E5D2057437B004B5591 /* PeekSelectionView.swift */; };
 		54235E8AFE9094600F621CC8098B94CE /* UIPageControl+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8645C5023B68C7A22D43A11A3464AC /* UIPageControl+Peekable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		54324B7820573DF60015C341 /* PeekLayoutOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54324B7720573DF60015C341 /* PeekLayoutOverlayView.swift */; };
@@ -169,6 +170,7 @@
 		4E5508AC826808D6BE9A4EB649EB6637 /* Pods-NotTwitter-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-NotTwitter-resources.sh"; sourceTree = "<group>"; };
 		530BC04A642E42D2EA15079CFB86BF7A /* Peek.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = Peek.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		5395292BE6D7391F8A824968157858F7 /* UIWindow+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extensions.swift"; sourceTree = "<group>"; };
+		540FB6DD20611D4700BC1D9B /* PeekInspectorViewController+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PeekInspectorViewController+Search.swift"; sourceTree = "<group>"; };
 		541F1E5D2057437B004B5591 /* PeekSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeekSelectionView.swift; sourceTree = "<group>"; };
 		54324B7720573DF60015C341 /* PeekLayoutOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeekLayoutOverlayView.swift; sourceTree = "<group>"; };
 		5439CC49205835530043EC5D /* LayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutManager.swift; sourceTree = "<group>"; };
@@ -518,6 +520,7 @@
 				91F83F451794A5C304463A2A9407123B /* InspectorsPresentationController.swift */,
 				0FE74E7BE27FDF666044A92515D95185 /* PeekSectionedViewController.swift */,
 				C098AC7851230A31BE548BD69931B894 /* PeekInspectorViewController.swift */,
+				540FB6DD20611D4700BC1D9B /* PeekInspectorViewController+Search.swift */,
 				47439339439F5C30945B93121FBD369B /* PeekViewController.swift */,
 				94A1349F11FD3367EDEF993A1B38B187 /* UIViewController+Modal.swift */,
 				9F1F4D21E4F9D859B2EC90E09CC5655B /* Inspectors */,
@@ -780,6 +783,7 @@
 				E7725771F4A92945D5FD8AAE11AC9738 /* UIControl+Peekable.swift in Sources */,
 				E0A78B3D8FB00FC0B61DC2C5C3DB0DCE /* UIDevice+Peekable.swift in Sources */,
 				39AC36F8E6DEF369BAF95F6874C7C709 /* UIFont+Peekable.swift in Sources */,
+				540FB6DE20611D4700BC1D9B /* PeekInspectorViewController+Search.swift in Sources */,
 				35838E637B61139D27BD345FA3AE097D /* UIImage+Peekable.swift in Sources */,
 				391BC24C58992D1FF170298E0BA7865B /* UIImageView+Peekable.swift in Sources */,
 				42B488036136B5531323DAE3DF1ABC8E /* UILabel+Peekable.swift in Sources */,

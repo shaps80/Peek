@@ -25,13 +25,19 @@ public final class Cell: UITableViewCell {
         favouriteButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
         shareButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
         
-        replyButton.titleLabel?.adjustsFontForContentSizeCategory = true
-        favouriteButton.titleLabel?.adjustsFontForContentSizeCategory = true
-        shareButton.titleLabel?.adjustsFontForContentSizeCategory = true
+        if #available(iOS 10.0, *) {
+            usernameLabel.adjustsFontForContentSizeCategory = true
+            messageLabel.adjustsFontForContentSizeCategory = true
+            replyButton.titleLabel?.adjustsFontForContentSizeCategory = true
+            favouriteButton.titleLabel?.adjustsFontForContentSizeCategory = true
+            shareButton.titleLabel?.adjustsFontForContentSizeCategory = true
+        }
         
-        replyButton.adjustsImageSizeForAccessibilityContentSizeCategory = true
-        favouriteButton.adjustsImageSizeForAccessibilityContentSizeCategory = true
-        shareButton.adjustsImageSizeForAccessibilityContentSizeCategory = true
+        if #available(iOS 11.0, *) {
+            replyButton.adjustsImageSizeForAccessibilityContentSizeCategory = true
+            favouriteButton.adjustsImageSizeForAccessibilityContentSizeCategory = true
+            shareButton.adjustsImageSizeForAccessibilityContentSizeCategory = true
+        }
         
         selectedBackgroundView = UIView()
         selectedBackgroundView?.backgroundColor = .selection

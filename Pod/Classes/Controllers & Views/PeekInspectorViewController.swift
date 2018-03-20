@@ -15,6 +15,20 @@ internal final class PeekInspectorViewController: PeekSectionedViewController {
         NotificationCenter.default.removeObserver(observer)
     }
     
+    internal lazy var searchController: UISearchController = {
+        let controller = UISearchController(searchResultsController: nil)
+        controller.dimsBackgroundDuringPresentation = false
+//        controller.obscuresBackgroundDuringPresentation = false
+        controller.hidesNavigationBarDuringPresentation = false
+        controller.searchBar.barTintColor = navigationController?.navigationBar.barTintColor
+        controller.searchBar.tintColor = navigationController?.navigationBar.tintColor
+        controller.searchBar.autocorrectionType = .yes
+        controller.searchBar.autocapitalizationType = .none
+        controller.searchBar.enablesReturnKeyAutomatically = true
+        controller.searchResultsUpdater = self
+        return controller
+    }()
+    
     private lazy var reportButton: UIButton = {
         let button = UIButton(type: .system)
         button.frame = CGRect(x: 0, y: 0, width: 100, height: 24)
