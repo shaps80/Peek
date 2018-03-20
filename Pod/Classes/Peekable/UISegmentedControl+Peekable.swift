@@ -22,7 +22,7 @@
 
 import UIKit
 
-internal final class Segment: NSObject, PeekableContainer {
+internal final class Segment: NSObject, PeekInspectorNestable {
     
     override var description: String {
         return title ?? ""
@@ -75,7 +75,19 @@ extension UISegmentedControl {
     }
     
     open override func preparePeek(with coordinator: Coordinator) {
-        for segment in (segments ?? []).reversed() {
+        for target in self.allTargets {
+            for action in self.actions(forTarget: target, forControlEvent: .valueChanged) ?? [] {
+                var detail: String = ""
+                
+                if let model = target as? Peekable {
+                    detail = String(describing: model.classForCoder)
+                }
+                
+                coordinator.appendStatic(keyPath: action, title: action, detail: detail, value: target, in: .actions)
+            }
+        }
+        
+        for segment in segments ?? [] {
             coordinator.appendStatic(keyPath: "segments", title: "Segment", detail: segment.title, value: segment, in: .appearance)
         }
         

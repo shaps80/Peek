@@ -22,10 +22,7 @@
 
 import UIKit
 
-/**
- *  Represents 4 metrics, top, left, bottom & right
- */
-struct Metrics {
+internal struct Metrics {
     
     var top: CGFloat
     var left: CGFloat
@@ -41,86 +38,7 @@ struct Metrics {
     
 }
 
-/// Defines a view that will be used to highlight in the overlay's view
-final class HighlightView: UIView {
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    init(color: UIColor?) {
-        super.init(frame: CGRect.zero)
-        
-        backgroundColor = UIColor.clear
-        layer.borderColor = color?.cgColor
-        layer.cornerRadius = 3 
-        layer.borderWidth = 1.5
-    }
-    
-    fileprivate(set) lazy var leftMetricView: MetricView = {
-        let view = MetricView()
-        
-        addSubview(view, constraints: [
-            equal(\.centerYAnchor),
-            equal(\.trailingAnchor, \.leadingAnchor, constant: 2)
-        ])
-        
-        return view
-    }()
-    
-    fileprivate(set) lazy var topMetricView: MetricView = {
-        let view = MetricView()
-        
-        addSubview(view, constraints: [
-            equal(\.centerXAnchor),
-            equal(\.bottomAnchor, \.topAnchor, constant: 2)
-        ])
-        
-        return view
-    }()
-    
-    fileprivate(set) lazy var rightMetricView: MetricView = {
-        let view = MetricView()
-        
-        addSubview(view, constraints: [
-            equal(\.centerYAnchor),
-            equal(\.leadingAnchor, \.trailingAnchor, constant: 2)
-        ])
-        
-        return view
-    }()
-    
-    fileprivate(set) lazy var bottomMetricView: MetricView = {
-        let view = MetricView()
-        
-        addSubview(view, constraints: [
-            equal(\.centerXAnchor),
-            equal(\.topAnchor, \.bottomAnchor, constant: 2)
-        ])
-        
-        return view
-    }()
-    
-    func setMetrics(_ metrics: Metrics) {
-        setValue(metrics.left, forMetricsView: leftMetricView)
-        setValue(metrics.right, forMetricsView: rightMetricView)
-        setValue(metrics.top, forMetricsView: topMetricView)
-        setValue(metrics.bottom, forMetricsView: bottomMetricView)
-    }
-    
-    func setValue(_ value: CGFloat, forMetricsView view: MetricView) {
-        if value != 0 {
-            view.label.text = MetricView.formatter.string(from: NSNumber(value: Float(value)))
-            view.isHidden = false
-        } else {
-            view.isHidden = true
-        }
-    }
-    
-}
-
-/// Defines a label that will be used to represent a metric in the overlay view's
-final class MetricView: UIVisualEffectView {
+internal final class PeekMetricView: UIVisualEffectView {
     
     static let formatter: NumberFormatter = {
         let formatter = NumberFormatter()
@@ -158,6 +76,11 @@ final class MetricView: UIVisualEffectView {
             equal(\.leadingAnchor, constant: -2), equal(\.trailingAnchor, constant: 2),
             equal(\.topAnchor, constant: -1), equal(\.bottomAnchor, constant: 1)
         ])
+    }
+    
+    internal func apply(value: CGFloat) {
+        label.text = PeekMetricView.formatter.string(from: NSNumber(value: Float(value)))
+        label.sizeToFit()
     }
     
 }

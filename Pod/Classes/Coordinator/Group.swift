@@ -12,6 +12,7 @@ import Foundation
     case accessibility
     case typography
     case appearance
+    case actions
     case paragraph
     case behaviour
     case states
@@ -28,6 +29,7 @@ import Foundation
     case layout
     case classes
     case views
+    case controllers
     case layers
     
     case capabilities
@@ -37,6 +39,7 @@ import Foundation
         switch self {
         case .preview: return "Preview"
         case .typography: return "Typography"
+        case .actions: return "Actions"
         case .appearance: return "Appearance"
         case .accessibility: return "Accessibility"
         case .general: return "General"
@@ -51,6 +54,7 @@ import Foundation
         case .layout: return "Layout"
         case .classes: return "Class Inheritance"
         case .views: return "View Hierarchy"
+        case .controllers: return "Controller Hierarchy"
         case .layers: return "Layers"
         case .shadow: return "Shadow"
         case .border: return "Border"
@@ -76,14 +80,14 @@ import Foundation
     }
 }
 
-// MARK: - Adds Model support to all NSObject types
-extension NSObject: Model {
+extension Group {
     
-    public func isExpandedByDefault(for group: Group) -> Bool {
-        switch group {
+    public var isExpandedByDefault: Bool {
+        switch self {
         case .preview: return true
         case .typography: return true
         case .appearance: return true
+        case .actions: return false
         case .accessibility: return false
         case .general: return false
         case .paragraph: return true
@@ -97,6 +101,7 @@ extension NSObject: Model {
         case .layout: return false
         case .classes: return false
         case .views: return true
+        case .controllers: return true
         case .layers: return false
         case .shadow: return true
         case .border: return true

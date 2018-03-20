@@ -86,8 +86,4 @@ extension UIColor: Model {
         super.preparePeek(with: coordinator)
     }
     
-    public override func isExpandedByDefault(for group: Group) -> Bool {
-        return true
-    }
-    
 }

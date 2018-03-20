@@ -21,11 +21,11 @@
                         <color key="separatorColor" red="0.74117647060000003" green="0.77647058820000003" blue="0.80392156859999997" alpha="1" colorSpace="deviceRGB"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="10" reuseIdentifier="Cell" rowHeight="494" id="hEi-ID-QUJ" customClass="Cell" customModule="NotTwitter" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="494"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="10" reuseIdentifier="Cell" rowHeight="638" id="hEi-ID-QUJ" customClass="Cell" customModule="NotTwitter" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="638"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hEi-ID-QUJ" id="oDP-5n-3WO">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="493.66666666666669"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="637.66666666666663"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Shaps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVQ-Nd-eKN">
@@ -48,7 +48,7 @@
                                             </constraints>
                                         </imageView>
                                         <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="1000" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="bAq-oV-YUP">
-                                            <rect key="frame" x="72" y="247.33333333333331" width="326" height="183.33333333333331"/>
+                                            <rect key="frame" x="72" y="352.33333333333331" width="326" height="183.33333333333331"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" image="promo" translatesAutoresizingMaskIntoConstraints="NO" id="Dnp-5Q-VJT">
                                                     <rect key="frame" x="0.0" y="0.0" width="326" height="183.33333333333334"/>
@@ -68,43 +68,54 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </stackView>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" scrollEnabled="NO" editable="NO" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MdY-5G-bal" customClass="TextView" customModule="NotTwitter" customModuleProvider="target">
-                                            <rect key="frame" x="72" y="47.333333333333343" width="326" height="184"/>
+                                            <rect key="frame" x="72" y="47.333333333333343" width="326" height="289"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <accessibility key="accessibilityConfiguration" identifier="message.text" label="Message">
                                                 <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
                                             </accessibility>
-                                            <string key="text">NSNotification Scheduling Service in Swift
-https://gist.github.com/shaps80
+                                            <string key="text">Peek 5: All new design
 
-Codable support for serialization
-Handles past dates immediately
+• Unified Inspectors
+• Collapsible Groups
+• Nested Inspectors
+• Previews
+• Reporting
+• Accessibility
 
-#iosdev #swiftlang thx @merowing_ for feedback.</string>
+and more...
+
+shaps.me/peek #iosdev #swiftlang #designers #tools #peek</string>
                                             <color key="textColor" red="0.078431372549019607" green="0.086274509803921567" blue="0.10196078431372549" alpha="1" colorSpace="deviceRGB"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                         </textView>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="3um-aw-i0Y">
-                                            <rect key="frame" x="72" y="446.66666666666669" width="326" height="20"/>
+                                            <rect key="frame" x="72" y="551.66666666666663" width="326" height="20"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KoE-s9-cDi">
                                                     <rect key="frame" x="0.0" y="0.0" width="108.66666666666667" height="20"/>
                                                     <accessibility key="accessibilityConfiguration" identifier="message.reply" label="Reply"/>
                                                     <color key="tintColor" red="0.40784313725490196" green="0.46274509803921571" blue="0.51764705882352935" alpha="1" colorSpace="deviceRGB"/>
                                                     <state key="normal" title=" 43" image="reply"/>
+                                                    <connections>
+                                                        <action selector="reshare" destination="rMn-0w-uVj" eventType="touchUpInside" id="Tdf-yk-f3m"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WO7-3H-9fU">
                                                     <rect key="frame" x="108.66666666666666" y="0.0" width="108.66666666666666" height="20"/>
                                                     <accessibility key="accessibilityConfiguration" identifier="message.favourite" label="Favourite"/>
                                                     <color key="tintColor" red="0.40784313725490196" green="0.46274509803921571" blue="0.51764705882352935" alpha="1" colorSpace="deviceRGB"/>
                                                     <state key="normal" title=" 102" image="star"/>
+                                                    <connections>
+                                                        <action selector="toggleFavourite" destination="rMn-0w-uVj" eventType="touchUpInside" id="BBn-pf-edr"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N1M-PV-Sb2">
                                                     <rect key="frame" x="217.33333333333329" y="0.0" width="108.66666666666666" height="20"/>
                                                     <accessibility key="accessibilityConfiguration" identifier="message.share" label="Share"/>
                                                     <color key="tintColor" red="0.40784313725490196" green="0.46274509803921571" blue="0.51764705882352935" alpha="1" colorSpace="deviceRGB"/>
-                                                    <state key="normal" image="share"/>
+                                                    <state key="normal" title="Share" image="share"/>
                                                 </button>
                                             </subviews>
                                         </stackView>
@@ -154,7 +165,11 @@ Handles past dates immediately
                                 <state key="normal" image="profile-small"/>
                             </button>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="compose" id="ijP-tc-IZg"/>
+                        <barButtonItem key="rightBarButtonItem" image="compose" id="ijP-tc-IZg">
+                            <connections>
+                                <action selector="newMessage" destination="rMn-0w-uVj" id="ihX-nV-kMJ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gcd-RL-7uf" userLabel="First Responder" sceneMemberID="firstResponder"/>

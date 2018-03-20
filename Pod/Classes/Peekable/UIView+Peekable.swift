@@ -89,7 +89,7 @@ extension UIView {
         
         coordinator.appendStatic(keyPath: "self", title: String(describing: classForCoder), detail: "", value: self, in: .views)
         
-        for view in subviews {
+        for view in subviews.reversed() {
             coordinator.appendStatic(keyPath: "classForCoder", title: String(describing: view.classForCoder), detail: "", value: view, in: .views)
         }
         
@@ -194,7 +194,7 @@ extension UIView {
     
 }
 
-@objc internal final class Constraints: NSObject, PeekableContainer {
+@objc internal final class Constraints: NSObject, PeekInspectorNestable {
     
     internal weak var view: UIView?
     

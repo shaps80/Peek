@@ -37,5 +37,6 @@ import Foundation
     //  func valueForKeyPath(_ key: String) -> AnyObject?
     func value(forKeyPath: String) -> Any?
     
-    func isExpandedByDefault(for group: Group) -> Bool
 }
+
+extension NSObject: Model { }

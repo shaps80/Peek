@@ -96,6 +96,18 @@ extension UIButton {
             "normalTitleColor", "selectedTitleColor", "highlightedTitleColor", "disabledTitleColor"
         ], forModel: self, in: .states)
         
+        for target in self.allTargets {
+            for action in self.actions(forTarget: target, forControlEvent: .touchUpInside) ?? [] {
+                var detail: String = ""
+                
+                if let model = target as? Peekable {
+                    detail = String(describing: model.classForCoder)
+                }
+                
+                coordinator.appendStatic(keyPath: action, title: action, detail: detail, value: target, in: .actions)
+            }
+        }
+        
         super.preparePeek(with: coordinator)
     }
     

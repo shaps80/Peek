@@ -32,7 +32,7 @@ extension UIView {
     @objc internal func owningViewController() -> UIViewController? {
         var responder: UIResponder? = self
         
-        while !(responder is UIViewController) {
+        while !(responder is UIViewController) && superview != nil {
             if let next = responder?.next {
                 responder = next
             }

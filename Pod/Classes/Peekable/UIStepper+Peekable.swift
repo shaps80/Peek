@@ -57,6 +57,18 @@ extension UIStepper {
     }
     
     open override func preparePeek(with coordinator: Coordinator) {
+        for target in self.allTargets {
+            for action in self.actions(forTarget: target, forControlEvent: .valueChanged) ?? [] {
+                var detail: String = ""
+                
+                if let model = target as? Peekable {
+                    detail = String(describing: model.classForCoder)
+                }
+                
+                coordinator.appendStatic(keyPath: action, title: action, detail: detail, value: target, in: .actions)
+            }
+        }
+        
         coordinator.appendDynamic(keyPaths: [
             "autorepeat", "continuous", "wraps"
         ], forModel: self, in: .behaviour)
