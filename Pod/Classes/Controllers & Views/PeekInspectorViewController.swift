@@ -406,7 +406,7 @@ extension PeekInspectorViewController {
             return Report.Section(title: title, items: items)
         }
         
-        let report = Report(title: model.titleForPeekReport(), sections: sections, metadata: peek.options.metadata)
+        let report = Report(title: model.titleForPeekReport(), sections: sections, metadata: peek.options.metadata, snapshot: peek.screenshot)
         let controller = ReportViewController(peek: peek, report: report)
         
         controller.delegate = self
@@ -433,7 +433,8 @@ extension PeekInspectorViewController {
             alert.addAction(UIAlertAction(title: "Yes, Cancel", style: .destructive) { _ in
                 end(animated: true)
             })
-            present(alert, animated: true, completion: nil)
+            
+            topViewController().present(alert, animated: true, completion: nil)
         } else {
             end(animated: true)
         }
@@ -575,14 +576,14 @@ extension PeekInspectorViewController {
                     self?.indicateSection(for: indexPath)
                 })
                 
-                self?.present(alert, animated: true, completion: nil)
+                self?.topViewController().present(alert, animated: true, completion: nil)
             }))
             
             if #available(iOS 10.0, *) {
                 haptic()?.selectionChanged()
             }
             
-            present(controller, animated: true, completion: nil)
+            topViewController().present(controller, animated: true, completion: nil)
         } else {
             tableView.deselectRow(at: indexPath, animated: true)
         }

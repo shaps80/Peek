@@ -23,12 +23,14 @@ internal struct Report: Encodable {
     internal let sections: [Section]
     internal let title: String
     internal let metadata: [String: String]
+    internal let snapshot: UIImage?
     private let deviceInfo: [String: String]
     
-    internal init(title: String, sections: [Section], metadata: [String: String]) {
+    internal init(title: String, sections: [Section], metadata: [String: String], snapshot: UIImage?) {
         self.metadata = metadata
         self.sections = sections
         self.title = title
+        self.snapshot = snapshot
         
         deviceInfo = [
             "App Name": Bundle.main.appName,

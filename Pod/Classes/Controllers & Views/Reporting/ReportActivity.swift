@@ -16,6 +16,10 @@ internal final class ReportActivity: NSObject, UIActivityItemSource {
         self.report = report
     }
     
+    func activityViewController(_ activityViewController: UIActivityViewController, thumbnailImageForActivityType activityType: UIActivityType?, suggestedSize size: CGSize) -> UIImage? {
+        return report.snapshot?.resized(to: size)
+    }
+    
     func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
         return "Peek Report"
     }

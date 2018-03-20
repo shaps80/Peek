@@ -85,7 +85,7 @@ internal final class ReportViewController: PeekSectionedViewController {
                 }
             }
             
-            present(sheet, animated: true, completion: nil)
+            topViewController().present(sheet, animated: true, completion: nil)
         } catch {
             print(error)
         }

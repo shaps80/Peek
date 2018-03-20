@@ -31,7 +31,7 @@ public final class Peek: NSObject {
     
     /// Returns true if Peek is already being presented -- this is to prevent
     public static var isAlreadyPresented: Bool = false
-    var screenshot: UIImage?
+    internal var screenshot: UIImage?
     
     /// Enables/disables Peek
     public var enabled: Bool = false {
@@ -178,21 +178,6 @@ public final class Peek: NSObject {
         if options.activationMode == .auto && !isSimulator {
             activationController = VolumeController(peek: self, handleActivation: handleActivation)
         }
-    }
-    
-    // MARK: Internal alerts for presenting various options
-    
-    func unsupportedFunction() {
-        let controller = UIAlertController(title: "Unsupported Feature", message: "This feature is coming soon.", preferredStyle: .alert)
-        controller.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        window?.rootViewController?.topViewController().present(controller, animated: true, completion: nil)
-    }
-    
-    func unknownKeyValue() {
-        // this should NEVER be called!
-        let controller = UIAlertController(title: "Peek Error", message: "The key or value couldn't be determined.", preferredStyle: .alert)
-        controller.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        window?.rootViewController?.topViewController().present(controller, animated: true, completion: nil)
     }
     
 }
