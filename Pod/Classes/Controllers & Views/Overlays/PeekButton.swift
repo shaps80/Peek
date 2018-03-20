@@ -33,6 +33,10 @@ internal final class PeekButton: UIControl {
     internal override init(frame: CGRect) {
         super.init(frame: frame)
         
+        if #available(iOS 11.0, *) {
+            accessibilityIgnoresInvertColors = true
+        }
+        
         vibrancyView.contentView.addSubview(imageView, constraints: [
             equal(\.centerXAnchor), equal(\.centerYAnchor)
         ])

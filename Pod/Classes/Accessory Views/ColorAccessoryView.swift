@@ -33,6 +33,10 @@ final class ColorAccessoryView: UIView {
         self.color = color
         super.init(frame: CGRect(x: 0, y: 0, width: size.width + margin, height: size.height))
         backgroundColor = .clear
+        
+        if #available(iOS 11.0, *) {
+            self.accessibilityIgnoresInvertColors = true
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -67,6 +67,10 @@ internal class PeekOverlayView: UIView {
     internal init() {
         super.init(frame: .zero)
         
+        if #available(iOS 11.0, *) {
+            accessibilityIgnoresInvertColors = true
+        }
+        
         addGestureRecognizer(panGesture)
         addGestureRecognizer(tapGesture)
         addGestureRecognizer(doubleTapGesture)

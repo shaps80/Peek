@@ -32,6 +32,10 @@ final class BoolAccessoryView: UIView {
         self.value = value
         super.init(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
         self.backgroundColor = UIColor.clear
+        
+        if #available(iOS 11.0, *) {
+            self.accessibilityIgnoresInvertColors = true
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
