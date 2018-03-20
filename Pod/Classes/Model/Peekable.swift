@@ -63,7 +63,7 @@ extension NSObject: Peekable {
     
     @objc public func titleForPeekReport() -> String {
         if let view = self as? UIView {
-            return "\(String(describing: view.owningViewController()!.classForCoder)) > \(String(describing: classForCoder))"
+            return "\(String(describing: view.owningViewController()!.classForCoder)) ▹ \(String(describing: classForCoder))"
         } else {
             return "\(String(describing: classForCoder))"
         }

@@ -83,32 +83,31 @@ import Foundation
 extension Group {
     
     public var isExpandedByDefault: Bool {
-        return true
-//        switch self {
-//        case .preview: return true
-//        case .typography: return true
-//        case .appearance: return true
-//        case .actions: return false
-//        case .accessibility: return false
-//        case .general: return false
-//        case .paragraph: return true
-//        case .states: return false
-//        case .behaviour: return true
-//        case .constraints: return false
-//        case .hugging: return true
-//        case .resistance: return true
-//        case .horizontal: return true
-//        case .vertical: return true
-//        case .layout: return false
-//        case .classes: return false
-//        case .views: return true
-//        case .controllers: return true
-//        case .layers: return false
-//        case .shadow: return true
-//        case .border: return true
-//        case .capabilities: return true
-//        case .more: return false
-//        }
+        switch self {
+        case .preview: return true
+        case .typography: return true
+        case .appearance: return true
+        case .actions: return true
+        case .accessibility: return false
+        case .general: return true
+        case .paragraph: return true
+        case .states: return true
+        case .behaviour: return true
+        case .constraints: return false
+        case .hugging: return true
+        case .resistance: return true
+        case .horizontal: return true
+        case .vertical: return true
+        case .layout: return false
+        case .classes: return false
+        case .views: return true
+        case .controllers: return true
+        case .layers: return true
+        case .shadow: return true
+        case .border: return true
+        case .capabilities: return true
+        case .more: return true
+        }
     }
     
 }

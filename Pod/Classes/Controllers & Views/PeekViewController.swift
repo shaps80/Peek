@@ -139,10 +139,13 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
         }
         UserDefaults.standard.register(defaults: defaults)
         
-        peek.screenshot = ImageRenderer(size: CGSize(width: rect.width, height: rect.height)).image { context in
+        peek.screenshot = ImageRenderer(size: CGSize(width: rect.width, height: rect.height)).image { [unowned self] context in
             let rect = context.format.bounds
             self.peek.peekingWindow.drawHierarchy(in: rect, afterScreenUpdates: true)
+            
+            self.attributesButton.isHidden = true
             self.peek.window?.drawHierarchy(in: rect, afterScreenUpdates: true)
+            self.attributesButton.isHidden = false
         }
         
         if let model = model as? UIView {
