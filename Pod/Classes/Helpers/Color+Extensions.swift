@@ -63,30 +63,7 @@ extension UIColor {
     internal static var primaryTint: UIColor? {
         return Color(literalRed: 135, green: 252, blue: 112).systemColor
     }
-    
-//    internal static var secondaryTint: UIColor {
-//        return UIColor.colorWithRed(red: 135, green: 252, blue: 112, alpha: 1)
-//    }
-    
-//    @available(*, deprecated)
-//    class func secondaryColor() -> UIColor {
-//        return UIColor.colorWithRed(red: 255, green: 41, blue: 105, alpha: 1)
-//    }
-    
-//    func values() -> (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) {
-//        var r: CGFloat = 0
-//        var g: CGFloat = 0
-//        var b: CGFloat = 0
-//        var a: CGFloat = 0
-//
-//        getRed(&r, green: &g, blue: &b, alpha: &a)
-//        return (r, g, b, a)
-//    }
-//
-//    fileprivate class func colorWithRed(red: UInt, green: UInt, blue: UInt, alpha: CGFloat) -> UIColor {
-//        return UIColor(red: CGFloat(red) / 255, green: CGFloat(green) / 255, blue: CGFloat(blue) / 255, alpha: alpha)
-//    }
-//
+
     internal var hslComponents:(hue: CGFloat, saturation: CGFloat, brightness: CGFloat, alpha: CGFloat) {
         var h: CGFloat = 0, s: CGFloat = 0, l: CGFloat = 0, a: CGFloat = 0
         getHue(&h, saturation: &s, brightness: &l, alpha: &a)

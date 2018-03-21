@@ -9,16 +9,23 @@ import UIKit
 
 internal final class PeekButton: UIControl {
     
+    private var feedbackGenerator: Any?
+    
+    @available(iOS 10.0, *)
+    private func haptic() -> UIImpactFeedbackGenerator? {
+        return feedbackGenerator as? UIImpactFeedbackGenerator
+    }
+    
     private lazy var tapGesture: UITapGestureRecognizer = {
         return UITapGestureRecognizer(target: self, action: #selector(handleTap(gesture:)))
     }()
     
     private lazy var vibrancyView: UIVisualEffectView = {
-        return UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: UIBlurEffect(style: .extraLight)))
+        return UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     }()
     
     private lazy var visualEffectView: UIVisualEffectView = {
-        let blur = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
+        let blur = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
         blur.contentView.addSubview(vibrancyView, constraints: [
             equal(\.leadingAnchor), equal(\.trailingAnchor),
             equal(\.topAnchor), equal(\.bottomAnchor)
@@ -60,30 +67,35 @@ internal final class PeekButton: UIControl {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
+        setTransform(CGAffineTransform(scaleX: 1.5, y: 1.5))
         
-        UIView.animate(withDuration: 0.15) {
-            self.visualEffectView.backgroundColor = .primaryTint
+        if #available(iOS 10.0, *) {
+            feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+            haptic()?.impactOccurred()
         }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        
-        UIView.animate(withDuration: 0.15) {
-            self.visualEffectView.backgroundColor = nil
-        }
+        setTransform(.identity)
+        feedbackGenerator = nil
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
-        
-        UIView.animate(withDuration: 0.15) {
-            self.visualEffectView.backgroundColor = nil
-        }
+        setTransform(.identity)
+        feedbackGenerator = nil
+    }
+    
+    private func setTransform(_ transform: CGAffineTransform) {
+        let damping: CGFloat = transform == .identity ? 1 : 0.45
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: damping, initialSpringVelocity: 1, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
+            self.transform = transform
+        }, completion: nil)
     }
     
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: 80, height: 80)
+        return CGSize(width: 60, height: 60)
     }
     
     override func layoutSubviews() {
@@ -95,13 +107,6 @@ internal final class PeekButton: UIControl {
         
         visualEffectView.layer.cornerRadius = size
         visualEffectView.layer.masksToBounds = true
-        
-        layer.shadowPath = path.cgPath
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 2)
-        layer.shadowRadius = 15
-        layer.shadowOpacity = 0.2
-        layer.masksToBounds = false
     }
     
 }

@@ -12,7 +12,7 @@ Peek 5.0 with an all new design and all new features. Whether you're a developer
 ## Unified Inspectors
 All inspectors and attributes have now been unified into a single window, making inspection simpler and faster than ever before.
 
-## Collapse/Expand Headers
+## Collapsible Groups
 Feeling overwhelmed with all the information Peek has to offer? Simply tap the header to expand/collapse any section. Peek will even remember your choice across launches!
 
 ## Nested Inspectors
@@ -228,14 +228,16 @@ Please use the Swift 4 version instead.
 
 Original concept, code and app design by [@shaps][5]<br />
 
-Icons in the demo app found on [The Noun Project](www.thenounproject.com).
-Artwork by [Vitaliy Gorbachev](https://thenounproject.com/vitalikexpert)
+Icons in the demo app found on [The Noun Project][6].
+Artwork by [Vitaliy Gorbachev][7]
 
 [1]:	http://cocoapods.org/pods/Peek
 [2]:	http://cocoapods.org/pods/Peek
 [3]:	http://cocoadocs.org/docsets/Peek
 [4]:	http://cocoapods.org/pods/Peek
 [5]:	http://twitter.com/shaps "Shaps on Twitter"
+[6]:	www.thenounproject.com
+[7]:	https://thenounproject.com/vitalikexpert
 
 [image-1]:	https://img.shields.io/cocoapods/v/Peek.svg?style=flat
 [image-2]:	https://img.shields.io/cocoapods/l/Peek.svg?style=flat

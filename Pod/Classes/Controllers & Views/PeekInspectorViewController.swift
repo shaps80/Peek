@@ -25,6 +25,7 @@ internal final class PeekInspectorViewController: PeekSectionedViewController, U
         controller.searchBar.tintColor = navigationController?.navigationBar.tintColor
         controller.searchBar.backgroundColor = peek.options.theme == .black ? .inspectorBlack : .inspectorDark
         controller.searchBar.isTranslucent = false
+        controller.searchBar.keyboardAppearance = .dark
         controller.searchBar.autocorrectionType = .yes
         controller.searchBar.autocapitalizationType = .none
         controller.searchBar.enablesReturnKeyAutomatically = true
@@ -322,12 +323,11 @@ extension PeekInspectorViewController {
         reportingIndexPaths.removeAll()
         
         if tableView.isEditing {
-            searchController.searchBar.resignFirstResponder()
-            searchController.searchBar.text = nil
-            
             if #available(iOS 11.0, *) {
                 navigationItem.searchController = nil
             } else {
+                searchController.searchBar.resignFirstResponder()
+                searchController.searchBar.text = nil
                 searchController.dismiss(animated: false, completion: nil)
                 tableView.tableHeaderView = nil
             }
