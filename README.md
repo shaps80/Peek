@@ -1,4 +1,4 @@
-<a href="https://player.vimeo.com/video/261323610"><img src="shot.jpg" name="Peek on Vimeo"/></a>
+<a href="https://player.vimeo.com/video/261323610"><img src="https://github.com/shaps80/Peek/raw/master/shot.jpg" name="Peek on Vimeo"/></a>
 
 [![Version][image-1]][1]
 [![License][image-2]][2]
