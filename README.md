@@ -52,10 +52,14 @@ You can't get simpler than that!
 
 ### Device
 
-The simplest way to integrate Peek into your project is to use `Cocoapods`:
+The simplest way to integrate Peek into your project is to use `Cocoapods` or `Carthage`:
 
 ```ruby
+# Cocoapods
 pod 'Peek', :configurations => ['Debug']
+
+# Carthage
+github `shaps80/Peek` ~> 5.0.1
 ```
 
 You only need 1 line of code to enable Peek in your application:

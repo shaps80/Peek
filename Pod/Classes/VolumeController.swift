@@ -65,7 +65,6 @@ final class VolumeController: NSObject, PeekActivationController {
             handleActivation()
             resetVolume()
         }
-        
     }
     //swiftlint:enable block_based_kvo
     
