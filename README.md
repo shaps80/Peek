@@ -92,7 +92,6 @@ Now you can press `CMD+CTRL+Z` (or use the Menu option) to show/hide Peek in you
 
 # What is Peek?
 
-<a href="https://player.vimeo.com/video/261323610"><img src="" name="Peek on Vimeo"/></a>
 [![Peek on Vimeo][preview]][vimeo]
 
 Peek is an open source framework that provides runtime inspection of your application while its running on your device (or Simulator).
