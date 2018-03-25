@@ -70,16 +70,12 @@ final class VolumeController: NSObject, PeekActivationController {
     //swiftlint:enable block_based_kvo
     
     func resetVolume() {
-        for view in volumeView.subviews {
-            if view.responds(to: #selector(UISlider.setValue(_:animated:))) {
-                view.perform(#selector(UISlider.setValue(_:animated:)), with: previousVolume, with: false)
-                
-                if view.responds(to: Selector(("_commitVolumeChange"))) {
-                    view.perform(Selector(("_commitVolumeChange")))
-                }
-                
-                return
-            }
+        let setValueSelector = #selector(UISlider.setValue(_:animated:))
+        guard let v = volumeView.subviews.first(where: { $0.responds(to: setValueSelector) }) else { return }
+        v.perform(setValueSelector, with: previousVolume, with: false)
+        let _commitVolumeChangeSelector = Selector("_commitVolumeChange")
+        if v.responds(to: _commitVolumeChangeSelector) {
+            v.perform(_commitVolumeChangeSelector)
         }
     }
     
