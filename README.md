@@ -1,5 +1,6 @@
 [![Peek Site][gif]][peek]
 
+[![Carthage][carthage-0]][0]
 [![Version][pods-1]][1]
 [![License][pods-2]][2]
 [![Language][pods-3]][3]
@@ -235,6 +236,7 @@ Original concept, code and app design by [@shaps][5]<br />
 Icons in the demo app found on [The Noun Project][6].
 Artwork by [Vitaliy Gorbachev][7]
 
+[0]:    https://github.com/Carthage/Carthage
 [1]:	http://cocoapods.org/pods/Peek
 [2]:	http://cocoapods.org/pods/Peek
 [3]:	http://cocoadocs.org/docsets/Peek
@@ -247,6 +249,7 @@ Artwork by [Vitaliy Gorbachev][7]
 [pods-2]:	https://img.shields.io/cocoapods/l/Peek.svg?style=flat
 [pods-3]:	https://img.shields.io/badge/language-swift-ff69b4.svg
 [pods-4]:	https://img.shields.io/cocoapods/p/Peek.svg?style=flat
+[carthage-0]: https://img.shields.io/badge/Carthage-✓-4BC51D.svg?style=flat
 
 [peek]: https://shaps.me/peek
 [preview]: https://github.com/shaps80/Peek/raw/master/preview.jpg
