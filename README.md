@@ -1,9 +1,9 @@
 [![Peek Site][gif]][peek]
 
-[![Version][image-1]][1]
-[![License][image-2]][2]
-[![Language][image-3]][3]
-[![Platform][image-4]][4]
+[![Version][pods-1]][1]
+[![License][pods-2]][2]
+[![Language][pods-3]][3]
+[![Platform][pods-4]][4]
 
 # Peek: All new design
 
@@ -243,10 +243,10 @@ Artwork by [Vitaliy Gorbachev][7]
 [6]:	https://thenounproject.com
 [7]:	https://thenounproject.com/vitalikexpert
 
-[image-1]:	https://img.shields.io/cocoapods/v/Peek.svg?style=flat
-[image-2]:	https://img.shields.io/cocoapods/l/Peek.svg?style=flat
-[image-3]:	https://img.shields.io/badge/language-swift-ff69b4.svg
-[image-4]:	https://img.shields.io/cocoapods/p/Peek.svg?style=flat
+[pods-1]:	https://img.shields.io/cocoapods/v/Peek.svg?style=flat
+[pods-2]:	https://img.shields.io/cocoapods/l/Peek.svg?style=flat
+[pods-3]:	https://img.shields.io/badge/language-swift-ff69b4.svg
+[pods-4]:	https://img.shields.io/cocoapods/p/Peek.svg?style=flat
 
 [peek]: https://shaps.me/peek
 [preview]: https://github.com/shaps80/Peek/raw/master/preview.jpg
