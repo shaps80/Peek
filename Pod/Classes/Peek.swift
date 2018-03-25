@@ -65,12 +65,12 @@ public final class Peek: NSObject {
      Presents Peek
      */
     public func present() {
-        if !enabled {
+        guard enabled else {
             print("Peek is disabled!")
             return
         }
         
-        if Peek.isAlreadyPresented {
+        guard !Peek.isAlreadyPresented else {
             print("Peek is already being presented!")
             return
         }

@@ -127,7 +127,7 @@ Peek allows many options to be configured, allowing you more control over how Pe
 ```swift
 window?.peek.enableWithOptions { options in
     options.theme = .black
-    options.activationMode = .Auto
+    options.activationMode = .auto
     options.shouldIgnoreContainers = true
   
     /*
@@ -238,7 +238,7 @@ Artwork by [Vitaliy Gorbachev][7]
 [3]:	http://cocoadocs.org/docsets/Peek
 [4]:	http://cocoapods.org/pods/Peek
 [5]:	http://twitter.com/shaps "Shaps on Twitter"
-[6]:	www.thenounproject.com
+[6]:	https://thenounproject.com
 [7]:	https://thenounproject.com/vitalikexpert
 
 [image-1]:	https://img.shields.io/cocoapods/v/Peek.svg?style=flat
