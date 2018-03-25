@@ -1,5 +1,4 @@
-<a href="https://player.vimeo.com/video/261323610"><img src="https://github.com/shaps80/Peek/raw/master/preview.gif" name="Peek on Vimeo"/></a>
-
+[![Peek Site][gif]][peek]
 [![Version][image-1]][1]
 [![License][image-2]][2]
 [![Language][image-3]][3]
@@ -9,7 +8,7 @@
 
 Peek 5.0 with an all new design and all new features. Whether you're a developer, designer or QA/tester, Peek can help you at all stages of your development process.
 
-[Watch the Promo](https://player.vimeo.com/video/261323610) to see it in action.
+[Watch the Promo][vimeo] to see it in action.
 
 ## Unified Inspectors
 All inspectors and attributes have now been unified into a single window, making inspection simpler and faster than ever before.
@@ -92,7 +91,8 @@ Now you can press `CMD+CTRL+Z` (or use the Menu option) to show/hide Peek in you
 
 # What is Peek?
 
-<a href="https://player.vimeo.com/video/261323610"><img src="https://github.com/shaps80/Peek/raw/master/preview.jpg" name="Peek on Vimeo"/></a>
+<a href="https://player.vimeo.com/video/261323610"><img src="" name="Peek on Vimeo"/></a>
+[![Peek on Vimeo][preview]][vimeo]
 
 Peek is an open source framework that provides runtime inspection of your application while its running on your device (or Simulator).
 
@@ -239,11 +239,16 @@ Artwork by [Vitaliy Gorbachev][7]
 [2]:	http://cocoapods.org/pods/Peek
 [3]:	http://cocoadocs.org/docsets/Peek
 [4]:	http://cocoapods.org/pods/Peek
-[5]:	http://twitter.com/shaps "Shaps on Twitter"
-[6]:	www.thenounproject.com
+[5]:	https://twitter.com/shaps "Shaps on Twitter"
+[6]:	https://thenounproject.com
 [7]:	https://thenounproject.com/vitalikexpert
 
 [image-1]:	https://img.shields.io/cocoapods/v/Peek.svg?style=flat
 [image-2]:	https://img.shields.io/cocoapods/l/Peek.svg?style=flat
 [image-3]:	https://img.shields.io/badge/language-swift-ff69b4.svg
 [image-4]:	https://img.shields.io/cocoapods/p/Peek.svg?style=flat
+
+[peek]: https://shaps.me/peek
+[preview]: https://github.com/shaps80/Peek/raw/master/preview.jpg
+[vimeo]: https://player.vimeo.com/video/261323610
+[gif]: https://github.com/shaps80/Peek/raw/master/preview.gif
