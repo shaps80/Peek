@@ -1,3 +1,5 @@
+<a href="https://player.vimeo.com/video/261323610"><img src="https://github.com/shaps80/Peek/raw/master/preview.gif" name="Peek on Vimeo"/></a>
+
 [Watch the Promo](https://player.vimeo.com/video/261323610)
 
 [![Version][image-1]][1]
