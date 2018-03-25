@@ -1,24 +1,4 @@
-<html><style>
-.button { 
-    border: 2px solid #0DB400;
-    display: inline-block;
-    padding: 0.5em 1em;
-    border-radius: 4px;
-    text-decoration: none !important;
-    background-color: #0DB400;
-    color: white;
-    text-transform: uppercase;
-    -webkit-transition: all 0.2s;
-    transition: all 0.2s;
-}
-
-a:hover .button {
-  background-color: #0DDF00;
-  border-color: #0DDF00;
-}
-  
-</style><html>
-<a href="https://player.vimeo.com/video/261323610"><span class="button">Watch the Promo</span></a>
+[Watch the Promo](https://player.vimeo.com/video/261323610)
 
 [![Version][image-1]][1]
 [![License][image-2]][2]
