@@ -1,7 +1,5 @@
 <a href="https://player.vimeo.com/video/261323610"><img src="https://github.com/shaps80/Peek/raw/master/preview.gif" name="Peek on Vimeo"/></a>
 
-[Watch the Promo](https://player.vimeo.com/video/261323610)
-
 [![Version][image-1]][1]
 [![License][image-2]][2]
 [![Language][image-3]][3]
@@ -10,6 +8,8 @@
 # Peek: All new design
 
 Peek 5.0 with an all new design and all new features. Whether you're a developer, designer or QA/tester, Peek can help you at all stages of your development process.
+
+[Watch the Promo](https://player.vimeo.com/video/261323610) to see it in action.
 
 ## Unified Inspectors
 All inspectors and attributes have now been unified into a single window, making inspection simpler and faster than ever before.
