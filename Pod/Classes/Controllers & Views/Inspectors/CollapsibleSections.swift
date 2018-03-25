@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import GraphicsRenderer
 
 private func radians(fromDegrees degrees: CGFloat) -> CGFloat {
     return degrees * CGFloat(Double.pi) / 180

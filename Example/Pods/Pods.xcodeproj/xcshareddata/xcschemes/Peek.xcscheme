@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0920"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "540B99DE2053FCAF0086FF61"
-               BuildableName = "NotTwitter.app"
-               BlueprintName = "NotTwitter"
-               ReferencedContainer = "container:Peek.xcodeproj">
+               BlueprintIdentifier = "546766E9C6CBF018892B988929F960A7"
+               BuildableName = "Peek.framework"
+               BlueprintName = "Peek"
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -30,15 +30,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "540B99DE2053FCAF0086FF61"
-            BuildableName = "NotTwitter.app"
-            BlueprintName = "NotTwitter"
-            ReferencedContainer = "container:Peek.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -53,23 +44,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "540B99DE2053FCAF0086FF61"
-            BuildableName = "NotTwitter.app"
-            BlueprintName = "NotTwitter"
-            ReferencedContainer = "container:Peek.xcodeproj">
+            BlueprintIdentifier = "546766E9C6CBF018892B988929F960A7"
+            BuildableName = "Peek.framework"
+            BlueprintName = "Peek"
+            ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "OS_ACTIVITY_MODE"
-            value = "disable"
-            isEnabled = "NO">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -79,16 +62,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "540B99DE2053FCAF0086FF61"
-            BuildableName = "NotTwitter.app"
-            BlueprintName = "NotTwitter"
-            ReferencedContainer = "container:Peek.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

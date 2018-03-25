@@ -21,7 +21,6 @@
  */
 
 import UIKit
-import GraphicsRenderer
 
 final class PeekViewController: UIViewController, UIViewControllerTransitioningDelegate {
     

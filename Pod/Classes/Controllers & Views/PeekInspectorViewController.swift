@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import GraphicsRenderer
 
 internal final class PeekInspectorViewController: PeekSectionedViewController, UISearchResultsUpdating {
     

@@ -21,7 +21,6 @@
  */
 
 import UIKit
-import GraphicsRenderer
 
 extension UIColor: Model {
     

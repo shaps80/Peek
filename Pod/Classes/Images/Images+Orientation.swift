@@ -21,7 +21,6 @@
  */
 
 import Foundation
-import GraphicsRenderer
 
 extension Images {
     
