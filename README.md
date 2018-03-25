@@ -1,4 +1,24 @@
-<a href="https://player.vimeo.com/video/261323610"><img src="https://github.com/shaps80/Peek/raw/master/preview.jpg" name="Peek on Vimeo"/></a>
+<html><style>
+.button { 
+    border: 2px solid #0DB400;
+    display: inline-block;
+    padding: 0.5em 1em;
+    border-radius: 4px;
+    text-decoration: none !important;
+    background-color: #0DB400;
+    color: white;
+    text-transform: uppercase;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+a:hover .button {
+  background-color: #0DDF00;
+  border-color: #0DDF00;
+}
+  
+</style><html>
+<a href="https://player.vimeo.com/video/261323610"><span class="button">Watch the Promo</span></a>
 
 [![Version][image-1]][1]
 [![License][image-2]][2]
@@ -8,8 +28,6 @@
 # Peek: All new design
 
 Peek 5.0 with an all new design and all new features. Whether you're a developer, designer or QA/tester, Peek can help you at all stages of your development process.
-
-<a href="https://player.vimeo.com/video/261323610"><img src="https://github.com/shaps80/Peek/raw/master/preview.gif" name="Peek on Vimeo"/></a>
 
 ## Unified Inspectors
 All inspectors and attributes have now been unified into a single window, making inspection simpler and faster than ever before.
@@ -92,6 +110,8 @@ Now you can press `CMD+CTRL+Z` (or use the Menu option) to show/hide Peek in you
 
 # What is Peek?
 
+<a href="https://player.vimeo.com/video/261323610"><img src="https://github.com/shaps80/Peek/raw/master/preview.jpg" name="Peek on Vimeo"/></a>
+
 Peek is an open source framework that provides runtime inspection of your application while its running on your device (or Simulator).
 
 - Developers can use Peek to inspect their user interfaces at runtime.
@@ -127,7 +147,7 @@ Peek allows many options to be configured, allowing you more control over how Pe
 ```swift
 window?.peek.enableWithOptions { options in
     options.theme = .black
-    options.activationMode = .auto
+    options.activationMode = .Auto
     options.shouldIgnoreContainers = true
   
     /*
@@ -238,7 +258,7 @@ Artwork by [Vitaliy Gorbachev][7]
 [3]:	http://cocoadocs.org/docsets/Peek
 [4]:	http://cocoapods.org/pods/Peek
 [5]:	http://twitter.com/shaps "Shaps on Twitter"
-[6]:	https://thenounproject.com
+[6]:	www.thenounproject.com
 [7]:	https://thenounproject.com/vitalikexpert
 
 [image-1]:	https://img.shields.io/cocoapods/v/Peek.svg?style=flat
