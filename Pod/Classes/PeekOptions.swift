@@ -38,14 +38,66 @@ public enum PeekActivationMode {
 public enum PeekTheme {
     case dark
     case black
-    // TODO
-    // case light
+    case light
+    
+    internal var overlayBackgroundColor: UIColor? {
+        return .black
+    }
+    
+    internal var overlayTintColor: UIColor? {
+        return Color(literalRed: 135, green: 252, blue: 112).systemColor
+    }
     
     internal var backgroundColor: UIColor? {
         switch self {
-        case .dark: return .inspectorDark
-        case .black: return .inspectorBlack
+        case .dark: return Color(hex: "1c1c1c")!.systemColor
+        case .black: return .black
+        case .light: return .white
         }
+    }
+    
+    internal var separatorColor: UIColor? {
+        switch self {
+        case .dark: return UIColor(white: 1, alpha: 0.1)
+        case .black: return UIColor(white: 1, alpha: 0.1)
+        case .light: return UIColor(white: 0, alpha: 0.1)
+        }
+    }
+    
+    internal var primaryTextColor: UIColor? {
+        switch self {
+        case .dark: return .white
+        case .black: return .white
+        case .light: return .black
+        }
+    }
+    
+    internal var secondaryTextColor: UIColor? {
+        switch self {
+        case .dark: return UIColor(white: 1, alpha: 0.6)
+        case .black: return UIColor(white: 1, alpha: 0.6)
+        case .light: return Color(hex: "1c1c1c")!.systemColor
+        }
+    }
+    
+    internal var tintColor: UIColor? {
+        switch self {
+        case .dark: return Color(literalRed: 135, green: 252, blue: 112).systemColor
+        case .black: return Color(literalRed: 135, green: 252, blue: 112).systemColor
+        case .light: return Color(hex: "4CD863")!.systemColor
+        }
+    }
+    
+    internal var editingColor: UIColor? {
+        switch self {
+        case .dark: return Color(hex: "4CD863")!.systemColor
+        case .black: return Color(hex: "4CD863")!.systemColor
+        case .light: return Color(hex: "4CD863")!.systemColor
+        }
+    }
+    
+    internal var editingCounterColor: UIColor? {
+        return Color(hex: "3EB454")!.systemColor
     }
 }
 

@@ -24,45 +24,45 @@ import UIKit
 
 extension UIColor {
     
-    internal static var overlay: UIColor? {
-        return .black
-    }
-    
-    internal static var separator: UIColor? {
-        return UIColor(white: 1, alpha: 0.1)
-    }
-    
-    internal static var inspectorBlack: UIColor? {
-        return .black
-    }
-    
-    internal static var inspectorDark: UIColor? {
-        return Color(hex: "1c1c1c")!.systemColor
-    }
-    
-    internal static var textDark: UIColor? {
-        return Color(hex: "1c1c1c")!.systemColor
-    }
-    
-    internal static var textLight: UIColor? {
-        return UIColor.white
-    }
-    
-    internal static var editingTint: UIColor? {
-        return Color(hex: "4CD863")!.systemColor
-    }
-    
-    internal static var counter: UIColor? {
-        return Color(hex: "3EB454")!.systemColor
-    }
-    
-    internal static var neutral: UIColor? {
-        return UIColor(white: 1, alpha: 0.6)
-    }
-    
-    internal static var primaryTint: UIColor? {
-        return Color(literalRed: 135, green: 252, blue: 112).systemColor
-    }
+//    internal static var overlay: UIColor? {
+//        return .black
+//    }
+//    
+//    internal static var separator: UIColor? {
+//        return UIColor(white: 1, alpha: 0.1)
+//    }
+//
+//    internal static var inspectorBlack: UIColor? {
+//        return .black
+//    }
+//
+//    internal static var inspectorDark: UIColor? {
+//        return Color(hex: "1c1c1c")!.systemColor
+//    }
+//
+//    internal static var textDark: UIColor? {
+//        return Color(hex: "1c1c1c")!.systemColor
+//    }
+//
+//    internal static var textLight: UIColor? {
+//        return UIColor.white
+//    }
+//
+//    internal static var editingTint: UIColor? {
+//        return Color(hex: "4CD863")!.systemColor
+//    }
+//
+//    internal static var counter: UIColor? {
+//        return Color(hex: "3EB454")!.systemColor
+//    }
+//
+//    internal static var neutral: UIColor? {
+//        return UIColor(white: 1, alpha: 0.6)
+//    }
+//
+//    internal static var primaryTint: UIColor? {
+//        return Color(literalRed: 135, green: 252, blue: 112).systemColor
+//    }
 
     internal var hslComponents:(hue: CGFloat, saturation: CGFloat, brightness: CGFloat, alpha: CGFloat) {
         var h: CGFloat = 0, s: CGFloat = 0, l: CGFloat = 0, a: CGFloat = 0

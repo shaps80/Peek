@@ -31,8 +31,8 @@ internal final class ReportViewController: PeekSectionedViewController {
         
         title = "Report"
         
-        includeJSONSwitch.onTintColor = .editingTint
-        includeScreenshotSwitch.onTintColor = .editingTint
+        includeJSONSwitch.onTintColor = peek.options.theme.editingColor
+        includeScreenshotSwitch.onTintColor = peek.options.theme.editingColor
         
         includeScreenshotSwitch.addTarget(self, action: #selector(toggleScreenshot(_:)), for: .valueChanged)
         includeJSONSwitch.addTarget(self, action: #selector(toggleJSON(_:)), for: .valueChanged)
@@ -45,7 +45,7 @@ internal final class ReportViewController: PeekSectionedViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBar.backgroundColor = .editingTint
+        navigationController?.navigationBar.backgroundColor = peek.options.theme.editingColor
         navigationController?.navigationBar.tintColor = .white
         
         let send = UIBarButtonItem(title: "Send", style: .plain, target: self, action: #selector(sendReport(_:)))

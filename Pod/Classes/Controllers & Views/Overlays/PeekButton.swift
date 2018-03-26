@@ -37,9 +37,12 @@ internal final class PeekButton: UIControl {
         return UIImageView(image: Images.attributes)
     }()
     
-    internal override init(frame: CGRect) {
-        super.init(frame: frame)
-        
+    private let theme: PeekTheme
+    
+    internal init(theme: PeekTheme) {
+        self.theme = theme
+        super.init(frame: .zero)
+
         if #available(iOS 11.0, *) {
             accessibilityIgnoresInvertColors = true
         }

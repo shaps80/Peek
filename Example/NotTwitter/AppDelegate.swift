@@ -18,7 +18,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         Theme.apply()
 
         window?.peek.enableWithOptions { options in
-            options.theme = .dark
+            options.theme = .light
             options.activationMode = .auto
             options.ignoresContainerViews = false
             

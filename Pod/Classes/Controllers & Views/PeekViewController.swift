@@ -43,13 +43,13 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     fileprivate var models = [UIView]()
     
     internal lazy var peekView: PeekOverlayView = {
-        let view = PeekLayoutOverlayView()
+        let view = PeekLayoutOverlayView(theme: peek.options.theme)
         view.delegate = self
         return view
     }()
     
     lazy var attributesButton: PeekButton = {
-        let button = PeekButton(frame: .zero)
+        let button = PeekButton(theme: peek.options.theme)
         button.addTarget(self, action: #selector(showInspectors), for: .touchUpInside)
         return button
     }()
@@ -116,7 +116,7 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     }
     
     fileprivate func updateBackgroundColor(alpha: CGFloat) {
-        view.backgroundColor = UIColor.overlay?.withAlphaComponent(alpha)
+        view.backgroundColor = peek.options.theme.overlayBackgroundColor?.withAlphaComponent(alpha)
         
         let animation = CATransition()
         animation.type = kCATransitionFade

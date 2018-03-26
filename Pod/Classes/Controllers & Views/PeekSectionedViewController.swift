@@ -47,9 +47,9 @@ internal class PeekSectionedViewController: UIViewController, UITableViewDelegat
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "InspectorCell", for: indexPath) as? InspectorCell else { fatalError() }
         
         cell.detailTextLabel?.font = UIFont.preferredFont(forTextStyle: .body)
-        cell.detailTextLabel?.textColor = .textLight
+        cell.detailTextLabel?.textColor = peek.options.theme.primaryTextColor
         cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
-        cell.textLabel?.textColor = .neutral
+        cell.textLabel?.textColor = peek.options.theme.secondaryTextColor
         
         cell.accessoryView = nil
         cell.accessoryType = .none
@@ -64,7 +64,7 @@ internal class PeekSectionedViewController: UIViewController, UITableViewDelegat
         header.contentView.backgroundColor = peek.options.theme.backgroundColor
         header.label.text = sectionTitle(for: section)
         header.label.font = UIFont.systemFont(ofSize: 15, weight: .black)
-        header.label.textColor = .textLight
+        header.label.textColor = peek.options.theme.primaryTextColor
         header.setExpanded(sectionIsExpanded(for: section))
         return header
     }
@@ -93,9 +93,9 @@ extension PeekSectionedViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.backgroundColor = peek.options.theme.backgroundColor
-        navigationController?.navigationBar.tintColor = .primaryTint
+        navigationController?.navigationBar.tintColor = peek.options.theme.primaryTextColor
         navigationController?.navigationBar.titleTextAttributes = [
-            .foregroundColor: UIColor.white,
+            .foregroundColor: peek.options.theme.primaryTextColor,
             .font: UIFont.systemFont(ofSize: 17, weight: .regular)
         ]
         
@@ -112,7 +112,7 @@ extension PeekSectionedViewController {
             
             navigationItem.largeTitleDisplayMode = .always
             navigationController?.navigationBar.largeTitleTextAttributes = [
-                .foregroundColor: UIColor.white
+                .foregroundColor: peek.options.theme.primaryTextColor
             ]
         }
     }

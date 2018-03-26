@@ -58,11 +58,6 @@ internal final class CollapsibleSectionHeaderView: UITableViewHeaderFooterView {
         
         super.init(reuseIdentifier: reuseIdentifier)
         
-        let thickness: CGFloat = 1.5
-        let size = CGSize(width: 13 + thickness, height: 8 + thickness)
-        imageView.image = Images.disclosure(size: size, thickness: thickness)
-        
-        imageView.tintColor = .neutral
         label.numberOfLines = 0
         
         contentView.addSubview(imageView, constraints: [
@@ -97,9 +92,14 @@ internal final class CollapsibleSectionHeaderView: UITableViewHeaderFooterView {
         })
     }
     
-    func prepareHeader(for section: Int, delegate: CollapsibleSectionHeaderViewDelegate) {
+    func prepareHeader(for section: Int, theme: PeekTheme = .dark, delegate: CollapsibleSectionHeaderViewDelegate) {
         tag = section
         self.delegate = delegate
+        
+        let thickness: CGFloat = 1.5
+        let size = CGSize(width: 13 + thickness, height: 8 + thickness)
+        imageView.image = Images.disclosure(size: size, thickness: thickness, theme: theme)
+        imageView.tintColor = theme.tintColor
     }
     
     internal required init?(coder aDecoder: NSCoder) {

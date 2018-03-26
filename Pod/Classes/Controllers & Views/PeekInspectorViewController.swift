@@ -22,7 +22,7 @@ internal final class PeekInspectorViewController: PeekSectionedViewController, U
         controller.searchBar.searchBarStyle = .minimal
         controller.searchBar.barTintColor = navigationController?.navigationBar.barTintColor
         controller.searchBar.tintColor = navigationController?.navigationBar.tintColor
-        controller.searchBar.backgroundColor = peek.options.theme == .black ? .inspectorBlack : .inspectorDark
+        controller.searchBar.backgroundColor = peek.options.theme.backgroundColor
         controller.searchBar.isTranslucent = false
         controller.searchBar.keyboardAppearance = .dark
         controller.searchBar.autocorrectionType = .yes
@@ -46,7 +46,7 @@ internal final class PeekInspectorViewController: PeekSectionedViewController, U
         button.frame = CGRect(x: 0, y: 0, width: 100, height: 24)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .counter
+        button.backgroundColor = peek.options.theme.editingCounterColor
         button.layer.cornerRadius = button.bounds.height / 2
         button.layer.masksToBounds = true
         return button
@@ -103,8 +103,7 @@ internal final class PeekInspectorViewController: PeekSectionedViewController, U
             navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         }
         
-        let backgroundColor: UIColor? = peek.options.theme == .dark ? .inspectorDark : .inspectorBlack
-        tableView.backgroundColor = backgroundColor
+        tableView.backgroundColor = peek.options.theme.backgroundColor
         
         prepareNavigationItems(animated: false)
     
@@ -140,7 +139,7 @@ internal final class PeekInspectorViewController: PeekSectionedViewController, U
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = super.tableView(tableView, viewForHeaderInSection: section) as? CollapsibleSectionHeaderView else { fatalError() }
-        header.prepareHeader(for: section, delegate: self)
+        header.prepareHeader(for: section, theme: peek.options.theme, delegate: self)
         return header
     }
     
@@ -172,6 +171,7 @@ internal final class PeekInspectorViewController: PeekSectionedViewController, U
         if let preview = attribute as? PreviewAttribute,
             let cell = tableView.dequeueReusableCell(withIdentifier: "PreviewCell", for: indexPath) as? PreviewCell {
             cell.previewImageView.image = preview.image
+            cell.previewImageView.tintColor = peek.options.theme.tintColor
             cell.contentView.backgroundColor = peek.options.theme.backgroundColor
             cell.backgroundColor = peek.options.theme.backgroundColor
             return cell
@@ -243,7 +243,7 @@ internal final class PeekInspectorViewController: PeekSectionedViewController, U
             case is NSNumber:
                 if let value = value as? NSNumber {
                     text = NumberTransformer().transformedValue(value) as? String
-                    accessoryView = value.isBool() ? BoolAccessoryView(value: value.boolValue) : nil
+                    accessoryView = value.isBool() ? BoolAccessoryView(value: value.boolValue, theme: peek.options.theme) : nil
                 }
             case is UIColor:
                 if let value = value as? UIColor {
@@ -340,11 +340,11 @@ extension PeekInspectorViewController {
             navigationItem.setRightBarButton(send, animated: animated)
             
             UIView.animate(withDuration: animated ? 0.25 : 0) {
-                self.navigationController?.navigationBar.backgroundColor = .editingTint
+                self.navigationController?.navigationBar.backgroundColor = self.peek.options.theme.editingColor
                 self.navigationController?.navigationBar.tintColor = .white
             }
             
-            tableView.tintColor = .editingTint
+            tableView.tintColor = peek.options.theme.editingColor
             navigationItem.titleView = reportButton
         } else {
             if #available(iOS 11.0, *) {
@@ -355,7 +355,7 @@ extension PeekInspectorViewController {
             }
             
             let size = CGSize(width: 22, height: 12)
-            let disclosure = Images.disclosure(size: size, thickness: 2)
+            let disclosure = Images.disclosure(size: size, thickness: 2, theme: peek.options.theme)
             let close = UIBarButtonItem(image: disclosure, style: .plain, target: self, action: #selector(dismissController))
             navigationItem.setRightBarButton(close, animated: animated)
             
@@ -379,10 +379,10 @@ extension PeekInspectorViewController {
             
             UIView.animate(withDuration: animated ? 0.25 : 0) {
                 self.navigationController?.navigationBar.backgroundColor = self.peek.options.theme.backgroundColor
-                self.navigationController?.navigationBar.tintColor = .primaryTint
+                self.navigationController?.navigationBar.tintColor = self.peek.options.theme.tintColor
             }
             
-            tableView.tintColor = .primaryTint
+            tableView.tintColor = peek.options.theme.tintColor
             navigationItem.titleView = nil
         }
     }
