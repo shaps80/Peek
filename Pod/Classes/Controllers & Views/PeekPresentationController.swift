@@ -374,18 +374,20 @@ internal final class PeekPresentationController: UIPresentationController, UIVie
 }
 
 extension NSShadow {
-    public static var modal: NSShadow {
+    
+    fileprivate static var modal: NSShadow {
         let shadow = NSShadow()
         shadow.shadowOffset = CGSize(width: 0, height: -2)
         shadow.shadowBlurRadius = 10
         shadow.shadowColor = UIColor(white: 0, alpha: 0.5)
         return shadow
     }
+    
 }
 
 extension UIView {
     
-    public var shadow: NSShadow? {
+    fileprivate var shadow: NSShadow? {
         get {
             let shadow = NSShadow()
             shadow.shadowOffset = layer.shadowOffset

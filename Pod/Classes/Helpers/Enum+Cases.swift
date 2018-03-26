@@ -7,11 +7,11 @@
 
 import Foundation
 
-public protocol EnumCollection: Hashable {
+internal protocol EnumCollection: Hashable {
     static var all: [Self] { get }
 }
 
-public extension EnumCollection {
+internal extension EnumCollection {
     
     private static func cases() -> AnySequence<Self> {
         return AnySequence { () -> AnyIterator<Self> in

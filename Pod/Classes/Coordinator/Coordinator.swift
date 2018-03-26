@@ -8,23 +8,23 @@
 import Foundation
 
 @objc public protocol Coordinator: class {
-    func appendDynamic(keyPaths: [String], forModel model: Model, in group: Group)
-    func appendDynamic(keyPathToName mapping: [[String: String]], forModel model: Model, in group: Group)
-    func appendTransformed(keyPaths: [String], valueTransformer: AttributeValueTransformer?, forModel model: Model, in group: Group)
+    func appendDynamic(keyPaths: [String], forModel model: Peekable, in group: Group)
+    func appendDynamic(keyPathToName mapping: [[String: String]], forModel model: Peekable, in group: Group)
+    func appendTransformed(keyPaths: [String], valueTransformer: AttributeValueTransformer?, forModel model: Peekable, in group: Group)
     func appendStatic(keyPath: String, title: String, detail: String?, value: Any?, in group: Group)
-    func appendPreview(image: UIImage, forModel model: Model)
+    func appendPreview(image: UIImage, forModel model: Peekable)
 }
 
 internal final class PeekCoordinator: Coordinator, CustomStringConvertible {
     
-    internal unowned let model: Model
+    internal unowned let model: Peekable
     internal private(set) var groupsMapping: [Group: PeekGroup] = [:]
     
-    internal init(model: Model) {
+    internal init(model: Peekable) {
         self.model = model
     }
     
-    internal func appendPreview(image: UIImage, forModel model: Model) {
+    internal func appendPreview(image: UIImage, forModel model: Peekable) {
         guard image.size.width > 0 && image.size.height > 0 else { return }
         
         let peekGroup = groupsMapping[.preview] ?? Group.preview.peekGroup()
@@ -32,7 +32,7 @@ internal final class PeekCoordinator: Coordinator, CustomStringConvertible {
         peekGroup.attributes.insert(PreviewAttribute(image: image), at: 0)
     }
     
-    func appendTransformed(keyPaths: [String], valueTransformer: AttributeValueTransformer?, forModel model: Model, in group: Group) {
+    func appendTransformed(keyPaths: [String], valueTransformer: AttributeValueTransformer?, forModel model: Peekable, in group: Group) {
         let peekGroup = groupsMapping[group] ?? group.peekGroup()
         groupsMapping[group] = peekGroup
 
@@ -41,11 +41,11 @@ internal final class PeekCoordinator: Coordinator, CustomStringConvertible {
         }, at: peekGroup.attributes.count)
     }
     
-    internal func appendDynamic(keyPaths: [String], forModel model: Model, in group: Group) {
+    internal func appendDynamic(keyPaths: [String], forModel model: Peekable, in group: Group) {
         appendTransformed(keyPaths: keyPaths, valueTransformer: nil, forModel: model, in: group)
     }
     
-    internal func appendDynamic(keyPathToName mapping: [[String : String]], forModel model: Model, in group: Group) {
+    internal func appendDynamic(keyPathToName mapping: [[String : String]], forModel model: Peekable, in group: Group) {
         let peekGroup = groupsMapping[group] ?? group.peekGroup()
         groupsMapping[group] = peekGroup
         

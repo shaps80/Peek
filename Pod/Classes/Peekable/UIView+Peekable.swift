@@ -193,7 +193,9 @@ extension UIView {
     
 }
 
-@objc internal final class Constraints: NSObject, PeekInspectorNestable {
+@objc internal final class Constraints: NSObject {
+    
+    internal override var isLeaf: Bool { return false }
     
     internal weak var view: UIView?
     
