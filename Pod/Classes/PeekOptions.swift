@@ -120,7 +120,7 @@ public enum PeekTheme {
         switch self {
         case .dark: return UIColor(white: 1, alpha: 0.6)
         case .black: return UIColor(white: 1, alpha: 0.6)
-        case .light: return UIColor(red: 200, green: 200, blue: 200, alpha: 1)
+        case .light: return UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1)
         }
     }
 }
