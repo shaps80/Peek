@@ -25,25 +25,25 @@ import Foundation
 /**
  *  Represents a PDF renderer format
  */
-public final class PDFRendererFormat: RendererFormat {
+internal final class PDFRendererFormat: RendererFormat {
     
     /**
      Returns a default format, configured for this device
      
      - returns: A new format
      */
-    public static func `default`() -> PDFRendererFormat {
+    internal static func `default`() -> PDFRendererFormat {
         let bounds = CGRect(x: 0, y: 0, width: 612, height: 792)
         return PDFRendererFormat(bounds: bounds, documentInfo: [:], flipped: false)
     }
     
     /// Returns the bounds for this format
-    public let bounds: CGRect
+    internal let bounds: CGRect
     
     /// Returns the associated document info
-    public var documentInfo: [String: Any]
+    internal var documentInfo: [String: Any]
     
-    public var isFlipped: Bool
+    internal var isFlipped: Bool
     
     /**
      Creates a new format with the specified bounds and pageInfo
@@ -64,7 +64,7 @@ public final class PDFRendererFormat: RendererFormat {
     /// - Parameters:
     ///   - documentInfo: The associated PSD document info
     ///   - flipped: If true, the context drawing will be flipped
-    public init(documentInfo: [String: Any], flipped: Bool) {
+    internal init(documentInfo: [String: Any], flipped: Bool) {
         self.bounds = .zero
         self.documentInfo = documentInfo
         self.isFlipped = flipped
@@ -74,16 +74,16 @@ public final class PDFRendererFormat: RendererFormat {
 
 
 /// Represents a PDF renderer context
-public final class PDFRendererContext: RendererContext {
+internal final class PDFRendererContext: RendererContext {
     
     /// The underlying CGContext
-    public let cgContext: CGContext
+    internal let cgContext: CGContext
     
     /// The format for this context
-    public let format: PDFRendererFormat
+    internal let format: PDFRendererFormat
     
     /// The PDF context bounds
-    public let pdfContextBounds: CGRect
+    internal let pdfContextBounds: CGRect
     
     // Internal variable for auto-closing pages
     private var hasOpenPage: Bool = false
@@ -101,7 +101,7 @@ public final class PDFRendererContext: RendererContext {
     }
     
     /// Creates a new PDF page. The bounds will be the same as specified by the document
-    public func beginPage() {
+    internal func beginPage() {
         beginPage(withBounds: format.bounds, pageInfo: [:])
     }
     
@@ -110,7 +110,7 @@ public final class PDFRendererContext: RendererContext {
     /// - Parameters:
     ///   - bounds: The bounds to use for this page
     ///   - pageInfo: The pageInfo associated to be associated with this page
-    public func beginPage(withBounds bounds: CGRect, pageInfo: [String : Any]) {
+    internal func beginPage(withBounds bounds: CGRect, pageInfo: [String : Any]) {
         var info = pageInfo
         info[kCGPDFContextMediaBox as String] = bounds
         
@@ -131,7 +131,7 @@ public final class PDFRendererContext: RendererContext {
     /// - Parameters:
     ///   - url: The url to link to
     ///   - rect: The rect representing the link
-    public func setURL(_ url: URL, for rect: CGRect) {
+    internal func setURL(_ url: URL, for rect: CGRect) {
         let url = url as CFURL
         cgContext.setURL(url, for: rect)
     }
@@ -141,7 +141,7 @@ public final class PDFRendererContext: RendererContext {
     /// - Parameters:
     ///   - name: A destination name
     ///   - point: A location in the current page
-    public func addDestination(withName name: String, at point: CGPoint) {
+    internal func addDestination(withName name: String, at point: CGPoint) {
         let name = name as CFString
         cgContext.addDestination(name, at: point)
     }
@@ -151,7 +151,7 @@ public final class PDFRendererContext: RendererContext {
     /// - Parameters:
     ///   - name: A destination name
     ///   - rect: A rect in the current page
-    public func setDestinationWithName(_ name: String, for rect: CGRect) {
+    internal func setDestinationWithName(_ name: String, for rect: CGRect) {
         let name = name as CFString
         cgContext.setDestination(name, for: rect)
     }
@@ -164,26 +164,26 @@ public final class PDFRendererContext: RendererContext {
 }
 
 extension PDFRenderer {
-    public convenience init(bounds: CGRect) {
+    internal convenience init(bounds: CGRect) {
         self.init(bounds: bounds, format: nil)
     }
 }
 
 /// Represents a PDF renderer
-public final class PDFRenderer: Renderer {
+internal final class PDFRenderer: Renderer {
     
     /// The associated context type
-    public typealias Context = PDFRendererContext
+    internal typealias Context = PDFRendererContext
     
     /// Returns the format for this renderer
-    public let format: PDFRendererFormat
+    internal let format: PDFRendererFormat
     
     /// Creates a new PDF renderer with the specified bounds
     ///
     /// - Parameters:
     ///   - bounds: The bounds of the PDF
     ///   - format: The format to use for this PDF
-    public init(bounds: CGRect, format: PDFRendererFormat? = nil) {
+    internal init(bounds: CGRect, format: PDFRendererFormat? = nil) {
         guard bounds.size != .zero else { fatalError("size cannot be zero") }
         
         let info = format?.documentInfo ?? [:]
@@ -196,7 +196,7 @@ public final class PDFRenderer: Renderer {
     ///   - url: The url to write tp
     ///   - actions: The drawing actions to perform
     /// - Throws: May throw
-    public func writePDF(to url: URL, withActions actions: (PDFRendererContext) -> Void) throws {
+    internal func writePDF(to url: URL, withActions actions: (PDFRendererContext) -> Void) throws {
         var rect = format.bounds
         let consumer = CGDataConsumer(url: url as CFURL)!
         let context = CGContext(consumer: consumer, mediaBox: &rect, format.documentInfo as CFDictionary?)!
@@ -207,7 +207,7 @@ public final class PDFRenderer: Renderer {
     ///
     /// - Parameter actions: The drawing actions to perform
     /// - Returns: The PDF data
-    public func pdfData(actions: (PDFRendererContext) -> Void) -> Data {
+    internal func pdfData(actions: (PDFRendererContext) -> Void) -> Data {
         var rect = format.bounds
         let data = NSMutableData()
         let consumer = CGDataConsumer(data: data)!

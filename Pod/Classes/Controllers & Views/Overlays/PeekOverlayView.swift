@@ -7,7 +7,7 @@
 
 import UIKit
 
-internal protocol ViewModel: Peekable, Model {
+internal protocol ViewModel: Peekable {
     func frameInPeek(_ view: UIView) -> CGRect
 }
 

@@ -22,7 +22,7 @@
 
 import UIKit
 
-internal final class Segment: NSObject, PeekInspectorNestable {
+internal final class Segment: NSObject {
     
     override var description: String {
         return title ?? ""
@@ -33,6 +33,8 @@ internal final class Segment: NSObject, PeekInspectorNestable {
     @objc var width: CGFloat = 0
     @objc var image: UIImage?
     @objc var contentOffset: CGSize = CGSize.zero
+    
+    internal override var isLeaf: Bool { return false }
     
     override func preparePeek(with coordinator: Coordinator) {
         if let image = image {

@@ -22,15 +22,15 @@
 
 #if os(OSX)
     import AppKit
-    public typealias Image = NSImage
-    public typealias Screen = NSScreen
+    internal typealias Image = NSImage
+    internal typealias Screen = NSScreen
 
     extension NSScreen {
-        public static var main: NSScreen {
+        internal static var main: NSScreen {
             return self.main
         }
 
-        public var scale: CGFloat {
+        internal var scale: CGFloat {
             return backingScaleFactor
         }
     }
@@ -46,8 +46,8 @@
     }
 #else
     import UIKit
-    public typealias Image = UIImage
-    public typealias Screen = UIScreen
+    internal typealias Image = UIImage
+    internal typealias Screen = UIScreen
     
     extension UIImage {
         internal func pngRepresentation() -> Data? {

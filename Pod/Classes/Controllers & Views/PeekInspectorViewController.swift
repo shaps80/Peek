@@ -51,7 +51,7 @@ internal final class PeekInspectorViewController: PeekSectionedViewController, U
         return button
     }()
     
-    private let model: Model & Peekable
+    private let model: InternalPeekable
     private let coordinator: PeekCoordinator
     private var dataSource: ContextDataSource {
         didSet { tableView.reloadData() }
@@ -81,7 +81,7 @@ internal final class PeekInspectorViewController: PeekSectionedViewController, U
         return feedbackGenerator as? UISelectionFeedbackGenerator
     }
     
-    internal init(peek: Peek, model: Model & Peekable) {
+    internal init(peek: Peek, model: InternalPeekable) {
         self.model = model
         self.coordinator = PeekCoordinator(model: model)
         model.preparePeek(with: coordinator)
@@ -262,8 +262,8 @@ internal final class PeekInspectorViewController: PeekSectionedViewController, U
                 accessoryView = ColorAccessoryView(color: UIColor(cgColor: value as! CGColor))
             }
             
-            if let value = value as? PeekInspectorNestable {
-                cell.accessoryType = tableView.isEditing ? .none : .disclosureIndicator
+            if let value = value as? InternalPeekable {
+                cell.accessoryType = tableView.isEditing ? .none : !value.isLeaf ? .disclosureIndicator : .none
             }
             
             if value === model {
@@ -303,7 +303,7 @@ extension PeekInspectorViewController: UIViewControllerPreviewingDelegate {
         
         let attribute = activeDataSource.attribute(at: indexPath)
         
-        if !(attribute is PreviewAttribute), let value = attribute.value as? PeekInspectorNestable {
+        if !(attribute is PreviewAttribute), let value = attribute.value as? InternalPeekable, !value.isLeaf {
             let controller = PeekInspectorViewController(peek: peek, model: value)
             controller.title = attribute.title
             return controller
@@ -415,7 +415,7 @@ extension PeekInspectorViewController {
             return Report.Section(title: title, items: items)
         }
         
-        let report = Report(title: model.titleForPeekReport(), sections: sections, metadata: peek.options.metadata, snapshot: peek.screenshot)
+        let report = Report(title: model.reportTitle, sections: sections, metadata: peek.options.metadata, snapshot: peek.screenshot)
         let controller = ReportViewController(peek: peek, report: report)
         
         controller.delegate = self
@@ -515,7 +515,7 @@ extension PeekInspectorViewController {
         let attribute = self.activeDataSource.attribute(at: indexPath)
         let cell = tableView.cellForRow(at: indexPath)
         
-        if !tableView.isEditing, let value = attribute.value as? PeekInspectorNestable, value !== model {
+        if !tableView.isEditing, let value = attribute.value as? InternalPeekable, !value.isLeaf, value !== model {
             let controller = PeekInspectorViewController(peek: peek, model: value)
             controller.title = attribute.title
             navigationController?.pushViewController(controller, animated: true)

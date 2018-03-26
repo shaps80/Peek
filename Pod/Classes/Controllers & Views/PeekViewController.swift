@@ -129,7 +129,7 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
         presentInspectorsForModel(model)
     }
     
-    fileprivate func presentInspectorsForModel(_ model: Model) {
+    fileprivate func presentInspectorsForModel(_ model: Peekable) {
         let rect = peek.peekingWindow.bounds
 
         var defaults: [String: Bool] = [:]
