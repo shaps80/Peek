@@ -97,13 +97,13 @@ Now you can press `CMD+CTRL+Z` (or use the Menu option) to show/hide Peek in you
 
 ### Contributing
 
-Contributions to Sourcery are welcomed and encouraged!
+Contributions to Peek are welcomed and encouraged!
 
 It is easy to get involved. Please see the [Contributing guide][contrib-guide] for more details.
 
 [A list of contributors is available through GitHub.][contrib-list]
 
-To give clarity of what is expected of our community, Sourcery has adopted the code of conduct defined by the Contributor Covenant. This document is used across many open source communities, and I think it articulates my values well. For more, see the [Code of Conduct][code-of-conduct].
+To give clarity of what is expected of our community, Peek has adopted the code of conduct defined by the Contributor Covenant. This document is used across many open source communities, and I think it articulates my values well. For more, see the [Code of Conduct][code-of-conduct].
 
 # What is Peek?
 
