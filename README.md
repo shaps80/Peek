@@ -134,7 +134,7 @@ Peek allows many options to be configured, allowing you more control over how Pe
 ```swift
 window?.peek.enableWithOptions { options in
     options.theme = .black
-    options.activationMode = .Auto
+    options.activationMode = .auto
     options.shouldIgnoreContainers = true
   
     /*
