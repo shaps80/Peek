@@ -288,12 +288,12 @@ extension Color: Equatable {
 #if os(iOS)
     import UIKit
     extension Color {
-        public init?(systemColor: UIColor?) {
-            guard let systemColor = systemColor else { return nil }
-            self.init(cgColor: systemColor.cgColor)
+        public init?(system: UIColor?) {
+            guard let system = system else { return nil }
+            self.init(cgColor: system.cgColor)
         }
         
-        public var systemColor: UIColor {
+        public var system: UIColor {
             return UIColor(cgColor: cgColor)
         }
     }

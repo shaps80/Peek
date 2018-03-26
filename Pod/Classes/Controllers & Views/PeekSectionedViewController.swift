@@ -44,7 +44,7 @@ internal class PeekSectionedViewController: UIViewController, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "InspectorCell", for: indexPath) as? InspectorCell else { fatalError() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "InspectorCell", for: indexPath) as? PeekInspectorCell else { fatalError() }
         
         cell.detailTextLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         cell.detailTextLabel?.textColor = peek.options.theme.primaryTextColor
@@ -55,6 +55,8 @@ internal class PeekSectionedViewController: UIViewController, UITableViewDelegat
         cell.accessoryType = .none
         cell.editingAccessoryView = nil
         cell.editingAccessoryType = .none
+        
+        cell.selectedBackgroundView?.backgroundColor = peek.options.theme.selectedBackgroundColor
         
         return cell
     }
@@ -94,16 +96,9 @@ extension PeekSectionedViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.backgroundColor = peek.options.theme.backgroundColor
         navigationController?.navigationBar.tintColor = peek.options.theme.primaryTextColor
-        navigationController?.navigationBar.titleTextAttributes = [
-            .foregroundColor: peek.options.theme.primaryTextColor,
-            .font: UIFont.systemFont(ofSize: 17, weight: .regular)
-        ]
         
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
-            navigationController?.navigationBar.largeTitleTextAttributes = [
-                .foregroundColor: UIColor.white
-            ]
             
             guard navigationController?.viewControllers.count == 1 || self is ReportViewController else {
                 navigationItem.largeTitleDisplayMode = .never
@@ -111,9 +106,6 @@ extension PeekSectionedViewController {
             }
             
             navigationItem.largeTitleDisplayMode = .always
-            navigationController?.navigationBar.largeTitleTextAttributes = [
-                .foregroundColor: peek.options.theme.primaryTextColor
-            ]
         }
     }
     
@@ -128,14 +120,15 @@ extension PeekSectionedViewController {
         
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = peek.options.theme.backgroundColor
-        tableView.separatorStyle = .none
+        tableView.separatorColor = peek.options.theme.separatorColor
+        tableView.separatorStyle = peek.options.theme == .light ? .singleLine : .none
         tableView.delegate = self
         tableView.dataSource = self
         
         tableView.allowsMultipleSelectionDuringEditing = true
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         
-        tableView.register(InspectorCell.self, forCellReuseIdentifier: "InspectorCell")
+        tableView.register(PeekInspectorCell.self, forCellReuseIdentifier: "InspectorCell")
         tableView.register(PreviewCell.self, forCellReuseIdentifier: "PreviewCell")
         tableView.register(CollapsibleSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: "CollapsibleSectionHeaderView")
         

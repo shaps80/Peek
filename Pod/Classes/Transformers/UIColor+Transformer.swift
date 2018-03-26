@@ -26,7 +26,7 @@ import UIKit
 final class ColorTransformer: Foundation.ValueTransformer {
     
     override func transformedValue(_ value: Any?) -> Any? {
-        if let value = value as? UIColor, let color = Color(systemColor: value) {
+        if let value = value as? UIColor, let color = Color(system: value) {
             if color == .clear {
                 return "Clear"
             }
@@ -43,7 +43,7 @@ final class ColorTransformer: Foundation.ValueTransformer {
         if CFGetTypeID(value as CFTypeRef) == CGColor.typeID {
             // swiftlint:disable force_cast
             let color = Color(cgColor: value as! CGColor)
-            return color?.rgba.alpha == 0 ? "Clear" : color?.systemColor.peek_HEX
+            return color?.rgba.alpha == 0 ? "Clear" : color?.system.peek_HEX
         }
         
         return "none"

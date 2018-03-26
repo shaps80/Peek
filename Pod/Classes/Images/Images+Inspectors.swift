@@ -37,7 +37,7 @@ final class Images {
             path.lineCapStyle = .round
             path.lineJoinStyle = .round
             
-            theme.primaryTextColor?.setStroke()
+            theme.disclosureColor?.setStroke()
             path.stroke()
         }
     }

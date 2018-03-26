@@ -109,7 +109,7 @@ internal final class ReportViewController: PeekSectionedViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = super.tableView(tableView, cellForRowAt: indexPath) as? InspectorCell else { fatalError() }
+        guard let cell = super.tableView(tableView, cellForRowAt: indexPath) as? PeekInspectorCell else { fatalError() }
         cell.contentView.backgroundColor = peek.options.theme.backgroundColor
         cell.backgroundColor = peek.options.theme.backgroundColor
         

@@ -18,13 +18,12 @@ internal final class PeekInspectorViewController: PeekSectionedViewController, U
         let controller = UISearchController(searchResultsController: nil)
         controller.dimsBackgroundDuringPresentation = false
         controller.hidesNavigationBarDuringPresentation = false
-        controller.searchBar.barStyle = .black
-        controller.searchBar.searchBarStyle = .minimal
+        controller.searchBar.barStyle = peek.options.theme == .light ? .default : .black
         controller.searchBar.barTintColor = navigationController?.navigationBar.barTintColor
-        controller.searchBar.tintColor = navigationController?.navigationBar.tintColor
+        controller.searchBar.tintColor = peek.options.theme.tintColor
         controller.searchBar.backgroundColor = peek.options.theme.backgroundColor
         controller.searchBar.isTranslucent = false
-        controller.searchBar.keyboardAppearance = .dark
+        controller.searchBar.keyboardAppearance = peek.options.theme == .light ? .default : .dark
         controller.searchBar.autocorrectionType = .yes
         controller.searchBar.autocapitalizationType = .none
         controller.searchBar.enablesReturnKeyAutomatically = true
@@ -177,7 +176,7 @@ internal final class PeekInspectorViewController: PeekSectionedViewController, U
             return cell
         }
         
-        guard let cell = super.tableView(tableView, cellForRowAt: indexPath) as? InspectorCell else { fatalError() }
+        guard let cell = super.tableView(tableView, cellForRowAt: indexPath) as? PeekInspectorCell else { fatalError() }
         cell.contentView.backgroundColor = peek.options.theme.backgroundColor
         cell.backgroundColor = peek.options.theme.backgroundColor
         
@@ -320,6 +319,17 @@ extension PeekInspectorViewController {
     
     private func prepareNavigationItems(animated: Bool) {
         reportingIndexPaths.removeAll()
+        
+        if #available(iOS 11.0, *) {
+            navigationController?.navigationBar.largeTitleTextAttributes = [
+                .foregroundColor: peek.options.theme.titleTextColor(isEditing: tableView.isEditing)
+            ]
+        }
+        
+        navigationController?.navigationBar.titleTextAttributes = [
+            .foregroundColor: peek.options.theme.titleTextColor(isEditing: tableView.isEditing),
+            .font: UIFont.systemFont(ofSize: 17, weight: .regular)
+        ]
         
         if tableView.isEditing {
             if #available(iOS 11.0, *) {
