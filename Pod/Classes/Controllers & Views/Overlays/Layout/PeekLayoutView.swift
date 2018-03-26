@@ -66,13 +66,13 @@ internal final class PeekLayoutView: PeekSelectionView {
     internal let rightMetric: PeekMetricView
     internal let bottomMetric: PeekMetricView
     
-    init(overlayView: PeekOverlayView, borderColor: UIColor?, borderWidth: CGFloat, dashed: Bool) {
+    init(overlayView: PeekOverlayView, borderColor: UIColor?, borderWidth: CGFloat, dashed: Bool, theme: PeekTheme = .dark) {
         self.overlayView = overlayView
         
-        leftMetric = PeekMetricView()
-        topMetric = PeekMetricView()
-        rightMetric = PeekMetricView()
-        bottomMetric = PeekMetricView()
+        leftMetric = PeekMetricView(theme: theme)
+        topMetric = PeekMetricView(theme: theme)
+        rightMetric = PeekMetricView(theme: theme)
+        bottomMetric = PeekMetricView(theme: theme)
         
         rightMetric.translatesAutoresizingMaskIntoConstraints = false
         topMetric.translatesAutoresizingMaskIntoConstraints = false

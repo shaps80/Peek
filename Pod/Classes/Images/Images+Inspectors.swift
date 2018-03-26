@@ -24,7 +24,7 @@ import UIKit
 
 final class Images {
     
-    static func disclosure(size: CGSize, thickness: CGFloat) -> UIImage {
+    static func disclosure(size: CGSize, thickness: CGFloat, theme: PeekTheme) -> UIImage {
         return ImageRenderer(size: size).image { context in
             let rect = context.format.bounds.insetBy(dx: thickness, dy: thickness)
             let path = UIBezierPath()
@@ -37,14 +37,14 @@ final class Images {
             path.lineCapStyle = .round
             path.lineJoinStyle = .round
             
-            UIColor.white.setStroke()
+            theme.disclosureColor?.setStroke()
             path.stroke()
         }
     }
     
     static var close: UIImage {
         return ImageRenderer(size: CGSize(width: 18, height: 18)).image { context in
-            let color = UIColor.neutral
+            let color = UIColor.black
             let thickness: CGFloat = 2
             let rect = context.format.bounds.insetBy(dx: thickness, dy: thickness)
             
@@ -54,12 +54,12 @@ final class Images {
             path.move(to: CGPoint(x: rect.maxX, y: rect.minY))
             path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
             
-            color?.setStroke()
+            color.setStroke()
             path.lineCapStyle = .round
             path.lineJoinStyle = .round
             path.lineWidth = thickness
             path.stroke()
-        }
+        }.withRenderingMode(.alwaysTemplate)
     }
     
     internal static var attributes: UIImage {

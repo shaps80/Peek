@@ -51,7 +51,7 @@ public final class Peek: NSObject {
     var supportedOrientations = UIInterfaceOrientationMask.all
     unowned var peekingWindow: UIWindow // since this is the app's window, we don't want to retain it!
     
-    fileprivate var activationController: PeekActivationController?
+    fileprivate var activationController: PeekActivating?
     fileprivate var volumeController: VolumeController?
     fileprivate(set) var options = PeekOptions()
     fileprivate(set) var window: UIWindow? // this is the Peek Overlay window, so we have to retain it!

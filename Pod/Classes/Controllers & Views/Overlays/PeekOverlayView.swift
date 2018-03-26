@@ -53,7 +53,7 @@ internal class PeekOverlayView: UIView {
     }()
     
     internal private(set) lazy var primarySelectionView: PeekSelectionView = {
-        let view = PeekSelectionView(borderColor: .primaryTint, borderWidth: 1.5)
+        let view = PeekSelectionView(borderColor: theme.overlayTintColor, borderWidth: 1.5)
         addSubview(view)
         return view
     }()
@@ -64,7 +64,10 @@ internal class PeekOverlayView: UIView {
         return view
     }()
     
-    internal init() {
+    internal private(set) var theme: PeekTheme
+    
+    internal init(theme: PeekTheme = .dark) {
+        self.theme = theme
         super.init(frame: .zero)
         
         if #available(iOS 11.0, *) {

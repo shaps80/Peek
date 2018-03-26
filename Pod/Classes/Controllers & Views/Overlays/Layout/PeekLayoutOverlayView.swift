@@ -10,14 +10,14 @@ import UIKit
 internal final class PeekLayoutOverlayView: PeekOverlayView {
     
     private lazy var layoutView: PeekLayoutView = {
-        let view = PeekLayoutView(overlayView: self, borderColor: UIColor(white: 1, alpha: 0.5), borderWidth: 1, dashed: true)
+        let view = PeekLayoutView(overlayView: self, borderColor: UIColor(white: 1, alpha: 0.5), borderWidth: 1, dashed: true, theme: theme)
         view.layer.zPosition = 0
         addSubview(view)
         return view
     }()
     
-    internal override init() {
-        super.init()
+    override init(theme: PeekTheme = .dark) {
+        super.init(theme: theme)
         // TODO: Needs to be true once its implemented
         allowsMultipleSelection = false
     }

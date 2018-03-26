@@ -3,11 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 47;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0052FD84768A07D49701078802309663 /* InspectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48780DCA506E871392725BE37BD60AC3 /* InspectorCell.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		0052FD84768A07D49701078802309663 /* PeekInspectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48780DCA506E871392725BE37BD60AC3 /* PeekInspectorCell.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		053A288B8C9FCA64817AA164F7B75834 /* Enum+Cases.swift in Sources */ = {isa = PBXBuildFile; fileRef = F834A528ADB5E3FC93835DB9893D5D4E /* Enum+Cases.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		078AF4AC18434291749BC2B3B4E0B524 /* PeekMetricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2537A4FC5D3B66C5A7F9E028F5D9B3B0 /* PeekMetricView.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		0D3EDB6A56CBDC43F9C426FEB5401D7B /* Images+Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005D553572F2976AC81883634FA9E570 /* Images+Orientation.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -34,7 +34,7 @@
 		49359FAC41EF19443EAAC69716CA0DE8 /* Peek-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FAEC4340D1686C8B769EBDA40FE03E12 /* Peek-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		494903ADB4568FE4CCB60BB817BF7FFF /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D30F199C27941FE73DC412DF38923C /* UIViewController+Extensions.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		4AA2F03BB903CC5B4AC45547A63AE18F /* UIControl+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD04AF7E8B1A8472992D54DC5CB933BC /* UIControl+Peekable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		4D13C10CDD840FA326BA0112C8468855 /* InspectorsPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EBCA6E389C9D1DC8C76A6062FCBE8C /* InspectorsPresentationController.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		4D13C10CDD840FA326BA0112C8468855 /* PeekPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EBCA6E389C9D1DC8C76A6062FCBE8C /* PeekPresentationController.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		523DEC438C16834BC0F4AECF247520AC /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C5038F904665E2FD8BC765D062B94D /* ReportViewController.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		5387F3461499EC1E0FED70C50B8C0B03 /* UISlider+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7BD2DC1A6BCC9BD0FB33906852A948 /* UISlider+Peekable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		5C0C8D2CFCB684AD5CF105C12F197E0D /* Images+Inspectors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068888927B67451ECDD0455679695142 /* Images+Inspectors.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -120,7 +120,7 @@
 		06A5EECB4251AA559C568344F93BD89B /* Peek.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Peek.xcconfig; sourceTree = "<group>"; };
 		0825E30A8ABB4C0609FA66150A2DDB7A /* Pods-NotTwitter-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-NotTwitter-acknowledgements.markdown"; sourceTree = "<group>"; };
 		09719C3CC5215377C350537944A89192 /* UITextView+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UITextView+Peekable.swift"; sourceTree = "<group>"; };
-		0D2BB6CBBAB87C05DA883DE9A2320BB3 /* Pods_NotTwitter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_NotTwitter.framework; path = "Pods-NotTwitter.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0D2BB6CBBAB87C05DA883DE9A2320BB3 /* Pods_NotTwitter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotTwitter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C749367BACA995EC5C9A27EACABD47E /* ColorAccessoryView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ColorAccessoryView.swift; sourceTree = "<group>"; };
 		1E222DD791E9539A515F8FD7A1B39EB2 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E7BD2DC1A6BCC9BD0FB33906852A948 /* UISlider+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UISlider+Peekable.swift"; sourceTree = "<group>"; };
@@ -128,7 +128,7 @@
 		2327B847CA88BC70F973ACD26BC685FE /* CollapsibleSections.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CollapsibleSections.swift; sourceTree = "<group>"; };
 		2537A4FC5D3B66C5A7F9E028F5D9B3B0 /* PeekMetricView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PeekMetricView.swift; sourceTree = "<group>"; };
 		25533260A129F09B7C10D4AB5D1B0D8A /* UIColor+Transformer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIColor+Transformer.swift"; sourceTree = "<group>"; };
-		27EBCA6E389C9D1DC8C76A6062FCBE8C /* InspectorsPresentationController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = InspectorsPresentationController.swift; sourceTree = "<group>"; };
+		27EBCA6E389C9D1DC8C76A6062FCBE8C /* PeekPresentationController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PeekPresentationController.swift; sourceTree = "<group>"; };
 		2D0FE5235F61B32F5D003D5845994B7C /* UIScrollView+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Peekable.swift"; sourceTree = "<group>"; };
 		2F79E3AE2B43913B577A387104D53A18 /* Images+OrientationMask.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Images+OrientationMask.swift"; sourceTree = "<group>"; };
 		312AE50F424EF6CB1F62EDCC12AECA94 /* Color.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -138,7 +138,7 @@
 		40C3B3B06351A6EF60CCD0876E633213 /* NSNumber+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "NSNumber+Extensions.swift"; sourceTree = "<group>"; };
 		40FB951F7B86F4C0491C5E45731927C2 /* PeekButton.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PeekButton.swift; sourceTree = "<group>"; };
 		418E4028C8BDD96BAA31629B1DE889D1 /* LayoutManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LayoutManager.swift; sourceTree = "<group>"; };
-		48780DCA506E871392725BE37BD60AC3 /* InspectorCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = InspectorCell.swift; sourceTree = "<group>"; };
+		48780DCA506E871392725BE37BD60AC3 /* PeekInspectorCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PeekInspectorCell.swift; sourceTree = "<group>"; };
 		48FC315E16CE484A3CBC2DF2FC0107BD /* Pods-NotTwitter.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-NotTwitter.modulemap"; sourceTree = "<group>"; };
 		4E2E5E9ABB478CFDFF53F3C538BA1A85 /* PeekLayoutView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PeekLayoutView.swift; sourceTree = "<group>"; };
 		4E5508AC826808D6BE9A4EB649EB6637 /* Pods-NotTwitter-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-NotTwitter-resources.sh"; sourceTree = "<group>"; };
@@ -159,7 +159,7 @@
 		7AF941F49979EAB3DD937C212AD14FD9 /* Peek-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Peek-dummy.m"; sourceTree = "<group>"; };
 		7B924F90D2D173F5D2B50A02F1CF6CDA /* UIProgressView+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIProgressView+Peekable.swift"; sourceTree = "<group>"; };
 		7B95BD411F5FD11493207C2C18ACCFEF /* UIButton+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIButton+Peekable.swift"; sourceTree = "<group>"; };
-		7C515995549889FD1810CBAE6E6C423D /* Peek.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = Peek.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		7C515995549889FD1810CBAE6E6C423D /* Peek.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = Peek.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		7E80F2EC5761F71B63A07FB7DACF296A /* UINavigationBar+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Peekable.swift"; sourceTree = "<group>"; };
 		7F62E2046F7ED2BA591588F5F53A64E0 /* Pods-NotTwitter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-NotTwitter.debug.xcconfig"; sourceTree = "<group>"; };
 		80EA8038937B34C275BBD367F7ECD3B5 /* UIDevice+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIDevice+Peekable.swift"; sourceTree = "<group>"; };
@@ -175,7 +175,7 @@
 		8C1FD5AD5BF562B968FCA37B943F74EC /* Platforms.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Platforms.swift; sourceTree = "<group>"; };
 		8DA14D50846F0449CF0E84A18EE5159D /* UITextField+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UITextField+Peekable.swift"; sourceTree = "<group>"; };
 		9373FB60422A142202EE7EE29FDE2B53 /* String+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9A6925E13D83DC5DA76DF30BD76785FA /* VolumeController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VolumeController.swift; path = Pod/Classes/VolumeController.swift; sourceTree = "<group>"; };
 		9C9F1DBDEB67F1DC5776CE937B79D9C8 /* Peek.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Peek.swift; path = Pod/Classes/Peek.swift; sourceTree = "<group>"; };
 		A1A39970A5620E5119B5DE39B946CB75 /* CGSize+Resize.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "CGSize+Resize.swift"; sourceTree = "<group>"; };
@@ -196,8 +196,8 @@
 		B8CC358289A677B621A061F4BDB2C61A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB7EF4BE2182CBDA0BE5E9F4A02AF8B5 /* Pods-NotTwitter-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-NotTwitter-frameworks.sh"; sourceTree = "<group>"; };
 		BD04AF7E8B1A8472992D54DC5CB933BC /* UIControl+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIControl+Peekable.swift"; sourceTree = "<group>"; };
-		BE684CF6846D1660BEC2A4D2D03E314F /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
-		BE7F872393FDB6F1C42F00B25D0979BE /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		BE684CF6846D1660BEC2A4D2D03E314F /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		BE7F872393FDB6F1C42F00B25D0979BE /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C0C5FE31770F06314B098EA60BD07D3A /* UIStepper+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIStepper+Peekable.swift"; sourceTree = "<group>"; };
 		C23D7639072EE47EB80B8321C7D50813 /* Pods-NotTwitter-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-NotTwitter-dummy.m"; sourceTree = "<group>"; };
 		C32D7141488B86BD074AD238CE71404C /* UIWindow+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extensions.swift"; sourceTree = "<group>"; };
@@ -214,7 +214,7 @@
 		E17105EBB6756B4338B84F8866F09D94 /* Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Peekable.swift; sourceTree = "<group>"; };
 		E5C5038F904665E2FD8BC765D062B94D /* ReportViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
 		E8B53F64139B844C7F6A5153E68A503F /* UIImage+Resize.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
-		E9A63F66C0EE854FC0D90EF20A80F753 /* Peek.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Peek.framework; path = Peek.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9A63F66C0EE854FC0D90EF20A80F753 /* Peek.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Peek.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED1F9AFF816E26D21D65326D39654920 /* PeekSelectionView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PeekSelectionView.swift; sourceTree = "<group>"; };
 		ED7CF7547DDDD7610DFDAB4FE5074EE1 /* UIApplication+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIApplication+Peekable.swift"; sourceTree = "<group>"; };
 		EE576A7508E59F8C49F9EFDA1CDA22B0 /* ContextDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ContextDataSource.swift; sourceTree = "<group>"; };
@@ -285,7 +285,6 @@
 				4E2E5E9ABB478CFDFF53F3C538BA1A85 /* PeekLayoutView.swift */,
 				2537A4FC5D3B66C5A7F9E028F5D9B3B0 /* PeekMetricView.swift */,
 			);
-			name = Layout;
 			path = Layout;
 			sourceTree = "<group>";
 		};
@@ -295,7 +294,6 @@
 				418E4028C8BDD96BAA31629B1DE889D1 /* LayoutManager.swift */,
 				8522543E5E577D8ED7CF0AFCB7A7D4B0 /* PeekTextOverlayView.swift */,
 			);
-			name = Text;
 			path = Text;
 			sourceTree = "<group>";
 		};
@@ -354,10 +352,9 @@
 			isa = PBXGroup;
 			children = (
 				2327B847CA88BC70F973ACD26BC685FE /* CollapsibleSections.swift */,
-				48780DCA506E871392725BE37BD60AC3 /* InspectorCell.swift */,
+				48780DCA506E871392725BE37BD60AC3 /* PeekInspectorCell.swift */,
 				8AFCF0C3E940B13CAAE52D0ACE398BA9 /* PreviewCell.swift */,
 			);
-			name = Inspectors;
 			path = Inspectors;
 			sourceTree = "<group>";
 		};
@@ -433,7 +430,6 @@
 				11CBB3D0778700ACD15A4A057D569A9D /* Layout */,
 				14554F36BF2048DB9A59FEBC32D33FA8 /* Text */,
 			);
-			name = Overlays;
 			path = Overlays;
 			sourceTree = "<group>";
 		};
@@ -475,7 +471,7 @@
 		BFA7D6C18DEB76393BEA255FEF24A295 /* Controllers & Views */ = {
 			isa = PBXGroup;
 			children = (
-				27EBCA6E389C9D1DC8C76A6062FCBE8C /* InspectorsPresentationController.swift */,
+				27EBCA6E389C9D1DC8C76A6062FCBE8C /* PeekPresentationController.swift */,
 				595B6CC47E70CA929EAAEFDA9ECC0946 /* PeekInspectorViewController.swift */,
 				61166003FEB5DBDFEB2A02F0993E2375 /* PeekSectionedViewController.swift */,
 				D72BB54A478FCA1715339A761E4C8485 /* PeekViewController.swift */,
@@ -545,7 +541,6 @@
 				A923D033F3391AF3B11228237BFE8C74 /* ReportActivity.swift */,
 				E5C5038F904665E2FD8BC765D062B94D /* ReportViewController.swift */,
 			);
-			name = Reporting;
 			path = Reporting;
 			sourceTree = "<group>";
 		};
@@ -670,8 +665,8 @@
 				5C0C8D2CFCB684AD5CF105C12F197E0D /* Images+Inspectors.swift in Sources */,
 				0D3EDB6A56CBDC43F9C426FEB5401D7B /* Images+Orientation.swift in Sources */,
 				624BAFE0F5AA7824FDAE9BF031BF724F /* Images+OrientationMask.swift in Sources */,
-				0052FD84768A07D49701078802309663 /* InspectorCell.swift in Sources */,
-				4D13C10CDD840FA326BA0112C8468855 /* InspectorsPresentationController.swift in Sources */,
+				0052FD84768A07D49701078802309663 /* PeekInspectorCell.swift in Sources */,
+				4D13C10CDD840FA326BA0112C8468855 /* PeekPresentationController.swift in Sources */,
 				B58E4EB99A0F703D138D552BC343F33B /* LayoutManager.swift in Sources */,
 				E6188C2B351D70002D89B48073297EBE /* Models.swift in Sources */,
 				9BD496A6A0E9F3840BFFE52FD7F8A012 /* NSAttributedString+Peekable.swift in Sources */,

@@ -23,7 +23,7 @@
 import UIKit
 
 /// Defines an inspector's cell used to represent a Peek property
-final class InspectorCell: UITableViewCell {
+final class PeekInspectorCell: UITableViewCell {
     
     override var accessoryView: UIView? {
         didSet { setNeedsUpdateConstraints() }
@@ -40,7 +40,6 @@ final class InspectorCell: UITableViewCell {
         contentView.clipsToBounds = true
         
         let selectedView = UIView()
-        selectedView.backgroundColor = UIColor(white: 1, alpha: 0.1)
         selectedBackgroundView = selectedView
     }
     
