@@ -127,12 +127,8 @@ public final class Peek: NSObject {
             return
         }
         
-        var isSimulator = false
-        #if (arch(i386) || arch(x86_64))
-            isSimulator = true
-        #endif
-        
-        if (options.activationMode == .auto && isSimulator) || options.activationMode == .shake {
+        if (options.activationMode == .auto && UIDevice.current.isSimulator)
+            || options.activationMode == .shake {
             handleActivation()
         }
     }
@@ -170,12 +166,7 @@ public final class Peek: NSObject {
     fileprivate func configureWithOptions(_ options: PeekOptions) {
         self.options = options
         
-        var isSimulator = false
-        #if (arch(i386) || arch(x86_64))
-            isSimulator = true
-        #endif
-        
-        if options.activationMode == .auto && !isSimulator {
+        if options.activationMode == .auto && !UIDevice.current.isSimulator {
             activationController = VolumeController(peek: self, handleActivation: handleActivation)
         }
     }
