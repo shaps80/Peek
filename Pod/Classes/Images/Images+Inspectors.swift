@@ -205,7 +205,7 @@ final class Images {
             bezierPath.lineWidth = 1.5
             bezierPath.stroke()
             
-                        //// Rectangle Drawing
+            //// Rectangle Drawing
             let rectanglePath = UIBezierPath(rect: CGRect(x: frame.minX + 7, y: frame.minY + 4, width: 10, height: 1.5))
             color4.setFill()
             rectanglePath.fill()
