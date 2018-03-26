@@ -95,6 +95,10 @@ override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
 
 Now you can press `CMD+CTRL+Z` (or use the Menu option) to show/hide Peek in your Simulator.
 
+### Contributing
+
+If you want to contribute to Peek, welcome to the project. Please ensure you read the [Contributing Guide][contrib] first though as it has important information.
+
 # What is Peek?
 
 [![Peek on Vimeo][preview]][vimeo]
@@ -259,3 +263,4 @@ Artwork by [Vitaliy Gorbachev][7]
 [preview]: https://github.com/shaps80/Peek/raw/master/preview.jpg
 [vimeo]: https://player.vimeo.com/video/261323610
 [gif]: https://github.com/shaps80/Peek/raw/master/preview.gif
+[contrib]: https://github.com/shaps80/Peek/blob/master/CONTRIBUTING.md
