@@ -263,4 +263,4 @@ Artwork by [Vitaliy Gorbachev][7]
 [preview]: https://github.com/shaps80/Peek/raw/master/preview.jpg
 [vimeo]: https://player.vimeo.com/video/261323610
 [gif]: https://github.com/shaps80/Peek/raw/master/preview.gif
-[contrib]: https://github.com/shaps80/Peek/raw/master/CONTRIBUTING.md
+[contrib]: https://github.com/shaps80/Peek/blob/master/CONTRIBUTING.md
