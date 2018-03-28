@@ -73,10 +73,8 @@ extension UIButton {
     }
     
     open override func preparePeek(with coordinator: Coordinator) {
-        coordinator.appendTransformed(keyPaths: ["buttonType"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let buttonType = UIButtonType(rawValue: rawValue) else { return nil }
-            return buttonType.displayName
-        }, forModel: self, in: .appearance)
+        (coordinator as? SwiftCoordinator)?
+            .appendEnum(keyPath: "buttonType", into: UIButtonType.self, forModel: self, group: .appearance)
         
         coordinator.appendDynamic(keyPaths: [
             "contentEdgeInsets",

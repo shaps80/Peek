@@ -115,10 +115,8 @@ extension NSAttributedString {
             "paragraph.firstLineHeadIndent"
         ], forModel: self, in: .paragraph)
         
-        coordinator.appendTransformed(keyPaths: ["paragraph.lineBreakMode"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let lineBreakMode = NSLineBreakMode(rawValue: rawValue) else { return nil }
-            return lineBreakMode.displayName
-        }, forModel: self, in: .paragraph)
+        (coordinator as? SwiftCoordinator)?
+            .appendEnum(keyPath: "paragraph.lineBreakMode", into: NSLineBreakMode.self, forModel: self, group: .paragraph)
         
         coordinator.appendDynamic(keyPaths: [
             "attributes.shadow.shadowOffset",

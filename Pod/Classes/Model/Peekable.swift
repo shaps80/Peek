@@ -78,6 +78,12 @@ import UIKit
      */
     var reportTitle: String { get }
     
+    /// Return true if this object should be visible in Peek's overlay selector
+    ///
+    /// - Parameter options: The current options for Peek
+    /// - Returns: True if this object should be visible in Peek's overlay. False otherwise.
+//    func isVisibleInOverlay(options: PeekOptions) -> Bool
+    
 }
 
 extension CALayer { override var isLeaf: Bool { return false } }
@@ -122,10 +128,6 @@ extension NSObject: InternalPeekable {
         }
     }
     
-    /// Return true if this object should be visible in Peek's overlay selector
-    ///
-    /// - Parameter options: The current options for Peek
-    /// - Returns: True if this object should be visible in Peek's overlay. False otherwise.
     @objc internal func isVisibleInOverlay(options: PeekOptions) -> Bool { return false }
     
     /**

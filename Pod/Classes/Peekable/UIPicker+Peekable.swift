@@ -39,10 +39,8 @@ extension UIDatePicker {
             "date", "minimumDate", "maximumDate", "countDownDuration", "minuteInterval"
         ], forModel: self, in: .appearance)
         
-        coordinator.appendTransformed(keyPaths: ["datePickerMode"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let mode = UIDatePickerMode(rawValue: rawValue) else { return nil }
-            return mode.displayName
-        }, forModel: self, in: .appearance)
+        (coordinator as? SwiftCoordinator)?
+            .appendEnum(keyPath: "datePickerMode", into: UIDatePickerMode.self, forModel: self, group: .appearance)
         
         super.preparePeek(with: coordinator)
     }

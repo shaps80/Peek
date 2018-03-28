@@ -25,24 +25,9 @@ import UIKit
 extension UITextField {
     
     open override func preparePeek(with coordinator: Coordinator) {
-        coordinator.appendTransformed(keyPaths: ["borderStyle"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let style = UITextBorderStyle(rawValue: rawValue) else { return nil }
-            return style.displayName
-        }, forModel: self, in: .appearance)
-        
-        coordinator.appendTransformed(keyPaths: ["clearButtonMode", "leftViewMode", "rightViewMode"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let style = UITextFieldViewMode(rawValue: rawValue) else { return nil }
-            return style.displayName
-        }, forModel: self, in: .appearance)
-        
         coordinator.appendDynamic(keyPaths: [
             "leftView", "rightView"
         ], forModel: self, in: .views)
-        
-        coordinator.appendTransformed(keyPaths: ["rightViewMode"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let style = UITextFieldViewMode(rawValue: rawValue) else { return nil }
-            return style.displayName
-        }, forModel: self, in: .appearance)
         
         coordinator.appendDynamic(keyPaths: [
             "allowsEditingTextAttributes",
@@ -61,10 +46,12 @@ extension UITextField {
             "attributedPlaceholder",
         ], forModel: self, in: .typography)
         
-        coordinator.appendTransformed(keyPaths: ["textAlignment"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let style = NSTextAlignment(rawValue: rawValue) else { return nil }
-            return style.displayName
-        }, forModel: self, in: .typography)
+        (coordinator as? SwiftCoordinator)?
+            .appendEnum(keyPath: "indicatorStyle", into: UIScrollViewIndicatorStyle.self, forModel: self, group: .appearance)
+            .appendEnum(keyPath: "indicatorStyle", into: UIScrollViewIndicatorStyle.self, forModel: self, group: .appearance)
+            .appendEnum(keyPath: "borderStyle", into: UITextBorderStyle.self, forModel: self, group: .appearance)
+            .appendEnum(keyPath: "clearButtonMode", "leftViewMode", "rightViewMode", into: UITextFieldViewMode.self, forModel: self, group: .appearance)
+            .appendEnum(keyPath: "textAlignment", into: NSTextAlignment.self, forModel: self, group: .typography)
         
         coordinator.appendDynamic(keyPaths: [
             "textColor",

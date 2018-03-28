@@ -28,25 +28,11 @@ extension UIViewController {
         let orientations = Images.orientationMaskImage(supportedInterfaceOrientations)
         coordinator.appendPreview(image: orientations, forModel: self)
         
-        coordinator.appendTransformed(keyPaths: ["modalTransitionStyle"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let style = UIModalTransitionStyle(rawValue: rawValue) else { return nil }
-            return style.displayName
-        }, forModel: self, in: .appearance)
-        
-        coordinator.appendTransformed(keyPaths: ["modalPresentationStyle"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let style = UIModalPresentationStyle(rawValue: rawValue) else { return nil }
-            return style.displayName
-        }, forModel: self, in: .appearance)
-        
-        coordinator.appendTransformed(keyPaths: ["preferredStatusBarStyle"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let style = UIStatusBarStyle(rawValue: rawValue) else { return nil }
-            return style.displayName
-        }, forModel: self, in: .appearance)
-        
-        coordinator.appendTransformed(keyPaths: ["preferredStatusBarUpdateAnimation"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let style = UIStatusBarAnimation(rawValue: rawValue) else { return nil }
-            return style.displayName
-        }, forModel: self, in: .appearance)
+        (coordinator as? SwiftCoordinator)?
+            .appendEnum(keyPath: "preferredStatusBarStyle", into: UIStatusBarStyle.self, forModel: self, group: .appearance)
+            .appendEnum(keyPath: "preferredStatusBarUpdateAnimation", into: UIStatusBarAnimation.self, forModel: self, group: .appearance)
+            .appendEnum(keyPath: "modalTransitionStyle", into: UIModalTransitionStyle.self, forModel: self, group: .appearance)
+            .appendEnum(keyPath: "modalPresentationStyle", into: UIModalPresentationStyle.self, forModel: self, group: .appearance)
         
         if self is UITableViewController {
             coordinator.appendDynamic(keyPathToName: [
@@ -103,21 +89,13 @@ extension UIViewController {
         }
         
         if self is UISplitViewController {
-            coordinator.appendTransformed(keyPaths: ["preferredDisplayMode"], valueTransformer: { value in
-                guard let rawValue = value as? Int, let mode = UISplitViewControllerDisplayMode(rawValue: rawValue) else { return nil }
-                return mode.displayName
-            }, forModel: self, in: .appearance)
-            
-            coordinator.appendTransformed(keyPaths: ["displayMode"], valueTransformer: { value in
-                guard let rawValue = value as? Int, let mode = UISplitViewControllerDisplayMode(rawValue: rawValue) else { return nil }
-                return mode.displayName
-            }, forModel: self, in: .appearance)
+            (coordinator as? SwiftCoordinator)?
+                .appendEnum(keyPath: "preferredDisplayMode", into: UISplitViewControllerDisplayMode.self, forModel: self, group: .appearance)
+                .appendEnum(keyPath: "displayMode", into: UISplitViewControllerDisplayMode.self, forModel: self, group: .appearance)
             
             if #available(iOS 11.0, *) {
-                coordinator.appendTransformed(keyPaths: ["primaryEdge"], valueTransformer: { value in
-                    guard let rawValue = value as? Int, let edge = UISplitViewControllerPrimaryEdge(rawValue: rawValue) else { return nil }
-                    return edge.displayName
-                }, forModel: self, in: .appearance)
+                (coordinator as? SwiftCoordinator)?
+                    .appendEnum(keyPath: "primaryEdge", into: UISplitViewControllerPrimaryEdge.self, forModel: self, group: .appearance)
             }
             
             coordinator.appendDynamic(keyPaths: [
@@ -128,24 +106,15 @@ extension UIViewController {
                 "presentsWithGesture",
             ], forModel: self, in: .behaviour)
             
-            coordinator.appendTransformed(keyPaths: ["preferredPrimaryColumnWidthFraction"], valueTransformer: { value in
-                guard let value = value as? CGFloat else { return nil }
-                return value == UISplitViewControllerAutomaticDimension ? "Automatic" : "\(value)"
-            }, forModel: self, in: .layout)
-            
-            coordinator.appendTransformed(keyPaths: ["maximumPrimaryColumnWidth"], valueTransformer: { value in
-                guard let value = value as? CGFloat else { return nil }
-                return value == UISplitViewControllerAutomaticDimension ? "Automatic" : "\(value)"
-            }, forModel: self, in: .layout)
-            
-            coordinator.appendTransformed(keyPaths: ["primaryColumnWidth"], valueTransformer: { value in
-                guard let value = value as? CGFloat else { return nil }
-                return value == UISplitViewControllerAutomaticDimension ? "Automatic" : "\(value)"
-            }, forModel: self, in: .layout)
-            
             coordinator.appendDynamic(keyPaths: [
                 "displayModeButtonItem"
             ], forModel: self, in: .more)
+            
+            coordinator.appendDynamic(keyPaths: [
+                "preferredPrimaryColumnWidthFraction",
+                "maximumPrimaryColumnWidth",
+                "primaryColumnWidth"
+            ], forModel: self, in: .layout)
         }
         
         if let parent = parent {

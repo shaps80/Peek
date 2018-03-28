@@ -25,22 +25,16 @@ import UIKit
 extension UILabel {
     
     open override func preparePeek(with coordinator: Coordinator) {
-        coordinator.appendTransformed(keyPaths: ["lineBreakMode"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let lineBreakMode = NSLineBreakMode(rawValue: rawValue) else { return nil }
-            return lineBreakMode.displayName
-        }, forModel: self, in: .behaviour)
-        
-        coordinator.appendDynamic(keyPaths: ["adjustsFontSizeToFitWidth"], forModel: self, in: .behaviour)
-        
         coordinator.appendDynamic(keyPaths: [
             "text",
             "attributedText",
-        ], forModel: self, in: .typography)
+            ], forModel: self, in: .typography)
         
-        coordinator.appendTransformed(keyPaths: ["textAlignment"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let textAlignment = NSTextAlignment(rawValue: rawValue) else { return nil }
-            return textAlignment.displayName
-        }, forModel: self, in: .typography)
+        (coordinator as? SwiftCoordinator)?
+            .appendEnum(keyPath: "lineBreakMode", into: NSLineBreakMode.self, forModel: self, group: .behaviour)
+            .appendEnum(keyPath: "textAlignment", into: NSTextAlignment.self, forModel: self, group: .typography)
+        
+        coordinator.appendDynamic(keyPaths: ["adjustsFontSizeToFitWidth"], forModel: self, in: .behaviour)
         
         coordinator.appendDynamic(keyPaths: [
             "textColor",

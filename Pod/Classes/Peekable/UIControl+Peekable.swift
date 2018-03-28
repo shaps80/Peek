@@ -29,15 +29,9 @@ extension UIControl {
             "enabled", "selected", "highlighted"
         ], forModel: self, in: .states)
         
-        coordinator.appendTransformed(keyPaths: ["contentVerticalAlignment"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let alignment = UIControlContentVerticalAlignment(rawValue: rawValue) else { return nil }
-            return alignment.displayName
-        }, forModel: self, in: .layout)
-        
-        coordinator.appendTransformed(keyPaths: ["contentHorizontalAlignment"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let alignment = UIControlContentHorizontalAlignment(rawValue: rawValue) else { return nil }
-            return alignment.displayName
-        }, forModel: self, in: .layout)
+        (coordinator as? SwiftCoordinator)?
+            .appendEnum(keyPath: "contentVerticalAlignment", into: UIControlContentVerticalAlignment.self, forModel: self, group: .layout)
+            .appendEnum(keyPath: "contentHorizontalAlignment", into: UIControlContentHorizontalAlignment.self, forModel: self, group: .layout)
         
         super.preparePeek(with: coordinator)
     }

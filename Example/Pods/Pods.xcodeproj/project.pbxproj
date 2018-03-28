@@ -36,7 +36,7 @@
 		4DD48FC7EDFF7E4E65F873EE9E2E0D74 /* PeekPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D10E3F5C38A6ACC92723BFCE14A3481 /* PeekPresentationController.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		549D7638206BB57A000738A0 /* PeekAccessoryProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549D7637206BB57A000738A0 /* PeekAccessoryProviding.swift */; };
 		54BA18A32069429A002B9C5B /* UIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA18A22069429A002B9C5B /* UIDevice+Extensions.swift */; };
-		54C7DFF020694CA3001E383D /* UIView+Ignore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C7DFEF20694CA3001E383D /* UIView+Ignore.swift */; };
+		54C7DFF020694CA3001E383D /* UIView+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C7DFEF20694CA3001E383D /* UIView+Filter.swift */; };
 		54CF22A4D3EF233CB7DFA953701CC705 /* Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7728391455F1D6CDE04777AE9594C3 /* Peekable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		5542FF14BD626A9583991667176B92ED /* UIPageControl+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82C2EF0097E2C3CD3FBB1D84188D45D /* UIPageControl+Peekable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		570AE69F67442A6AD8508A05332C6787 /* UIDevice+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D179539BADBCE6D387E74D35404C3494 /* UIDevice+Peekable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -155,7 +155,7 @@
 		51A7C7C54059580E7C1EEB91A7D7D97D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		549D7637206BB57A000738A0 /* PeekAccessoryProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeekAccessoryProviding.swift; sourceTree = "<group>"; };
 		54BA18A22069429A002B9C5B /* UIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extensions.swift"; sourceTree = "<group>"; };
-		54C7DFEF20694CA3001E383D /* UIView+Ignore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ignore.swift"; sourceTree = "<group>"; };
+		54C7DFEF20694CA3001E383D /* UIView+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Filter.swift"; sourceTree = "<group>"; };
 		554BA39873CF7632FAC9ADF893AD16C6 /* UIImage+Resize.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
 		582F2B9B55C29DD6FA9207FA424CDA50 /* UIBarButtonItem+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Peekable.swift"; sourceTree = "<group>"; };
 		5A99C53FAF3871FA288EF835E3CC8F92 /* ColorAccessoryView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ColorAccessoryView.swift; sourceTree = "<group>"; };
@@ -456,7 +456,7 @@
 			isa = PBXGroup;
 			children = (
 				6F7728391455F1D6CDE04777AE9594C3 /* Peekable.swift */,
-				54C7DFEF20694CA3001E383D /* UIView+Ignore.swift */,
+				54C7DFEF20694CA3001E383D /* UIView+Filter.swift */,
 				30F7677913C9AD4E300D39B350B1E565 /* ContextDataSource.swift */,
 			);
 			name = Model;
@@ -731,7 +731,7 @@
 				F645C49CD02A1A1176AE0A01C1F18CBA /* UIImage+Resize.swift in Sources */,
 				A7CCD6B3E718542E0154A32E6C621078 /* UIImageView+Peekable.swift in Sources */,
 				A460EA4D341C9AB3EF0C4A1F427612C4 /* UILabel+Peekable.swift in Sources */,
-				54C7DFF020694CA3001E383D /* UIView+Ignore.swift in Sources */,
+				54C7DFF020694CA3001E383D /* UIView+Filter.swift in Sources */,
 				ECF31777808FB1569BFD613624CF973C /* UINavigationBar+Peekable.swift in Sources */,
 				549D7638206BB57A000738A0 /* PeekAccessoryProviding.swift in Sources */,
 				5542FF14BD626A9583991667176B92ED /* UIPageControl+Peekable.swift in Sources */,

@@ -29,10 +29,8 @@ extension UIToolbar {
             "barTintColor", "translucent"
         ], forModel: self, in: .appearance)
         
-        coordinator.appendTransformed(keyPaths: ["barStyle"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let style = UIBarStyle(rawValue: rawValue) else { return nil }
-            return style.displayName
-        }, forModel: self, in: .appearance)
+        (coordinator as? SwiftCoordinator)?
+            .appendEnum(keyPath: "barStyle", into: UIBarStyle.self, forModel: self, group: .appearance)
         
         super.preparePeek(with: coordinator)
     }

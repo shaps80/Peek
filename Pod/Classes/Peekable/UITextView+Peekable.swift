@@ -38,10 +38,8 @@ extension UITextView {
             "attributedText",
         ], forModel: self, in: .typography)
         
-        coordinator.appendTransformed(keyPaths: ["textAlignment"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let style = NSTextAlignment(rawValue: rawValue) else { return nil }
-            return style.displayName
-        }, forModel: self, in: .typography)
+        (coordinator as? SwiftCoordinator)?
+            .appendEnum(keyPath: "textAlignment", into: NSTextAlignment.self, forModel: self, group: .typography)
         
         coordinator.appendDynamic(keyPaths: [
             "textColor",

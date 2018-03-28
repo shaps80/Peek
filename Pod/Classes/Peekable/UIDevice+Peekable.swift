@@ -30,10 +30,8 @@ extension UIDevice {
             "proximityMonitoringEnabled"
         ], forModel: self, in: .states)
         
-        coordinator.appendTransformed(keyPaths: ["batteryState"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let state = UIDeviceBatteryState(rawValue: rawValue) else { return nil }
-            return state.displayName
-        }, forModel: self, in: .general)
+        (coordinator as? SwiftCoordinator)?
+            .appendEnum(keyPath: "batteryState", into: UIDeviceBatteryState.self, forModel: self, group: .general)
         
         coordinator.appendDynamic(keyPaths: [
             "batteryLevel",
