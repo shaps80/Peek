@@ -7,14 +7,14 @@
 
 import Foundation
 
-extension RawRepresentable where RawValue == Int {
+extension RawRepresentable where RawValue == Int, Self: Hashable {
     
     private static func cases() -> AnySequence<Self> {
         return AnySequence { () -> AnyIterator<Self> in
             var raw = 0
             return AnyIterator {
                 let current: Self = withUnsafePointer(to: &raw) { $0.withMemoryRebound(to: self, capacity: 1) { $0.pointee } }
-                guard current.rawValue.hashValue == raw else {
+                guard current.hashValue == raw else {
                     return nil
                 }
                 raw += 1

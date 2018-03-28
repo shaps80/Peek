@@ -22,7 +22,7 @@ import Foundation
 
 internal protocol SwiftCoordinator: Coordinator {
     @discardableResult
-    func appendEnum<T>(keyPath: String..., into: T.Type, forModel model: Peekable, group: Group) -> Self where T: RawRepresentable, T.RawValue == Int
+    func appendEnum<T>(keyPath: String..., into: T.Type, forModel model: Peekable, group: Group) -> Self where T: RawRepresentable & PeekDescribing & Hashable, T.RawValue == Int
 }
 
 internal final class PeekCoordinator: SwiftCoordinator {
@@ -80,15 +80,13 @@ internal final class PeekCoordinator: SwiftCoordinator {
         return self
     }
     
-    internal func appendEnum<T>(keyPath: String..., into: T.Type, forModel model: Peekable, group: Group) -> Self where T: RawRepresentable, T.RawValue == Int {
-        appendTransformed(keyPaths: keyPath, valueTransformer: { value in
-            guard let rawValue = value as? Int,
-                let enumRep = T(rawValue: rawValue) as? PeekDescribing else {
-                    fatalError()
-            }
-            
-            return enumRep.displayName
-        }, forModel: model, in: group)
+    internal func appendEnum<T>(keyPath: String..., into: T.Type, forModel model: Peekable, group: Group) -> Self where T: RawRepresentable & PeekDescribing & Hashable, T.RawValue == Int {
+        let peekGroup = groupsMapping[group] ?? group.peekGroup()
+        groupsMapping[group] = peekGroup
+        
+        peekGroup.attributes.insert(contentsOf: keyPath.map {
+            EnumAttribute<T>(title: String.capitalized($0), detail: nil, keyPath: $0, model: model, valueTransformer: nil)
+        }, at: peekGroup.attributes.count)
         
         return self
     }

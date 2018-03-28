@@ -557,33 +557,53 @@ extension PeekInspectorViewController {
             }
             
             controller.addAction(UIAlertAction(title: "Suggest Alternative", style: .default, handler: { [weak self] _ -> Void in
-                let alert = UIAlertController(title: "\(attribute.title)", message: "What is the expected value?", preferredStyle: .alert)
+                let alert: UIAlertController
                 
-                alert.addTextField { field in
-                    if attribute.valueTransformer == nil,
-                        let value = attribute.value as? NSNumber,
-                        !value.isBool() {
-                        field.keyboardType = .decimalPad
-                    } else {
-                        field.spellCheckingType = .yes
-                        field.autocorrectionType = .yes
-                        field.autocapitalizationType = .sentences
+                if !attribute.alternateValues.isEmpty {
+                    alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+                    
+                    attribute.alternateValues.map {
+                        UIAlertAction(title: $0, style: .default) { action in
+                            let note = action.title ?? ""
+                            let item = Report.Item(keyPath: attribute.keyPath, displayTitle: attribute.title, displayValue: cell?.detailTextLabel?.text ?? "", reportersNote: note ?? "")
+                            self?.reportingIndexPaths[indexPath] = item
+                            self?.invalidateSendButton()
+                            self?.indicateSection(for: indexPath)
+                        }
+                    }.forEach { alert.addAction($0) }
+                    
+                    alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in
+                        tableView.deselectRow(at: indexPath, animated: true)
+                    })
+                } else {
+                    alert = UIAlertController(title: "\(attribute.title)", message: "What is the expected value?", preferredStyle: .alert)
+                    
+                    alert.addTextField { field in
+                        if attribute.valueTransformer == nil,
+                            let value = attribute.value as? NSNumber,
+                            !value.isBool() {
+                            field.keyboardType = .decimalPad
+                        } else {
+                            field.spellCheckingType = .yes
+                            field.autocorrectionType = .yes
+                            field.autocapitalizationType = .sentences
+                        }
+                        
+                        field.keyboardAppearance = .dark
                     }
                     
-                    field.keyboardAppearance = .dark
+                    alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in
+                        tableView.deselectRow(at: indexPath, animated: true)
+                    })
+                    
+                    alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                        let note = alert.textFields?.first?.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+                        let item = Report.Item(keyPath: attribute.keyPath, displayTitle: attribute.title, displayValue: cell?.detailTextLabel?.text ?? "", reportersNote: note ?? "")
+                        self?.reportingIndexPaths[indexPath] = item
+                        self?.invalidateSendButton()
+                        self?.indicateSection(for: indexPath)
+                    })
                 }
-                
-                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in
-                    tableView.deselectRow(at: indexPath, animated: true)
-                })
-                
-                alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-                    let note = alert.textFields?.first?.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-                    let item = Report.Item(keyPath: attribute.keyPath, displayTitle: attribute.title, displayValue: cell?.detailTextLabel?.text ?? "", reportersNote: note ?? "")
-                    self?.reportingIndexPaths[indexPath] = item
-                    self?.invalidateSendButton()
-                    self?.indicateSection(for: indexPath)
-                })
                 
                 self?.topViewController().present(alert, animated: true, completion: nil)
             }))
