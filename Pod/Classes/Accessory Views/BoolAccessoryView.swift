@@ -23,9 +23,9 @@
 import UIKit
 
 /// This accessory view is used in Peek to show a 'switch' representing the underlying Bool value
-final class BoolAccessoryView: UIView {
+final class BoolAccessoryView: UIView, PeekAccessoryProviding {
     
-    private let theme: PeekTheme
+    internal var theme: PeekTheme
     fileprivate let size = CGSize(width: 30, height: 20)
     fileprivate let value: Bool
     

@@ -34,6 +34,7 @@
 		49BBA74EF04F0978ACD80741B4B6B6E4 /* UISegmentedControl+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369BB6EA47BB4568B60C1E10F77F6C31 /* UISegmentedControl+Peekable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		4B1B5BD40C50FABA0E9F0B1267642D08 /* UIToolbar+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE7F873ED2023A824B5E1EEF3B09CB8 /* UIToolbar+Peekable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		4DD48FC7EDFF7E4E65F873EE9E2E0D74 /* PeekPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D10E3F5C38A6ACC92723BFCE14A3481 /* PeekPresentationController.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		549D7638206BB57A000738A0 /* PeekAccessoryProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549D7637206BB57A000738A0 /* PeekAccessoryProviding.swift */; };
 		54BA18A32069429A002B9C5B /* UIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA18A22069429A002B9C5B /* UIDevice+Extensions.swift */; };
 		54C7DFF020694CA3001E383D /* UIView+Ignore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C7DFEF20694CA3001E383D /* UIView+Ignore.swift */; };
 		54CF22A4D3EF233CB7DFA953701CC705 /* Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7728391455F1D6CDE04777AE9594C3 /* Peekable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -152,6 +153,7 @@
 		4E5508AC826808D6BE9A4EB649EB6637 /* Pods-NotTwitter-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-NotTwitter-resources.sh"; sourceTree = "<group>"; };
 		5069C98E696E3AC31FE37081CA4FA3BD /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		51A7C7C54059580E7C1EEB91A7D7D97D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		549D7637206BB57A000738A0 /* PeekAccessoryProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeekAccessoryProviding.swift; sourceTree = "<group>"; };
 		54BA18A22069429A002B9C5B /* UIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extensions.swift"; sourceTree = "<group>"; };
 		54C7DFEF20694CA3001E383D /* UIView+Ignore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ignore.swift"; sourceTree = "<group>"; };
 		554BA39873CF7632FAC9ADF893AD16C6 /* UIImage+Resize.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 			children = (
 				25D972449D0B39FC0569FF6FF8139E27 /* BoolAccessoryView.swift */,
 				5A99C53FAF3871FA288EF835E3CC8F92 /* ColorAccessoryView.swift */,
+				549D7637206BB57A000738A0 /* PeekAccessoryProviding.swift */,
 			);
 			name = "Accessory Views";
 			path = "Pod/Classes/Accessory Views";
@@ -730,6 +733,7 @@
 				A460EA4D341C9AB3EF0C4A1F427612C4 /* UILabel+Peekable.swift in Sources */,
 				54C7DFF020694CA3001E383D /* UIView+Ignore.swift in Sources */,
 				ECF31777808FB1569BFD613624CF973C /* UINavigationBar+Peekable.swift in Sources */,
+				549D7638206BB57A000738A0 /* PeekAccessoryProviding.swift in Sources */,
 				5542FF14BD626A9583991667176B92ED /* UIPageControl+Peekable.swift in Sources */,
 				9598DCCBAC37426EDA6F235706150993 /* UIPicker+Peekable.swift in Sources */,
 				79845CFC863E38E3D5E82ADED428636C /* UIProgressView+Peekable.swift in Sources */,
