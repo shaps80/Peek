@@ -95,7 +95,7 @@ internal final class PeekInspectorViewController: PeekSectionedViewController, U
         super.viewDidLoad()
         
         if title == nil {
-            title = "Peek"
+            title = String(describing: model.classForCoder)
         }
         
         if navigationController?.viewControllers.count == 1 {
