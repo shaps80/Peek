@@ -16,7 +16,7 @@ extension UIView {
      
      - returns: Returns true if Peek should ignore this view, false otherwise
      */
-    open override func shouldIgnore(options: PeekOptions) -> Bool {
+    internal override func shouldIgnore(options: PeekOptions) -> Bool {
         let isContainer = isMember(of: UIView.self) && subviews.count > 0
         if isContainer && options.ignoresContainerViews { return true }
         

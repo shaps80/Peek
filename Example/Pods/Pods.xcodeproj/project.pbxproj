@@ -306,9 +306,9 @@
 		2D21275270432221808AE7BF0151839E /* Accessory Views */ = {
 			isa = PBXGroup;
 			children = (
+				549D7637206BB57A000738A0 /* PeekAccessoryProviding.swift */,
 				25D972449D0B39FC0569FF6FF8139E27 /* BoolAccessoryView.swift */,
 				5A99C53FAF3871FA288EF835E3CC8F92 /* ColorAccessoryView.swift */,
-				549D7637206BB57A000738A0 /* PeekAccessoryProviding.swift */,
 			);
 			name = "Accessory Views";
 			path = "Pod/Classes/Accessory Views";
