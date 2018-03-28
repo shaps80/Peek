@@ -131,22 +131,17 @@ internal class PeekOverlayView: UIView {
     }
     
     private func hitTest(at point: CGPoint) {
-        for (index, model) in zip(viewModels.indices, viewModels) {
-            let frame = model.frameInPeek(self)
-            
-            if frame.contains(point) {
-                if !indexesForSelectedItems.contains(index) {
-                    selectViewModel(at: index, animated: true)
-                    delegate?.didSelect(viewModel: model, in: self)
-                } else {
-                    if !isDragging {
-                        indexesForSelectedItems.reverse()
-                        updateHighlights(animated: true)
-                    }
-                }
-                
-                break
-            }
+        guard let (index, model) = zip(viewModels.indices, viewModels)
+            .first(where: { $0.1.frameInPeek(self).contains(point) })
+            else { return }
+        guard indexesForSelectedItems.contains(index) else {
+            selectViewModel(at: index, animated: true)
+            delegate?.didSelect(viewModel: model, in: self)
+            return
+        }
+        if !isDragging {
+            indexesForSelectedItems.reverse()
+            updateHighlights(animated: true)
         }
     }
     

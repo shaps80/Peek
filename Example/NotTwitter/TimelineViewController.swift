@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  TimelineViewController.swift
 //  NotTwitter
 //
 //  Created by Shaps Benkau on 10/03/2018.

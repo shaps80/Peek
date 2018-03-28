@@ -99,7 +99,7 @@ final class VolumeController: NSObject, PeekActivating {
     }
     
     @objc func unregister() {
-        if volumeView == nil {
+        guard volumeView != nil else {
             print("\(#file): already unregistered")
             return
         }
