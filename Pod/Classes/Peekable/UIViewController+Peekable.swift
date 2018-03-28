@@ -30,22 +30,22 @@ extension UIViewController {
         
         coordinator.appendTransformed(keyPaths: ["modalTransitionStyle"], valueTransformer: { value in
             guard let rawValue = value as? Int, let style = UIModalTransitionStyle(rawValue: rawValue) else { return nil }
-            return style.description
+            return style.displayName
         }, forModel: self, in: .appearance)
         
         coordinator.appendTransformed(keyPaths: ["modalPresentationStyle"], valueTransformer: { value in
             guard let rawValue = value as? Int, let style = UIModalPresentationStyle(rawValue: rawValue) else { return nil }
-            return style.description
+            return style.displayName
         }, forModel: self, in: .appearance)
         
         coordinator.appendTransformed(keyPaths: ["preferredStatusBarStyle"], valueTransformer: { value in
             guard let rawValue = value as? Int, let style = UIStatusBarStyle(rawValue: rawValue) else { return nil }
-            return style.description
+            return style.displayName
         }, forModel: self, in: .appearance)
         
         coordinator.appendTransformed(keyPaths: ["preferredStatusBarUpdateAnimation"], valueTransformer: { value in
             guard let rawValue = value as? Int, let style = UIStatusBarAnimation(rawValue: rawValue) else { return nil }
-            return style.description
+            return style.displayName
         }, forModel: self, in: .appearance)
         
         if self is UITableViewController {
@@ -105,18 +105,18 @@ extension UIViewController {
         if self is UISplitViewController {
             coordinator.appendTransformed(keyPaths: ["preferredDisplayMode"], valueTransformer: { value in
                 guard let rawValue = value as? Int, let mode = UISplitViewControllerDisplayMode(rawValue: rawValue) else { return nil }
-                return mode.description
+                return mode.displayName
             }, forModel: self, in: .appearance)
             
             coordinator.appendTransformed(keyPaths: ["displayMode"], valueTransformer: { value in
                 guard let rawValue = value as? Int, let mode = UISplitViewControllerDisplayMode(rawValue: rawValue) else { return nil }
-                return mode.description
+                return mode.displayName
             }, forModel: self, in: .appearance)
             
             if #available(iOS 11.0, *) {
                 coordinator.appendTransformed(keyPaths: ["primaryEdge"], valueTransformer: { value in
                     guard let rawValue = value as? Int, let edge = UISplitViewControllerPrimaryEdge(rawValue: rawValue) else { return nil }
-                    return edge.description
+                    return edge.displayName
                 }, forModel: self, in: .appearance)
             }
             

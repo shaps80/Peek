@@ -31,7 +31,7 @@ extension UIActivityIndicatorView {
         
         coordinator.appendTransformed(keyPaths: ["activityIndicatorViewStyle"], valueTransformer: { value in
             guard let rawValue = value as? Int, let style = UIActivityIndicatorViewStyle(rawValue: rawValue) else { return nil }
-            return style.description
+            return style.displayName
         }, forModel: self, in: .appearance)
         
         super.preparePeek(with: coordinator)

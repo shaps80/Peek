@@ -27,7 +27,7 @@ extension UILabel {
     open override func preparePeek(with coordinator: Coordinator) {
         coordinator.appendTransformed(keyPaths: ["lineBreakMode"], valueTransformer: { value in
             guard let rawValue = value as? Int, let lineBreakMode = NSLineBreakMode(rawValue: rawValue) else { return nil }
-            return lineBreakMode.description
+            return lineBreakMode.displayName
         }, forModel: self, in: .behaviour)
         
         coordinator.appendDynamic(keyPaths: ["adjustsFontSizeToFitWidth"], forModel: self, in: .behaviour)
@@ -39,7 +39,7 @@ extension UILabel {
         
         coordinator.appendTransformed(keyPaths: ["textAlignment"], valueTransformer: { value in
             guard let rawValue = value as? Int, let textAlignment = NSTextAlignment(rawValue: rawValue) else { return nil }
-            return textAlignment.description
+            return textAlignment.displayName
         }, forModel: self, in: .typography)
         
         coordinator.appendDynamic(keyPaths: [

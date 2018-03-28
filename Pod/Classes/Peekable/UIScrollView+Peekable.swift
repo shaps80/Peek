@@ -37,7 +37,7 @@ extension UIScrollView {
         
         coordinator.appendTransformed(keyPaths: ["indicatorStyle"], valueTransformer: { value in
             guard let rawValue = value as? Int, let style = UIScrollViewIndicatorStyle(rawValue: rawValue) else { return nil }
-            return style.description
+            return style.displayName
         }, forModel: self, in: .appearance)
         
         coordinator.appendDynamic(keyPaths: [
@@ -46,7 +46,7 @@ extension UIScrollView {
         
         coordinator.appendTransformed(keyPaths: ["keyboardDismissMode"], valueTransformer: { value in
             guard let rawValue = value as? Int, let mode = UIScrollViewKeyboardDismissMode(rawValue: rawValue) else { return nil }
-            return mode.description
+            return mode.displayName
         }, forModel: self, in: .behaviour)
         
         coordinator.appendDynamic(keyPaths: [

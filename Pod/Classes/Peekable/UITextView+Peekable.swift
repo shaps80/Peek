@@ -40,7 +40,7 @@ extension UITextView {
         
         coordinator.appendTransformed(keyPaths: ["textAlignment"], valueTransformer: { value in
             guard let rawValue = value as? Int, let style = NSTextAlignment(rawValue: rawValue) else { return nil }
-            return style.description
+            return style.displayName
         }, forModel: self, in: .typography)
         
         coordinator.appendDynamic(keyPaths: [

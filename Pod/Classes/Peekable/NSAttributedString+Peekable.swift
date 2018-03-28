@@ -117,7 +117,7 @@ extension NSAttributedString {
         
         coordinator.appendTransformed(keyPaths: ["paragraph.lineBreakMode"], valueTransformer: { value in
             guard let rawValue = value as? Int, let lineBreakMode = NSLineBreakMode(rawValue: rawValue) else { return nil }
-            return lineBreakMode.description
+            return lineBreakMode.displayName
         }, forModel: self, in: .paragraph)
         
         coordinator.appendDynamic(keyPaths: [

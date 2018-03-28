@@ -41,7 +41,7 @@ extension UIDatePicker {
         
         coordinator.appendTransformed(keyPaths: ["datePickerMode"], valueTransformer: { value in
             guard let rawValue = value as? Int, let mode = UIDatePickerMode(rawValue: rawValue) else { return nil }
-            return mode.description
+            return mode.displayName
         }, forModel: self, in: .appearance)
         
         super.preparePeek(with: coordinator)

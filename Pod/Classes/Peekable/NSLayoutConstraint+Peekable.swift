@@ -52,14 +52,14 @@ extension NSLayoutConstraint {
         
         coordinator.appendTransformed(keyPaths: ["secondAttribute"], valueTransformer: { value in
             guard let rawValue = value as? Int, let attribute = NSLayoutAttribute(rawValue: rawValue) else { return nil }
-            return attribute.description
+            return attribute.displayName
         }, forModel: self, in: .general)
         
         coordinator.appendDynamic(keyPaths: ["peek_secondItem"], forModel: self, in: .general)
         
         coordinator.appendTransformed(keyPaths: ["firstAttribute"], valueTransformer: { value in
             guard let rawValue = value as? Int, let attribute = NSLayoutAttribute(rawValue: rawValue) else { return nil }
-            return attribute.description
+            return attribute.displayName
         }, forModel: self, in: .general)
         
         coordinator.appendDynamic(keyPaths: ["peek_firstItem"], forModel: self, in: .general)
@@ -70,7 +70,7 @@ extension NSLayoutConstraint {
         
         coordinator.appendTransformed(keyPaths: ["relation"], valueTransformer: { value in
             guard let rawValue = value as? Int, let relation = NSLayoutRelation(rawValue: rawValue) else { return nil }
-            return relation.description
+            return relation.displayName
         }, forModel: self, in: .layout)
         
         super.preparePeek(with: coordinator)

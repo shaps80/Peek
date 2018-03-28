@@ -30,17 +30,17 @@ extension UIImage {
         
         coordinator.appendTransformed(keyPaths: ["renderingMode"], valueTransformer: { value in
             guard let rawValue = value as? Int, let mode = UIImageRenderingMode(rawValue: rawValue) else { return nil }
-            return mode.description
+            return mode.displayName
         }, forModel: self, in: .appearance)
         
         coordinator.appendTransformed(keyPaths: ["resizingMode"], valueTransformer: { value in
             guard let rawValue = value as? Int, let mode = UIImageResizingMode(rawValue: rawValue) else { return nil }
-            return mode.description
+            return mode.displayName
         }, forModel: self, in: .appearance)
         
         coordinator.appendTransformed(keyPaths: ["imageOrientation"], valueTransformer: { value in
             guard let rawValue = value as? Int, let mode = UIImageOrientation(rawValue: rawValue) else { return nil }
-            return mode.description
+            return mode.displayName
         }, forModel: self, in: .appearance)
         
         coordinator.appendDynamic(keyPaths: [

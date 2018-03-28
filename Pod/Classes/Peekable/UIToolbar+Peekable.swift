@@ -31,7 +31,7 @@ extension UIToolbar {
         
         coordinator.appendTransformed(keyPaths: ["barStyle"], valueTransformer: { value in
             guard let rawValue = value as? Int, let style = UIBarStyle(rawValue: rawValue) else { return nil }
-            return style.description
+            return style.displayName
         }, forModel: self, in: .appearance)
         
         super.preparePeek(with: coordinator)

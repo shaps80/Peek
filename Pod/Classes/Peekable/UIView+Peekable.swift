@@ -112,7 +112,7 @@ extension UIView {
         
         coordinator.appendTransformed(keyPaths: ["tintAdjustmentMode"], valueTransformer: { value in
             guard let rawValue = value as? Int, let adjustmodeMode = UIViewTintAdjustmentMode(rawValue: rawValue) else { return nil }
-            return adjustmodeMode.description
+            return adjustmodeMode.displayName
         }, forModel: self, in: .appearance)
         
         coordinator.appendDynamic(keyPaths: [
@@ -127,7 +127,7 @@ extension UIView {
         
         coordinator.appendTransformed(keyPaths: ["contentMode"], valueTransformer: { value in
             guard let rawValue = value as? Int, let contentMode = UIViewContentMode(rawValue: rawValue) else { return nil }
-            return contentMode.description
+            return contentMode.displayName
         }, forModel: self, in: .layout)
         
         coordinator.appendDynamic(keyPaths: [

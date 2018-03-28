@@ -12,7 +12,7 @@ extension UIStackView {
     open override func preparePeek(with coordinator: Coordinator) {
         coordinator.appendTransformed(keyPaths: ["axis"], valueTransformer: { value in
             guard let rawValue = value as? Int, let axis = UILayoutConstraintAxis(rawValue: rawValue) else { return nil }
-            return axis.description
+            return axis.displayName
         }, forModel: self, in: .appearance)
         
         coordinator.appendTransformed(keyPaths: ["distribution"], valueTransformer: { value in

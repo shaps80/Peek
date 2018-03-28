@@ -27,12 +27,12 @@ extension UITextField {
     open override func preparePeek(with coordinator: Coordinator) {
         coordinator.appendTransformed(keyPaths: ["borderStyle"], valueTransformer: { value in
             guard let rawValue = value as? Int, let style = UITextBorderStyle(rawValue: rawValue) else { return nil }
-            return style.description
+            return style.displayName
         }, forModel: self, in: .appearance)
         
         coordinator.appendTransformed(keyPaths: ["clearButtonMode", "leftViewMode", "rightViewMode"], valueTransformer: { value in
             guard let rawValue = value as? Int, let style = UITextFieldViewMode(rawValue: rawValue) else { return nil }
-            return style.description
+            return style.displayName
         }, forModel: self, in: .appearance)
         
         coordinator.appendDynamic(keyPaths: [
@@ -41,7 +41,7 @@ extension UITextField {
         
         coordinator.appendTransformed(keyPaths: ["rightViewMode"], valueTransformer: { value in
             guard let rawValue = value as? Int, let style = UITextFieldViewMode(rawValue: rawValue) else { return nil }
-            return style.description
+            return style.displayName
         }, forModel: self, in: .appearance)
         
         coordinator.appendDynamic(keyPaths: [
@@ -63,7 +63,7 @@ extension UITextField {
         
         coordinator.appendTransformed(keyPaths: ["textAlignment"], valueTransformer: { value in
             guard let rawValue = value as? Int, let style = NSTextAlignment(rawValue: rawValue) else { return nil }
-            return style.description
+            return style.displayName
         }, forModel: self, in: .typography)
         
         coordinator.appendDynamic(keyPaths: [
