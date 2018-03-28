@@ -77,6 +77,7 @@ import UIKit
      `TimelineViewController ▹ Button ▹ TintColor`
      */
     var reportTitle: String { get }
+    
 }
 
 extension CALayer { override var isLeaf: Bool { return false } }
@@ -121,6 +122,12 @@ extension NSObject: InternalPeekable {
         }
     }
     
+    /// Return true if this object should be visible in Peek's overlay selector
+    ///
+    /// - Parameter options: The current options for Peek
+    /// - Returns: True if this object should be visible in Peek's overlay. False otherwise.
+    @objc internal func isVisibleInOverlay(options: PeekOptions) -> Bool { return false }
+    
     /**
      Determines if Peek should ignore this type when parsing it into a model
      
@@ -128,7 +135,6 @@ extension NSObject: InternalPeekable {
      
      - returns: Returns true if Peek should ignore this type, false otherwise
      */
-    @objc internal func shouldIgnore(options: PeekOptions) -> Bool {
-        return false
-    }
+    @available(*, obsoleted: 5.0.1, message: "Overriding this method no longer has any impact on Peek's inspection")
+    @objc public func shouldIgnore(options: PeekOptions) -> Bool { return false }
 }
