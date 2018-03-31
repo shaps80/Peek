@@ -59,7 +59,7 @@ The simplest way to integrate Peek into your project is to use `Cocoapods` or `C
 pod 'Peek', :configurations => ['Debug']
 
 # Carthage
-github `shaps80/Peek` ~> 5.0.1
+github "shaps80/Peek" ~> 5.0.1
 ```
 
 You only need 1 line of code to enable Peek in your application:
@@ -144,7 +144,7 @@ Peek allows many options to be configured, allowing you more control over how Pe
 ```swift
 window?.peek.enableWithOptions { options in
     options.theme = .black
-    options.activationMode = .Auto
+    options.activationMode = .auto
     options.shouldIgnoreContainers = true
   
     /*

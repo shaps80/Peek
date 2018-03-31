@@ -7,7 +7,7 @@
 
 import UIKit
 
-internal final class InspectorsPresentationController: UIPresentationController, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning {
+internal final class PeekPresentationController: UIPresentationController, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning {
     
     override var presentationStyle: UIModalPresentationStyle {
         return .overFullScreen
@@ -374,18 +374,20 @@ internal final class InspectorsPresentationController: UIPresentationController,
 }
 
 extension NSShadow {
-    public static var modal: NSShadow {
+    
+    fileprivate static var modal: NSShadow {
         let shadow = NSShadow()
         shadow.shadowOffset = CGSize(width: 0, height: -2)
         shadow.shadowBlurRadius = 10
-        shadow.shadowColor = UIColor(white: 0, alpha: 0.75)
+        shadow.shadowColor = UIColor(white: 0, alpha: 0.5)
         return shadow
     }
+    
 }
 
 extension UIView {
     
-    public var shadow: NSShadow? {
+    fileprivate var shadow: NSShadow? {
         get {
             let shadow = NSShadow()
             shadow.shadowOffset = layer.shadowOffset
@@ -407,7 +409,7 @@ extension UIView {
             layer.shadowColor = (shadow.shadowColor as? UIColor)?.cgColor
             layer.shadowOffset = .zero
             let color = shadow.shadowColor as? UIColor ?? .black
-            layer.shadowOpacity = Color(systemColor: color)?.rgba.alpha ?? 0.5
+            layer.shadowOpacity = Color(system: color)?.rgba.alpha ?? 0.5
         }
     }
     

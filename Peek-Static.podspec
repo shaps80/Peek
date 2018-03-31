@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name             = "Peek"
+  s.name             = "Peek-Static"
   s.version          = "5.1.0"
   s.summary          = "All new design. Inspect your iOS application at runtime."
   s.homepage         = "https://shaps.me/peek"
@@ -11,4 +11,5 @@ Pod::Spec.new do |s|
   s.platform         = :ios, '9.0'
   s.requires_arc     = true
   s.source_files     = 'Pod/Classes/**/*.{swift,h,m}'
+  s.static_framework = true
 end

@@ -18,13 +18,12 @@ internal final class PeekInspectorViewController: PeekSectionedViewController, U
         let controller = UISearchController(searchResultsController: nil)
         controller.dimsBackgroundDuringPresentation = false
         controller.hidesNavigationBarDuringPresentation = false
-        controller.searchBar.barStyle = .black
-        controller.searchBar.searchBarStyle = .minimal
+        controller.searchBar.barStyle = peek.options.theme == .light ? .default : .black
         controller.searchBar.barTintColor = navigationController?.navigationBar.barTintColor
-        controller.searchBar.tintColor = navigationController?.navigationBar.tintColor
-        controller.searchBar.backgroundColor = peek.options.theme == .black ? .inspectorBlack : .inspectorDark
+        controller.searchBar.tintColor = peek.options.theme.tintColor
+        controller.searchBar.backgroundColor = peek.options.theme.backgroundColor
         controller.searchBar.isTranslucent = false
-        controller.searchBar.keyboardAppearance = .dark
+        controller.searchBar.keyboardAppearance = peek.options.theme == .light ? .default : .dark
         controller.searchBar.autocorrectionType = .yes
         controller.searchBar.autocapitalizationType = .none
         controller.searchBar.enablesReturnKeyAutomatically = true
@@ -46,13 +45,13 @@ internal final class PeekInspectorViewController: PeekSectionedViewController, U
         button.frame = CGRect(x: 0, y: 0, width: 100, height: 24)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .counter
+        button.backgroundColor = peek.options.theme.editingCounterColor
         button.layer.cornerRadius = button.bounds.height / 2
         button.layer.masksToBounds = true
         return button
     }()
     
-    private let model: Model & Peekable
+    private let model: InternalPeekable
     private let coordinator: PeekCoordinator
     private var dataSource: ContextDataSource {
         didSet { tableView.reloadData() }
@@ -82,7 +81,7 @@ internal final class PeekInspectorViewController: PeekSectionedViewController, U
         return feedbackGenerator as? UISelectionFeedbackGenerator
     }
     
-    internal init(peek: Peek, model: Model & Peekable) {
+    internal init(peek: Peek, model: InternalPeekable) {
         self.model = model
         self.coordinator = PeekCoordinator(model: model)
         model.preparePeek(with: coordinator)
@@ -96,15 +95,14 @@ internal final class PeekInspectorViewController: PeekSectionedViewController, U
         super.viewDidLoad()
         
         if title == nil {
-            title = "Peek"
+            title = String(describing: model.classForCoder)
         }
         
         if navigationController?.viewControllers.count == 1 {
             navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         }
         
-        let backgroundColor: UIColor? = peek.options.theme == .dark ? .inspectorDark : .inspectorBlack
-        tableView.backgroundColor = backgroundColor
+        tableView.backgroundColor = peek.options.theme.backgroundColor
         
         prepareNavigationItems(animated: false)
     
@@ -140,7 +138,7 @@ internal final class PeekInspectorViewController: PeekSectionedViewController, U
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = super.tableView(tableView, viewForHeaderInSection: section) as? CollapsibleSectionHeaderView else { fatalError() }
-        header.prepareHeader(for: section, delegate: self)
+        header.prepareHeader(for: section, theme: peek.options.theme, delegate: self)
         return header
     }
     
@@ -172,12 +170,13 @@ internal final class PeekInspectorViewController: PeekSectionedViewController, U
         if let preview = attribute as? PreviewAttribute,
             let cell = tableView.dequeueReusableCell(withIdentifier: "PreviewCell", for: indexPath) as? PreviewCell {
             cell.previewImageView.image = preview.image
+            cell.previewImageView.tintColor = peek.options.theme.tintColor
             cell.contentView.backgroundColor = peek.options.theme.backgroundColor
             cell.backgroundColor = peek.options.theme.backgroundColor
             return cell
         }
         
-        guard let cell = super.tableView(tableView, cellForRowAt: indexPath) as? InspectorCell else { fatalError() }
+        guard let cell = super.tableView(tableView, cellForRowAt: indexPath) as? PeekInspectorCell else { fatalError() }
         cell.contentView.backgroundColor = peek.options.theme.backgroundColor
         cell.backgroundColor = peek.options.theme.backgroundColor
         
@@ -243,7 +242,7 @@ internal final class PeekInspectorViewController: PeekSectionedViewController, U
             case is NSNumber:
                 if let value = value as? NSNumber {
                     text = NumberTransformer().transformedValue(value) as? String
-                    accessoryView = value.isBool() ? BoolAccessoryView(value: value.boolValue) : nil
+                    accessoryView = value.isBool() ? BoolAccessoryView(value: value.boolValue, theme: peek.options.theme) : nil
                 }
             case is UIColor:
                 if let value = value as? UIColor {
@@ -263,8 +262,8 @@ internal final class PeekInspectorViewController: PeekSectionedViewController, U
                 accessoryView = ColorAccessoryView(color: UIColor(cgColor: value as! CGColor))
             }
             
-            if let value = value as? PeekInspectorNestable {
-                cell.accessoryType = tableView.isEditing ? .none : .disclosureIndicator
+            if let value = value as? InternalPeekable {
+                cell.accessoryType = tableView.isEditing ? .none : !value.isLeaf ? .disclosureIndicator : .none
             }
             
             if value === model {
@@ -304,7 +303,7 @@ extension PeekInspectorViewController: UIViewControllerPreviewingDelegate {
         
         let attribute = activeDataSource.attribute(at: indexPath)
         
-        if !(attribute is PreviewAttribute), let value = attribute.value as? PeekInspectorNestable {
+        if !(attribute is PreviewAttribute), let value = attribute.value as? InternalPeekable, !value.isLeaf {
             let controller = PeekInspectorViewController(peek: peek, model: value)
             controller.title = attribute.title
             return controller
@@ -320,6 +319,17 @@ extension PeekInspectorViewController {
     
     private func prepareNavigationItems(animated: Bool) {
         reportingIndexPaths.removeAll()
+        
+        if #available(iOS 11.0, *) {
+            navigationController?.navigationBar.largeTitleTextAttributes = [
+                .foregroundColor: peek.options.theme.titleTextColor(isEditing: tableView.isEditing)
+            ]
+        }
+        
+        navigationController?.navigationBar.titleTextAttributes = [
+            .foregroundColor: peek.options.theme.titleTextColor(isEditing: tableView.isEditing),
+            .font: UIFont.systemFont(ofSize: 17, weight: .regular)
+        ]
         
         if tableView.isEditing {
             if #available(iOS 11.0, *) {
@@ -340,11 +350,11 @@ extension PeekInspectorViewController {
             navigationItem.setRightBarButton(send, animated: animated)
             
             UIView.animate(withDuration: animated ? 0.25 : 0) {
-                self.navigationController?.navigationBar.backgroundColor = .editingTint
+                self.navigationController?.navigationBar.backgroundColor = self.peek.options.theme.editingColor
                 self.navigationController?.navigationBar.tintColor = .white
             }
             
-            tableView.tintColor = .editingTint
+            tableView.tintColor = peek.options.theme.editingColor
             navigationItem.titleView = reportButton
         } else {
             if #available(iOS 11.0, *) {
@@ -355,7 +365,7 @@ extension PeekInspectorViewController {
             }
             
             let size = CGSize(width: 22, height: 12)
-            let disclosure = Images.disclosure(size: size, thickness: 2)
+            let disclosure = Images.disclosure(size: size, thickness: 2, theme: peek.options.theme)
             let close = UIBarButtonItem(image: disclosure, style: .plain, target: self, action: #selector(dismissController))
             navigationItem.setRightBarButton(close, animated: animated)
             
@@ -379,10 +389,10 @@ extension PeekInspectorViewController {
             
             UIView.animate(withDuration: animated ? 0.25 : 0) {
                 self.navigationController?.navigationBar.backgroundColor = self.peek.options.theme.backgroundColor
-                self.navigationController?.navigationBar.tintColor = .primaryTint
+                self.navigationController?.navigationBar.tintColor = self.peek.options.theme.tintColor
             }
             
-            tableView.tintColor = .primaryTint
+            tableView.tintColor = peek.options.theme.tintColor
             navigationItem.titleView = nil
         }
     }
@@ -405,7 +415,7 @@ extension PeekInspectorViewController {
             return Report.Section(title: title, items: items)
         }
         
-        let report = Report(title: model.titleForPeekReport(), sections: sections, metadata: peek.options.metadata, snapshot: peek.screenshot)
+        let report = Report(title: model.reportTitle, sections: sections, metadata: peek.options.metadata, snapshot: peek.screenshot)
         let controller = ReportViewController(peek: peek, report: report)
         
         controller.delegate = self
@@ -505,7 +515,7 @@ extension PeekInspectorViewController {
         let attribute = self.activeDataSource.attribute(at: indexPath)
         let cell = tableView.cellForRow(at: indexPath)
         
-        if !tableView.isEditing, let value = attribute.value as? PeekInspectorNestable, value !== model {
+        if !tableView.isEditing, let value = attribute.value as? InternalPeekable, !value.isLeaf, value !== model {
             let controller = PeekInspectorViewController(peek: peek, model: value)
             controller.title = attribute.title
             navigationController?.pushViewController(controller, animated: true)

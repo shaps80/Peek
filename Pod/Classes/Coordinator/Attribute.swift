@@ -44,7 +44,7 @@ internal final class DynamicAttribute: Attribute, CustomStringConvertible, Equat
     internal let title: String
     internal let detail: String?
     internal var previewImage: UIImage? = nil
-    internal private(set) weak var model: Model?
+    internal private(set) weak var model: Peekable?
     
     internal let valueTransformer: AttributeValueTransformer?
     
@@ -52,7 +52,7 @@ internal final class DynamicAttribute: Attribute, CustomStringConvertible, Equat
         return model?.value(forKeyPath: keyPath)
     }
     
-    internal init(title: String?, detail: String? = nil, keyPath: String, model: Model, valueTransformer: AttributeValueTransformer? = nil) {
+    internal init(title: String?, detail: String? = nil, keyPath: String, model: Peekable, valueTransformer: AttributeValueTransformer? = nil) {
         self.title = title ?? String.capitalized(keyPath)
         self.detail = detail
         self.keyPath = keyPath

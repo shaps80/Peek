@@ -10,7 +10,7 @@ import UIKit
 extension UIViewController {
     
     func presentModal(_ viewControllerToPresent: UIViewController, from sourceView: UIView?, animated: Bool, completion: (() -> Void)?) {
-        let controller = InspectorsPresentationController(presentedViewController: viewControllerToPresent, presenting: presentingViewController)
+        let controller = PeekPresentationController(presentedViewController: viewControllerToPresent, presenting: presentingViewController)
         
         withExtendedLifetime(controller) { _ in
             viewControllerToPresent.transitioningDelegate = controller
