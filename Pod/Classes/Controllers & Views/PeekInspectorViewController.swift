@@ -221,39 +221,26 @@ internal final class PeekInspectorViewController: PeekSectionedViewController, U
             var editingAccessoryView: UIView?
             
             switch value {
-            case is UIViewController:
-                if let value = value as? UIViewController {
-                    text = String(describing: value.classForCoder)
-                }
-            case is [AnyObject]:
-                if let value = value as? [AnyObject] {
-                    text = "\(value.count)"
-                }
-            case is UIFont:
-                if let value = value as? UIFont {
-                    text = "\(value.fontName), \(value.pointSize)"
-                }
+            case let value as UIViewController:
+                text = String(describing: value.classForCoder)
+            case let value as [AnyObject]:
+                text = "\(value.count)"
+            case let value as UIFont:
+                text = "\(value.fontName), \(value.pointSize)"
             case is UIImageView, is UILabel, is UIBarButtonItem, /*is Segment,*/ is UIImage:
                 text = nil
-            case is NSAttributedString:
-                if let value = value as? NSAttributedString {
-                    text = value.string
-                }
-            case is NSNumber:
-                if let value = value as? NSNumber {
-                    text = NumberTransformer().transformedValue(value) as? String
-                    accessoryView = value.isBool() ? BoolAccessoryView(value: value.boolValue, theme: peek.options.theme) : nil
-                }
-            case is UIColor:
-                if let value = value as? UIColor {
-                    text = ColorTransformer().transformedValue(value) as? String
-                    accessoryView = ColorAccessoryView(color: value)
-                }
-            case is NSValue:
-                if let value = value as? NSValue {
-                    text = ValueTransformer().transformedValue(value) as? String
-                }
-            default: text = "\(value)"
+            case let value as NSAttributedString:
+                text = value.string
+            case let value as NSNumber:
+                text = NumberTransformer().transformedValue(value) as? String
+                accessoryView = value.isBool() ? BoolAccessoryView(value: value.boolValue, theme: peek.options.theme) : nil
+            case let value as UIColor:
+                text = ColorTransformer().transformedValue(value) as? String
+                accessoryView = ColorAccessoryView(color: value)
+            case let value as NSValue:
+                text = ValueTransformer().transformedValue(value) as? String
+            default:
+                text = "\(value)"
             }
             
             if CFGetTypeID(value) == CGColor.typeID {
