@@ -26,14 +26,14 @@ import MediaPlayer
 /**
  *  Defines a controller that is responsible for presenting Peek
  */
-protocol PeekActivationController {
+protocol PeekActivating {
     func register()
     func unregister()
     init(peek: Peek, handleActivation: @escaping () -> Void)
 }
 
 /// Defines an controller that activates Peek via your device Volume controls
-final class VolumeController: NSObject, PeekActivationController {
+final class VolumeController: NSObject, PeekActivating {
     
     unowned var peek: Peek
     fileprivate var volumeView: MPVolumeView!
@@ -99,7 +99,7 @@ final class VolumeController: NSObject, PeekActivationController {
     }
     
     @objc func unregister() {
-        if volumeView == nil {
+        guard volumeView != nil else {
             print("\(#file): already unregistered")
             return
         }

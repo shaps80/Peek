@@ -25,14 +25,14 @@ import Foundation
 /**
  *  Represents an image renderer format
  */
-public final class ImageRendererFormat: RendererFormat {
+internal final class ImageRendererFormat: RendererFormat {
 
     /**
      Returns a default format, configured for this device. On OSX, this will flip the context to match iOS drawing.
      
      - returns: A new format
      */
-    public static func `default`() -> ImageRendererFormat {
+    internal static func `default`() -> ImageRendererFormat {
         #if os(OSX)
             return ImageRendererFormat(flipped: true)
         #else
@@ -41,16 +41,16 @@ public final class ImageRendererFormat: RendererFormat {
     }
     
     /// Returns the bounds for this format
-    public var bounds: CGRect
+    internal var bounds: CGRect
     
     /// Get/set whether or not the resulting image should be opaque
-    public var opaque: Bool
+    internal var opaque: Bool
     
     /// Get/set the scale of the resulting image
-    public var scale: CGFloat
+    internal var scale: CGFloat
     
     /// Get/set whether or not the context should be flipped while drawing
-    public var isFlipped: Bool
+    internal var isFlipped: Bool
     
     /**
      Creates a new format with the specified bounds
@@ -68,7 +68,7 @@ public final class ImageRendererFormat: RendererFormat {
         self.isFlipped = flipped
     }
     
-    public init(opaque: Bool = false, scale: CGFloat = Screen.main.scale, flipped: Bool) {
+    internal init(opaque: Bool = false, scale: CGFloat = Screen.main.scale, flipped: Bool) {
         self.bounds = .zero
         self.scale = scale
         self.isFlipped = flipped
@@ -79,16 +79,16 @@ public final class ImageRendererFormat: RendererFormat {
 /**
  *  Represents a new renderer context
  */
-public final class ImageRendererContext: RendererContext {
+internal final class ImageRendererContext: RendererContext {
     
     /// The associated format
-    public let format: ImageRendererFormat
+    internal let format: ImageRendererFormat
     
     /// The associated CGContext
-    public let cgContext: CGContext
+    internal let cgContext: CGContext
     
     /// Returns a UIImage representing the current state of the renderer's CGContext
-    public var currentImage: Image {
+    internal var currentImage: Image {
         #if os(OSX)
             let cgImage = CGContext.current!.makeImage()!
             return NSImage(cgImage: cgImage, size: format.bounds.size)
@@ -113,7 +113,7 @@ public final class ImageRendererContext: RendererContext {
 }
 
 extension ImageRenderer {
-    public convenience init(bounds: CGRect) {
+    internal convenience init(bounds: CGRect) {
         self.init(size: bounds.size, format: nil)
     }
 }
@@ -121,16 +121,16 @@ extension ImageRenderer {
 /**
  *  Represents an image renderer used for drawing into a UIImage
  */
-public final class ImageRenderer: Renderer {
+internal final class ImageRenderer: Renderer {
     
     /// The associated context type
-    public typealias Context = ImageRendererContext
+    internal typealias Context = ImageRendererContext
     
     /// Returns true
-    public let allowsImageOutput: Bool = true
+    internal let allowsImageOutput: Bool = true
     
     /// Returns the format for this renderer
-    public let format: ImageRendererFormat
+    internal let format: ImageRendererFormat
     
     /**
      Creates a new renderer with the specified size and format
@@ -140,7 +140,7 @@ public final class ImageRenderer: Renderer {
      
      - returns: A new image renderer
      */
-    public init(size: CGSize, format: ImageRendererFormat? = nil) {
+    internal init(size: CGSize, format: ImageRendererFormat? = nil) {
         guard size != .zero else { fatalError("size cannot be zero") }
         
         let bounds = CGRect(origin: .zero, size: size)
@@ -157,7 +157,7 @@ public final class ImageRenderer: Renderer {
      
      - returns: A new image
      */
-    public func image(actions: (Context) -> Void) -> Image {
+    internal func image(actions: (Context) -> Void) -> Image {
         var image: Image?
         
         try? runDrawingActions(actions) { context in
@@ -174,7 +174,7 @@ public final class ImageRenderer: Renderer {
      
      - returns: A PNG data representation
      */
-    public func pngData(actions: (Context) -> Void) -> Data {
+    internal func pngData(actions: (Context) -> Void) -> Data {
         let image = self.image(actions: actions)
         return image.pngRepresentation()!
     }
@@ -186,7 +186,7 @@ public final class ImageRenderer: Renderer {
      
      - returns: A JPEG data representation
      */
-    public func jpegData(withCompressionQuality compressionQuality: CGFloat, actions: (Context) -> Void) -> Data {
+    internal func jpegData(withCompressionQuality compressionQuality: CGFloat, actions: (Context) -> Void) -> Data {
         let image = self.image(actions: actions)
         return image.jpgRepresentation(quality: compressionQuality)!
     }

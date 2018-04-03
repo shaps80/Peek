@@ -54,10 +54,10 @@ internal final class PeekMetricView: UIVisualEffectView {
         fatalError()
     }
     
-    init() {
+    init(theme: PeekTheme = .dark) {
         label = UILabel(frame: .zero)
         label.font = UIFont.systemFont(ofSize: 11, weight: .semibold)
-        label.textColor = .textDark
+        label.textColor = theme.primaryTextColor
         label.textAlignment = .center
         
         label.setContentCompressionResistancePriority(.required, for: .horizontal)

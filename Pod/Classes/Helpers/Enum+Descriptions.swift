@@ -22,9 +22,13 @@
 
 import UIKit
 
-extension UILayoutConstraintAxis: CustomStringConvertible {
+internal protocol PeekDescribing {
+    var displayName: String { get }
+}
+
+extension UILayoutConstraintAxis: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .horizontal: return "Horizontal"
         case .vertical: return "Vertical"
@@ -33,9 +37,9 @@ extension UILayoutConstraintAxis: CustomStringConvertible {
     
 }
 
-extension UIStackViewDistribution: CustomStringConvertible {
+extension UIStackViewDistribution: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .equalCentering: return "Equal Centering"
         case .equalSpacing: return "Equal Spacing"
@@ -47,9 +51,9 @@ extension UIStackViewDistribution: CustomStringConvertible {
     
 }
 
-extension UIStackViewAlignment: CustomStringConvertible {
+extension UIStackViewAlignment: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .center: return "Center"
         case .fill: return "Fill"
@@ -62,9 +66,9 @@ extension UIStackViewAlignment: CustomStringConvertible {
     
 }
 
-extension UISplitViewControllerDisplayMode: CustomStringConvertible {
+extension UISplitViewControllerDisplayMode: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .allVisible: return "All Visible"
         case .automatic: return "Automatic"
@@ -76,9 +80,9 @@ extension UISplitViewControllerDisplayMode: CustomStringConvertible {
 }
 
 @available(iOS 11.0, *)
-extension UISplitViewControllerPrimaryEdge: CustomStringConvertible {
+extension UISplitViewControllerPrimaryEdge: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .leading: return "Leading"
         case .trailing: return "Trailing"
@@ -87,9 +91,9 @@ extension UISplitViewControllerPrimaryEdge: CustomStringConvertible {
     
 }
 
-extension NSLayoutRelation: CustomStringConvertible {
+extension NSLayoutRelation: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .equal: return "Equal"
         case .greaterThanOrEqual: return "Greater or Equal"
@@ -99,9 +103,9 @@ extension NSLayoutRelation: CustomStringConvertible {
     
 }
 
-extension NSLayoutAttribute: CustomStringConvertible {
+extension NSLayoutAttribute: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .lastBaseline: return "Baseline"
         case .bottom: return "Bottom"
@@ -129,9 +133,9 @@ extension NSLayoutAttribute: CustomStringConvertible {
     
 }
 
-extension UIProgressViewStyle: CustomStringConvertible {
+extension UIProgressViewStyle: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .bar: return "Bar"
         case .default: return "Default"
@@ -140,9 +144,9 @@ extension UIProgressViewStyle: CustomStringConvertible {
     
 }
 
-extension UIActivityIndicatorViewStyle: CustomStringConvertible {
+extension UIActivityIndicatorViewStyle: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .gray: return "Small Gray"
         case .white: return "Small White"
@@ -152,9 +156,9 @@ extension UIActivityIndicatorViewStyle: CustomStringConvertible {
     
 }
 
-extension UIDatePickerMode: CustomStringConvertible {
+extension UIDatePickerMode: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .countDownTimer: return "Count Down Timer"
         case .date: return "Date"
@@ -165,9 +169,9 @@ extension UIDatePickerMode: CustomStringConvertible {
     
 }
 
-extension UIBarButtonItemStyle: CustomStringConvertible {
+extension UIBarButtonItemStyle: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .bordered: return "Bordered"
         case .done: return "Done"
@@ -177,9 +181,9 @@ extension UIBarButtonItemStyle: CustomStringConvertible {
     
 }
 
-extension UIBarButtonSystemItem: CustomStringConvertible {
+extension UIBarButtonSystemItem: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .action: return "Action"
         case .add: return "Add"
@@ -210,9 +214,9 @@ extension UIBarButtonSystemItem: CustomStringConvertible {
     
 }
 
-extension UIBarStyle: CustomStringConvertible {
+extension UIBarStyle: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .black: return "Black"
         case .blackTranslucent: return "Black Translucent"
@@ -222,9 +226,9 @@ extension UIBarStyle: CustomStringConvertible {
     
 }
 
-extension UITextFieldViewMode: CustomStringConvertible {
+extension UITextFieldViewMode: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .always: return "Always"
         case .never: return "Never"
@@ -235,9 +239,9 @@ extension UITextFieldViewMode: CustomStringConvertible {
     
 }
 
-extension UITextBorderStyle: CustomStringConvertible {
+extension UITextBorderStyle: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .bezel: return "Bezel"
         case .line: return "Line"
@@ -248,9 +252,9 @@ extension UITextBorderStyle: CustomStringConvertible {
     
 }
 
-extension UIImageOrientation: CustomStringConvertible {
+extension UIImageOrientation: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .down: return "Down"
         case .downMirrored: return "Down Mirrored"
@@ -265,9 +269,9 @@ extension UIImageOrientation: CustomStringConvertible {
     
 }
 
-extension UIImageResizingMode: CustomStringConvertible {
+extension UIImageResizingMode: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .stretch: return "Stretch"
         case .tile: return "Tile"
@@ -276,9 +280,9 @@ extension UIImageResizingMode: CustomStringConvertible {
     
 }
 
-extension UIImageRenderingMode: CustomStringConvertible {
+extension UIImageRenderingMode: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .alwaysOriginal: return "Original"
         case .alwaysTemplate: return "Template"
@@ -288,9 +292,9 @@ extension UIImageRenderingMode: CustomStringConvertible {
     
 }
 
-extension UIStatusBarStyle: CustomStringConvertible {
+extension UIStatusBarStyle: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .lightContent: return "Light Content"
         default: return "Default"
@@ -299,9 +303,9 @@ extension UIStatusBarStyle: CustomStringConvertible {
     
 }
 
-extension UIStatusBarAnimation: CustomStringConvertible {
+extension UIStatusBarAnimation: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .fade: return "Fade"
         case .none: return "None"
@@ -311,9 +315,9 @@ extension UIStatusBarAnimation: CustomStringConvertible {
     
 }
 
-extension UIModalTransitionStyle: CustomStringConvertible {
+extension UIModalTransitionStyle: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .coverVertical: return "Cross Vertical"
         case .crossDissolve: return "Cross Dissolve"
@@ -324,9 +328,9 @@ extension UIModalTransitionStyle: CustomStringConvertible {
     
 }
 
-extension UIModalPresentationStyle: CustomStringConvertible {
+extension UIModalPresentationStyle: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .currentContext: return "Current Context"
         case .custom: return "Custom"
@@ -343,9 +347,9 @@ extension UIModalPresentationStyle: CustomStringConvertible {
     
 }
 
-extension UIControlContentVerticalAlignment: CustomStringConvertible {
+extension UIControlContentVerticalAlignment: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .bottom: return "Bottom"
         case .center: return "Center"
@@ -356,9 +360,9 @@ extension UIControlContentVerticalAlignment: CustomStringConvertible {
     
 }
 
-extension UIControlContentHorizontalAlignment: CustomStringConvertible {
+extension UIControlContentHorizontalAlignment: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .left: return "Left"
         case .center: return "Center"
@@ -371,9 +375,9 @@ extension UIControlContentHorizontalAlignment: CustomStringConvertible {
     
 }
 
-extension UIButtonType: CustomStringConvertible {
+extension UIButtonType: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .custom: return "Custom"
         case .contactAdd: return "Add Contact"
@@ -387,9 +391,9 @@ extension UIButtonType: CustomStringConvertible {
     
 }
 
-extension UIDeviceBatteryState: CustomStringConvertible {
+extension UIDeviceBatteryState: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .charging: return "Charging"
         case .full: return "Full"
@@ -400,9 +404,9 @@ extension UIDeviceBatteryState: CustomStringConvertible {
     
 }
 
-extension UIInterfaceOrientation: CustomStringConvertible {
+extension UIInterfaceOrientation: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .landscapeLeft: return "Left"
         case .landscapeRight: return "Right"
@@ -414,9 +418,9 @@ extension UIInterfaceOrientation: CustomStringConvertible {
     
 }
 
-extension UIViewContentMode: CustomStringConvertible {
+extension UIViewContentMode: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .left: return "Left"
         case .right: return "Right"
@@ -436,9 +440,9 @@ extension UIViewContentMode: CustomStringConvertible {
     
 }
 
-extension UIViewTintAdjustmentMode: CustomStringConvertible {
+extension UIViewTintAdjustmentMode: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .automatic: return "Automatic"
         case .dimmed: return "Dimmed"
@@ -448,9 +452,9 @@ extension UIViewTintAdjustmentMode: CustomStringConvertible {
     
 }
 
-extension NSLineBreakMode: CustomStringConvertible {
+extension NSLineBreakMode: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .byCharWrapping: return "Character Wrap"
         case .byClipping: return "Clipped"
@@ -463,9 +467,9 @@ extension NSLineBreakMode: CustomStringConvertible {
     
 }
 
-extension NSTextAlignment: CustomStringConvertible {
+extension NSTextAlignment: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .center: return "Center"
         case .justified: return "Justified"
@@ -477,9 +481,9 @@ extension NSTextAlignment: CustomStringConvertible {
     
 }
 
-extension UIScrollViewIndicatorStyle: CustomStringConvertible {
+extension UIScrollViewIndicatorStyle: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .black: return "Black"
         case .default: return "Default"
@@ -489,9 +493,9 @@ extension UIScrollViewIndicatorStyle: CustomStringConvertible {
     
 }
 
-extension UIScrollViewKeyboardDismissMode: CustomStringConvertible {
+extension UIScrollViewKeyboardDismissMode: PeekDescribing {
     
-    public var description: String {
+    internal var displayName: String {
         switch self {
         case .interactive: return "Interactive"
         case .none: return "None"

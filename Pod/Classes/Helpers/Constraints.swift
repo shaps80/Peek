@@ -23,7 +23,7 @@
 import UIKit
 
 /// Defines a tuple of views that returns a constraint
-public typealias Constraint = (UIView, UIView) -> NSLayoutConstraint
+internal typealias Constraint = (UIView, UIView) -> NSLayoutConstraint
 
 extension NSLayoutConstraint {
     
@@ -45,7 +45,7 @@ extension NSLayoutConstraint {
 ///   - constant: The constant to apply to this constraint
 ///   - priority: The priority to apply to this constraint
 /// - Returns: A newly configured constraint
-public func equal<Axis, Anchor>(_ keyPath: KeyPath<UIView, Anchor>, constant: CGFloat = 0, priority: UILayoutPriority = .defaultHigh) -> Constraint where Anchor: NSLayoutAnchor<Axis> {
+internal func equal<Axis, Anchor>(_ keyPath: KeyPath<UIView, Anchor>, constant: CGFloat = 0, priority: UILayoutPriority = .defaultHigh) -> Constraint where Anchor: NSLayoutAnchor<Axis> {
     return equal(keyPath, keyPath, constant: constant, priority: priority)
 }
 
@@ -57,13 +57,13 @@ public func equal<Axis, Anchor>(_ keyPath: KeyPath<UIView, Anchor>, constant: CG
 ///   - constant: The constant to apply to this constraint
 ///   - priority: The priority to apply to this constraint
 /// - Returns: A newly configured constraint
-public func equal<Axis, Anchor>(_ keyPath: KeyPath<UIView, Anchor>, _ to: KeyPath<UIView, Anchor>, constant: CGFloat = 0, priority: UILayoutPriority = .defaultHigh) -> Constraint where Anchor: NSLayoutAnchor<Axis> {
+internal func equal<Axis, Anchor>(_ keyPath: KeyPath<UIView, Anchor>, _ to: KeyPath<UIView, Anchor>, constant: CGFloat = 0, priority: UILayoutPriority = .defaultHigh) -> Constraint where Anchor: NSLayoutAnchor<Axis> {
     return { view, parent in
         view[keyPath: keyPath].constraint(equalTo: parent[keyPath: to], constant: constant).with(priority: priority)
     }
 }
 
-public func sized<Anchor>(_ keyPath: KeyPath<UIView, Anchor>, constant: CGFloat, priority: UILayoutPriority = .defaultHigh) -> Constraint where Anchor: NSLayoutDimension {
+internal func sized<Anchor>(_ keyPath: KeyPath<UIView, Anchor>, constant: CGFloat, priority: UILayoutPriority = .defaultHigh) -> Constraint where Anchor: NSLayoutDimension {
     return { _, parent in
         parent[keyPath: keyPath].constraint(equalToConstant: constant).with(priority: priority)
     }
@@ -76,7 +76,7 @@ extension UIView {
     /// - Parameters:
     ///   - other: The other view this view will be added to
     ///   - constraints: The constraints to apply
-    public func addSubview(_ other: UIView, below view: UIView? = nil, constraints: [Constraint]) {
+    internal func addSubview(_ other: UIView, below view: UIView? = nil, constraints: [Constraint]) {
         if let view = view {
             insertSubview(other, belowSubview: view)
         } else {
@@ -87,7 +87,7 @@ extension UIView {
         pin(to: other, constraints: constraints)
     }
     
-    public func pin(to other: UIView, constraints: [Constraint]) {
+    internal func pin(to other: UIView, constraints: [Constraint]) {
         NSLayoutConstraint.activate(constraints.map { $0(self, other) })
     }
     

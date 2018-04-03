@@ -44,27 +44,29 @@ internal class PeekSectionedViewController: UIViewController, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "InspectorCell", for: indexPath) as? InspectorCell else { fatalError() }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "InspectorCell", for: indexPath) as! PeekInspectorCell
         
         cell.detailTextLabel?.font = UIFont.preferredFont(forTextStyle: .body)
-        cell.detailTextLabel?.textColor = .textLight
+        cell.detailTextLabel?.textColor = peek.options.theme.primaryTextColor
         cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
-        cell.textLabel?.textColor = .neutral
+        cell.textLabel?.textColor = peek.options.theme.secondaryTextColor
         
         cell.accessoryView = nil
         cell.accessoryType = .none
         cell.editingAccessoryView = nil
         cell.editingAccessoryType = .none
         
+        cell.selectedBackgroundView?.backgroundColor = peek.options.theme.selectedBackgroundColor
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "CollapsibleSectionHeaderView") as? CollapsibleSectionHeaderView else { fatalError() }
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "CollapsibleSectionHeaderView") as! CollapsibleSectionHeaderView
         header.contentView.backgroundColor = peek.options.theme.backgroundColor
         header.label.text = sectionTitle(for: section)
         header.label.font = UIFont.systemFont(ofSize: 15, weight: .black)
-        header.label.textColor = .textLight
+        header.label.textColor = peek.options.theme.primaryTextColor
         header.setExpanded(sectionIsExpanded(for: section))
         return header
     }
@@ -93,17 +95,10 @@ extension PeekSectionedViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.backgroundColor = peek.options.theme.backgroundColor
-        navigationController?.navigationBar.tintColor = .primaryTint
-        navigationController?.navigationBar.titleTextAttributes = [
-            .foregroundColor: UIColor.white,
-            .font: UIFont.systemFont(ofSize: 17, weight: .regular)
-        ]
+        navigationController?.navigationBar.tintColor = peek.options.theme.primaryTextColor
         
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
-            navigationController?.navigationBar.largeTitleTextAttributes = [
-                .foregroundColor: UIColor.white
-            ]
             
             guard navigationController?.viewControllers.count == 1 || self is ReportViewController else {
                 navigationItem.largeTitleDisplayMode = .never
@@ -111,9 +106,6 @@ extension PeekSectionedViewController {
             }
             
             navigationItem.largeTitleDisplayMode = .always
-            navigationController?.navigationBar.largeTitleTextAttributes = [
-                .foregroundColor: UIColor.white
-            ]
         }
     }
     
@@ -128,14 +120,15 @@ extension PeekSectionedViewController {
         
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = peek.options.theme.backgroundColor
-        tableView.separatorStyle = .none
+        tableView.separatorColor = peek.options.theme.separatorColor
+        tableView.separatorStyle = peek.options.theme == .light ? .singleLine : .none
         tableView.delegate = self
         tableView.dataSource = self
         
         tableView.allowsMultipleSelectionDuringEditing = true
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         
-        tableView.register(InspectorCell.self, forCellReuseIdentifier: "InspectorCell")
+        tableView.register(PeekInspectorCell.self, forCellReuseIdentifier: "InspectorCell")
         tableView.register(PreviewCell.self, forCellReuseIdentifier: "PreviewCell")
         tableView.register(CollapsibleSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: "CollapsibleSectionHeaderView")
         

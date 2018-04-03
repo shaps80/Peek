@@ -29,10 +29,8 @@ extension UIActivityIndicatorView {
         coordinator.appendDynamic(keyPaths: ["isAnimating"], forModel: self, in: .states)
         coordinator.appendDynamic(keyPaths: ["color"], forModel: self, in: .appearance)
         
-        coordinator.appendTransformed(keyPaths: ["activityIndicatorViewStyle"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let style = UIActivityIndicatorViewStyle(rawValue: rawValue) else { return nil }
-            return style.description
-        }, forModel: self, in: .appearance)
+        (coordinator as? SwiftCoordinator)?
+            .appendEnum(keyPath: "activityIndicatorViewStyle", into: UIActivityIndicatorViewStyle.self, forModel: self, group: .appearance)
         
         super.preparePeek(with: coordinator)
     }

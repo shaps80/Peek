@@ -25,12 +25,12 @@ import CoreGraphics
 /**
  *  Represents a color value type
  */
-public struct Color {
+internal struct Color {
     
     /// Represents the underlying RGBA values
-    public var rgba: RGBA
+    internal var rgba: RGBA
     
-    public typealias RGBA = (red: Float, green: Float, blue: Float, alpha: Float)
+    internal typealias RGBA = (red: Float, green: Float, blue: Float, alpha: Float)
     
     /**
      Initializes this color value with relative component values. e.g. (0.5, 0.2, 0.1, 1.0)
@@ -42,7 +42,7 @@ public struct Color {
      
      - returns: A new color value
      */
-    public init(red: Float, green: Float, blue: Float, alpha: Float = 1) {
+    internal init(red: Float, green: Float, blue: Float, alpha: Float = 1) {
         func clamp(_ value: Float) -> Float {
             return min(1, max(0, value))
         }
@@ -57,7 +57,7 @@ public struct Color {
      
      - returns: A new color value
      */
-    public func with(alpha: Float) -> Color {
+    internal func with(alpha: Float) -> Color {
         return Color(red: rgba.red, green: rgba.green, blue: rgba.blue, alpha: alpha)
     }
 }
@@ -74,7 +74,7 @@ extension Color {
      
      - returns: A new color value
      */
-    public init(literalRed red: Int, green: Int, blue: Int, alpha: Float = 1) {
+    internal init(literalRed red: Int, green: Int, blue: Int, alpha: Float = 1) {
         self.init(red: Float(red)/255, green: Float(green)/255, blue: Float(blue)/255, alpha: alpha)
     }
     
@@ -83,7 +83,7 @@ extension Color {
      
      - returns: The RGBA literal component values
      */
-    public func literalRGBA() -> RGBA {
+    internal func literalRGBA() -> RGBA {
         return RGBA(red: rgba.red * 255, green: rgba.green * 255, blue: rgba.blue * 255, alpha: rgba.alpha)
     }
     
@@ -97,7 +97,7 @@ extension Color {
      - parameter hex:   The hex value representing this color
      - parameter alpha: An optional alpha value. Defaults to 1.0
      */
-    public init?(hex: Int, alpha: Float? = nil) {
+    internal init?(hex: Int, alpha: Float? = nil) {
         self.init(hex: String(format: "%2X", hex), alpha: alpha)
     }
     
@@ -107,7 +107,7 @@ extension Color {
      - parameter hex:   The hex value representing this color
      - parameter alpha: An optional alpha value. Defaults to 1.0
      */
-    public init?(hex: String, alpha: Float? = nil) {
+    internal init?(hex: String, alpha: Float? = nil) {
         var hexValue = hex.hasPrefix("#") ? String(hex.dropFirst()) : hex
         guard [3, 4, 6].contains(hexValue.count) else { return nil }
         
@@ -134,7 +134,7 @@ extension Color {
      
      - returns: A hex string representation
      */
-    public func toHex(withAlpha: Bool = true) -> String {
+    internal func toHex(withAlpha: Bool = true) -> String {
         let alpha = withAlpha ? String(format: "%02X", Int(rgba.alpha * 255)) : ""
         return String(format: "%02X%02X%02X\(alpha)", Int(rgba.red * 255), Int(rgba.green * 255), Int(rgba.blue * 255))
     }
@@ -151,7 +151,7 @@ extension Color {
      
      - returns: A new color value
      */
-    public init(white: Float, alpha: Float = 1) {
+    internal init(white: Float, alpha: Float = 1) {
         self.init(red: white, green: white, blue: white, alpha: alpha)
     }
     
@@ -162,7 +162,7 @@ extension Color {
      
      - returns: A new color value
      */
-    public init?(cgColor: CGColor) {
+    internal init?(cgColor: CGColor) {
         guard let components = cgColor.components else { return nil }
         let red, green, blue, alpha: Float
         
@@ -182,7 +182,7 @@ extension Color {
     }
     
     /// Returns the CGColor representation of this color
-    public var cgColor: CGColor {
+    internal var cgColor: CGColor {
         return CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(),
                        components: [CGFloat(rgba.red), CGFloat(rgba.green), CGFloat(rgba.blue), CGFloat(rgba.alpha)])!
     }
@@ -192,7 +192,7 @@ extension Color {
 extension Color {
     
     /// Returns true if the color is considered visually dark. False otherwise
-    public var isDark: Bool {
+    internal var isDark: Bool {
         return (0.2126 * rgba.red + 0.7152 * rgba.green + 0.0722 * rgba.blue) < 0.5
     }
     
@@ -201,7 +201,7 @@ extension Color {
      
      - returns: A color that is the inverse of this color. e.g. white -> black
      */
-    public func inverted() -> Color {
+    internal func inverted() -> Color {
         return Color(red: 1 - rgba.red, green: 1 - rgba.green, blue: 1 - rgba.blue, alpha: rgba.alpha)
     }
     
@@ -209,28 +209,28 @@ extension Color {
 
 extension Color {
     
-    public static var black: Color { return Color(white: 0) }
-    public static var darkGray: Color { return Color(white: 0.333) }
-    public static var lightGray: Color { return Color(white: 0.667) }
-    public static var white: Color { return Color(white: 1) }
-    public static var gray: Color { return Color(white: 0.5) }
-    public static var red: Color { return Color(red: 1, green: 0, blue: 0) }
-    public static var green: Color { return Color(red: 0, green: 1, blue: 0) }
-    public static var blue: Color { return Color(red: 0, green: 0, blue: 1) }
-    public static var cyan: Color { return Color(red: 0, green: 1, blue: 1) }
-    public static var yellow: Color { return Color(red: 1, green: 1, blue: 0) }
-    public static var magenta: Color { return Color(red: 1, green: 0, blue: 1) }
-    public static var orange: Color { return Color(red: 1, green: 0.5, blue: 0) }
-    public static var purple: Color { return Color(red: 0.5, green: 0, blue: 0.5) }
-    public static var brown: Color { return Color(red: 0.6, green: 0.4, blue: 0.2) }
-    public static var clear: Color { return Color(white: 0, alpha: 0) }
+    internal static var black: Color { return Color(white: 0) }
+    internal static var darkGray: Color { return Color(white: 0.333) }
+    internal static var lightGray: Color { return Color(white: 0.667) }
+    internal static var white: Color { return Color(white: 1) }
+    internal static var gray: Color { return Color(white: 0.5) }
+    internal static var red: Color { return Color(red: 1, green: 0, blue: 0) }
+    internal static var green: Color { return Color(red: 0, green: 1, blue: 0) }
+    internal static var blue: Color { return Color(red: 0, green: 0, blue: 1) }
+    internal static var cyan: Color { return Color(red: 0, green: 1, blue: 1) }
+    internal static var yellow: Color { return Color(red: 1, green: 1, blue: 0) }
+    internal static var magenta: Color { return Color(red: 1, green: 0, blue: 1) }
+    internal static var orange: Color { return Color(red: 1, green: 0.5, blue: 0) }
+    internal static var purple: Color { return Color(red: 0.5, green: 0, blue: 0.5) }
+    internal static var brown: Color { return Color(red: 0.6, green: 0.4, blue: 0.2) }
+    internal static var clear: Color { return Color(white: 0, alpha: 0) }
     
 }
 
 extension Color: CustomStringConvertible {
     
     /// Returns a debug friendly description of this color. The string contains both a relative and literal representation as well as the associated hexValue
-    public var description: String {
+    internal var description: String {
         let color = literalRGBA()
         return "(\(color.red), \(color.green), \(color.blue), \(rgba.alpha)) \(toHex(withAlpha: true))"
     }
@@ -239,15 +239,15 @@ extension Color: CustomStringConvertible {
 
 extension Color: ExpressibleByStringLiteral {
     
-    public init(extendedGraphemeClusterLiteral value: String) {
+    internal init(extendedGraphemeClusterLiteral value: String) {
         self.init(hex: value)!
     }
     
-    public init(unicodeScalarLiteral value: String) {
+    internal init(unicodeScalarLiteral value: String) {
         self.init(hex: value)!
     }
     
-    public init(stringLiteral value: String) {
+    internal init(stringLiteral value: String) {
         self.init(hex: value)!
     }
     
@@ -255,7 +255,7 @@ extension Color: ExpressibleByStringLiteral {
 
 extension Color: Codable {
     
-    public init(from decoder: Decoder) throws {
+    internal init(from decoder: Decoder) throws {
         var container = try decoder.unkeyedContainer()
         let red = try container.decode(Float.self)
         let green = try container.decode(Float.self)
@@ -264,7 +264,7 @@ extension Color: Codable {
         rgba = RGBA(red: red, green: green, blue: blue, alpha: alpha)
     }
     
-    public func encode(to encoder: Encoder) throws {
+    internal func encode(to encoder: Encoder) throws {
         var container = encoder.unkeyedContainer()
         try container.encode(rgba.red)
         try container.encode(rgba.green)
@@ -276,7 +276,7 @@ extension Color: Codable {
 
 extension Color: Equatable {
     
-    public static func ==(lhs: Color, rhs: Color) -> Bool {
+    internal static func ==(lhs: Color, rhs: Color) -> Bool {
         return lhs.rgba.red == rhs.rgba.red
             && lhs.rgba.green == rhs.rgba.green
             && lhs.rgba.blue == rhs.rgba.blue
@@ -288,12 +288,12 @@ extension Color: Equatable {
 #if os(iOS)
     import UIKit
     extension Color {
-        public init?(systemColor: UIColor?) {
-            guard let systemColor = systemColor else { return nil }
-            self.init(cgColor: systemColor.cgColor)
+        internal init?(system: UIColor?) {
+            guard let system = system else { return nil }
+            self.init(cgColor: system.cgColor)
         }
         
-        public var systemColor: UIColor {
+        internal var system: UIColor {
             return UIColor(cgColor: cgColor)
         }
     }
@@ -302,12 +302,12 @@ extension Color: Equatable {
 #if os(OSX)
     import AppKit
     extension Color {
-        public init?(systemColor: NSColor?) {
+        internal init?(systemColor: NSColor?) {
             guard let systemColor = systemColor else { return nil }
             self.init(cgColor: color.cgColor)
         }
         
-        public var systemColor: NSColor {
+        internal var systemColor: NSColor {
             return NSColor(cgColor: cgColor)!
         }
     }
