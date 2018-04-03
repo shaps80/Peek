@@ -28,20 +28,10 @@ extension UIImage {
         let preview = renderingMode != .alwaysOriginal ? withRenderingMode(.alwaysTemplate) : self
         coordinator.appendPreview(image: preview, forModel: self)
         
-        coordinator.appendTransformed(keyPaths: ["renderingMode"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let mode = UIImageRenderingMode(rawValue: rawValue) else { return nil }
-            return mode.description
-        }, forModel: self, in: .appearance)
-        
-        coordinator.appendTransformed(keyPaths: ["resizingMode"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let mode = UIImageResizingMode(rawValue: rawValue) else { return nil }
-            return mode.description
-        }, forModel: self, in: .appearance)
-        
-        coordinator.appendTransformed(keyPaths: ["imageOrientation"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let mode = UIImageOrientation(rawValue: rawValue) else { return nil }
-            return mode.description
-        }, forModel: self, in: .appearance)
+        (coordinator as? SwiftCoordinator)?
+            .appendEnum(keyPath: "renderingMode", into: UIImageRenderingMode.self, forModel: self, group: .appearance)
+            .appendEnum(keyPath: "resizingMode", into: UIImageResizingMode.self, forModel: self, group: .appearance)
+            .appendEnum(keyPath: "imageOrientation", into: UIImageOrientation.self, forModel: self, group: .appearance)
         
         coordinator.appendDynamic(keyPaths: [
             "scale", "size", "capInsets", "alignmentRectInsets"

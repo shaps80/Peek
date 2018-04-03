@@ -29,10 +29,8 @@ extension UINavigationBar {
             "barTintColor", "translucent", "shadowImage"
         ], forModel: self, in: .appearance)
         
-        coordinator.appendTransformed(keyPaths: ["barStyle"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let style = UIBarStyle(rawValue: rawValue) else { return nil }
-            return style.description
-        }, forModel: self, in: .appearance)
+        (coordinator as? SwiftCoordinator)?
+            .appendEnum(keyPath: "barStyle", into: UIBarStyle.self, forModel: self, group: .appearance)
         
         super.preparePeek(with: coordinator)
     }

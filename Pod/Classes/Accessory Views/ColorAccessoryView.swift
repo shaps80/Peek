@@ -23,8 +23,9 @@
 import UIKit
 
 /// This accessory view is used in Peek to show an icon representing the underlying UIColor value
-final class ColorAccessoryView: UIView {
+final class ColorAccessoryView: UIView, PeekAccessoryProviding {
     
+    public var theme: PeekTheme = .dark
     fileprivate let color: UIColor?
     fileprivate let size = CGSize(width: 20, height: 20)
     private let margin: CGFloat = 8

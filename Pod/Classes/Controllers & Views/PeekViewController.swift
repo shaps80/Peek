@@ -105,7 +105,7 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     
     private func parseView(_ view: UIView) {
         for view in view.subviews {
-            if !view.shouldIgnore(options: peek.options) {
+            if view.isVisibleInOverlay(options: peek.options) {
                 models.append(view)
             }
             

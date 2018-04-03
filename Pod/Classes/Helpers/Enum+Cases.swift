@@ -7,11 +7,7 @@
 
 import Foundation
 
-internal protocol EnumCollection: Hashable {
-    static var all: [Self] { get }
-}
-
-internal extension EnumCollection {
+extension RawRepresentable where RawValue == Int, Self: Hashable {
     
     private static func cases() -> AnySequence<Self> {
         return AnySequence { () -> AnyIterator<Self> in
@@ -27,7 +23,7 @@ internal extension EnumCollection {
         }
     }
     
-    public static var all: [Self] {
+    internal static var all: [Self] {
         return Array(self.cases())
     }
 }

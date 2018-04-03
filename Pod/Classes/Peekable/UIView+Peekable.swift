@@ -109,11 +109,10 @@ extension UIView {
         ], forModel: self, in: .general)
         
         coordinator.appendDynamic(keyPaths: ["tintColor"], forModel: self, in: .appearance)
-        
-        coordinator.appendTransformed(keyPaths: ["tintAdjustmentMode"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let adjustmodeMode = UIViewTintAdjustmentMode(rawValue: rawValue) else { return nil }
-            return adjustmodeMode.description
-        }, forModel: self, in: .appearance)
+
+        (coordinator as? SwiftCoordinator)?
+            .appendEnum(keyPath: "tintAdjustmentMode", into: UIViewTintAdjustmentMode.self, forModel: self, group: .appearance)
+            .appendEnum(keyPath: "contentMode", into: UIViewContentMode.self, forModel: self, group: .layout)
         
         coordinator.appendDynamic(keyPaths: [
             "backgroundColor",
@@ -124,11 +123,6 @@ extension UIView {
             "clipsToBounds",
             "layer.masksToBounds",
         ], forModel: self, in: .appearance)
-        
-        coordinator.appendTransformed(keyPaths: ["contentMode"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let contentMode = UIViewContentMode(rawValue: rawValue) else { return nil }
-            return contentMode.description
-        }, forModel: self, in: .layout)
         
         coordinator.appendDynamic(keyPaths: [
             "frame",

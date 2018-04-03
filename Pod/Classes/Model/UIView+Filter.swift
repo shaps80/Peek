@@ -16,29 +16,29 @@ extension UIView {
      
      - returns: Returns true if Peek should ignore this view, false otherwise
      */
-    open override func shouldIgnore(options: PeekOptions) -> Bool {
+    internal override func isVisibleInOverlay(options: PeekOptions) -> Bool {
         let isContainer = isMember(of: UIView.self) && subviews.count > 0
-        if isContainer && options.ignoresContainerViews { return true }
+        if isContainer && options.ignoresContainerViews { return false }
         
         let isInvisible = isHidden || alpha == 0 || frame.equalTo(CGRect.zero)
-        if isInvisible { return true }
+        if isInvisible { return false }
         
         let isTableViewOrCell = isMember(of: UITableViewCell.self) || isMember(of: UITableView.self)
-        if isTableViewOrCell { return true }
+        if isTableViewOrCell { return false }
         
         let isCollectionView = isMember(of: UICollectionView.self)
-        if isCollectionView { return true }
+        if isCollectionView { return false }
         
         let isFullScreen = frame.equalTo(window?.bounds ?? UIScreen.main.bounds)
-        if isFullScreen { return true }
+        if isFullScreen { return false }
         
-        if String(describing: classForCoder).hasPrefix("_UIModern") { return false }
+        if String(describing: classForCoder).hasPrefix("_UIModern") { return true }
         
         let blacklist = [ "UIPickerTableView", "UIPickerColumnView", "UITableViewCellContentView" ]
         let className = String(describing: classForCoder)
         
         if className.hasPrefix("_") || blacklist.contains(className) {
-            return true
+            return false
         }
         
         let invalidContainerClassNames = [ "UINavigationButton" ]
@@ -46,14 +46,14 @@ extension UIView {
         
         while superview != nil {
             if superview?.isComponent == true {
-                return true
+                return false
             }
             
             // also need to check private internal classes
             for className in invalidContainerClassNames {
                 if let klass = NSClassFromString(className) {
                     if superview?.isMember(of: klass) ?? false {
-                        return true
+                        return false
                     }
                 }
             }
@@ -61,7 +61,7 @@ extension UIView {
             superview = superview?.superview
         }
         
-        return false
+        return true
     }
     
 }
