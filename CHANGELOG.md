@@ -2,6 +2,8 @@
 
 5.1.0
 
+Note: This will be the last release targetting Swift 4.0
+
 **[Added]**
 
 Peek now supports a Light theme
