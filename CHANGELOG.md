@@ -1,5 +1,23 @@
 # Changelog
 
+5.1.0
+
+**[Added]**
+
+Peek now supports a Light theme
+Peek now recommends alternate values for enum types
+Peek now provides a Static Library variant via Cocoapods: `pod 'PeekStatic'`
+Peek now supports Carthage
+
+**[Removed]**
+
+Classes and functions that should never have been public have been removed
+
+**[Fixed]**
+
+Fixing branch name in CONTRIBUTING.md and pull_request_template.md
+Lots of small refactors and optimizations thanks to @valeriyvan
+
 5.0 (Major Release)
 -
 
