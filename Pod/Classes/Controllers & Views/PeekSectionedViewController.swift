@@ -44,7 +44,7 @@ internal class PeekSectionedViewController: UIViewController, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "InspectorCell", for: indexPath) as? PeekInspectorCell else { fatalError() }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "InspectorCell", for: indexPath) as! PeekInspectorCell
         
         cell.detailTextLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         cell.detailTextLabel?.textColor = peek.options.theme.primaryTextColor
@@ -62,7 +62,7 @@ internal class PeekSectionedViewController: UIViewController, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "CollapsibleSectionHeaderView") as? CollapsibleSectionHeaderView else { fatalError() }
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "CollapsibleSectionHeaderView") as! CollapsibleSectionHeaderView
         header.contentView.backgroundColor = peek.options.theme.backgroundColor
         header.label.text = sectionTitle(for: section)
         header.label.font = UIFont.systemFont(ofSize: 15, weight: .black)
