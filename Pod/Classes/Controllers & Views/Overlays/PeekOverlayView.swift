@@ -7,7 +7,7 @@
 
 import UIKit
 
-internal protocol ViewModel: Peekable, Model {
+internal protocol ViewModel: Peekable {
     func frameInPeek(_ view: UIView) -> CGRect
 }
 
@@ -53,7 +53,7 @@ internal class PeekOverlayView: UIView {
     }()
     
     internal private(set) lazy var primarySelectionView: PeekSelectionView = {
-        let view = PeekSelectionView(borderColor: .primaryTint, borderWidth: 1.5)
+        let view = PeekSelectionView(borderColor: theme.overlayTintColor, borderWidth: 1.5)
         addSubview(view)
         return view
     }()
@@ -64,7 +64,10 @@ internal class PeekOverlayView: UIView {
         return view
     }()
     
-    internal init() {
+    internal private(set) var theme: PeekTheme
+    
+    internal init(theme: PeekTheme = .dark) {
+        self.theme = theme
         super.init(frame: .zero)
         
         if #available(iOS 11.0, *) {
@@ -128,22 +131,17 @@ internal class PeekOverlayView: UIView {
     }
     
     private func hitTest(at point: CGPoint) {
-        for (index, model) in zip(viewModels.indices, viewModels) {
-            let frame = model.frameInPeek(self)
-            
-            if frame.contains(point) {
-                if !indexesForSelectedItems.contains(index) {
-                    selectViewModel(at: index, animated: true)
-                    delegate?.didSelect(viewModel: model, in: self)
-                } else {
-                    if !isDragging {
-                        indexesForSelectedItems.reverse()
-                        updateHighlights(animated: true)
-                    }
-                }
-                
-                break
-            }
+        guard let (index, model) = zip(viewModels.indices, viewModels)
+            .first(where: { $0.1.frameInPeek(self).contains(point) })
+            else { return }
+        guard indexesForSelectedItems.contains(index) else {
+            selectViewModel(at: index, animated: true)
+            delegate?.didSelect(viewModel: model, in: self)
+            return
+        }
+        if !isDragging {
+            indexesForSelectedItems.reverse()
+            updateHighlights(animated: true)
         }
     }
     

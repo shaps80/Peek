@@ -27,7 +27,7 @@ import Foundation
  
  - missingContext:     The context could not be found or created
  */
-public enum RendererError: Error {
+internal enum RendererError: Error {
     case missingContext
     case invalidURL
 }
@@ -35,7 +35,7 @@ public enum RendererError: Error {
 /**
  *  Defines a renderer format
  */
-public protocol RendererFormat: class {
+internal protocol RendererFormat: class {
     
     /**
      Returns a default instance, configured for the current device
@@ -53,7 +53,7 @@ public protocol RendererFormat: class {
 /**
  *  Represents a drawable -- used to add drawing support to CGContext, RendererContext and UIGraphicsImageRendererContext
  */
-public protocol RendererDrawable {
+internal protocol RendererDrawable {
     
     var cgContext: CGContext { get }
     func fill(_ rect: CGRect)
@@ -67,13 +67,13 @@ public protocol RendererDrawable {
 /**
  *  Represents a renderer context, which provides additional drawing methods as well as access to the underlying CGContext
  */
-public protocol RendererContext: class, RendererDrawable {
+internal protocol RendererContext: class, RendererDrawable {
     associatedtype Format: RendererFormat
     var format: Format { get }
 }
 
 extension CGContext: RendererDrawable {
-    public var cgContext: CGContext {
+    internal var cgContext: CGContext {
         return self
     }
 }
@@ -87,7 +87,7 @@ extension UIGraphicsImageRendererContext: RendererDrawable { }
 /**
  *  Represents a renderer
  */
-public protocol Renderer: class {
+internal protocol Renderer: class {
     
     /// The associated context type this renderer will use
     associatedtype Context: RendererContext
@@ -104,14 +104,14 @@ public protocol Renderer: class {
 extension Renderer {
     
     /// Default implementation returns false
-    public var allowsImageOutput: Bool {
+    internal var allowsImageOutput: Bool {
         return false
     }
     
     /**
      Default implementation returns false
      */
-    public static func context(with format: RendererFormat) -> CGContext? {
+    internal static func context(with format: RendererFormat) -> CGContext? {
         return nil
     }
     

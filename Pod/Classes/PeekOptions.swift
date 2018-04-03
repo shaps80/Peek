@@ -38,15 +38,7 @@ public enum PeekActivationMode {
 public enum PeekTheme {
     case dark
     case black
-    // TODO
-    // case light
-    
-    internal var backgroundColor: UIColor? {
-        switch self {
-        case .dark: return .inspectorDark
-        case .black: return .inspectorBlack
-        }
-    }
+    case light
 }
 
 /// Defines various options to use when enabling Peek

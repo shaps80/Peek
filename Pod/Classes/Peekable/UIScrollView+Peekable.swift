@@ -35,20 +35,14 @@ extension UIScrollView {
             "alwaysBounceVertical",
         ], forModel: self, in: .appearance)
         
-        coordinator.appendTransformed(keyPaths: ["indicatorStyle"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let style = UIScrollViewIndicatorStyle(rawValue: rawValue) else { return nil }
-            return style.description
-        }, forModel: self, in: .appearance)
+        (coordinator as? SwiftCoordinator)?
+            .appendEnum(keyPath: "indicatorStyle", into: UIScrollViewIndicatorStyle.self, forModel: self, group: .appearance)
+            .appendEnum(keyPath: "keyboardDismissMode", into: UIScrollViewKeyboardDismissMode.self, forModel: self, group: .behaviour)
         
         coordinator.appendDynamic(keyPaths: [
             "contentOffset", "contentSize", "contentInset", "scrollIndicatorInsets"
         ], forModel: self, in: .layout)
-        
-        coordinator.appendTransformed(keyPaths: ["keyboardDismissMode"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let mode = UIScrollViewKeyboardDismissMode(rawValue: rawValue) else { return nil }
-            return mode.description
-        }, forModel: self, in: .behaviour)
-        
+
         coordinator.appendDynamic(keyPaths: [
             "showsHorizontalScrollIndicator",
             "showsVerticalScrollIndicator",

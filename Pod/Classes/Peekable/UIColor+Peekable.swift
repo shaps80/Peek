@@ -22,14 +22,14 @@
 
 import UIKit
 
-extension UIColor: Model {
+extension UIColor: Peekable {
     
     @objc var peek_alpha: CGFloat {
-        return CGFloat(Color(systemColor: self)?.rgba.alpha ?? 0)
+        return CGFloat(Color(system: self)?.rgba.alpha ?? 0)
     }
     
     @objc var peek_HEX: String {
-        if let hex = Color(systemColor: self)?.toHex(withAlpha: false) {
+        if let hex = Color(system: self)?.toHex(withAlpha: false) {
             return "#\(hex)"
         } else {
             return "Unknown"

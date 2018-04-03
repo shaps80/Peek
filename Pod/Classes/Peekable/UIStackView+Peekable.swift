@@ -10,20 +10,10 @@ import UIKit
 extension UIStackView {
     
     open override func preparePeek(with coordinator: Coordinator) {
-        coordinator.appendTransformed(keyPaths: ["axis"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let axis = UILayoutConstraintAxis(rawValue: rawValue) else { return nil }
-            return axis.description
-        }, forModel: self, in: .appearance)
-        
-        coordinator.appendTransformed(keyPaths: ["distribution"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let distribution = UIStackViewDistribution(rawValue: rawValue) else { return nil }
-            return distribution
-        }, forModel: self, in: .appearance)
-        
-        coordinator.appendTransformed(keyPaths: ["alignment"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let alignment = UIStackViewAlignment(rawValue: rawValue) else { return nil }
-            return alignment
-        }, forModel: self, in: .appearance)
+        (coordinator as? SwiftCoordinator)?
+            .appendEnum(keyPath: "axis", into: UILayoutConstraintAxis.self, forModel: self, group: .appearance)
+            .appendEnum(keyPath: "distribution", into: UIStackViewDistribution.self, forModel: self, group: .appearance)
+            .appendEnum(keyPath: "alignment", into: UIStackViewAlignment.self, forModel: self, group: .appearance)
         
         coordinator.appendDynamic(keyPaths: [
             "spacing"

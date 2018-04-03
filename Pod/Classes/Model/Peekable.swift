@@ -23,51 +23,112 @@
 import UIKit
 
 /**
- *  Defines a view or object that Peek can provide inspectors for
+ Defines a view or object that Peek can provide inspectors for
+ Represents a type that can be inspected by Peek.
+ 
+ @note
+ Currently this requires conformance to NSObjectProtocol since
+ KVC is heavily used by Peek Inspectors.
  */
 @objc public protocol Peekable: NSObjectProtocol {
-    var classForCoder: AnyClass { get }
     
-    func shouldIgnore(options: PeekOptions) -> Bool
+    /// Overide this in your NSObject subclass to provide custom attributes for Peek to inspect.
+    ///
+    /// - Parameter coordinator: The coordinator is your interface into Peek's running instance.
     func preparePeek(with coordinator: Coordinator)
-    func titleForPeekReport() -> String
-}
-
-@objc public protocol PeekInspectorNestable: Peekable, Model { }
-
-extension CALayer: PeekInspectorNestable { }
-extension UIView: PeekInspectorNestable { }
-extension UIColor: PeekInspectorNestable { }
-extension UIImage: PeekInspectorNestable { }
-extension UIFont: PeekInspectorNestable { }
-extension UIFontDescriptor: PeekInspectorNestable { }
-extension UIBarButtonItem: PeekInspectorNestable { }
-extension NSLayoutConstraint: PeekInspectorNestable { }
-extension NSAttributedString: PeekInspectorNestable { }
-extension UIViewController: PeekInspectorNestable { }
-extension UIScreen: PeekInspectorNestable { }
-extension UIDevice: PeekInspectorNestable { }
-extension UIApplication: PeekInspectorNestable { }
-extension Bundle: PeekInspectorNestable { }
-extension NSShadow: PeekInspectorNestable { }
-extension NSString: PeekIgnoresSubViews { }
-
-extension NSObject: Peekable {
     
     /**
-     Gives the caller an opportunity to configure Peek with additional attributes
-     
-     - parameter coordinator: The coordinator to prepare
+     @see `NSObject` `classForCoder` documentation
      */
+    var classForCoder: AnyClass { get }
+    
+    /**
+     @see `NSObject` `value(forKeyPath:)` documentation
+    */
+    func value(forKeyPath: String) -> Any?
+}
+
+@objc internal protocol InternalPeekable: Peekable {
+    
+    /**
+     This value is used to determine where nested inspection is possible.
+     Common examples are fonts, colors, constraints, etc...
+     To enable nested inspection of a new type, override this value and return true.
+     */
+    var isLeaf: Bool { get }
+    
+    /**
+     Some views contain other views, for example a button or slider.
+     When inspecting your UI its often simpler to reveal only the button
+     and then perform deeper inspection via Peek's Inspectors.
+     To enable this behaviour, override this value and return true.
+     */
+    var isComponent: Bool { get }
+    
+    /**
+     This value will be used to populate the title of your report for the
+     selected view.
+     
+     @note
+     This value may be a concatenation of similar titles
+     to indicate the path of the current value.
+     
+     @example
+     `TimelineViewController ▹ Button ▹ TintColor`
+     */
+    var reportTitle: String { get }
+    
+    /// Return true if this object should be visible in Peek's overlay selector
+    ///
+    /// - Parameter options: The current options for Peek
+    /// - Returns: True if this object should be visible in Peek's overlay. False otherwise.
+//    func isVisibleInOverlay(options: PeekOptions) -> Bool
+    
+}
+
+extension CALayer { override var isLeaf: Bool { return false } }
+extension UIView { override var isLeaf: Bool { return false } }
+extension UIColor { override var isLeaf: Bool { return false } }
+extension UIImage { override var isLeaf: Bool { return false } }
+extension UIFont { override var isLeaf: Bool { return false } }
+extension UIFontDescriptor { override var isLeaf: Bool { return false } }
+extension UIBarButtonItem { override var isLeaf: Bool { return false } }
+extension NSLayoutConstraint { override var isLeaf: Bool { return false } }
+extension NSAttributedString { override var isLeaf: Bool { return false } }
+extension UIViewController { override var isLeaf: Bool { return false } }
+extension UIScreen { override var isLeaf: Bool { return false } }
+extension UIDevice { override var isLeaf: Bool { return false } }
+extension UIApplication { override var isLeaf: Bool { return false } }
+extension Bundle { override var isLeaf: Bool { return false } }
+extension NSShadow { override var isLeaf: Bool { return false } }
+
+extension UISwitch { override var isComponent: Bool { return true } }
+extension UISlider { override var isComponent: Bool { return true } }
+extension UIButton { override var isComponent: Bool { return true } }
+extension UIStepper { override var isComponent: Bool { return true } }
+extension UITextField { override var isComponent: Bool { return true } }
+extension UITextView { override var isComponent: Bool { return true } }
+extension UIPageControl { override var isComponent: Bool { return true } }
+extension UIProgressView { override var isComponent: Bool { return true } }
+extension UIActivityIndicatorView { override var isComponent: Bool { return true } }
+extension UISegmentedControl { override var isComponent: Bool { return true } }
+extension UIDatePicker { override var isComponent: Bool { return true } }
+
+extension NSObject: InternalPeekable {
+    
+    @objc internal var isLeaf: Bool { return true }
+    @objc internal var isComponent: Bool { return false }
     @objc open func preparePeek(with coordinator: Coordinator) { }
     
-    @objc public func titleForPeekReport() -> String {
+    @objc internal var reportTitle: String {
         if let view = self as? UIView {
             return "\(String(describing: view.owningViewController()!.classForCoder)) ▹ \(String(describing: classForCoder))"
         } else {
             return "\(String(describing: classForCoder))"
         }
     }
+    
+    @objc internal func isVisibleInOverlay(options: PeekOptions) -> Bool { return false }
     
     /**
      Determines if Peek should ignore this type when parsing it into a model
@@ -76,81 +137,6 @@ extension NSObject: Peekable {
      
      - returns: Returns true if Peek should ignore this type, false otherwise
      */
-    public func shouldIgnore(options: PeekOptions) -> Bool {
-        return false
-    }
+    @available(*, obsoleted: 5.0.1, message: "Overriding this method no longer has any impact on Peek's inspection")
+    @objc public func shouldIgnore(options: PeekOptions) -> Bool { return false }
 }
-
-extension UIView {
-    
-    /**
-     Determines if Peek should ignore this view when parsing it into a model
-     
-     - parameter peek: The Peek instance
-     
-     - returns: Returns true if Peek should ignore this view, false otherwise
-     */
-    public override func shouldIgnore(options: PeekOptions) -> Bool {
-        let isContainer = isMember(of: UIView.self) && subviews.count > 0
-        if isContainer && options.ignoresContainerViews { return true }
-        
-        let isInvisible = isHidden || alpha == 0 || frame.equalTo(CGRect.zero)
-        if isInvisible { return true }
-        
-        let isTableViewOrCell = isMember(of: UITableViewCell.self) || isMember(of: UITableView.self)
-        if isTableViewOrCell { return true }
-        
-        let isCollectionView = isMember(of: UICollectionView.self)
-        if isCollectionView { return true }
-        
-        let isFullScreen = frame.equalTo(window?.bounds ?? UIScreen.main.bounds)
-        if isFullScreen { return true }
-        
-        if String(describing: classForCoder).hasPrefix("_UIModern") { return false }
-        
-        let blacklist = [ "UIPickerTableView", "UIPickerColumnView", "UITableViewCellContentView" ]
-        let className = String(describing: classForCoder)
-        
-        if className.hasPrefix("_") || blacklist.contains(className) {
-            return true
-        }
-        
-        let invalidContainerClassNames = [ "UINavigationButton" ]
-        var superview = self.superview
-        
-        while superview != nil {
-            if superview is PeekIgnoresSubViews {
-                return true
-            }
-            
-            // also need to check private internal classes
-            for className in invalidContainerClassNames {
-                if let klass = NSClassFromString(className) {
-                    if superview?.isMember(of: klass) ?? false {
-                        return true
-                    }
-                }
-            }
-            
-            superview = superview?.superview
-        }
-        
-        return false
-    }
-    
-}
-
-// This is a BAD name. What we really want to articulate here is that the scanner should stop at these views and not recurse deeper. Effectively treating these views as a leaf
-public protocol PeekIgnoresSubViews { }
-
-extension UISwitch: PeekIgnoresSubViews { }
-extension UISlider: PeekIgnoresSubViews { }
-extension UIButton: PeekIgnoresSubViews { }
-extension UIStepper: PeekIgnoresSubViews { }
-extension UITextField: PeekIgnoresSubViews { }
-extension UITextView: PeekIgnoresSubViews { }
-extension UIPageControl: PeekIgnoresSubViews { }
-extension UIProgressView: PeekIgnoresSubViews { }
-extension UIActivityIndicatorView: PeekIgnoresSubViews { }
-extension UISegmentedControl: PeekIgnoresSubViews { }
-extension UIDatePicker: PeekIgnoresSubViews { }

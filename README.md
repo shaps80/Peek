@@ -8,7 +8,7 @@
 
 # Peek: All new design
 
-Peek 5.0 with an all new design and all new features. Whether you're a developer, designer or QA/tester, Peek can help you at all stages of your development process.
+Peek 5 with an all new design and all new features. Whether you're a developer, designer or QA/tester, Peek can help you at all stages of your development process.
 
 [Watch the Promo][vimeo] to see it in action.
 
@@ -59,7 +59,7 @@ The simplest way to integrate Peek into your project is to use `Cocoapods` or `C
 pod 'Peek', :configurations => ['Debug']
 
 # Carthage
-github `shaps80/Peek` ~> 5.0.1
+github "shaps80/Peek" ~> 5.1.0
 ```
 
 You only need 1 line of code to enable Peek in your application:
@@ -144,7 +144,7 @@ Peek allows many options to be configured, allowing you more control over how Pe
 ```swift
 window?.peek.enableWithOptions { options in
     options.theme = .black
-    options.activationMode = .Auto
+    options.activationMode = .auto
     options.shouldIgnoreContainers = true
   
     /*

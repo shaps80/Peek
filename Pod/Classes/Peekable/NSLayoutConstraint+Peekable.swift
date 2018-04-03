@@ -22,9 +22,9 @@
 
 import UIKit
 
-extension NSLayoutConstraint {
+extension NSLayoutConstraint: PeekDescribing {
     
-    open override var description: String {
+    internal var displayName: String {
         var name = "\(perform(Selector(("asciiArtDescription"))))".components(separatedBy: ": ").last
         
         if name == "nil" {
@@ -50,28 +50,22 @@ extension NSLayoutConstraint {
             "shouldBeArchived"
         ], forModel: self, in: .behaviour)
         
-        coordinator.appendTransformed(keyPaths: ["secondAttribute"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let attribute = NSLayoutAttribute(rawValue: rawValue) else { return nil }
-            return attribute.description
-        }, forModel: self, in: .general)
+        (coordinator as? SwiftCoordinator)?
+            .appendEnum(keyPath: "firstAttribute", into: NSLayoutAttribute.self, forModel: self, group: .general)
+        
+        coordinator.appendDynamic(keyPaths: ["peek_firstItem"], forModel: self, in: .general)
+        
+        (coordinator as? SwiftCoordinator)?
+            .appendEnum(keyPath: "secondAttribute", into: NSLayoutAttribute.self, forModel: self, group: .general)
         
         coordinator.appendDynamic(keyPaths: ["peek_secondItem"], forModel: self, in: .general)
         
-        coordinator.appendTransformed(keyPaths: ["firstAttribute"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let attribute = NSLayoutAttribute(rawValue: rawValue) else { return nil }
-            return attribute.description
-        }, forModel: self, in: .general)
-        
-        coordinator.appendDynamic(keyPaths: ["peek_firstItem"], forModel: self, in: .general)
+        (coordinator as? SwiftCoordinator)?
+            .appendEnum(keyPath: "relation", into: NSLayoutRelation.self, forModel: self, group: .general)
         
         coordinator.appendDynamic(keyPaths: [
             "constant", "multiplier", "priority"
         ], forModel: self, in: .layout)
-        
-        coordinator.appendTransformed(keyPaths: ["relation"], valueTransformer: { value in
-            guard let rawValue = value as? Int, let relation = NSLayoutRelation(rawValue: rawValue) else { return nil }
-            return relation.description
-        }, forModel: self, in: .layout)
         
         super.preparePeek(with: coordinator)
     }

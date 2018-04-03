@@ -51,7 +51,7 @@ public final class Peek: NSObject {
     var supportedOrientations = UIInterfaceOrientationMask.all
     unowned var peekingWindow: UIWindow // since this is the app's window, we don't want to retain it!
     
-    fileprivate var activationController: PeekActivationController?
+    fileprivate var activationController: PeekActivating?
     fileprivate var volumeController: VolumeController?
     fileprivate(set) var options = PeekOptions()
     fileprivate(set) var window: UIWindow? // this is the Peek Overlay window, so we have to retain it!
@@ -127,12 +127,8 @@ public final class Peek: NSObject {
             return
         }
         
-        var isSimulator = false
-        #if (arch(i386) || arch(x86_64))
-            isSimulator = true
-        #endif
-        
-        if (options.activationMode == .auto && isSimulator) || options.activationMode == .shake {
+        if (options.activationMode == .auto && UIDevice.current.isSimulator)
+            || options.activationMode == .shake {
             handleActivation()
         }
     }
@@ -140,8 +136,8 @@ public final class Peek: NSObject {
     private func handleActivation() {
         if let nav = window?.rootViewController?.presentedViewController as? UINavigationController {
             let inspectors = nav.viewControllers.flatMap { $0 as? PeekInspectorViewController }
-            
-            if (inspectors.filter { $0.tableView.isEditing }).count == 0 {
+
+            if inspectors.first(where: { $0.tableView.isEditing }) == nil {
                 nav.dismiss(animated: true, completion: nil)
             }
             
@@ -170,12 +166,7 @@ public final class Peek: NSObject {
     fileprivate func configureWithOptions(_ options: PeekOptions) {
         self.options = options
         
-        var isSimulator = false
-        #if (arch(i386) || arch(x86_64))
-            isSimulator = true
-        #endif
-        
-        if options.activationMode == .auto && !isSimulator {
+        if options.activationMode == .auto && !UIDevice.current.isSimulator {
             activationController = VolumeController(peek: self, handleActivation: handleActivation)
         }
     }

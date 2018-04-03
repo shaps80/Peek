@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		540B99E22053FCAF0086FF61 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540B99E12053FCAF0086FF61 /* AppDelegate.swift */; };
-		540B99E42053FCAF0086FF61 /* TimlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540B99E32053FCAF0086FF61 /* TimlineViewController.swift */; };
+		540B99E42053FCAF0086FF61 /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540B99E32053FCAF0086FF61 /* TimelineViewController.swift */; };
 		540B99E72053FCAF0086FF61 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 540B99E52053FCAF0086FF61 /* Main.storyboard */; };
 		540B99E92053FCAF0086FF61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 540B99E82053FCAF0086FF61 /* Assets.xcassets */; };
 		540B99EC2053FCAF0086FF61 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 540B99EA2053FCAF0086FF61 /* LaunchScreen.storyboard */; };
@@ -24,7 +24,7 @@
 		25235662A734B5CC098E5A5F /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		540B99DF2053FCAF0086FF61 /* NotTwitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotTwitter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		540B99E12053FCAF0086FF61 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		540B99E32053FCAF0086FF61 /* TimlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimlineViewController.swift; sourceTree = "<group>"; };
+		540B99E32053FCAF0086FF61 /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
 		540B99E62053FCAF0086FF61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		540B99E82053FCAF0086FF61 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		540B99EB2053FCAF0086FF61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -32,6 +32,11 @@
 		542668D92054064500F6B016 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		54533DEB1C66D1DB00527626 /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
 		54533DED1C66D1DB00527626 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		5472753920695D9100F1A975 /* PeekStatic.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = PeekStatic.podspec; path = ../PeekStatic.podspec; sourceTree = "<group>"; };
+		5472753A20695E7300F1A975 /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = CONTRIBUTING.md; path = ../CONTRIBUTING.md; sourceTree = "<group>"; };
+		5472753B20695E7300F1A975 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = CHANGELOG.md; path = ../CHANGELOG.md; sourceTree = "<group>"; };
+		5472753C20695E7300F1A975 /* CODE_OF_CONDUCT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = CODE_OF_CONDUCT.md; path = ../CODE_OF_CONDUCT.md; sourceTree = "<group>"; };
+		5472753D20695E7B00F1A975 /* pull_request_template.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = pull_request_template.md; path = ../pull_request_template.md; sourceTree = "<group>"; };
 		54A1D79A206859920088079D /* Peek.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Peek.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		54E8B9A32054085000CEEFA3 /* Theming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theming.swift; sourceTree = "<group>"; };
 		54E8B9A520540A0C00CEEFA3 /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
@@ -60,7 +65,7 @@
 			children = (
 				54E8B9A32054085000CEEFA3 /* Theming.swift */,
 				540B99E12053FCAF0086FF61 /* AppDelegate.swift */,
-				540B99E32053FCAF0086FF61 /* TimlineViewController.swift */,
+				540B99E32053FCAF0086FF61 /* TimelineViewController.swift */,
 				542668D92054064500F6B016 /* TextView.swift */,
 				54E8B9A520540A0C00CEEFA3 /* Cell.swift */,
 				540B99E52053FCAF0086FF61 /* Main.storyboard */,
@@ -75,7 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				540B99E02053FCAF0086FF61 /* NotTwitter */,
-				607FACF51AFB993E008FA782 /* Podspec Metadata */,
+				607FACF51AFB993E008FA782 /* Metadata */,
 				607FACD11AFB9204008FA782 /* Products */,
 				E2E8F8A85E45DCC5960CA27A /* Frameworks */,
 				D4D18AA6335E7D0726702C3B /* Pods */,
@@ -92,14 +97,19 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
+		607FACF51AFB993E008FA782 /* Metadata */ = {
 			isa = PBXGroup;
 			children = (
 				2294D63777F3A53CCD6C4977 /* Peek.podspec */,
-				25235662A734B5CC098E5A5F /* README.md */,
+				5472753920695D9100F1A975 /* PeekStatic.podspec */,
 				97CF41E9D825DEAA39984224 /* LICENSE */,
+				25235662A734B5CC098E5A5F /* README.md */,
+				5472753B20695E7300F1A975 /* CHANGELOG.md */,
+				5472753C20695E7300F1A975 /* CODE_OF_CONDUCT.md */,
+				5472753A20695E7300F1A975 /* CONTRIBUTING.md */,
+				5472753D20695E7B00F1A975 /* pull_request_template.md */,
 			);
-			name = "Podspec Metadata";
+			name = Metadata;
 			sourceTree = "<group>";
 		};
 		D4D18AA6335E7D0726702C3B /* Pods */ = {
@@ -254,7 +264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				542668DA2054064500F6B016 /* TextView.swift in Sources */,
-				540B99E42053FCAF0086FF61 /* TimlineViewController.swift in Sources */,
+				540B99E42053FCAF0086FF61 /* TimelineViewController.swift in Sources */,
 				54E8B9A42054085000CEEFA3 /* Theming.swift in Sources */,
 				540B99E22053FCAF0086FF61 /* AppDelegate.swift in Sources */,
 				54E8B9A620540A0C00CEEFA3 /* Cell.swift in Sources */,
