@@ -32,7 +32,7 @@
 		542668D92054064500F6B016 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		54533DEB1C66D1DB00527626 /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
 		54533DED1C66D1DB00527626 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
-		5472753920695D9100F1A975 /* Peek-Static.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = "Peek-Static.podspec"; path = "../Peek-Static.podspec"; sourceTree = "<group>"; };
+		5472753920695D9100F1A975 /* PeekStatic.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = PeekStatic.podspec; path = ../PeekStatic.podspec; sourceTree = "<group>"; };
 		5472753A20695E7300F1A975 /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = CONTRIBUTING.md; path = ../CONTRIBUTING.md; sourceTree = "<group>"; };
 		5472753B20695E7300F1A975 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = CHANGELOG.md; path = ../CHANGELOG.md; sourceTree = "<group>"; };
 		5472753C20695E7300F1A975 /* CODE_OF_CONDUCT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = CODE_OF_CONDUCT.md; path = ../CODE_OF_CONDUCT.md; sourceTree = "<group>"; };
@@ -101,7 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				2294D63777F3A53CCD6C4977 /* Peek.podspec */,
-				5472753920695D9100F1A975 /* Peek-Static.podspec */,
+				5472753920695D9100F1A975 /* PeekStatic.podspec */,
 				97CF41E9D825DEAA39984224 /* LICENSE */,
 				25235662A734B5CC098E5A5F /* README.md */,
 				5472753B20695E7300F1A975 /* CHANGELOG.md */,
