@@ -34,7 +34,7 @@ public final class Peek: NSObject {
     internal var screenshot: UIImage?
     
     /// Enables/disables Peek
-    public var enabled: Bool = false {
+    @objc public var enabled: Bool = false {
         didSet {
             if enabled {
                 configureWithOptions(options)
@@ -122,7 +122,7 @@ public final class Peek: NSObject {
      On iOS 10+ call this from your rootViewController. Otherwise use your AppDelegate. This will only activate/deactivate Peek when activationMode == .Shake or the app is being run from the Simulator. On iOS 10+ this will also dismiss the Inspectors view when visible.
      - parameter motion: The motion events to handle
      */
-    public func handleShake(_ motion: UIEventSubtype) {
+    @objc public func handleShake(_ motion: UIEventSubtype) {
         if motion != .motionShake || !enabled {
             return
         }
@@ -156,7 +156,7 @@ public final class Peek: NSObject {
      
      - parameter options: The options to use for configuring Peek
      */
-    public func enableWithOptions(_ options: (_ options: PeekOptions) -> Void) {
+    @objc public func enableWithOptions(_ options: (_ options: PeekOptions) -> Void) {
         let opts = PeekOptions()
         options(opts)
         self.options = opts
