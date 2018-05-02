@@ -1,5 +1,12 @@
 # Changelog
 
+5.2.0
+
+- Swift 4.1 support
+- Objective-C support returns
+- Minor refactoring/cleanup
+- 
+
 5.1.0
 
 Note: This will be the last release targetting Swift 4.0

@@ -166,6 +166,20 @@ Peek is officially supported (and tested) with the following configurations:
 
 - iOS 9.0+ (Swift and Objective-C)
 
+> Note: if you're having issues with Swift versions when using Cocoapods, try adding the following to your `Podfile`:
+
+```ruby
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        if target.name == "Peek" then
+            target.build_configurations.each do |config|
+                config.build_settings['SWIFT_VERSION'] = '4.0'
+            end
+        end
+    end
+end
+```
+
 # Swift Versions
 
 **Swift 4.x**
