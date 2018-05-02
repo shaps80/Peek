@@ -27,14 +27,14 @@ struct PeekAssociationKey {
 }
 
 /// The primary class where Peek can be activated/disabled
-public final class Peek: NSObject {
+@objc public final class Peek: NSObject {
     
     /// Returns true if Peek is already being presented -- this is to prevent
-    public static var isAlreadyPresented: Bool = false
+    @objc public static var isAlreadyPresented: Bool = false
     internal var screenshot: UIImage?
     
     /// Enables/disables Peek
-    public var enabled: Bool = false {
+    @objc public var enabled: Bool = false {
         didSet {
             if enabled {
                 configureWithOptions(options)
@@ -64,7 +64,7 @@ public final class Peek: NSObject {
     /**
      Presents Peek
      */
-    public func present() {
+    @objc public func present() {
         guard enabled else {
             print("Peek is disabled!")
             return
@@ -100,7 +100,7 @@ public final class Peek: NSObject {
     /**
      Dismisses Peek
      */
-    public func dismiss() {
+    @objc public func dismiss() {
         UIView.animate(withDuration: 0.25, animations: { () -> Void in
             self.window?.alpha = 0
         }, completion: { (_) -> Void in
@@ -122,7 +122,7 @@ public final class Peek: NSObject {
      On iOS 10+ call this from your rootViewController. Otherwise use your AppDelegate. This will only activate/deactivate Peek when activationMode == .Shake or the app is being run from the Simulator. On iOS 10+ this will also dismiss the Inspectors view when visible.
      - parameter motion: The motion events to handle
      */
-    public func handleShake(_ motion: UIEventSubtype) {
+    @objc public func handleShake(_ motion: UIEventSubtype) {
         if motion != .motionShake || !enabled {
             return
         }
@@ -156,7 +156,7 @@ public final class Peek: NSObject {
      
      - parameter options: The options to use for configuring Peek
      */
-    public func enableWithOptions(_ options: (_ options: PeekOptions) -> Void) {
+    @objc public func enableWithOptions(_ options: (_ options: PeekOptions) -> Void) {
         let opts = PeekOptions()
         options(opts)
         self.options = opts

@@ -34,19 +34,15 @@ final class NumberTransformer: Foundation.ValueTransformer {
     }
     
     override func transformedValue(_ value: Any?) -> Any? {
-        if let value = value as? NSNumber, value.isBool() {
+        guard let number = value as? NSNumber, !number.isBool() else {
             return nil
         }
-        
-        if let value = value as? NSNumber, value.isFloat() {
-            return NumberTransformer.floatFormatter.string(from: value)!
+
+        if number.isFloat() {
+            return NumberTransformer.floatFormatter.string(from: number)!
         }
-        
-        if let value = value as? NSNumber {
-            return "\(value)"
-        }
-        
-        return nil
+
+        return "\(number)"
     }
     
     override class func allowsReverseTransformation() -> Bool {
