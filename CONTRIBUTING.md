@@ -5,6 +5,7 @@
 3. No new dependencies will be accepted
 4. Extensions support
 5. Always use SwiftLint to ensure coding styles are met
+6. Make sure you pull all recent changes from `develop` and fix any conflicts
 
 ## Pull Requests
 
