@@ -38,6 +38,8 @@
 		54BA18A32069429A002B9C5B /* UIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA18A22069429A002B9C5B /* UIDevice+Extensions.swift */; };
 		54C7DFF020694CA3001E383D /* UIView+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C7DFEF20694CA3001E383D /* UIView+Filter.swift */; };
 		54CF22A4D3EF233CB7DFA953701CC705 /* Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7728391455F1D6CDE04777AE9594C3 /* Peekable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		54FC8B71209C5E7400FA1B0F /* Bool+Toggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FC8B70209C5E7400FA1B0F /* Bool+Toggle.swift */; };
+		54FC8B73209C5EC500FA1B0F /* Collection+NilOrEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FC8B72209C5EC500FA1B0F /* Collection+NilOrEmpty.swift */; };
 		5542FF14BD626A9583991667176B92ED /* UIPageControl+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82C2EF0097E2C3CD3FBB1D84188D45D /* UIPageControl+Peekable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		570AE69F67442A6AD8508A05332C6787 /* UIDevice+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D179539BADBCE6D387E74D35404C3494 /* UIDevice+Peekable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		5E98F4A7009B88E3E7393B738E86487D /* UIButton+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3F848DF631BA320E0F8FD6D5A20A9B /* UIButton+Peekable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -156,6 +158,8 @@
 		549D7637206BB57A000738A0 /* PeekAccessoryProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeekAccessoryProviding.swift; sourceTree = "<group>"; };
 		54BA18A22069429A002B9C5B /* UIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extensions.swift"; sourceTree = "<group>"; };
 		54C7DFEF20694CA3001E383D /* UIView+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Filter.swift"; sourceTree = "<group>"; };
+		54FC8B70209C5E7400FA1B0F /* Bool+Toggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Toggle.swift"; sourceTree = "<group>"; };
+		54FC8B72209C5EC500FA1B0F /* Collection+NilOrEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+NilOrEmpty.swift"; sourceTree = "<group>"; };
 		554BA39873CF7632FAC9ADF893AD16C6 /* UIImage+Resize.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
 		582F2B9B55C29DD6FA9207FA424CDA50 /* UIBarButtonItem+Peekable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Peekable.swift"; sourceTree = "<group>"; };
 		5A99C53FAF3871FA288EF835E3CC8F92 /* ColorAccessoryView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ColorAccessoryView.swift; sourceTree = "<group>"; };
@@ -525,6 +529,8 @@
 				D4090306352B4CABF6042647FDD565E7 /* UIViewController+Extensions.swift */,
 				61717C4EB7EC219A8D8E39C2E049B576 /* UIWindow+Extensions.swift */,
 				54BA18A22069429A002B9C5B /* UIDevice+Extensions.swift */,
+				54FC8B70209C5E7400FA1B0F /* Bool+Toggle.swift */,
+				54FC8B72209C5EC500FA1B0F /* Collection+NilOrEmpty.swift */,
 			);
 			name = Helpers;
 			path = Pod/Classes/Helpers;
@@ -694,6 +700,7 @@
 				209265F03626402DEC31E42E29AAEFED /* PDFRenderer.swift in Sources */,
 				05959B60255A3EF6D34A3379E0972A64 /* Peek-dummy.m in Sources */,
 				03B4E7E79E6D12C34C243F75DD5B5032 /* Peek.swift in Sources */,
+				54FC8B73209C5EC500FA1B0F /* Collection+NilOrEmpty.swift in Sources */,
 				54CF22A4D3EF233CB7DFA953701CC705 /* Peekable.swift in Sources */,
 				8C85EDB730AF0C11E825EDDF8E6F06E7 /* PeekButton.swift in Sources */,
 				074F2D99FDD16D7CC60E2E61A14B3667 /* PeekInspectorCell.swift in Sources */,
@@ -712,6 +719,7 @@
 				E0E8B2044B464FB2EFCA29807B3EB4AE /* PeekViewController.swift in Sources */,
 				DDF596F73999C371E42C1D7A0332F75C /* Platforms.swift in Sources */,
 				D790E7F73C5DB4689D540CD7B90F7706 /* PreviewCell.swift in Sources */,
+				54FC8B71209C5E7400FA1B0F /* Bool+Toggle.swift in Sources */,
 				22683D81EE66DF298AE6411FA53EED78 /* Renderer.swift in Sources */,
 				F3F1DC1FB2AF89C5F0B75889515BF8C9 /* RendererDrawable.swift in Sources */,
 				0977C9C88D8074D06A8B8D7C343A9C8F /* Report.swift in Sources */,
