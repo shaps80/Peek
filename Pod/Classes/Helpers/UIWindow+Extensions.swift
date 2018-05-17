@@ -22,10 +22,10 @@
 
 import UIKit
 
-extension UIWindow {
+@objc extension UIWindow {
     
     /// Returns the Peek instance associated with this window
-    public var peek: Peek {
+    @objc public var peek: Peek {
         return objc_getAssociatedObject(self, &PeekAssociationKey.Peek) as? Peek ?? {
             let associatedProperty = Peek(window: self)
             objc_setAssociatedObject(self, &PeekAssociationKey.Peek, associatedProperty, .OBJC_ASSOCIATION_RETAIN)
