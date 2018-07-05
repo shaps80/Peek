@@ -22,7 +22,7 @@
 
 import UIKit
 
-internal final class Segment: NSObject {
+internal final class CustomSegment: NSObject {
     
     override var description: String {
         return title ?? ""
@@ -60,11 +60,11 @@ internal final class Segment: NSObject {
 
 extension UISegmentedControl {
     
-    var segments: [Segment]? {
-        var segments = [Segment]()
+    var segments: [CustomSegment]? {
+        var segments = [CustomSegment]()
         
         for index in 0..<numberOfSegments {
-            let segment = Segment()
+            let segment = CustomSegment()
             segment.enabled = isEnabledForSegment(at: index)
             segment.title = titleForSegment(at: index)
             segment.width = widthForSegment(at: index)
