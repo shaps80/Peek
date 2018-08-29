@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Peek"
-  s.version          = "5.1.0"
+  s.version          = "5.2.0"
   s.summary          = "All new design. Inspect your iOS application at runtime."
   s.homepage         = "https://shaps.me/peek"
   s.screenshots      = "https://github.com/shaps80/Peek/raw/master/shot.jpg"

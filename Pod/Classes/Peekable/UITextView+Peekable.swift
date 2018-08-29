@@ -37,9 +37,13 @@ extension UITextView {
             "text",
             "attributedText",
         ], forModel: self, in: .typography)
-        
+
         (coordinator as? SwiftCoordinator)?
+            .appendEnum(keyPath: "indicatorStyle", into: UIScrollView.IndicatorStyle.self, forModel: self, group: .appearance)
             .appendEnum(keyPath: "textAlignment", into: NSTextAlignment.self, forModel: self, group: .typography)
+
+        (coordinator as? SwiftCoordinator)?
+            .appendDynamic(keyPaths: ["scrollIndicatorInsets"], forModel: self, in: .layout)
         
         coordinator.appendDynamic(keyPaths: [
             "textColor",

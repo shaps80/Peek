@@ -69,7 +69,7 @@ internal final class ContextDataSource {
     }
     
     internal func toggleVisibility(forSection section: Int) {
-        sections[section].isExpanded = !sections[section].isExpanded
+        sections[section].isExpanded.toggle()
     }
     
 }

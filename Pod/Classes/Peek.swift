@@ -27,10 +27,10 @@ struct PeekAssociationKey {
 }
 
 /// The primary class where Peek can be activated/disabled
-public final class Peek: NSObject {
+@objc public final class Peek: NSObject {
     
     /// Returns true if Peek is already being presented -- this is to prevent
-    public static var isAlreadyPresented: Bool = false
+    @objc public static var isAlreadyPresented: Bool = false
     internal var screenshot: UIImage?
     
     /// Enables/disables Peek
@@ -64,7 +64,7 @@ public final class Peek: NSObject {
     /**
      Presents Peek
      */
-    public func present() {
+    @objc public func present() {
         guard enabled else {
             print("Peek is disabled!")
             return
@@ -100,7 +100,7 @@ public final class Peek: NSObject {
     /**
      Dismisses Peek
      */
-    public func dismiss() {
+    @objc public func dismiss() {
         UIView.animate(withDuration: 0.25, animations: { () -> Void in
             self.window?.alpha = 0
         }, completion: { (_) -> Void in

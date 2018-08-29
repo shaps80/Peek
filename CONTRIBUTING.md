@@ -5,10 +5,11 @@
 3. No new dependencies will be accepted
 4. Extensions support
 5. Always use SwiftLint to ensure coding styles are met
+6. Make sure you pull all recent changes from `develop` and fix any conflicts
 
 ## Pull Requests
 
-Pull requests must always use the upcoming release branch as its base. This is currently `release/5.1.0`. No requests made to `master` will be allowed.
+Pull requests should also point to `develop`. No requests made to `master` will be allowed.
 
 All changes, no matter how trivial, must be done via pull request. Commits should never be made directly on the master branch.
 
