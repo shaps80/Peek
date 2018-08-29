@@ -72,8 +72,8 @@ internal final class PeekPresentationController: UIPresentationController, UIVie
             // effect calls for only the top two corners to be rounded we size
             // the view such that the bottom CORNER_RADIUS points lie below
             // the bottom edge of the screen.
-            
-            let cornerViewRect = UIEdgeInsetsInsetRect(presentationWrapperView.bounds, UIEdgeInsets(top: 0, left: 0, bottom: -cornerRadius, right: 0))
+
+            let cornerViewRect = presentationWrapperView.bounds.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: -cornerRadius, right: 0))
             
             let presentationRoundedCornerView = UIView(frame: cornerViewRect)
             presentationRoundedCornerView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -84,7 +84,7 @@ internal final class PeekPresentationController: UIPresentationController, UIVie
             // presentedViewControllerWrapperView is inset by CORNER_RADIUS points.
             // This also matches the size of presentedViewControllerWrapperView's
             // bounds to the size of -frameOfPresentedViewInContainerView.
-            let wrapperRect = UIEdgeInsetsInsetRect(presentationRoundedCornerView.bounds, UIEdgeInsets(top: 0, left: 0, bottom: cornerRadius, right: 0))
+            let wrapperRect = presentationRoundedCornerView.bounds.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: cornerRadius, right: 0))
             
             let presentedViewControllerWrapperView = UIView(frame: wrapperRect)
             presentedViewControllerWrapperView.autoresizingMask = [.flexibleWidth, .flexibleHeight]

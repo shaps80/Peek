@@ -11,9 +11,9 @@ extension UIStackView {
     
     open override func preparePeek(with coordinator: Coordinator) {
         (coordinator as? SwiftCoordinator)?
-            .appendEnum(keyPath: "axis", into: UILayoutConstraintAxis.self, forModel: self, group: .appearance)
-            .appendEnum(keyPath: "distribution", into: UIStackViewDistribution.self, forModel: self, group: .appearance)
-            .appendEnum(keyPath: "alignment", into: UIStackViewAlignment.self, forModel: self, group: .appearance)
+            .appendEnum(keyPath: "axis", into: NSLayoutConstraint.Axis.self, forModel: self, group: .appearance)
+            .appendEnum(keyPath: "distribution", into: UIStackView.Distribution.self, forModel: self, group: .appearance)
+            .appendEnum(keyPath: "alignment", into: UIStackView.Alignment.self, forModel: self, group: .appearance)
         
         coordinator.appendDynamic(keyPaths: [
             "spacing"

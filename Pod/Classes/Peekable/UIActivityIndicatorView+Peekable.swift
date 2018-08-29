@@ -30,7 +30,7 @@ extension UIActivityIndicatorView {
         coordinator.appendDynamic(keyPaths: ["color"], forModel: self, in: .appearance)
         
         (coordinator as? SwiftCoordinator)?
-            .appendEnum(keyPath: "activityIndicatorViewStyle", into: UIActivityIndicatorViewStyle.self, forModel: self, group: .appearance)
+            .appendEnum(keyPath: "activityIndicatorViewStyle", into: UIActivityIndicatorView.Style.self, forModel: self, group: .appearance)
         
         super.preparePeek(with: coordinator)
     }

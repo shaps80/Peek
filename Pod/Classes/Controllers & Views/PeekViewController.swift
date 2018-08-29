@@ -119,7 +119,7 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
         view.backgroundColor = peek.options.theme.overlayBackgroundColor?.withAlphaComponent(alpha)
         
         let animation = CATransition()
-        animation.type = kCATransitionFade
+        animation.type = CATransitionType.fade
         animation.duration = 0.1
         view.layer.add(animation, forKey: "fade")
     }
@@ -170,7 +170,7 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
         return peek.previousStatusBarStyle
     }
     
-    override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
+    override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         // iOS 10 now requires device motion handlers to be on a UIViewController
         peek.handleShake(motion)
     }

@@ -40,7 +40,7 @@ extension UIDatePicker {
         ], forModel: self, in: .appearance)
         
         (coordinator as? SwiftCoordinator)?
-            .appendEnum(keyPath: "datePickerMode", into: UIDatePickerMode.self, forModel: self, group: .appearance)
+            .appendEnum(keyPath: "datePickerMode", into: UIDatePicker.Mode.self, forModel: self, group: .appearance)
         
         super.preparePeek(with: coordinator)
     }

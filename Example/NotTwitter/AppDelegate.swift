@@ -13,8 +13,8 @@ import Peek
 final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         Theme.apply()
 
         window?.peek.enableWithOptions { options in
@@ -32,8 +32,8 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
-    
-    override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
+
+    override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         // iOS 8/9 requires device motion handlers to be on the AppDelegate
         window?.peek.handleShake(motion)
     }

@@ -48,7 +48,7 @@ extension TimelineViewController {
         return true
     }
     
-    public override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
+    public override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         // iOS 10 now requires device motion handlers to be on a UIViewController
         view.window?.peek.handleShake(motion)
     }

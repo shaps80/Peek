@@ -26,7 +26,7 @@ internal protocol PeekDescribing {
     var displayName: String { get }
 }
 
-extension UILayoutConstraintAxis: PeekDescribing {
+extension NSLayoutConstraint.Axis: PeekDescribing {
     
     internal var displayName: String {
         switch self {
@@ -37,7 +37,7 @@ extension UILayoutConstraintAxis: PeekDescribing {
     
 }
 
-extension UIStackViewDistribution: PeekDescribing {
+extension UIStackView.Distribution: PeekDescribing {
     
     internal var displayName: String {
         switch self {
@@ -51,7 +51,7 @@ extension UIStackViewDistribution: PeekDescribing {
     
 }
 
-extension UIStackViewAlignment: PeekDescribing {
+extension UIStackView.Alignment: PeekDescribing {
     
     internal var displayName: String {
         switch self {
@@ -66,7 +66,7 @@ extension UIStackViewAlignment: PeekDescribing {
     
 }
 
-extension UISplitViewControllerDisplayMode: PeekDescribing {
+extension UISplitViewController.DisplayMode: PeekDescribing {
     
     internal var displayName: String {
         switch self {
@@ -80,7 +80,7 @@ extension UISplitViewControllerDisplayMode: PeekDescribing {
 }
 
 @available(iOS 11.0, *)
-extension UISplitViewControllerPrimaryEdge: PeekDescribing {
+extension UISplitViewController.PrimaryEdge: PeekDescribing {
     
     internal var displayName: String {
         switch self {
@@ -91,7 +91,7 @@ extension UISplitViewControllerPrimaryEdge: PeekDescribing {
     
 }
 
-extension NSLayoutRelation: PeekDescribing {
+extension NSLayoutConstraint.Relation: PeekDescribing {
     
     internal var displayName: String {
         switch self {
@@ -103,7 +103,7 @@ extension NSLayoutRelation: PeekDescribing {
     
 }
 
-extension NSLayoutAttribute: PeekDescribing {
+extension NSLayoutConstraint.Attribute: PeekDescribing {
     
     internal var displayName: String {
         switch self {
@@ -133,7 +133,7 @@ extension NSLayoutAttribute: PeekDescribing {
     
 }
 
-extension UIProgressViewStyle: PeekDescribing {
+extension UIProgressView.Style: PeekDescribing {
     
     internal var displayName: String {
         switch self {
@@ -144,7 +144,7 @@ extension UIProgressViewStyle: PeekDescribing {
     
 }
 
-extension UIActivityIndicatorViewStyle: PeekDescribing {
+extension UIActivityIndicatorView.Style: PeekDescribing {
     
     internal var displayName: String {
         switch self {
@@ -156,7 +156,7 @@ extension UIActivityIndicatorViewStyle: PeekDescribing {
     
 }
 
-extension UIDatePickerMode: PeekDescribing {
+extension UIDatePicker.Mode: PeekDescribing {
     
     internal var displayName: String {
         switch self {
@@ -169,7 +169,7 @@ extension UIDatePickerMode: PeekDescribing {
     
 }
 
-extension UIBarButtonItemStyle: PeekDescribing {
+extension UIBarButtonItem.Style: PeekDescribing {
     
     internal var displayName: String {
         switch self {
@@ -181,7 +181,7 @@ extension UIBarButtonItemStyle: PeekDescribing {
     
 }
 
-extension UIBarButtonSystemItem: PeekDescribing {
+extension UIBarButtonItem.SystemItem: PeekDescribing {
     
     internal var displayName: String {
         switch self {
@@ -226,7 +226,7 @@ extension UIBarStyle: PeekDescribing {
     
 }
 
-extension UITextFieldViewMode: PeekDescribing {
+extension UITextField.ViewMode: PeekDescribing {
     
     internal var displayName: String {
         switch self {
@@ -239,7 +239,7 @@ extension UITextFieldViewMode: PeekDescribing {
     
 }
 
-extension UITextBorderStyle: PeekDescribing {
+extension UITextField.BorderStyle: PeekDescribing {
     
     internal var displayName: String {
         switch self {
@@ -252,7 +252,7 @@ extension UITextBorderStyle: PeekDescribing {
     
 }
 
-extension UIImageOrientation: PeekDescribing {
+extension UIImage.Orientation: PeekDescribing {
     
     internal var displayName: String {
         switch self {
@@ -269,7 +269,7 @@ extension UIImageOrientation: PeekDescribing {
     
 }
 
-extension UIImageResizingMode: PeekDescribing {
+extension UIImage.ResizingMode: PeekDescribing {
     
     internal var displayName: String {
         switch self {
@@ -280,7 +280,7 @@ extension UIImageResizingMode: PeekDescribing {
     
 }
 
-extension UIImageRenderingMode: PeekDescribing {
+extension UIImage.RenderingMode: PeekDescribing {
     
     internal var displayName: String {
         switch self {
@@ -347,7 +347,7 @@ extension UIModalPresentationStyle: PeekDescribing {
     
 }
 
-extension UIControlContentVerticalAlignment: PeekDescribing {
+extension UIControl.ContentVerticalAlignment: PeekDescribing {
     
     internal var displayName: String {
         switch self {
@@ -360,7 +360,7 @@ extension UIControlContentVerticalAlignment: PeekDescribing {
     
 }
 
-extension UIControlContentHorizontalAlignment: PeekDescribing {
+extension UIControl.ContentHorizontalAlignment: PeekDescribing {
     
     internal var displayName: String {
         switch self {
@@ -375,7 +375,7 @@ extension UIControlContentHorizontalAlignment: PeekDescribing {
     
 }
 
-extension UIButtonType: PeekDescribing {
+extension UIButton.ButtonType: PeekDescribing {
     
     internal var displayName: String {
         switch self {
@@ -391,7 +391,7 @@ extension UIButtonType: PeekDescribing {
     
 }
 
-extension UIDeviceBatteryState: PeekDescribing {
+extension UIDevice.BatteryState: PeekDescribing {
     
     internal var displayName: String {
         switch self {
@@ -418,7 +418,7 @@ extension UIInterfaceOrientation: PeekDescribing {
     
 }
 
-extension UIViewContentMode: PeekDescribing {
+extension UIView.ContentMode: PeekDescribing {
     
     internal var displayName: String {
         switch self {
@@ -440,7 +440,7 @@ extension UIViewContentMode: PeekDescribing {
     
 }
 
-extension UIViewTintAdjustmentMode: PeekDescribing {
+extension UIView.TintAdjustmentMode: PeekDescribing {
     
     internal var displayName: String {
         switch self {
@@ -481,7 +481,7 @@ extension NSTextAlignment: PeekDescribing {
     
 }
 
-extension UIScrollViewIndicatorStyle: PeekDescribing {
+extension UIScrollView.IndicatorStyle: PeekDescribing {
     
     internal var displayName: String {
         switch self {
@@ -493,7 +493,7 @@ extension UIScrollViewIndicatorStyle: PeekDescribing {
     
 }
 
-extension UIScrollViewKeyboardDismissMode: PeekDescribing {
+extension UIScrollView.KeyboardDismissMode: PeekDescribing {
     
     internal var displayName: String {
         switch self {

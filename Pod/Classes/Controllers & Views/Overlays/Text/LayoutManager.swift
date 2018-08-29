@@ -35,7 +35,7 @@ final class LayoutManager: NSLayoutManager {
                         let characterRect = self.boundingRect(forGlyphRange: range, in: textContainer)
                         
                         let symbol = "\u{21E5}"
-                        let attrs = [NSAttributedStringKey.foregroundColor : UIColor.red ]
+                        let attrs = [NSAttributedString.Key.foregroundColor : UIColor.red ]
                         let height = (symbol as NSString).size(withAttributes: attrs).height
                         let rect = characterRect.offsetBy(dx: 1, dy: height * 0.5)
                         symbol.draw(in: rect, withAttributes: attrs)

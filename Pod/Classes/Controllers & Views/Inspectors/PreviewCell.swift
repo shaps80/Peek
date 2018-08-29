@@ -11,7 +11,7 @@ internal final class PreviewCell: UITableViewCell {
     
     internal let previewImageView: UIImageView
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         previewImageView = UIImageView()
         previewImageView.contentMode = .scaleAspectFit
         previewImageView.clipsToBounds = true

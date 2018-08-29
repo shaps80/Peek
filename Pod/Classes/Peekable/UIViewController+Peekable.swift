@@ -90,12 +90,12 @@ extension UIViewController {
         
         if self is UISplitViewController {
             (coordinator as? SwiftCoordinator)?
-                .appendEnum(keyPath: "preferredDisplayMode", into: UISplitViewControllerDisplayMode.self, forModel: self, group: .appearance)
-                .appendEnum(keyPath: "displayMode", into: UISplitViewControllerDisplayMode.self, forModel: self, group: .appearance)
+                .appendEnum(keyPath: "preferredDisplayMode", into: UISplitViewController.DisplayMode.self, forModel: self, group: .appearance)
+                .appendEnum(keyPath: "displayMode", into: UISplitViewController.DisplayMode.self, forModel: self, group: .appearance)
             
             if #available(iOS 11.0, *) {
                 (coordinator as? SwiftCoordinator)?
-                    .appendEnum(keyPath: "primaryEdge", into: UISplitViewControllerPrimaryEdge.self, forModel: self, group: .appearance)
+                    .appendEnum(keyPath: "primaryEdge", into: UISplitViewController.PrimaryEdge.self, forModel: self, group: .appearance)
             }
             
             coordinator.appendDynamic(keyPaths: [
@@ -123,7 +123,7 @@ extension UIViewController {
         
         coordinator.appendStatic(keyPath: "self", title: String(describing: classForCoder), detail: "", value: self, in: .controllers)
         
-        for controller in childViewControllers.reversed() {
+        for controller in children.reversed() {
             coordinator.appendStatic(keyPath: "classForCoder", title: String(describing: controller.classForCoder), detail: "", value: controller, in: .controllers)
         }
         

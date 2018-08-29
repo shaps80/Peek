@@ -111,7 +111,7 @@ internal final class PeekInspectorViewController: PeekSectionedViewController, U
             registerForPreviewing(with: self, sourceView: searchController.view)
         }
         
-        observer = NotificationCenter.default.addObserver(forName: .UIContentSizeCategoryDidChange, object: nil, queue: .main) { [weak self] _ in
+        observer = NotificationCenter.default.addObserver(forName: UIContentSizeCategory.didChangeNotification, object: nil, queue: .main) { [weak self] _ in
             // we have to add a delay to allow the app to finish updating its layout.
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self?.tableView.reloadData()

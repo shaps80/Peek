@@ -36,8 +36,8 @@ extension UIScrollView {
         ], forModel: self, in: .appearance)
         
         (coordinator as? SwiftCoordinator)?
-            .appendEnum(keyPath: "indicatorStyle", into: UIScrollViewIndicatorStyle.self, forModel: self, group: .appearance)
-            .appendEnum(keyPath: "keyboardDismissMode", into: UIScrollViewKeyboardDismissMode.self, forModel: self, group: .behaviour)
+            .appendEnum(keyPath: "indicatorStyle", into: UIScrollView.IndicatorStyle.self, forModel: self, group: .appearance)
+            .appendEnum(keyPath: "keyboardDismissMode", into: UIScrollView.KeyboardDismissMode.self, forModel: self, group: .behaviour)
         
         coordinator.appendDynamic(keyPaths: [
             "contentOffset", "contentSize", "contentInset", "scrollIndicatorInsets"

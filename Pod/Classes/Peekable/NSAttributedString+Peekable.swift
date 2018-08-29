@@ -53,7 +53,7 @@ final class TextAttributes: NSObject {
     @objc let paragraphStyle: ParagraphStyle?
     
     init(string: NSAttributedString) {
-        var attributes = [NSAttributedStringKey: Any]()
+        var attributes = [NSAttributedString.Key: Any]()
         
         string.enumerateAttributes(in: NSRange.init(location: 0, length: string.length), options: []) { attr, _, _ in
             attributes = attr

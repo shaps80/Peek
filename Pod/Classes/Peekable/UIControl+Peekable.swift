@@ -30,8 +30,8 @@ extension UIControl {
         ], forModel: self, in: .states)
         
         (coordinator as? SwiftCoordinator)?
-            .appendEnum(keyPath: "contentVerticalAlignment", into: UIControlContentVerticalAlignment.self, forModel: self, group: .layout)
-            .appendEnum(keyPath: "contentHorizontalAlignment", into: UIControlContentHorizontalAlignment.self, forModel: self, group: .layout)
+            .appendEnum(keyPath: "contentVerticalAlignment", into: UIControl.ContentVerticalAlignment.self, forModel: self, group: .layout)
+            .appendEnum(keyPath: "contentHorizontalAlignment", into: UIControl.ContentHorizontalAlignment.self, forModel: self, group: .layout)
         
         super.preparePeek(with: coordinator)
     }

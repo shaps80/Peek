@@ -111,8 +111,8 @@ extension UIView {
         coordinator.appendDynamic(keyPaths: ["tintColor"], forModel: self, in: .appearance)
 
         (coordinator as? SwiftCoordinator)?
-            .appendEnum(keyPath: "tintAdjustmentMode", into: UIViewTintAdjustmentMode.self, forModel: self, group: .appearance)
-            .appendEnum(keyPath: "contentMode", into: UIViewContentMode.self, forModel: self, group: .layout)
+            .appendEnum(keyPath: "tintAdjustmentMode", into: UIView.TintAdjustmentMode.self, forModel: self, group: .appearance)
+            .appendEnum(keyPath: "contentMode", into: UIView.ContentMode.self, forModel: self, group: .layout)
         
         coordinator.appendDynamic(keyPaths: [
             "backgroundColor",

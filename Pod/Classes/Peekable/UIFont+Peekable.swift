@@ -45,7 +45,7 @@ extension UIFont {
     }
     
     @objc internal var peek_textStyle: String? {
-        return (fontDescriptor.fontAttributes[.textStyle] as? UIFontTextStyle)?.rawValue
+        return (fontDescriptor.fontAttributes[.textStyle] as? UIFont.TextStyle)?.rawValue
     }
     
 }
@@ -53,7 +53,7 @@ extension UIFont {
 extension UIFontDescriptor {
     
     open override func preparePeek(with coordinator: Coordinator) {
-        if let value = fontAttributes[.textStyle] as? UIFontTextStyle {
+        if let value = fontAttributes[.textStyle] as? UIFont.TextStyle {
             coordinator.appendStatic(keyPath: "textStyle", title: "Text Style", detail: value.rawValue, value: nil, in: .general)
         }
         

@@ -29,9 +29,9 @@ extension UIImage {
         coordinator.appendPreview(image: preview, forModel: self)
         
         (coordinator as? SwiftCoordinator)?
-            .appendEnum(keyPath: "renderingMode", into: UIImageRenderingMode.self, forModel: self, group: .appearance)
-            .appendEnum(keyPath: "resizingMode", into: UIImageResizingMode.self, forModel: self, group: .appearance)
-            .appendEnum(keyPath: "imageOrientation", into: UIImageOrientation.self, forModel: self, group: .appearance)
+            .appendEnum(keyPath: "renderingMode", into: UIImage.RenderingMode.self, forModel: self, group: .appearance)
+            .appendEnum(keyPath: "resizingMode", into: UIImage.ResizingMode.self, forModel: self, group: .appearance)
+            .appendEnum(keyPath: "imageOrientation", into: UIImage.Orientation.self, forModel: self, group: .appearance)
         
         coordinator.appendDynamic(keyPaths: [
             "scale", "size", "capInsets", "alignmentRectInsets"

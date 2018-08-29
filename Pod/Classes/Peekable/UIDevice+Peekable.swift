@@ -31,7 +31,7 @@ extension UIDevice {
         ], forModel: self, in: .states)
         
         (coordinator as? SwiftCoordinator)?
-            .appendEnum(keyPath: "batteryState", into: UIDeviceBatteryState.self, forModel: self, group: .general)
+            .appendEnum(keyPath: "batteryState", into: UIDevice.BatteryState.self, forModel: self, group: .general)
         
         coordinator.appendDynamic(keyPaths: [
             "batteryLevel",

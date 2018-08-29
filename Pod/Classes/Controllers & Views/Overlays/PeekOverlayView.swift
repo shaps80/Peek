@@ -81,7 +81,7 @@ internal class PeekOverlayView: UIView {
         
         updateBackgroundColor(alpha: 0.5)
         
-        observer = NotificationCenter.default.addObserver(forName: .UIContentSizeCategoryDidChange, object: nil, queue: .main) { [weak self] _ in
+        observer = NotificationCenter.default.addObserver(forName: UIContentSizeCategory.didChangeNotification, object: nil, queue: .main) { [weak self] _ in
             // we have to add a delay to allow the app to finish updating its layout.
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self?.refresh()
@@ -202,7 +202,7 @@ internal class PeekOverlayView: UIView {
         backgroundColor = UIColor(white: 0, alpha: alpha)
         
         let animation = CATransition()
-        animation.type = kCATransitionFade
+        animation.type = CATransitionType.fade
         animation.duration = 0.1
         layer.add(animation, forKey: "fade")
     }

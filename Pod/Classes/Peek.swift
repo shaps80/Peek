@@ -84,7 +84,7 @@ public final class Peek: NSObject {
         window = UIWindow()
         window?.backgroundColor = UIColor.clear
         window?.frame = peekingWindow.bounds
-        window?.windowLevel = UIWindowLevelNormal
+        window?.windowLevel = UIWindow.Level.normal
         window?.alpha = 0
         
         window?.rootViewController = PeekViewController(peek: self)
@@ -122,7 +122,7 @@ public final class Peek: NSObject {
      On iOS 10+ call this from your rootViewController. Otherwise use your AppDelegate. This will only activate/deactivate Peek when activationMode == .Shake or the app is being run from the Simulator. On iOS 10+ this will also dismiss the Inspectors view when visible.
      - parameter motion: The motion events to handle
      */
-    @objc public func handleShake(_ motion: UIEventSubtype) {
+    @objc public func handleShake(_ motion: UIEvent.EventSubtype) {
         if motion != .motionShake || !enabled {
             return
         }

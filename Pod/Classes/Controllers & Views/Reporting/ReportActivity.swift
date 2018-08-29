@@ -16,7 +16,7 @@ internal final class ReportActivity: NSObject, UIActivityItemSource {
         self.report = report
     }
     
-    func activityViewController(_ activityViewController: UIActivityViewController, thumbnailImageForActivityType activityType: UIActivityType?, suggestedSize size: CGSize) -> UIImage? {
+    func activityViewController(_ activityViewController: UIActivityViewController, thumbnailImageForActivityType activityType: UIActivity.ActivityType?, suggestedSize size: CGSize) -> UIImage? {
         return report.snapshot?.resized(to: size)
     }
     
@@ -24,7 +24,7 @@ internal final class ReportActivity: NSObject, UIActivityItemSource {
         return "Peek Report"
     }
     
-    func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivityType?) -> Any? {
+    func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
         guard let type = activityType else { return report.plainText }
         
         switch type {
@@ -35,13 +35,13 @@ internal final class ReportActivity: NSObject, UIActivityItemSource {
         }
     }
     
-    func activityViewController(_ activityViewController: UIActivityViewController, subjectForActivityType activityType: UIActivityType?) -> String {
+    func activityViewController(_ activityViewController: UIActivityViewController, subjectForActivityType activityType: UIActivity.ActivityType?) -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
         return "Peek Report: \(formatter.string(from: Date()))"
     }
     
-    func activityViewController(_ activityViewController: UIActivityViewController, dataTypeIdentifierForActivityType activityType: UIActivityType?) -> String {
+    func activityViewController(_ activityViewController: UIActivityViewController, dataTypeIdentifierForActivityType activityType: UIActivity.ActivityType?) -> String {
         guard let type = activityType else { return kUTTypePlainText as String }
         
         switch type {

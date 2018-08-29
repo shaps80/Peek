@@ -51,17 +51,17 @@ extension NSLayoutConstraint: PeekDescribing {
         ], forModel: self, in: .behaviour)
         
         (coordinator as? SwiftCoordinator)?
-            .appendEnum(keyPath: "firstAttribute", into: NSLayoutAttribute.self, forModel: self, group: .general)
+            .appendEnum(keyPath: "firstAttribute", into: NSLayoutConstraint.Attribute.self, forModel: self, group: .general)
         
         coordinator.appendDynamic(keyPaths: ["peek_firstItem"], forModel: self, in: .general)
         
         (coordinator as? SwiftCoordinator)?
-            .appendEnum(keyPath: "secondAttribute", into: NSLayoutAttribute.self, forModel: self, group: .general)
+            .appendEnum(keyPath: "secondAttribute", into: NSLayoutConstraint.Attribute.self, forModel: self, group: .general)
         
         coordinator.appendDynamic(keyPaths: ["peek_secondItem"], forModel: self, in: .general)
         
         (coordinator as? SwiftCoordinator)?
-            .appendEnum(keyPath: "relation", into: NSLayoutRelation.self, forModel: self, group: .general)
+            .appendEnum(keyPath: "relation", into: NSLayoutConstraint.Relation.self, forModel: self, group: .general)
         
         coordinator.appendDynamic(keyPaths: [
             "constant", "multiplier", "priority"

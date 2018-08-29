@@ -72,7 +72,7 @@ internal class PeekSectionedViewController: UIViewController, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return sectionIsExpanded(for: indexPath.section) ? UITableViewAutomaticDimension : 0
+        return sectionIsExpanded(for: indexPath.section) ? UITableView.automaticDimension : 0
     }
     
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
@@ -110,9 +110,9 @@ extension PeekSectionedViewController {
     }
     
     private func prepareTableView() {
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.sectionHeaderHeight = UITableViewAutomaticDimension
-        tableView.sectionFooterHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
+        tableView.sectionFooterHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 44
         tableView.estimatedSectionHeaderHeight = 44
         tableView.estimatedSectionFooterHeight = 0

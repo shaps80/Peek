@@ -25,7 +25,7 @@ import UIKit
 extension UIStepper {
     
     @objc var normalIncrementImage: UIImage? {
-        return incrementImage(for: UIControlState())
+        return incrementImage(for: UIControl.State())
     }
     
     @objc var disabledIncrementImage: UIImage? {
@@ -41,7 +41,7 @@ extension UIStepper {
     }
     
     @objc var normalDecrementImage: UIImage? {
-        return decrementImage(for: UIControlState())
+        return decrementImage(for: UIControl.State())
     }
     
     @objc var disabledDecrementImage: UIImage? {

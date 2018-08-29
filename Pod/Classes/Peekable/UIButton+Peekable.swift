@@ -25,7 +25,7 @@ import UIKit
 extension UIButton {
     
     @objc var normalTitle: String? {
-        return title(for: UIControlState())
+        return title(for: .normal)
     }
     
     @objc var selectedTitle: String? {
@@ -41,7 +41,7 @@ extension UIButton {
     }
     
     @objc var normalAttributedTitle: NSAttributedString? {
-        return attributedTitle(for: UIControlState())
+        return attributedTitle(for: .normal)
     }
     
     @objc var selectedAttributedTitle: NSAttributedString? {
@@ -57,7 +57,7 @@ extension UIButton {
     }
     
     @objc var normalTitleColor: UIColor? {
-        return titleColor(for: UIControlState())
+        return titleColor(for: .normal)
     }
     
     @objc var selectedTitleColor: UIColor? {
@@ -74,7 +74,7 @@ extension UIButton {
     
     open override func preparePeek(with coordinator: Coordinator) {
         (coordinator as? SwiftCoordinator)?
-            .appendEnum(keyPath: "buttonType", into: UIButtonType.self, forModel: self, group: .appearance)
+            .appendEnum(keyPath: "buttonType", into: UIButton.ButtonType.self, forModel: self, group: .appearance)
         
         coordinator.appendDynamic(keyPaths: [
             "contentEdgeInsets",

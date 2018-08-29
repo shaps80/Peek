@@ -48,8 +48,8 @@ final class VolumeController: NSObject, PeekActivating {
         
         super.init()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(register), name: .UIApplicationDidBecomeActive, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(unregister), name: .UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(register), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(unregister), name: UIApplication.willResignActiveNotification, object: nil)
         register()
     }
     
@@ -89,7 +89,14 @@ final class VolumeController: NSObject, PeekActivating {
         previousVolume = session.outputVolume
         
         do {
-            try session.setCategory(AVAudioSessionCategoryAmbient, with: .mixWithOthers)
+            if #available(iOS 10.0, *) {
+                try session.setCategory(.ambient, mode: .default, options: .mixWithOthers)
+            } else if #available(iOS 10.0, *) {
+                try session.setCategory(.playback, mode: .default)
+            } else {
+                // todo: need to restore this once the Radar has been fixed.
+            }
+
             try session.setActive(true)
         } catch {
             print(error)
