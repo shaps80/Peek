@@ -22,10 +22,10 @@ Feeling overwhelmed with all the information Peek has to offer? Simply tap the h
 Peek now supports nested Inspectors. This powerful feature allows Peek to surface even more detail about your application. In fact Peek 5.0 more than doubles the number of attributes it can inspect.
 
 ## Previews
-Views, images, colours and more can now provide snapshot previews to help you better identify what you’re inspecting. 
+Views, images, colours and more can now provide snapshot previews to help you better identify what you’re inspecting.
 
 ## Reporting
-An all new reporting system allows you to export screenshots, metadata and even suggested values using the iOS native share sheet. 
+An all new reporting system allows you to export screenshots, metadata and even suggested values using the iOS native share sheet.
 
 ## Accessibility
 Peek itself is now more accessible with Dynamic Type, but Peek can also surface accessibility details from your application.
@@ -78,7 +78,7 @@ override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
 }
 ```
 
-or 
+or
 
 ```swift
 
@@ -86,7 +86,7 @@ or
 override var canBecomeFirstResponder: Bool {
     return true
 }
-    
+
 override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
     // iOS 10 now requires device motion handlers to be on a UIViewController
     UIApplication.shared.keyWindow?.peek.handleShake(motion)
@@ -146,7 +146,7 @@ window?.peek.enableWithOptions { options in
     options.theme = .black
     options.activationMode = .auto
     options.shouldIgnoreContainers = true
-  
+
     /*
       Sometimes it can also be useful to include additional metadata with each report.
      */
@@ -211,7 +211,7 @@ Original concept, code and app design by [@shaps][5]<br />
 Icons in the demo app found on [The Noun Project][6].
 Artwork by [Vitaliy Gorbachev][7]
 
-[0]:    https://github.com/Carthage/Carthage
+[0]:  https://github.com/Carthage/Carthage
 [1]:	http://cocoapods.org/pods/Peek
 [2]:	http://cocoapods.org/pods/Peek
 [3]:	http://cocoadocs.org/docsets/Peek

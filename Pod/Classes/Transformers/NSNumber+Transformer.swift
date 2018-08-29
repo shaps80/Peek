@@ -41,7 +41,7 @@ final class NumberTransformer: Foundation.ValueTransformer {
         if number.isFloat() {
             return NumberTransformer.floatFormatter.string(from: number)!
         }
-
+        
         return "\(number)"
     }
     
