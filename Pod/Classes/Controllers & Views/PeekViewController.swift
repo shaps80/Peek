@@ -172,6 +172,7 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     
     override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
         // iOS 10 now requires device motion handlers to be on a UIViewController
+        super.motionBegan(motion, with: event)
         peek.handleShake(motion)
     }
     
