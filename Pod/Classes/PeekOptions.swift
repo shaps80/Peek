@@ -29,8 +29,10 @@ import Foundation
  - Shake: Peek will use a shake gesture on both the Simulator and a device
  */
 @objc public enum PeekActivationMode: Int {
+    /// Peek won't handle any gestures
+    case none = 0
     /// Peek will use a shake gesture when running in the Simulator, and the volume controls on a device
-    case auto = 0
+    case auto
     /// Peek will use a shake gesture on both the Simulator and a device
     case shake
 }
