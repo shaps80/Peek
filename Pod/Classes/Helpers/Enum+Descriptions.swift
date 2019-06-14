@@ -151,6 +151,8 @@ extension UIActivityIndicatorView.Style: PeekDescribing {
         case .gray: return "Small Gray"
         case .white: return "Small White"
         case .whiteLarge: return "Large White"
+        case .medium: return "Medium"
+        case .large: return "Large"
         }
     }
     
@@ -342,6 +344,7 @@ extension UIModalPresentationStyle: PeekDescribing {
         case .pageSheet: return "Page Sheet"
         case .popover: return "Popover"
         case .blurOverFullScreen: return "Blur Over Full Screen"
+        case .automatic: return "Automatic"
         }
     }
     
