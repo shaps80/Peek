@@ -143,7 +143,6 @@
 				540B99DC2053FCAF0086FF61 /* Frameworks */,
 				540B99DD2053FCAF0086FF61 /* Resources */,
 				177430EFC11D2BB85F73FF40 /* [CP] Embed Pods Frameworks */,
-				114514E433ABB98B150164A2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -203,28 +202,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		114514E433ABB98B150164A2 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NotTwitter/Pods-NotTwitter-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		177430EFC11D2BB85F73FF40 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-NotTwitter/Pods-NotTwitter-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-NotTwitter/Pods-NotTwitter-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Peek/Peek.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -233,7 +217,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NotTwitter/Pods-NotTwitter-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NotTwitter/Pods-NotTwitter-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CC7EA6BA67698CDE67E0F835 /* [CP] Check Pods Manifest.lock */ = {

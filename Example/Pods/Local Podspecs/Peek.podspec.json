@@ -1,6 +1,6 @@
 {
   "name": "Peek",
-  "version": "5.0.0",
+  "version": "5.2.0",
   "summary": "All new design. Inspect your iOS application at runtime.",
   "homepage": "https://shaps.me/peek",
   "screenshots": "https://github.com/shaps80/Peek/raw/master/shot.jpg",
@@ -10,7 +10,7 @@
   },
   "source": {
     "git": "https://github.com/shaps80/Peek.git",
-    "tag": "5.0.0"
+    "tag": "5.2.0"
   },
   "social_media_url": "https://twitter.com/shaps",
   "platforms": {

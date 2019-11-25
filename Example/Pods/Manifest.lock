@@ -1,16 +1,16 @@
 PODS:
-  - Peek (5.0.0)
+  - Peek (5.2.0)
 
 DEPENDENCIES:
   - Peek (from `../`)
 
 EXTERNAL SOURCES:
   Peek:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  Peek: e1caf906e4654e3a5b2c64f13508fe4b990c3b9c
+  Peek: 77f6362167c00aab3f1147d92d51bdf80d259d45
 
-PODFILE CHECKSUM: 06fa110334f649d2cdcbeea715786f0b15d27b3e
+PODFILE CHECKSUM: 4d57fa80cb864c914f11f3558540be5ea5eba94c
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.8.4
