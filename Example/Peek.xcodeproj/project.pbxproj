@@ -292,6 +292,7 @@
 				INFOPLIST_FILE = NotTwitter/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 5.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.152percent.NotTwitter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -316,6 +317,7 @@
 				INFOPLIST_FILE = NotTwitter/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 5.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.152percent.NotTwitter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
