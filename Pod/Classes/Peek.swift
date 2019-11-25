@@ -135,7 +135,7 @@ struct PeekAssociationKey {
     
     private func handleActivation() {
         if let nav = window?.rootViewController?.presentedViewController as? UINavigationController {
-            let inspectors = nav.viewControllers.flatMap { $0 as? PeekInspectorViewController }
+            let inspectors = nav.viewControllers.compactMap { $0 as? PeekInspectorViewController }
 
             if inspectors.first(where: { $0.tableView.isEditing }) == nil {
                 nav.dismiss(animated: true, completion: nil)

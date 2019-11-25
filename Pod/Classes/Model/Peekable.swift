@@ -137,6 +137,6 @@ extension NSObject: InternalPeekable {
      
      - returns: Returns true if Peek should ignore this type, false otherwise
      */
-    @available(*, obsoleted: 5.0.1, message: "Overriding this method no longer has any impact on Peek's inspection")
+    @available(*, deprecated, message: "Overriding this method no longer has any impact on Peek's inspection")
     @objc public func shouldIgnore(options: PeekOptions) -> Bool { return false }
 }

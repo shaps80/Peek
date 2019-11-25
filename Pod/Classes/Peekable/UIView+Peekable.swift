@@ -70,7 +70,7 @@ extension UIView {
             coordinator.appendPreview(image: image, forModel: self)
         }
         
-        var current = classForCoder
+        var current: AnyClass = classForCoder
         var classHierarchy = [String(describing: current)]
         
         while let next = current.superclass() {
@@ -175,7 +175,7 @@ extension UIView {
         }
         
         if #available(iOS 10.0, *) {
-            if let type = self as? UIContentSizeCategoryAdjusting {
+            if self is UIContentSizeCategoryAdjusting {
                 coordinator.appendDynamic(keyPathToName: [
                     ["adjustsFontForContentSizeCategory": "Dynamic Type"]
                 ], forModel: self, in: .typography)

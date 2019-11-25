@@ -80,7 +80,7 @@ extension CALayer {
             "zPosition",
         ], forModel: self, in: .layout)
         
-        var current = classForCoder
+        var current: AnyClass = classForCoder
         coordinator.appendStatic(keyPath: "classForCoder", title: String(describing: current), detail: nil, value: "", in: .classes)
         
         while let next = current.superclass() {

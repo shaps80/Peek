@@ -105,8 +105,6 @@ internal final class PeekButton: UIControl {
         super.layoutSubviews()
         
         let size = bounds.height / 2
-        let rect = CGRect(x: 0, y: 0, width: size, height: size)
-        let path = UIBezierPath(roundedRect: rect, cornerRadius: size / 2)
         
         visualEffectView.layer.cornerRadius = size
         visualEffectView.layer.masksToBounds = true

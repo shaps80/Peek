@@ -128,9 +128,9 @@ internal final class PeekGroup: PeekGroupProtocol, Hashable, CustomStringConvert
         self.group = group
         self.attributes = []
     }
-    
-    internal var hashValue: Int {
-        return title.hashValue
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(title)
     }
     
     internal static func ==(lhs: PeekGroup, rhs: PeekGroup) -> Bool {

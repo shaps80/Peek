@@ -58,29 +58,29 @@ public final class PeekOptions: NSObject {
     
     // MARK: Obsoletions
     
-    @available(*, obsoleted: 4.0.1, renamed: "ignoresContainerViews")
+    @available(*, deprecated, renamed: "ignoresContainerViews")
     @objc public var shouldIgnoreContainers: Bool {
         get { return ignoresContainerViews }
         set { ignoresContainerViews = newValue }
     }
     
-    @available(*, obsoleted: 4.0.1)
+    @available(*, deprecated)
     @objc public var includeScreenshot = true
-    @available(*, obsoleted: 4.0.1, message: "Defaults to UIScreen.main.scale")
+    @available(*, deprecated, message: "Defaults to UIScreen.main.scale")
     @objc public var screenshotScale = UIScreen.main.scale
-    @available(*, obsoleted: 4.0.1, message: "Peek now uses the built in UIActivityViewController")
+    @available(*, deprecated, message: "Peek now uses the built in UIActivityViewController")
     @objc public var slackUserName = "Peek"
-    @available(*, obsoleted: 4.0.1, message: "Peek now uses the built in UIActivityViewController")
+    @available(*, deprecated, message: "Peek now uses the built in UIActivityViewController")
     @objc public var slackRecipient: String?
-    @available(*, obsoleted: 4.0.1, message: "Peek now uses the built in UIActivityViewController")
+    @available(*, deprecated, message: "Peek now uses the built in UIActivityViewController")
     @objc public var slackWebHookURL: URL?
-    @available(*, obsoleted: 4.0.1, message: "Peek now uses the built in UIActivityViewController")
+    @available(*, deprecated, message: "Peek now uses the built in UIActivityViewController")
     @objc public var emailRecipients: [String]?
-    @available(*, obsoleted: 4.0.1, message: "Peek now uses the built in UIActivityViewController")
+    @available(*, deprecated, message: "Peek now uses the built in UIActivityViewController")
     @objc public var emailSubject: String?
-    @available(*, obsoleted: 4.0.1, message: "Peek now uses the built in UIActivityViewController")
+    @available(*, deprecated, message: "Peek now uses the built in UIActivityViewController")
     @objc public var slackImageUploader: ((URLSession, UIImage) -> URL?)?
-    @available(*, obsoleted: 4.0.1, renamed: "metadata")
+    @available(*, deprecated, renamed: "metadata")
     @objc public var reportMetaData: [String: String]?
     
 }

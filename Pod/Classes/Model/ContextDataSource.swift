@@ -32,7 +32,7 @@ internal final class ContextDataSource {
     }
     
     internal init(coordinator: PeekCoordinator) {
-        sections = Group.all.flatMap { group in
+        sections = Group.all.compactMap { group in
             guard let peekGroup = coordinator.groupsMapping[group] else { return nil }
 
             let items = peekGroup.attributes
@@ -48,7 +48,7 @@ internal final class ContextDataSource {
                 return self
         }
         
-        let sections: [CollapsibleSection] = self.sections.flatMap {
+        let sections: [CollapsibleSection] = self.sections.compactMap {
             let items = $0.items.filter {
                 $0.title.localizedCaseInsensitiveContains(searchText)
             }

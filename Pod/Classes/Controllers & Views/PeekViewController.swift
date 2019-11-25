@@ -25,6 +25,7 @@ import UIKit
 final class PeekViewController: UIViewController, UIViewControllerTransitioningDelegate {
     
     deinit {
+        guard let observer = observer else { return }
         NotificationCenter.default.removeObserver(observer)
     }
     
@@ -125,8 +126,8 @@ final class PeekViewController: UIViewController, UIViewControllerTransitioningD
     }
     
     @objc private func showInspectors() {
-        guard let index = peekView.indexesForSelectedItems.last, let model = models[index] as? UIView else { return }
-        presentInspectorsForModel(model)
+        guard let index = peekView.indexesForSelectedItems.last else { return }
+        presentInspectorsForModel(models[index])
     }
     
     fileprivate func presentInspectorsForModel(_ model: Peekable) {

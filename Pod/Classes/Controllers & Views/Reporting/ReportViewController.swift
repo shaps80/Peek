@@ -72,7 +72,7 @@ internal final class ReportViewController: PeekSectionedViewController {
                 items.append(peek.screenshot)
             }
             
-            let sheet = UIActivityViewController(activityItems: items, applicationActivities: nil)
+            let sheet = UIActivityViewController(activityItems: items.compactMap { $0 }, applicationActivities: nil)
             sheet.popoverPresentationController?.barButtonItem = sender
             
             sheet.completionWithItemsHandler = { [weak self] type, success, activities, error in

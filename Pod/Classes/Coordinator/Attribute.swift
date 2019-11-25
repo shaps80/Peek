@@ -116,7 +116,7 @@ internal final class EnumAttribute<T>: Attribute, CustomStringConvertible, Equat
     
     internal var value: Any? {
         guard let value = model?.value(forKeyPath: keyPath) as? Int,
-            let enumRep = T(rawValue: value) as? PeekDescribing else {
+            let enumRep = T(rawValue: value) else {
                 fatalError()
         }
         

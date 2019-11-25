@@ -32,6 +32,7 @@ extension NSLayoutConstraint.Axis: PeekDescribing {
         switch self {
         case .horizontal: return "Horizontal"
         case .vertical: return "Vertical"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -46,6 +47,7 @@ extension UIStackView.Distribution: PeekDescribing {
         case .fill: return "Fill"
         case .fillEqually: return "Fill Equally"
         case .fillProportionally: return "Fill Proportionally"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -61,6 +63,7 @@ extension UIStackView.Alignment: PeekDescribing {
         case .lastBaseline: return "Last Baseline"
         case .leading: return "Leading"
         case .trailing: return "Trailing"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -74,6 +77,7 @@ extension UISplitViewController.DisplayMode: PeekDescribing {
         case .automatic: return "Automatic"
         case .primaryHidden: return "Primary Hidden"
         case .primaryOverlay: return "Primary Overlay"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -86,6 +90,7 @@ extension UISplitViewController.PrimaryEdge: PeekDescribing {
         switch self {
         case .leading: return "Leading"
         case .trailing: return "Trailing"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -98,6 +103,7 @@ extension NSLayoutConstraint.Relation: PeekDescribing {
         case .equal: return "Equal"
         case .greaterThanOrEqual: return "Greater or Equal"
         case .lessThanOrEqual: return "Less or Equal"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -128,6 +134,7 @@ extension NSLayoutConstraint.Attribute: PeekDescribing {
         case .trailing: return "Trailing"
         case .trailingMargin: return "Trailing Margin"
         case .width: return "Width"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -139,6 +146,7 @@ extension UIProgressView.Style: PeekDescribing {
         switch self {
         case .bar: return "Bar"
         case .default: return "Default"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -153,6 +161,7 @@ extension UIActivityIndicatorView.Style: PeekDescribing {
         case .whiteLarge: return "Large White"
         case .medium: return "Medium"
         case .large: return "Large"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -166,6 +175,7 @@ extension UIDatePicker.Mode: PeekDescribing {
         case .date: return "Date"
         case .dateAndTime: return "Date and Time"
         case .time: return "Time"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -178,6 +188,7 @@ extension UIBarButtonItem.Style: PeekDescribing {
         case .bordered: return "Bordered"
         case .done: return "Done"
         case .plain: return "Plain"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -212,6 +223,7 @@ extension UIBarButtonItem.SystemItem: PeekDescribing {
         case .trash: return "Trash"
         case .undo: return "Undo"
         case .close: return "Close"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -224,6 +236,7 @@ extension UIBarStyle: PeekDescribing {
         case .black: return "Black"
         case .blackTranslucent: return "Black Translucent"
         case .default: return "Default"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -237,6 +250,7 @@ extension UITextField.ViewMode: PeekDescribing {
         case .never: return "Never"
         case .unlessEditing: return "Unless Editing"
         case .whileEditing: return "While Editing"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -250,6 +264,7 @@ extension UITextField.BorderStyle: PeekDescribing {
         case .line: return "Line"
         case .none: return "None"
         case .roundedRect: return "Rounded Rect"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -267,6 +282,7 @@ extension UIImage.Orientation: PeekDescribing {
         case .rightMirrored: return "Right Mirrored"
         case .up: return "Up"
         case .upMirrored: return "Up Mirrored"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -278,6 +294,7 @@ extension UIImage.ResizingMode: PeekDescribing {
         switch self {
         case .stretch: return "Stretch"
         case .tile: return "Tile"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -290,6 +307,7 @@ extension UIImage.RenderingMode: PeekDescribing {
         case .alwaysOriginal: return "Original"
         case .alwaysTemplate: return "Template"
         case .automatic: return "Automatic"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -313,6 +331,7 @@ extension UIStatusBarAnimation: PeekDescribing {
         case .fade: return "Fade"
         case .none: return "None"
         case .slide: return "Slide"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -326,6 +345,7 @@ extension UIModalTransitionStyle: PeekDescribing {
         case .crossDissolve: return "Cross Dissolve"
         case .flipHorizontal: return "Flip Horizontal"
         case .partialCurl: return "Partial Curl"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -346,6 +366,7 @@ extension UIModalPresentationStyle: PeekDescribing {
         case .popover: return "Popover"
         case .blurOverFullScreen: return "Blur Over Full Screen"
         case .automatic: return "Automatic"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -359,6 +380,7 @@ extension UIControl.ContentVerticalAlignment: PeekDescribing {
         case .center: return "Center"
         case .fill: return "Fill"
         case .top: return "Top"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -374,6 +396,7 @@ extension UIControl.ContentHorizontalAlignment: PeekDescribing {
         case .right: return "Right"
         case .leading: return "Leading"
         case .trailing: return "trailing"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -391,6 +414,7 @@ extension UIButton.ButtonType: PeekDescribing {
         case .system: return "System"
         case .plain: return "Plain"
         case .close: return "Close"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -404,6 +428,7 @@ extension UIDevice.BatteryState: PeekDescribing {
         case .full: return "Full"
         case .unknown: return "Unknown"
         case .unplugged: return "Unplugged"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -418,6 +443,7 @@ extension UIInterfaceOrientation: PeekDescribing {
         case .portrait: return "Portrait"
         case .portraitUpsideDown: return "Upside Down"
         case .unknown: return "Unknown"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -440,6 +466,7 @@ extension UIView.ContentMode: PeekDescribing {
         case .scaleAspectFill: return "Scale Aspect Fill"
         case .scaleToFill: return "Scale to Fill"
         case .scaleAspectFit: return "Scale Aspect Fit"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -452,6 +479,7 @@ extension UIView.TintAdjustmentMode: PeekDescribing {
         case .automatic: return "Automatic"
         case .dimmed: return "Dimmed"
         case .normal: return "Normal"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -467,6 +495,7 @@ extension NSLineBreakMode: PeekDescribing {
         case .byTruncatingMiddle: return "Truncate Middle"
         case .byTruncatingTail: return "Truncate Tail"
         case .byWordWrapping: return "Word Wrap"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -481,6 +510,7 @@ extension NSTextAlignment: PeekDescribing {
         case .left: return "Left"
         case .natural: return "Natural"
         case .right: return "Right"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -493,6 +523,7 @@ extension UIScrollView.IndicatorStyle: PeekDescribing {
         case .black: return "Black"
         case .default: return "Default"
         case .white: return "White"
+        @unknown default: return "Unknown"
         }
     }
     
@@ -505,6 +536,7 @@ extension UIScrollView.KeyboardDismissMode: PeekDescribing {
         case .interactive: return "Interactive"
         case .none: return "None"
         case .onDrag: return "On Drag"
+        @unknown default: return "Unknown"
         }
     }
     

@@ -22,7 +22,7 @@
 
 import UIKit
 
-extension UIColor: Peekable {
+extension UIColor {
     
     @objc var peek_alpha: CGFloat {
         return CGFloat(Color(system: self)?.rgba.alpha ?? 0)
@@ -46,7 +46,8 @@ extension UIColor: Peekable {
     
     @available(iOS 10.0, *)
     @objc var colorSpace: String {
-        return (cgColor.colorSpace?.name as? String) ?? "Unknown"
+        let colorSpace = cgColor.colorSpace ?? CGColorSpaceCreateDeviceRGB()
+        return colorSpace.name as String? ?? "Unknown"
     }
     
     open override func preparePeek(with coordinator: Coordinator) {

@@ -129,7 +129,7 @@ internal final class PeekPresentationController: UIPresentationController, UIVie
     
     @objc private func dismiss() {
         if let nav = presentedViewController as? UINavigationController {
-            let inspectors = nav.viewControllers.flatMap { $0 as? PeekInspectorViewController }
+            let inspectors = nav.viewControllers.compactMap { $0 as? PeekInspectorViewController }
             if (inspectors.filter { $0.tableView.isEditing }).count > 0 { return }
         }
         

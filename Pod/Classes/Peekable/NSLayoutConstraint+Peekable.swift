@@ -25,7 +25,8 @@ import UIKit
 extension NSLayoutConstraint: PeekDescribing {
     
     internal var displayName: String {
-        var name = "\(perform(Selector(("asciiArtDescription"))))".components(separatedBy: ": ").last
+        guard let ascii = perform(Selector(("asciiArtDescription"))) else { return "Unknown" }
+        var name = "\(ascii)".components(separatedBy: ": ").last
         
         if name == "nil" {
             name = super.description

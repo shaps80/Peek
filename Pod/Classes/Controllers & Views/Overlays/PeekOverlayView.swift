@@ -185,7 +185,7 @@ internal class PeekOverlayView: UIView {
     
     internal func updateHighlights(animated: Bool) {
         let primaryFrame = rectForPrimaryView()
-        var secondaryFrame = rectForSecondaryView()
+        let secondaryFrame = rectForSecondaryView()
         
         if animated {
             UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 1.1, options: .beginFromCurrentState, animations: {

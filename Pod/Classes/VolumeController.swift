@@ -72,7 +72,7 @@ final class VolumeController: NSObject, PeekActivating {
         let setValueSelector = #selector(UISlider.setValue(_:animated:))
         guard let v = volumeView.subviews.first(where: { $0.responds(to: setValueSelector) }) else { return }
         v.perform(setValueSelector, with: previousVolume, with: false)
-        let _commitVolumeChangeSelector = Selector("_commitVolumeChange")
+        let _commitVolumeChangeSelector = Selector(("_commitVolumeChange"))
         if v.responds(to: _commitVolumeChangeSelector) {
             v.perform(_commitVolumeChangeSelector)
         }

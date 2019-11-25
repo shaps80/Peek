@@ -152,7 +152,7 @@ extension Report {
         let reportersNote: String
         
         internal func encode(to encoder: Encoder) throws {
-            var container = try encoder.container(keyedBy: CodingKeys.self)
+            var container = encoder.container(keyedBy: CodingKeys.self)
             try container.encode(keyPath, forKey: .keyPath)
             try container.encode(displayTitle, forKey: .displayTitle)
             try container.encode(displayValue, forKey: .displayValue)

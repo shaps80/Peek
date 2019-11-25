@@ -11,6 +11,7 @@ import UIKit
 internal final class PeekInspectorViewController: PeekSectionedViewController, UISearchResultsUpdating {
     
     deinit {
+        guard let observer = observer else { return }
         NotificationCenter.default.removeObserver(observer)
     }
     
@@ -218,7 +219,6 @@ internal final class PeekInspectorViewController: PeekSectionedViewController, U
         if let value = value as? NSObjectProtocol {
             var text: String?
             var accessoryView: UIView?
-            var editingAccessoryView: UIView?
             
             switch value {
             case let value as UIViewController:
@@ -309,12 +309,12 @@ extension PeekInspectorViewController {
         
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.largeTitleTextAttributes = [
-                .foregroundColor: peek.options.theme.titleTextColor(isEditing: tableView.isEditing)
+                .foregroundColor: peek.options.theme.titleTextColor(isEditing: tableView.isEditing) ?? .black
             ]
         }
         
         navigationController?.navigationBar.titleTextAttributes = [
-            .foregroundColor: peek.options.theme.titleTextColor(isEditing: tableView.isEditing),
+            .foregroundColor: peek.options.theme.titleTextColor(isEditing: tableView.isEditing) ?? .black,
             .font: UIFont.systemFont(ofSize: 17, weight: .regular)
         ]
         
@@ -364,16 +364,6 @@ extension PeekInspectorViewController {
             navigationItem.leftItemsSupplementBackButton = true
             navigationItem.setHidesBackButton(false, animated: animated)
             
-            let image = ImageRenderer(size: CGSize(width: 44, height: 20)).image { context in
-                var rect = context.format.bounds
-                rect.origin.y = 4
-                rect.size.height = 4
-                let path = UIBezierPath(roundedRect: rect, cornerRadius: 2)
-                
-                UIColor(white: 1, alpha: 0.7).setFill()
-                path.fill()
-            }
-            
             UIView.animate(withDuration: animated ? 0.25 : 0) {
                 self.navigationController?.navigationBar.backgroundColor = self.peek.options.theme.backgroundColor
                 self.navigationController?.navigationBar.tintColor = self.peek.options.theme.tintColor
@@ -398,7 +388,7 @@ extension PeekInspectorViewController {
         
         let sections: [Report.Section] = sectionIndexes.map { index in
             let title = activeDataSource.sections[index].group.title
-            let items = reportingIndexPaths.filter { $0.key.section == index }.flatMap { $0.value }
+            let items = reportingIndexPaths.filter { $0.key.section == index }.compactMap { $0.value }
             return Report.Section(title: title, items: items)
         }
         
@@ -552,7 +542,7 @@ extension PeekInspectorViewController {
                     attribute.alternateValues.map {
                         UIAlertAction(title: $0, style: .default) { action in
                             let note = action.title ?? ""
-                            let item = Report.Item(keyPath: attribute.keyPath, displayTitle: attribute.title, displayValue: cell?.detailTextLabel?.text ?? "", reportersNote: note ?? "")
+                            let item = Report.Item(keyPath: attribute.keyPath, displayTitle: attribute.title, displayValue: cell?.detailTextLabel?.text ?? "", reportersNote: note)
                             self?.reportingIndexPaths[indexPath] = item
                             self?.invalidateSendButton()
                             self?.indicateSection(for: indexPath)

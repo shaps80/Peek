@@ -47,7 +47,6 @@ final class ColorAccessoryView: UIView, PeekAccessoryProviding {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
-        let stroke = UIColor(white: 1, alpha: 0.1)
         let rect = CGRect(x: 8, y: 0, width: size.width, height: size.height).insetBy(dx: 1, dy: 1)
         let path = UIBezierPath(roundedRect: rect, cornerRadius: size.height / 2)
         
