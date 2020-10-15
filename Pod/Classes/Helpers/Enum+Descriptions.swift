@@ -77,7 +77,7 @@ extension UISplitViewController.DisplayMode: PeekDescribing {
         case .automatic: return "Automatic"
         case .primaryHidden: return "Primary Hidden"
         case .primaryOverlay: return "Primary Overlay"
-        @unknown default: return "Unknown"
+        default: return "Unknown"
         }
     }
     

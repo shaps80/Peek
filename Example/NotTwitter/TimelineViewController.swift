@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 import Peek
 
 public final class TimelineViewController: UITableViewController {
@@ -29,6 +30,11 @@ public final class TimelineViewController: UITableViewController {
     
     public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+
+        if #available(iOS 13, *) {
+            let controller = UIHostingController(rootView: ProfileView())
+            navigationController?.pushViewController(controller, animated: true)
+        }
     }
 
 }

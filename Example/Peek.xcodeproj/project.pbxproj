@@ -14,6 +14,12 @@
 		540B99EC2053FCAF0086FF61 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 540B99EA2053FCAF0086FF61 /* LaunchScreen.storyboard */; };
 		542668DA2054064500F6B016 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542668D92054064500F6B016 /* TextView.swift */; };
 		54A1D799206859920088079D /* Peek.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54A1D79A206859920088079D /* Peek.framework */; };
+		54CCC04425382ED500B6E05D /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CCC04325382ED500B6E05D /* ProfileView.swift */; };
+		54CCC047253840C500B6E05D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CCC046253840C500B6E05D /* ContentView.swift */; };
+		54CCC04A25385E8900B6E05D /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CCC04925385E8900B6E05D /* ProfileHeaderView.swift */; };
+		54CCC04F25385ECA00B6E05D /* ProfileFollowsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CCC04E25385ECA00B6E05D /* ProfileFollowsView.swift */; };
+		54CCC05425385F0600B6E05D /* ProfileOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CCC05325385F0600B6E05D /* ProfileOptionsView.swift */; };
+		54CCC05725385F6400B6E05D /* ProfileBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CCC05625385F6400B6E05D /* ProfileBackgroundModifier.swift */; };
 		54E8B9A42054085000CEEFA3 /* Theming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E8B9A32054085000CEEFA3 /* Theming.swift */; };
 		54E8B9A620540A0C00CEEFA3 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E8B9A520540A0C00CEEFA3 /* Cell.swift */; };
 		E05AB35149930122FE1F4259 /* Pods_NotTwitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFCCB1BC7D6B32199D17E93B /* Pods_NotTwitter.framework */; };
@@ -37,6 +43,12 @@
 		5472753C20695E7300F1A975 /* CODE_OF_CONDUCT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = CODE_OF_CONDUCT.md; path = ../CODE_OF_CONDUCT.md; sourceTree = "<group>"; };
 		5472753D20695E7B00F1A975 /* pull_request_template.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = pull_request_template.md; path = ../pull_request_template.md; sourceTree = "<group>"; };
 		54A1D79A206859920088079D /* Peek.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Peek.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		54CCC04325382ED500B6E05D /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		54CCC046253840C500B6E05D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		54CCC04925385E8900B6E05D /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		54CCC04E25385ECA00B6E05D /* ProfileFollowsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFollowsView.swift; sourceTree = "<group>"; };
+		54CCC05325385F0600B6E05D /* ProfileOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileOptionsView.swift; sourceTree = "<group>"; };
+		54CCC05625385F6400B6E05D /* ProfileBackgroundModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBackgroundModifier.swift; sourceTree = "<group>"; };
 		54E8B9A32054085000CEEFA3 /* Theming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theming.swift; sourceTree = "<group>"; };
 		54E8B9A520540A0C00CEEFA3 /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		557BA9F4E6C0CD7542527567 /* Pods-NotTwitter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotTwitter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NotTwitter/Pods-NotTwitter.debug.xcconfig"; sourceTree = "<group>"; };
@@ -62,9 +74,11 @@
 		540B99E02053FCAF0086FF61 /* NotTwitter */ = {
 			isa = PBXGroup;
 			children = (
+				54CCC059253860F100B6E05D /* SwiftUI */,
 				54E8B9A32054085000CEEFA3 /* Theming.swift */,
 				540B99E12053FCAF0086FF61 /* AppDelegate.swift */,
 				540B99E32053FCAF0086FF61 /* TimelineViewController.swift */,
+				54CCC046253840C500B6E05D /* ContentView.swift */,
 				542668D92054064500F6B016 /* TextView.swift */,
 				54E8B9A520540A0C00CEEFA3 /* Cell.swift */,
 				540B99E52053FCAF0086FF61 /* Main.storyboard */,
@@ -73,6 +87,18 @@
 				540B99ED2053FCAF0086FF61 /* Info.plist */,
 			);
 			path = NotTwitter;
+			sourceTree = "<group>";
+		};
+		54CCC059253860F100B6E05D /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				54CCC04325382ED500B6E05D /* ProfileView.swift */,
+				54CCC04925385E8900B6E05D /* ProfileHeaderView.swift */,
+				54CCC04E25385ECA00B6E05D /* ProfileFollowsView.swift */,
+				54CCC05325385F0600B6E05D /* ProfileOptionsView.swift */,
+				54CCC05625385F6400B6E05D /* ProfileBackgroundModifier.swift */,
+			);
+			path = SwiftUI;
 			sourceTree = "<group>";
 		};
 		607FACC71AFB9204008FA782 = {
@@ -247,8 +273,14 @@
 			files = (
 				542668DA2054064500F6B016 /* TextView.swift in Sources */,
 				540B99E42053FCAF0086FF61 /* TimelineViewController.swift in Sources */,
+				54CCC047253840C500B6E05D /* ContentView.swift in Sources */,
+				54CCC04F25385ECA00B6E05D /* ProfileFollowsView.swift in Sources */,
 				54E8B9A42054085000CEEFA3 /* Theming.swift in Sources */,
+				54CCC05425385F0600B6E05D /* ProfileOptionsView.swift in Sources */,
 				540B99E22053FCAF0086FF61 /* AppDelegate.swift in Sources */,
+				54CCC04A25385E8900B6E05D /* ProfileHeaderView.swift in Sources */,
+				54CCC05725385F6400B6E05D /* ProfileBackgroundModifier.swift in Sources */,
+				54CCC04425382ED500B6E05D /* ProfileView.swift in Sources */,
 				54E8B9A620540A0C00CEEFA3 /* Cell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
