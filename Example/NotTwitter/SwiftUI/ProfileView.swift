@@ -16,7 +16,6 @@ struct ProfileView: View {
             }
             .padding()
         }
-        .edgesIgnoringSafeArea(.top)
         .background(
             Color(.systemGroupedBackground)
                 .edgesIgnoringSafeArea(.all)
@@ -30,6 +29,8 @@ struct ProfileView: View {
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileView()
+            .edgesIgnoringSafeArea(.top)
             .preferredColorScheme(.dark)
+            .environment(\., .)
     }
 }

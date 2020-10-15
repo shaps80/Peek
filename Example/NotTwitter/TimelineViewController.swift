@@ -32,7 +32,7 @@ public final class TimelineViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
 
         if #available(iOS 13, *) {
-            let controller = UIHostingController(rootView: ProfileView())
+            let controller = HostingController(rootView: ProfileView())
             navigationController?.pushViewController(controller, animated: true)
         }
     }
@@ -59,4 +59,18 @@ extension TimelineViewController {
         view.window?.peek.handleShake(motion)
     }
     
+}
+
+@available(iOS 13, *)
+final class HostingController<Content>: UIHostingController<Content> where Content: View {
+
+    public override var canBecomeFirstResponder: Bool {
+        return true
+    }
+
+    public override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        // iOS 10 now requires device motion handlers to be on a UIViewController
+        view.window?.peek.handleShake(motion)
+    }
+
 }
