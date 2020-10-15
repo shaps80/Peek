@@ -31,6 +31,5 @@ struct ProfileView_Previews: PreviewProvider {
         ProfileView()
             .edgesIgnoringSafeArea(.top)
             .preferredColorScheme(.dark)
-            .environment(\., .)
     }
 }
